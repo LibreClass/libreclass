@@ -12,7 +12,7 @@
 */
 
 Route::get('mail', function() {
-  Mail::send('email.welcome', ["url" => "ola", "name" => "nome", "email" => "denissonleal@gmail.com" ], function($message)
+  Mail::send('email.welcome', ["url" => "ola", "name" => "nome", "email" => "email@gmail.com" ], function($message)
   {
     $message->to( "email@gmail.com", "Somebody" )->cc("other@sysvale.com")
             ->subject("Seja bem-vindo");
