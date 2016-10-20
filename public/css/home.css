@@ -1,0 +1,61 @@
+@import "master.css";
+
+
+
+.font-oregano {
+    font-family: oregano;
+}
+
+.h1 {
+  font-size: 40pt;
+}
+
+.header {
+    background-image: url("../images/img2.jpg");
+    background-color: #2c3e50;
+    background-attachment: fixed;
+    background-size: 100%;
+    background-position: center top;
+    padding: 50px;
+    height: 100%;
+    display: table;
+}
+
+.h-lg {
+    font-size: 100px;
+}
+
+.h-md {
+    font-size: 60px;
+}
+
+.img-user-sm {
+  width: 50px;
+}
+
+.img-logo {
+  width: 50%;
+}
+
+
+@media(max-width: 768px) {
+  .header {
+    padding: 15px;
+    background-size: 240%;
+    background-position: center top;
+  }
+  .h-md {
+      font-size: 40px;
+  }
+  
+  .img-logo {
+    width: 70%;
+  }
+    
+}
+
+@media(max-width: 480px) {
+  .img-logo {
+    width: 85%;
+  }
+}
