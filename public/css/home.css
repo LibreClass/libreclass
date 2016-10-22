@@ -1,7 +1,5 @@
 @import "master.css";
 
-
-
 .font-oregano {
     font-family: oregano;
 }
@@ -36,7 +34,6 @@
 .img-logo {
   width: 50%;
 }
-
 
 @media(max-width: 768px) {
   .header {
