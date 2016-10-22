@@ -1,30 +1,30 @@
-$(document).ready(function(){
-  
-  $('#modalPeriods').on('hidden.bs.modal', function () {
-   location.reload();
+$(document).ready(function() {
+
+  $('#modalPeriods').on('hidden.bs.modal', function() {
+    location.reload();
   });
-  
-  $("#new-course").click(function(){
+
+  $("#new-course").click(function() {
     $("#form-course input[name='course']").val("");
     $("#form-course input[name='name']").val("");
-//      $("#form-course input[name='ementa']").val(data.ementa);
+    //      $("#form-course input[name='ementa']").val(data.ementa);
     $("#form-course input[name='absentPercent']").val("25.0");
     $("#form-course input[name='average']").val("7.00");
     $("#form-course input[name='averageFinal']").val("5.00");
     $("#modalCourse").modal();
   });
 
-  $("#new-periods").click(function(){
+  $("#new-periods").click(function() {
     $("#modalPeriods").modal();
     $("#add-periods select[name='course']").change();
   });
 
-  $("#new-block").click(function(){
+  $("#new-block").click(function() {
     $("#title-course").text("Novo Curso");
     $("#add-course input[name='course']").val("");
   });
 
-  $(".course-edit").click(function(){
+  $(".course-edit").click(function() {
     var course = $(this).attr("key");
     $("#form-course input[name='course']").val(course);
     $("#modalCourseLabel").html("<b>Editar Curso</b>");
@@ -32,10 +32,10 @@ $(document).ready(function(){
 
     $.getJSON("/courses/edit", {
       "course": course
-    }, function(data){
+    }, function(data) {
       console.log(data);
       $("#form-course input[name='name']").val(data.name);
-//      $("#form-course input[name='ementa']").val(data.ementa);
+      //      $("#form-course input[name='ementa']").val(data.ementa);
       $("#form-course input[name='absentPercent']").val(data.absentPercent);
       $("#form-course input[name='average']").val(data.average);
       $("#form-course input[name='averageFinal']").val(data.averageFinal);
@@ -43,12 +43,12 @@ $(document).ready(function(){
     });
   });
 
-  $("#add-periods select[name='course']").change(function(){
+  $("#add-periods select[name='course']").change(function() {
     $("#list-periods").html("");
     $.post("/courses/period", {
       course: $(this).val()
-    }, function(data){
-      for( var i = 0 ; i < data.length ; i++ )
+    }, function(data) {
+      for (var i = 0; i < data.length; i++)
         $("#list-periods").append($("<div>", {
           class: "row key",
           key: data[i].id,
@@ -59,29 +59,30 @@ $(document).ready(function(){
                 name: "period",
                 value: data[i].name
               })
-            })/*,
-          append: $("<div>", {
-            class:"col-xs-2",
-            append: $("<i>", {
-              class: "fa fa-trash text-muted"
             })
-          })*/
+            /*,
+                      append: $("<div>", {
+                        class:"col-xs-2",
+                        append: $("<i>", {
+                          class: "fa fa-trash text-muted"
+                        })
+                      })*/
         }));
 
-      $(".input-edit-period").unbind("submit").submit(function(){
+      $(".input-edit-period").unbind("submit").submit(function() {
         var data = {
           value: $(this).find("input[name='period']").val(),
           course: $("#add-periods select[name='course']").val()
         };
 
         if ($(this).closest(".key").is("[key]"))
-          data.key= $(this).closest(".key").attr("key");
+          data.key = $(this).closest(".key").attr("key");
         else
           $("#input-new-period").val("");
 
 
-        $.post("/courses/editperiod", data, function (data) {
-          if( data == "ok" )
+        $.post("/courses/editperiod", data, function(data) {
+          if (data == "ok")
             $("#add-periods select[name='course']").change();
           else
             alert("Ocorreu algum erro. Consulte o suporte.");
@@ -93,4 +94,3 @@ $(document).ready(function(){
 
   });
 });
-
