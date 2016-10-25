@@ -4,7 +4,7 @@ $(function() {
     $("#find-student").submit();
     return false;
   });
-  //
+
   $("#submit-student").click(function() {
     $("#find-student input[name='current']").val("0");
   });
