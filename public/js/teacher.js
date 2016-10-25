@@ -17,9 +17,9 @@ $(function() {
   });
 
   $("#target").keypress(function(event) {
-    if (event.which == 13)
+    if (event.which == 13) {
       $("#find-teacher input[name='current']").val("0");
+    }
   });
-
 
 });
