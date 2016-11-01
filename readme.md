@@ -1,6 +1,6 @@
 # LibreClass
 
-![release](https://img.shields.io/badge/release-v0.1.0-blue.svg)
+[![GitHub release](https://img.shields.io/github/release/qubyte/rubidium.svg)](https://github.com/Sysvale/libreclass)
 
 Este projeto tem como objetivo atender às necessidades de instituições, organizar as tarefas de professores e aproximar os alunos de processos relativos à gestão escolar.
 
