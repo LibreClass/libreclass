@@ -38,7 +38,29 @@ Defina corretamente as permissões de arquivos, especialmente para diretório st
 
 ## Configuração
 
-É necessário modificar o arquivo `.env.php` com as informações para conexão ao banco de dados MySQL e configurações para envio de email.
+É necessário criar o arquivo `.env.php` de acordo com o arquivo `.env.php.example`, na raiz do projeto, com as informações para conexão ao banco de dados MySQL e configurações para envio de email. Exemplo:
+
+    <?php
+    
+        return array(
+
+        // Database
+        'DB_HOST'     => 'localhost',
+        'DB_DATABASE' => 'libreclass-beta',
+        'DB_USERNAME' => 'libreclass',
+        'DB_PASSWORD' => 'libreClass1beta!',
+
+        // Email
+        'EMAIL_DRIVER'  => 'smtp',
+        'EMAIL_HOST'    => 'mail.libreclass.com',
+        'EMAIL_PORT'    => 25,
+        'EMAIL_FROMADD' => 'contato@libreclass.com',
+        'EMAIL_FROMNAM' => 'LibreClass',
+        'EMAIL_ENC'     => 'tls',
+        'EMAIL_UNAME'   => 'contato@libreclass.com',
+        'EMAIL_PASS'    => 'SECRET'
+
+    );
 
 ## Contribuindo
 
