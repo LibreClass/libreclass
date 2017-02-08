@@ -1,6 +1,6 @@
 # LibreClass
 
-[![GitHub release](https://img.shields.io/badge/Vers%C3%A3o-0.2.0-green.svg)](https://github.com/Sysvale/libreclass)
+![GitHub release](https://img.shields.io/badge/Vers%C3%A3o-0.2.0-green.svg)
 
 Este projeto tem como objetivo atender às necessidades de instituições, organizar as tarefas de professores e aproximar os alunos de processos relativos à gestão escolar.
 
