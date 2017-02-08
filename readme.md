@@ -1,6 +1,6 @@
 # LibreClass
 
-![GitHub release](https://img.shields.io/badge/Vers%C3%A3o-0.2.0-green.svg)
+![GitHub release](https://img.shields.io/badge/Vers%C3%A3o-0.2.1-green.svg)
 
 Este projeto tem como objetivo atender às necessidades de instituições, organizar as tarefas de professores e aproximar os alunos de processos relativos à gestão escolar.
 
@@ -35,6 +35,10 @@ Após isto, prepare o banco de dados de acordo com a estrutura fornecida no dire
     $ php artisan serve
 
 Defina corretamente as permissões de arquivos, especialmente para diretório storage no projeto.
+
+## Configuração
+
+É necessário modificar o arquivo `.env.php` com as informações para conexão ao banco de dados MySQL e configurações para envio de email.
 
 ## Contribuindo
 
