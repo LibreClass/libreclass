@@ -13,7 +13,7 @@ use Facebook\GraphObject;
 class LoginController extends \BaseController {
   private $idUser;
 
-  public function LoginController()
+  public function __construct()
   {
     $id = Session::get("user");
     if ( $id == null || $id == "" )
@@ -21,6 +21,7 @@ class LoginController extends \BaseController {
     else
       $this->idUser = Crypt::decrypt($id);
 
+    session_save_path("/tmp/");
     session_start();
   }
 
@@ -93,7 +94,7 @@ class LoginController extends \BaseController {
   {
     $user = User::whereEmail(Input::get("email"))->first();
 //    $user->pass = Input::get("password");
-    if ( $user and Hash::check(Input::get("password"), $user->password) )
+    if ( $user and ( Hash::check(Input::get("password"), $user->password) ) )
     {
       if ( $user->cadastre == "W" )
       {
@@ -104,11 +105,11 @@ class LoginController extends \BaseController {
           $message->to( $user->email, $user->name )
                   ->subject("Seja bem-vindo");
         });
-        return Redirect::to("/login")->with("error","O email <b>".Input::get("email")."</b> ainda não foi validado.");
+        return Redirect::to("/login")->with("error","O email <b>".Input::get("email")."</b> ainda não foi validado.")->withInput(Input::except("password"));
       }
       else
       {
-        if ( $user->type == "M" )
+        if ( $user->type == "M" or $user->type == "N" )
         {
           $user->type = "P";
           $user->save();
@@ -119,7 +120,7 @@ class LoginController extends \BaseController {
       }
     }
     else
-      return Redirect::to("/login")->with("error","Login ou senha incorretos.");
+      return Redirect::to("/login")->with("error","Login ou senha incorretos.")->withInput(Input::except("password"));
 //      return View::make("user.login", [ "fb"      => $this->getFb(),
 //                                        "google"  => $this->getGoogle(),
 //                                        "msg"   => "Login ou senha incorretos.",
@@ -300,9 +301,9 @@ class LoginController extends \BaseController {
 
   public function getEmail() {
 
-    Mail::send('email.welcome', ["url" => "teste.com.br/?n=test", "name" => "Somebody" ], function($message)
+    Mail::send('email.welcome', ["url" => "teste.com.br/?n=asdasdasdasda", "name" => "user" ], function($message)
     {
-      $message->to( "email@gmail.com", "Somebody" )->cc("other@gmail.com")
+      $message->to( "user@gmail.com", "User" )->cc("user@gmail.com")
               ->subject("Seja bem-vindo ao LibreClass Social");
     });
 
@@ -353,4 +354,3 @@ class LoginController extends \BaseController {
   }
 
 }
-

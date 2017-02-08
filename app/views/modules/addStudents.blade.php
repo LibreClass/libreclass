@@ -9,6 +9,7 @@
 @parent
 {{ HTML::script('js/blocks.js') }}
 {{ HTML::script('js/student.js') }}
+{{ HTML::script('js/user.js') }}
 {{ HTML::script('js/validations/modulesAddStudents.js') }}
 @stop
 
@@ -26,7 +27,7 @@
             <h3 class="text-blue"><i class="fa fa-users"></i> <b>Meus Alunos</b></h3>
           </div>
           <div class="col-md-6 col-xs-6">
-            <button id="new-block" class="btn btn-primary pull-right"><i class="fa fa-plus"></i> Novo Aluno</button>
+            <button id="block-new-student" class="btn btn-primary pull-right"><b><i class="fa fa-plus"></i> Novo Aluno</b></button>
           </div>
         </div>
       </div>
@@ -61,7 +62,7 @@
                 <tbody>
                 @foreach($relationships as $relationship)
                   <tr>
-                    <td> <a href='{{ URL::to("user/profile?u=".Crypt::encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
+                    <td><a href='{{ URL::to("user/profile-student?u=".Crypt::encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
                     <td>{{ $relationship->name }}</td>
                     <td class="text-right">
                       <!--<i class="fa fa-pencil icon-default"></i> <i class="fa fa-trash icon-default"></i>-->
@@ -103,6 +104,7 @@
         </div>
       </div>
     </div>
+    
     <div id="block-add" class="block visible-none">
       <div class="row">
         <div class="col-md-6 col-xs-6">
@@ -114,6 +116,7 @@
       </div>
       <div class="row">
         <div class="col-md-12">
+          <div class="block-new-student" hidden>
           {{ Form::open(["id" => "new-student"]) }}
             <div class="row">
               <div class="col-md-4">
@@ -144,18 +147,51 @@
             </div>
             <div class="form-group">
               {{ Form::label("course", "Curso") }}
-              {{ Form::select("course", $courses, null, ["class" => "form-control"])
-}}
+              {{ Form::select("course", $courses, null, ["class" => "form-control"]) }}
             </div>
-
+          
+          	<div class="row">
+          		<div class="col-xs-6"> 
             {{ Form::submit("Confirmar", ["class" => "btn btn-primary"]) }}
+							</div>
+							<div class="col-xs-6 text-right">
+								<a href="" class="add-censo">Adicionar informações do censo escolar</a>
+							</div>
+						</div>
           {{ Form::close() }}
+							
+          </div>
+          
+          <div class="block-search-student">
+            {{ Form::open(["id" => "search-student"]) }}
+              {{ Form::label("search", "*Nome ou email") }}
+              <span class="help-block">Localize um aluno já existente na base de dados do Libreclass</span>
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="form-group">      
+                    {{ Form::text("search", null, ["class" => "form-control", "required", "autocomplete" => "off"]) }}
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  {{ Form::submit("Buscar", ["class" => "btn btn-primary btn-block"]) }}
+                </div>
+              </div>
 
+            {{ Form::close() }}
+            <div class="text-center new-student">
+              <span class="text-primary click">Não encontrei, desejo adicionar um novo aluno</span>  
+            </div>
+          <ul class="list-unstyled result list-user" t="student"></ul>
+          </div>
+          
+            
+          
 
         </div>
       </div>
     </div>
   </div>
+</div>
 
 <div class="visible-none">
 {{ Form::open(["id" => "delete-discipline", "url" => url("/disciplines/delete")]) }}

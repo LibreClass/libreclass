@@ -33,22 +33,22 @@ $(function () {
   $('#passwordUpdate').validate({
     rules: { 
       "password": { 
-        required: true,
-        minlength: 3 
+        required: true
       },
       "newpassword": {
         required: true,
-        equalTo: "#password"
+        minlength: 5 
+//        equalTo: "#password"
       }
     },
     messages: {
       "password": {
-        required: "Este campo deve ser preenchido",
-        minlength: "Senha muito curta"
+        required: "Este campo deve ser preenchido"
+//        minlength: "Senha muito curta"
       },
       "newpassword": {
         required: "Este campo deve ser preenchido",
-        equalTo: "Senhas não conferem"
+        minlength: "A senha deve ter no mínimo 5 caracteres"
       }
     }
   });

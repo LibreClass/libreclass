@@ -31,7 +31,7 @@ class SyncController extends \BaseController {
       if ($user->type == "P")
       {
         /*Getting professor's offers*/
-        $lectures = Lecture::where('idUser', Crypt::decrypt($user->id))->get();
+        $lectures = Lecture::where('idUser', Crypt::decrypt($user->id))->orderBy("order")->get();
 
         $keyAttend = []; /* array para salvar chave, para
          * que seja igual em Attends e em ExamsValues.

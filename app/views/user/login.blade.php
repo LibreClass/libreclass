@@ -15,85 +15,71 @@ Login
 @section('body')
 @parent
 
-<div class="container w60">
-  <br>
+<div class="container container-login">
 
+  {{ HTML::image("images/logo-libreclass-vertical.png", null ,["class" => "logomarca center-block"]) }}
+  <br>
+  <h4 class="text-center">Faça o login na sua conta para acessar o Libreclass</h4>
   <br>
   @if (Session::has("info"))
-  <div class="alert alert-info text-center alert-dismissible" role="alert" >
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4>{{Session::get("info")}}</h4>
-  </div>
+    <div class="alert alert-info text-center alert-dismissible" role="alert" >
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <span class="text-sm">{{Session::get("info")}}</span>
+    </div>
   @endif
   @if (Session::has("error"))
-  <div class="alert alert-danger text-center alert-dismissible" role="alert" >
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-    <h4>{{Session::get("error")}}</h4>
-  </div>
+    <div class="alert alert-danger text-center alert-dismissible" role="alert" >
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <span class="text-sm">{{Session::get("error")}}</span>
+    </div>
   @endif
+  <div class="panel panel-login">
+    <div class="panel-body">
 
-  
-  <div id="form-login">
-    <div class="panel panel-default">
-      <div class="panel-body">
+      <div id="form-login">
         <div class="row">
           {{ Form::open(["url" => url("/login"), "id" => "loginForm"]) }}
           <div class="col-md-12">
               <div class="form-group">
-                {{ Form::text("email", null, ["placeholder" => "Digite seu email", "class" => "form-control input-lg", "required" => "required", "autofocus"]) }}
+                {{ Form::text("email", Input::get("email"), ["placeholder" => "Digite seu email", "class" => "form-control", "required" => "required", "autofocus"]) }}
               </div>
               <div class="form-group">
-                {{ Form::password("password", ["placeholder" => "Digite sua senha", "class" => "form-control input-lg", "required" => "required"]) }}
+                {{ Form::password("password", ["placeholder" => "Digite sua senha", "class" => "form-control", "required" => "required"]) }}
               </div>
           </div>
           <div class="col-md-12 col-xs-12">
-            <button class="btn btn-shadow btn-primary btn-lg btn-block">Entrar</button>
+            <button class="btn btn-shadow btn-primary btn-block">Entrar</button>
           </div>
-          <div class="col-md-12 col-xs-12 text-center">
+          <div class="col-md-12 col-xs-12 text-center text-xs form-help">
             <ul class="list-inline">
-              <li><a class="click" id="forgot-password"><b>Esqueci minha senha</b></a></li>
-              <li><a href="{{ url('/') }}"><b>Cadastre-se</b></a></li>
+              <li class="checkbox">
+                <input type="checkbox">Continuar conectado
+              </li>
+              <li><a class="click" id="forgot-password">Esqueci minha senha</a></li>
             </ul>
           </div>
           {{ Form::close() }}
         </div>
 
-        <br>
+        <hr>
         <div class="row">
           <div class="col-md-12 text-center">
-            <a id="btn-register-facebook" class="btn btn-shadow btn-facebook btn-lg btn-block-xs" href="{{ url('/fb') }}"><i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;&nbsp;<b>Facebook</b></a>
-            <a id="btn-register-google" class="btn btn-shadow btn-google btn-lg  btn-block-xs" href="{{ $google }}"><i class="fa fa-google-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;<b>Google</b></a>
+            <a id="btn-register-facebook" class="btn btn-shadow btn-facebook btn-block-xs" href="{{ url('/fb') }}"><i class="fa fa-facebook fa-lg"></i>&nbsp;&nbsp;&nbsp;<b>Facebook</b></a>
+            <a id="btn-register-google" class="btn btn-shadow btn-google btn-block-xs" href="{{ $google }}"><i class="fa fa-google-plus fa-lg"></i>&nbsp;&nbsp;&nbsp;<b>Google</b></a>
           </div>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-12 text-center text-xs">
+          <a id="new-account" class="click">Criar nova conta</a>
         </div>
       </div>
     </div>
   </div>
-  
 
-  <div id="forgot-password-area" class="visible-none">
-    <div class="panel">
-      <div class="panel-body">
-
-        {{ Form::open(["url" => url("/forgot-password")]) }}
-          <div class="row">
-            <div class="col-md-12 text-center">
-              <h3><b>Esqueceu a sua senha?</b></h3>
-              <br>
-              <p><b>Informe o seu email para recuperar o seu acesso ao LibreClass</b></p>
-            </div>
-            <div class="col-md-12">
-              <div class="form-group">
-                {{ Form::text("email", isset($email) ? $email : null, ["placeholder" => "Digite seu email", "class" => "form-control input-lg", "required" => "required", "autofocus"]) }}
-              </div>
-              <button class="btn btn-primary btn-block btn-lg">Enviar</button>
-            </div>
-          </div>
-        {{ Form::close() }}
-
-      </div>
-    </div>
-
-  </div>
 </div>
+@include('user.modalForgot')
+@include('user.modalNewAccount')
 
 @stop

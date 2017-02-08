@@ -9,7 +9,8 @@
         {{ Form::open(["url" => url("/suggestion")]) }}
         <div class="modal-body">
           <p class="text-center">Sua opinião é importante para o crescimento do LibreClass.</p>
-          <p>Utilize o formulário abaixo para informar um erro, sugerir melhorias ou propor novas funcionalidades. Nossa equipe receberá e avaliará sua solicitação para atendê-lo o mais breve possível.</p>
+          <p class="text-justify">Utilize o formulário abaixo para informar um erro, sugerir melhorias ou propor novas funcionalidades.
+            A mensagem será enviada para <strong>suporte@sysvale.com</strong> e nossa equipe avaliará sua solicitação para atendê-lo o mais breve possível.</p>
           <div class="form-group">
             {{ Form::label("title", "Título", ["class" => "control-label"]) }}
             <span class="help-block text-muted">Informe um título para sua mensagem.</span>
@@ -18,7 +19,7 @@
           <div class="form-group">
             {{ Form::label("value", "Tipo da Mensagem", ["class" => "control-label"] ) }}
             <span class="help-block text-muted">Escolha um tipo para a mensagem.</span>
-            {{ Form::select("value", ["B" => "Relatar Bug", "S" => "Dar Sugestão", "O" => "Outro"], null, ["class" => "form-control"]) }}
+            {{ Form::select("value", ["S" => "Dar sugestão", "B" => "Relatar erros", "O" => "Outro"], null, ["class" => "form-control"]) }}
           </div>
           <div class="form-group">
             {{ Form::label("description", "Descrição", ["class" => "control-label"]) }}
@@ -30,7 +31,7 @@
           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
           <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Enviar</button>
         </div>
-        {{ Form::close() }} 
+        {{ Form::close() }}
       </div>
     </div>
-  </div>  
+  </div>

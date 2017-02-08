@@ -38,7 +38,19 @@ class SocialController extends \BaseController {
     $suggestion->value       = Input::get("value");
     $suggestion->description = Input::get("description");
     $suggestion->save();
-    
+
+    $user = User::find($this->idUser);
+
+    Mail::send('email.suporte', ["descricao" => Input::get("description"), "email" => $user->email, "title" => Input::get("title")], function($message)
+    {
+      $op = ["B" => "Bugson", "O" => "Outros", "S" => "Sugestão"];
+      $message->to( "suporte@sysvale.com", "Suporte" )
+              ->subject("LibreClass Suporte - " . $op[Input::get("value")]);
+    });
+
     return Redirect::back()->with("success", "Obrigado pela sua mensagem. Nossa equipe irá analisar e responderá o mais breve possível.");
   }
+
+
+
 }

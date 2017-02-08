@@ -39,7 +39,7 @@ return array(
 	|
 	*/
 
-	'timezone' => 'UTC',
+	'timezone' => 'America/Bahia',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -78,7 +78,7 @@ return array(
 	|
 	*/
 
-	'key' => 'RujYHqvrT3daVkVzRnV62SscL6g1cbOd',
+	'key' => '7PeWDIaAGlf9OuS4yJfHjivZsFG5Nv19',
 
 	'cipher' => MCRYPT_RIJNDAEL_128,
 
@@ -122,7 +122,6 @@ return array(
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
-    // 'Anouar\Fpdf\FpdfServiceProvider',
 
 	),
 
@@ -190,7 +189,6 @@ return array(
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
 		'View'            => 'Illuminate\Support\Facades\View',
-    // 'Fpdf'            => 'Anouar\Fpdf\Facades\Fpdf',
 
 	),
 

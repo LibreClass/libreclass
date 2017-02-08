@@ -13,7 +13,6 @@
 @stop
 
 
-
 @section('body')
 @parent
 
@@ -44,10 +43,10 @@
     <div id="block">
       <div class="block">
         <div class="row">
-          <div class="col-md-6 col-xs-12">
+          <div class="col-sm-6 col-xs-12">
             <h3 class="text-blue"><i class="fa fa-list-ul"></i> <b>Minhas Disciplinas</b></h3>
           </div>
-          <div class="col-md-6 col-xs-12 text-right">
+          <div class="col-sm-6 col-xs-12 text-right">
             <button id="new-block" class="btn btn-primary btn-block-xs"><b><i class="fa fa-plus"></i> Nova disciplina</b></button>
           </div>
         </div>
@@ -128,5 +127,10 @@
       </div>
     </div>
   </div>
+</div>
 @endif
+
+@include("modules.editDisciplinesModal")
+
 @stop
+

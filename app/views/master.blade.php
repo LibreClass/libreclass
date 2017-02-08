@@ -22,33 +22,22 @@
   {{ HTML::script('js/jquery.min.js', ["asyn defer"]) }}
   {{ HTML::script('js/bootstrap.min.js', ["asyn defer"]) }}
   {{ HTML::script('js/register.js', ["asyn defer"]) }}
+  {{ HTML::script('js/menu.js', ["asyn defer"]) }}
+
+  <script type="text/javascript">
+    if (navigator.userAgent.match(/msie/i) || navigator.userAgent.match(/trident/i) ){
+      window.location.href("/ie");
+    }
+  </script>
 
   @section('extraJS')
   @show
 
 </head>
 <body>
-  
-  <div class="container w100 header">
-    <div class="container w60">
-        <div class="row">
-<!--          <div class="col-md-6 col-sm-6 col-xs-6">
-            <a href="{{"/"}}">{{ HTML::image("images/logolibreclass.png", null, ["class" => "logo img-responsive"])}}</a>
-          </div>-->
-       
-            <img class="center-block img-logo" src="images/icon.png">           
-          
+  @section('body')
+  @show
 
-           @section('body')
-           @show
-  
-          
-                    
-        </div>
- 
-    </div>
-  </div>
-  
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
     (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -56,7 +45,6 @@
     })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     ga('create', 'UA-90938637-1', 'auto');
     ga('send', 'pageview');
-  </script>  
-  
+  </script>
 </body>
 </html>

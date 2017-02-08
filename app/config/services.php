@@ -15,8 +15,8 @@ return array(
 	*/
 
 	'mailgun' => array(
-		'domain' => 'email@email.com',
-		'secret' => 'PASSWORD',
+		'domain' => '',
+		'secret' => '',
 	),
 
 	'mandrill' => array(

@@ -26,7 +26,7 @@
             <h3 class="text-blue"><i class="icon-teacher"></i> <b>Meus Professores</b></h3>
           </div>
           <div class="col-sm-3">
-            <button id="new-block" class="btn btn-primary btn-block pull-right"><i class="fa fa-plus"></i> Novo Professor</button>
+            <button id="new-teacher" class="btn btn-primary btn-block pull-right"><b><i class="fa fa-plus"></i> Novo Professor</b></button>
           </div>
         </div>
       </div>
@@ -62,16 +62,18 @@
                 <tbody>
                 @foreach($relationships as $relationship)
                   <tr>
-                    <td> <a href='{{ URL::to("user/profile?u=".Crypt::encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
+                    <td> <a href='{{ URL::to("user/profile-teacher?u=".Crypt::encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
                     <td>{{ $relationship->name }}</td>
                     <td class="text-right">
                       <div class="col-md-12 text-right">
                         <i class="fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
-                        <ul class="dropdown-menu" role="menu" data="{{ Crypt::encrypt($relationship->id) }}" data-name="{{ $relationship->name }}">
-                          <li><a class="course-edit click"><i class="fa fa-edit text-info"></i> Editar</a></li>
-                          <li><a class="trash click"><i class="fa fa-unlink text-danger"></i> Desvincular</a></li>
+                        <ul class="dropdown-menu data" role="menu" data="{{ Crypt::encrypt($relationship->id) }}" data-name="{{ $relationship->name }}">
                           @if($relationship->type == "M")
-                            <li><a class="click invite-teacher"><i class="fa fa-key text-info"></i> Liberar Acesso</a></li>
+                          <li><a class="edit-teacher click" title="Edita informações do professor"><i class="fa fa-edit text-info"></i> Editar</a></li>
+                          @endif
+                          <li><a class="trash click" title="Excluir relacionamento do professor com a instituição"><i class="fa fa-unlink text-danger"></i> Excluir</a></li>
+                          @if($relationship->type == "M")
+                          <li><a class="click invite-teacher" title="Liberar acesso do professor às ofertas da instituição"><i class="fa fa-key text-info"></i> Liberar Acesso</a></li>
                           @endif
                         </ul>
                       </div>
@@ -111,45 +113,8 @@
         </div>
       </div>
     </div>
-  </div>         
-    <div id="block-add" class="block visible-none">
-      <div class="row">
-        <div class="col-sm-10">
-          <h3 id="title-discipline" class="text-blue"><b>Novo Professor</b></h3>
-        </div>
-        <div class="col-sm-2">
-          <button id="btn-back" class="btn btn-default btn-block">Voltar</button>
-        </div>
-      </div>
-      <br>
-      <div class="row">
-        <div class="col-md-12">
-          {{ Form::open(["id" => "new-teacher"]) }}
-            {{ Form::hidden("teacher", null) }}
-            <div class="form-group">
-              {{ Form::label("enrollment", "Matrícula", ["class" => "control-label"]) }}
-              <span class="help-block">Informe o nome completo do professor.</span>
-              {{ Form::text("enrollment", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
-            </div>
-            <div class="form-group">
-              {{ Form::label("name", "Nome", ["class" => "control-label"]) }}
-              <span class="help-block">Informe o nome completo do professor.</span>
-              {{ Form::text("name", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
-            </div>
-            <div class="form-group">
-              {{ Form::label("course", "Curso", ["control" => "control-label"]) }}
-              <span class="help-block">Selecione o curso ao qual o professor está vinculado.</span>
-              {{ Form::select("course", $courses, null, ["class" => "form-control input-lg"]) }}
-            </div>
-
-            {{ Form::submit("Salvar", ["class" => "pull-right btn btn-lg btn-primary"]) }}
-          {{ Form::close() }}
-
-
-        </div>
-      </div>
-    </div>
-  </div>
+  </div>        
+</div>
 
 <div class="modal fade visible-none" id="invite-teacher-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -174,7 +139,7 @@
   </div>
 </div>  
   
-  
+@include("modules.addTeachersModal")  
   
 <div class="visible-none">
 {{ Form::open(["id" => "delete-discipline", "url" => url("/disciplines/delete")]) }}

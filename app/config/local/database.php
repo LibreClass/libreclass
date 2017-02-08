@@ -22,10 +22,10 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '10.0.0.12',
+			'host'      => 'localhost',
 			'database'  => 'libreclass-beta',
 			'username'  => 'libreclass',
-			'password'  => 'PASSWORD',
+			'password'  => 'libreClass1beta!',
 			'charset'   => 'utf8',
 			'collation' => 'utf8_unicode_ci',
 			'prefix'    => '',

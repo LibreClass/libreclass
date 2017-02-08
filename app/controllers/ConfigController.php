@@ -191,5 +191,31 @@ class ConfigController extends \BaseController {
 //    return Redirect::to("/config")->with("success", "Modificado com sucesso!");
     return Input::get("city") . ", " . Input::get("state") . ", " . Input::get("country");
   }
+  
+  public function postStreet()
+  {
+    try {
+      $user = User::find($this->idUser);
+      $user->street = Input::get("street");
+      $user->save();
+      return Redirect::to("/config")->with("success", "Modificado com sucesso!");
+    }
+    catch(Exception $e) {
+      return Redirect::to("/config")->with("error", "Erro ao inserir o endereço!");
+    }
+  }
+  
+  public function postUee()
+  {
+    try {
+      $user = User::find($this->idUser);
+      $user->uee = Input::get("uee");
+      $user->save();
+      return Redirect::to("/config")->with("success", "Modificado com sucesso!");
+    }
+    catch(Exception $e){
+      return Redirect::to("/config")->with("error", "Erro ao inserir UEE!");
+    }
+  }
 
 }

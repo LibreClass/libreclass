@@ -31,7 +31,7 @@
         @if( $user->type == "I" )
           <div class="col-md-6 col-xs-12">
             <div class="list-inline text-right">
-              <button id="new-course" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo curso</b></button>
+              <button id="new-course" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo Curso</b></button>
               @if(!count($courses) == 0)
                 <button id="new-periods" class="btn btn-primary"><b><i class="fa fa-plus"></i> Nova Série</b></button>
               @endif
@@ -49,7 +49,7 @@
         <div class="panel-heading">
           <div class="row">
             <div class="col-md-10 col-xs-10">
-              <span><b>{{ $course->name }}</b></span>
+              <span><b><a class="course-edit click" key="{{ Crypt::encrypt($course->id) }}">{{ $course->modality ." ".$course->name }}</a></b></span>
             </div>
             <div class="col-md-2 col-xs-2 text-right">
               <i class="fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
@@ -61,14 +61,23 @@
           </div>
         </div>
         <div class="panel-body">
-          <span class="text-info"><i class="fa fa-calendar"></i> {{ date  ("d/m/Y", strtotime($course->created_at)) }}</span>
+<!--          <span class="text-info"><i class="fa fa-calendar"></i> {{ date  ("d/m/Y", strtotime($course->created_at)) }}</span>-->
           <div class="row">
             <div class="col-md-6">
 
                 <ul class="list-unstyled">
+                  <li><b>Tipo de Ensino: </b>{{ $course->type }}</li>
+                  <li><b>Modalidade: </b>{{ $course->modality }}</li>
                   <li><b>Faltas (Reprovação): </b>{{ $course->absentPercent . "%" }}</li>
                   <li><b>Média do Curso: </b>{{ $course->average }}</li>
                   <li><b>Média da Final: </b>{{ $course->averageFinal }}</li>
+                  <li><b>Perfil Curricular: </b>
+                    @if($course->curricularProfile != "")
+                      <a href="{{"/uploads/curricularProfile/".$course->curricularProfile }}" target="_blank">Abrir arquivo</a>
+                    @else
+                    <span>Perfil não anexado.</span>
+                    @endif
+                  </li>
                 </ul>
             </div>
             <div class="col-md-6">

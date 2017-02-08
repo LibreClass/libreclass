@@ -7,4 +7,9 @@ class Classe extends \Eloquent {
   {
     return Period::find($this->idPeriod);
   }
+
+	public function fullName()
+	{
+		return "[$this->class] $this->name";
+	}
 }

@@ -8,10 +8,6 @@ $(function () {
       "name": {
         required: true
       },
-      "email": {
-        required: true,
-        email: true
-      }
     },
     messages: {
       "enrollment": {
@@ -20,11 +16,7 @@ $(function () {
       "name": {
         required: "Este campo deve ser preenchido"
       },
-      "email": {
-        required: "Este campo deve ser preenchido",
-        email: "Por favor, insira um email válido"
-      }
-    }
+    },
   });
 
 });

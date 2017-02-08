@@ -1,4 +1,16 @@
+@section('css')
+@parent
+{{ HTML::style("css/bootstrap-toggle.min.css") }}
+@stop
+
+@section('js')
+@parent
+{{ HTML::script("js/bootstrap-toggle.min.js") }}
+{{ HTML::script("js/offer-toogle.js") }}
+@stop
+
 @extends('modules.offers')
+
 
 
 @section('offer-option')
@@ -10,19 +22,11 @@
       <ol class="breadcrumb text-md text-sm">
         <li><b>{{ $course->name }}</b></li>
         <li><b>{{ $period->name }}</b></li>
-        <li class="active"><b>{{ $classe->class }}</b></li>
+        <li class="active"><b>{{ $classe->fullName() }}</b></li>
       </ol>
     </div>
-    <div class="col-md-2 col-sm-2text-right">
+    <div class="col-md-2 col-sm-2 text-right">
       <a class="btn btn-block btn-default btn-block-xs" href="{{ URL::to("classes") }}">Voltar</a>
-    </div>
-  </div>
-  <br>
-  <div class="row">
-    <div class="col-md-12">
-      <ul class="list-inline">
-        <li><button class="btn btn-default">Gerenciar Alunos</button></li>
-      </ul>
     </div>
   </div>
 </div>
@@ -37,81 +41,72 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
           <p class="text-md text-link">{{ $offer->getDiscipline()->name }}</p>
         </div>
-<!--        <div class="col-md-1 col-sm-1 col-xs-1">
-          <i class="pull-right fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
-          <ul class="dropdown-menu dropdown-menu-right" role="menu">
-            <li><a href=""><i class="fa fa-edit"></i> Editar</a></li>
-            <li><a href=""><i class="fa fa-trash"></i> Deletar</a></li>
-          </ul>
-        </div>-->
       </div>
 
       <div class="row">
         <div class="block-list-item">
-          <div class="col-md-12">
-
-            <p>{{ ($lecture = $offer->getLectures()) ? "Professor: " . $lecture->getUser()->name : "Sem professor vinculado" }}</p>
+          <div class="col-md-12 offer">
+            <div class="list-inline">
+              <button class="add-teacher click btn btn-default btn-block-xs" key="{{ Crypt::encrypt($offer->id) }}"><i class="fa fa-link"></i> Editar</button>
+              <a href="{{ URL::to("/classes/offers/students/".Crypt::encrypt($offer->id)) }}" class="btn btn-default btn-block-xs"><i class="fa fa-graduation-cap"></i> Gerir Alunos</a>
+              <button class="view-syllabus click btn btn-default btn-block-xs" key="{{ Crypt::encrypt($offer->getDiscipline()->id) }}"><i class="fa fa-file-text"></i> Ementa</button>
+            </div>
+            <br/>
+            @if(!count($lectures = $offer->getAllLectures()))
+              <p class='text-danger'><b>Sem professor vinculado</b></p>
+            @else
+              <ul class="list-inline insert-sheriff">
+                @foreach($lectures as $lecture)
+                  <li class="label label-select-multiple">
+                    <div class="label-image">
+                      <img src='{{ $lecture->getUser()->photo }}' class="img-responsive img-circle">
+                    </div>
+                    <span class="label-name">{{ $lecture->getUser()->name }}</span>
+                  </li>
+                @endforeach
+              </ul>
+            @endif
             <p>Sala de Aula: {{ $offer->classroom != null ? $offer->classroom : "Não informada"}}</p>
+            @if($offer->day_period == "M")
+              <p>Turno: Matutino</p>
+            @elseif($offer->day_period == "V")
+              <p>Turno: Vespertino</p>
+            @elseif($offer->day_period == "N")
+              <p>Turno: Noturno</p>
+            @else  
+              <p>Turno: Não informado</p>
+            @endif
+            <p>Quantidade máxima de aulas: {{ $offer->maxlessons }}</p>
+            <i class="info" teacher='{{ json_encode($offer->teachers) }}'
+                            classroom="{{ $offer->classroom }}"
+                            maxlessons="{{ $offer->maxlessons }}"
+                            day_period="{{ $offer->day_period }}"></i>
+
+
             <ul class="list-unstyled">
             @foreach( $offer->getUnits() as $unit )
               <li class="">
                 <input
                   {{ !strcmp($unit->status, 'E')? "checked" : "" }}
                   class="toggle-btn toggle-event" type="checkbox" data-toggle="toggle"
-                  data-on="<i class='glyphicon glyphicon-thumbs-up'></i>&nbsp;&nbsp;Ativa"
-                  data-off="<i class='glyphicon glyphicon-thumbs-down'></i>&nbsp;&nbsp;Inativa"
+                  data-on="Bloquear"
+                  data-off="Desbloquear"
                   data-size="mini" unit="{{ Crypt::encrypt($unit->id) }}">
                 &nbsp;&nbsp;
-                <a class="text-link" href='{{-- URL::to("panel?unit=".Crypt::encrypt($unit->id)) --}}#'> Unidade {{ $unit->value }}</a>
+                <a class="text-link" target="_blank" href='{{ URL::to("/classes/units/report-unit/".Crypt::encrypt($unit->id)) }}'> Unidade {{ $unit->value }}</a>
               </li>
 
             @endforeach
-              <li>
-                <a class="text-link" href='{{ URL::to("/classes/offers/unit/".Crypt::encrypt($offer->id)) }}'> + Nova Unidade</a>
-              </li>
             </ul>
-            <p class="add-teacher text-link click"><i class="fa fa-link"></i> Vincular professor</p>
-            
-            <div class="modal fade visible-none modalTeacherOffer" tabindex="-1" role="Modal Add Teacher Offer" aria-labelledby="modalTeacherOffer" aria-hidden="true">
-              <div class="modal-dialog">
-                <div class="modal-content">
-                  {{ Form::open(["url" => URL::to("/classes/offers/teacher")]) }}
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h3 class="modal-title text-blue"><b><i class="fa fa-link"></i> Vincular Professor</b></h3>
-                  </div>
-                  <div class="modal-body">
-                    
-                    <div class="form-group">
-                      {{ Form::hidden("offer", Crypt::encrypt($offer->id) ) }}
-                      {{ Form::hidden("prev", URL::full() ) }}
-                      {{ Form::label("teacher", "Professor", ["class" => "control-label"] ) }}
-                      <span class="help-block text-muted">Selecione o professor que irá lecionar a disciplina.</span>
-                      {{ Form::select("teacher", $teachers, null, ["class" => "form-control input-lg"] ) }}
-                    </div>
-                    <div class="form-group">
-                      {{ Form::label("classroom", "Sala de Aula",  ["class" => "control-"])}}
-                      <span class="help-block text-muted">Informe o nome da sala de aula onde será lecionada a disciplina.</span>
-                      {{ Form::text("classroom", $offer->classroom,  ["class" => "form-control input-lg"])}}
-                    </div>
-                    
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Cancelar</button>
-                    <button class="pull-right btn btn-lg btn-primary">Vincular</button>
-                  </div>
-                  {{ Form::close() }}
-                </div>
-              </div>
+            <div class="row">
+            	<div class="col-xs-12">
+								<div class="list-inline">
+									<button class="btn btn-default btn-block-xs new-unit" url='{{ URL::to("/classes/offers/unit/".Crypt::encrypt($offer->id)) }}'> + Nova Unidade</button>
+									<button class="btn btn-default btn-block-xs delete-unit" url='{{ URL::to("/classes/offers/delete-last-unit/".Crypt::encrypt($offer->id)) }}'><i class="fa fa-trash fa-fw"></i>Deletar Unidade</button>
+								</div>
+            	</div>
             </div>
-            
-            <div class="visible-none add-teacher-form">
-              
-            </div>
-            <p class="text-link view-syllabus click"><i class="fa fa-file-text"></i> Ementa</p>
-            <div class="visible-none syllabus">
-              <p>{{ $offer->getDiscipline()->ementa }}</p>
-            </div>
+
           </div>
         </div>
       </div>
@@ -121,7 +116,7 @@
 
 
 @endforeach
-
-
+@include("offers.linking-teacher")
+@include("offers.ementa")
 
 @stop

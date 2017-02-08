@@ -9,8 +9,7 @@
     "facebook/php-sdk-v4" : "4.0.*",
     "yangqi/htmldom": "dev-master",
     "phpunit/phpunit-mock-objects": "2.1.*",
-    "guzzlehttp/guzzle": "~4.0",
-    "anouar/fpdf": "dev-master"
+    "guzzlehttp/guzzle": "~4.0"
 	},
 	"require-dev": {
 		"artdarek/oauth-4-laravel": "dev-master"
@@ -18,12 +17,17 @@
 	"autoload": {
 		"classmap": [
 			"app/commands",
+			"app/controllers/student",
 			"app/controllers",
 			"app/models",
 			"app/database/migrations",
 			"app/database/seeds",
-			"app/tests/TestCase.php"
-		]
+			"app/tests/TestCase.php",
+      "app/classes"
+		],
+    "psr-4": {
+
+    }
 	},
 	"scripts": {
 		"post-install-cmd": [

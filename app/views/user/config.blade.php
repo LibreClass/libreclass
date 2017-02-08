@@ -9,7 +9,7 @@
 @section('js')
 @parent
   {{ HTML::script('js/config.js') }}
-  {{ HTML::script('https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places') }}
+  {{ HTML::script('http://maps.googleapis.com/maps/api/js?key=AIzaSyBVmdz-iIJpd-TisFvAg4qIU9WVqRVvVbk&v=3.exp&libraries=places') }}
   {{ HTML::script('js/validations/usersConfig.js') }}
 @stop
 
@@ -17,15 +17,15 @@
 @parent
 
 <div class="row">
-  
+
   <div id="config" class="col-md-8 col-xs-12 col-sm-12">
-    
+
     <div id="block-config" class="block">
-      
+
       @if(Session::has("message"))
       <div class="alert alert-success" role="alert">{{ Session::get("message") }}</div>
       @endif
-      
+
       <div class="row">
         <div class="col-md-6 col-xs-6">
           <h4 class="">CONFIGURAÇÕES</h4>
@@ -120,7 +120,31 @@
                 </td>
               </tr>
             @endif
+            
+            @if($user->type == "I")  
+            <tr class="block-config-item">
+              <td>Código da UEE</td>
+              <td class="text-info">{{$user->uee or "Inserir"}}</td>
+              <td></td>
+            </tr>
 
+            <tr class="visible-none">
+              <td colspan="3">
+                {{ Form::open(["url" => url("config/uee"), "id" => "ueeUpdate"]) }}
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      {{ Form::text("uee", $user->uee, ["class" => "form-control", "required"]) }}
+                    </div>
+                    {{ Form::submit('Atualizar', ["class" => "btn btn-primary"]) }}
+                  </div>
+                </div>
+                {{ Form::close() }}
+              </td>
+            </tr>
+          @endif
+            
+          @if($user->type != "I")
             <tr class="block-config-item">
               <td>Data de Nascimento</td>
               <td class="text-info">{{ $user->birthdate ? date("d / m / Y", strtotime($user->birthdate)) : "Inserir" }}</td>
@@ -232,7 +256,7 @@
                 {{ Form::close() }}
               </td>
             </tr>
-
+          @endif
 
             <!-- <tr class="block-config-item"> -->
             <tr>
@@ -256,8 +280,29 @@
                 {{-- Form::close() --}}
               </td>
             </tr> -->
+          @if($user->type == "I")  
+            <tr class="block-config-item">
+              <td>Endereço</td>
+              <td class="text-info" id="institution-description">{{$user->street or "Inserir"}}</td>
+              <td></td>
+            </tr>
 
-
+            <tr class="visible-none">
+              <td colspan="3">
+                {{ Form::open(["url" => url("config/street"), "id" => "streetUpdate"]) }}
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      {{ Form::text("street", $user->street, ["class" => "form-control", "required"]) }}
+                    </div>
+                    {{ Form::submit('Atualizar', ["class" => "btn btn-primary"]) }}
+                  </div>
+                </div>
+                {{ Form::close() }}
+              </td>
+            </tr>
+          @endif
+             
             <tr id="block-map" class="block-config-item">
               <td>Localização</td>
               <td class="text-info">{{ $user->idCity ? $user->printLocation() : "" }}</td>

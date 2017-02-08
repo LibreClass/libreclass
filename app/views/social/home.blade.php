@@ -42,22 +42,32 @@
         <li><h4>Para professores:</h4>
           <ul>
             <!--<li> <span class='help-courses'>Gerenciar cursos</span></li>-->
-            <li> <span class='help-disciplines'>Gerenciar diários e disciplinas</span></li>
-            <li> <span class='help-frequencies'>Controlar frequências de alunos</span></li>
-            <li> <span class='help-exams'>Controlar notas de alunos</span></li>
-            <li> <span class='help-notes'>Incluir notas de aula</span></li>
-            <li> <span class='help-planning'>Criar planos de aula</span></li>
-            <li> <span class='help-recovery'>Gerenciar recuperações para uma disciplina</span></li>
+            <li> <span class='help-disciplines-teacher'>Como gerenciar meus diários?</span></li>
+            <li> <span class='help-alter-calc'>Como definir o cálculo de notas?</span></li>
+            <li> <span class='help-lesson-teacher'>Como criar uma aula?</span></li>
+            <li> <span class='help-avaliable-teacher'>Criar criar uma avaliação?</span></li>
+            <li> <span class='help-frequencies-teacher'>Como lançar a frequência dos alunos?</span></li>
+            <li> <span class='help-exams-teacher'>Como lançar notas das avaliações?</span></li>
+            <li> <span class='help-recovery-unit'>Como criar uma recuperação de uma unidade?</span></li>
+            <li> <span class='help-recovery-final'>Como criar uma recuperação final de uma disciplina?</span></li>
+            <li> <span class='help-infolesson-teacher'>Como ver o resumo de uma aula?</span></li>
+            
+            
+            
           </ul>
        </li><br>
        @elseif( $user->type == "I" )
         <li><h4>Para instituições:</h4>
           <ul>
-            <li> <span class='help-'>Instituições possuem todas as ferramentas de um professor</span></li>
-            <li> <span class='help-'>Criar cursos, turmas e unidades</span></li>
-            <li> <span class='help-'>Criar disciplinas e ofertar disciplinas</span></li>
-            <li> <span class='help-'>Vincular disciplinas a professores para que os mesmos possam ter acesso</span></li>
-            <li> <span class='help-'>Adicionar e remover professores e alunos. </span></li>
+            <li> <span class='help-courses-inst'>Como criar um curso?</span></li>
+            <li> <span class='help-periods-inst'>Como criar uma série?</span></li>
+            <li> <span class='help-disciplines-inst'>Como criar uma disciplina?</span></li>
+            <li> <span class='help-classes-inst'>Como criar uma turma?</span></li>
+            <li> <span class='help-units-inst'>Como criar uma unidade?</span></li>
+            <li> <span class='help-teachers-inst'>Como adicionar um professor?</span></li>
+            <li> <span class='help-linking-inst'>Como vincular professor a uma disciplina?</span></li>
+            <li> <span class='help-access-inst'>Como liberar o login para um professor?</span></li>
+            <li> <span class='help-students-inst'>Como adicionar um aluno?</span></li>
           </ul>
         </li>
        @endif

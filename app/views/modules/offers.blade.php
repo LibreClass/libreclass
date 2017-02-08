@@ -4,14 +4,14 @@
 @parent
 {{ HTML::style('css/blocks.css') }}
 {{ HTML::style('css/forms.css') }}
-{{ HTML::style("css/bootstrap-toggle.min.css") }}
 @stop
 
 @section('js')
 @parent
 {{ HTML::script('js/blocks.js') }}
 {{ HTML::script('js/offers.js') }}
-{{ HTML::script("js/bootstrap-toggle.min.js") }}
+{{ HTML::script("js/sheriff.js") }}
+
 @stop
 
 @section('body')

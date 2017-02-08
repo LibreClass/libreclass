@@ -21,7 +21,20 @@
 
       <div class="row">
         <div class="col-md-10 col-sm-10">
-          <h3 class="text-blue"><i class="fa fa-file-text-o"></i> <b>AULA</b></h3>
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="text-blue"><i class="fa fa-file-text-o"></i> <b>AULA</b></h3>
+            </div>
+            <div class="col-md-12">
+              <ol class="breadcrumb bg-white">
+                <li>{{ $lesson->unit->offer->discipline->period->course->institution->name }}</li>
+                <li>{{ $lesson->unit->offer->discipline->period->course->name }}</li>
+                <li>{{ $lesson->unit->offer->discipline->period->name }}</li>
+                <li>{{ $lesson->unit->offer->getClass()->fullName() }}</li>
+                <li class="active">{{ $lesson->unit->offer->discipline->name }}</li>
+              </ol>
+            </div>
+          </div>
         </div>
         <div class="col-md-2 col-sm-2 text-right">
           <a href="{{ URL::to("/lectures/units?u=" . Crypt::encrypt($lesson->idUnit)) }}" class="btn btn-default btn-block">Voltar</a>
@@ -78,7 +91,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   {{ Form::label("goals", "Objetivos") }}
-                  <span class="help-block text-muted">Informe os objetivos a serem alcançados na sua aula</span>
+                  <span class="help-block text-muted">Neste campo devem ser apresentados os objetivos a serem alcançados na aula</span>
                   {{ Form::textarea("goals", $lesson->goals, ["class" => "form-control", "size" => "30x2"]) }}
                 </div>
               </div>
@@ -88,7 +101,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   {{ Form::label("content", "Conteúdo") }}
-                  <span class="help-block text-muted">Informe o conteúdo programado para sua aula.</span>
+                  <span class="help-block text-muted">Neste campo devem ser apresentados os conteúdos programados para a aula.</span>
                   {{ Form::textarea("content", $lesson->content, ["class" => "form-control", "size" => "30x2"]) }}
                 </div>
               </div>
@@ -98,7 +111,7 @@
               <div class="col-md-12">
                 <div class="form-group">
                   {{ Form::label("methodology", "Metodologia") }}
-                  <span class="help-block text-muted">Informe a metodologia utilizada para sua aula.</span>
+                  <span class="help-block text-muted">Neste campo devem ser apresentados os procedimentos e sequências das atividades a serem realizadas na aula.</span>
                   {{ Form::textarea("methodology", $lesson->methodology, ["class" => "form-control", "size" => "30x4"]) }}
                 </div>
               </div>
@@ -107,8 +120,18 @@
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
+                  {{ Form::label("resources", "Recursos Necessários") }}
+                  <span class="help-block text-muted">Neste campo devem ser apresentados os recursos a serem utilizados para o desenvolvimento da aula.</span>
+                  {{ Form::textarea("resources", $lesson->resources, ["class" => "form-control", "size" => "30x4"]) }}
+                </div>
+              </div>
+            </div>
+            
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
                   {{ Form::label("valuation", "Avaliação") }}
-                  <span class="help-block text-muted">Informe a forma de avaliação da sua aula.</span>
+                  <span class="help-block text-muted">Informe neste campo a forma e os critérios de avaliação.</span>
                   {{ Form::text("valuation", $lesson->valuation, ["class" => "form-control", "maxlength" => "255"]) }}
                 </div>
               </div>
@@ -187,6 +210,7 @@
                   <tr>
                     <th>Nome</th>
                     <th></th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody id='{{ Crypt::encrypt($lesson->id) }}'>
@@ -194,6 +218,7 @@
                     <tr id='{{ Crypt::encrypt($student->idAttend) }}'>
                       <td>{{ $student->name }}</td>
                       <td><button class='btn change-frequency pull-right {{ $student->value == "P" ? "btn-success" : "btn-danger" }} center-block'>{{ $student->value }}</button></td>
+                      <td>{{ sprintf("%d (%.1f %%)", $student->qtd, 100.*$student->qtd/$student->maxlessons) }}</td>
                     </tr>
                   @endforeach
                 </tbody>

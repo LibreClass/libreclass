@@ -20,7 +20,20 @@
     <div class="block">
       <div class="row">
         <div class="col-sm-10">
-          <h3 class="text-blue"><b><i class="fa fa-line-chart"></i> Avaliação</b></h3>
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="text-blue"><i class="fa fa-file-text-o"></i> <b>AVALIAÇÃO</b></h3>
+            </div>
+            <div class="col-md-12">
+              <ol class="breadcrumb bg-white">
+                <li>{{ $exam->unit->offer->discipline->period->course->institution->name }}</li>
+                <li>{{ $exam->unit->offer->discipline->period->course->name }}</li>
+                <li>{{ $exam->unit->offer->discipline->period->name }}</li>
+                <li>{{ $exam->unit->offer->getClass()->fullName() }}</li>
+                <li class="active">{{ $exam->unit->offer->discipline->name }}</li>
+              </ol>
+            </div>
+          </div>
         </div>
         <div class="col-sm-2">
           <a href='{{ URL::to("/lectures/units?u=" . Crypt::encrypt($exam->idUnit)) }}' class="btn btn-default btn-block">Voltar</a>

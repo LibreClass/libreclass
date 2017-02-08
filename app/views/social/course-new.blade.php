@@ -6,13 +6,23 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h3 class="modal-title" id="modalCourseLabel"><b>Curso</b></h3>
         </div>
-        {{ Form::open(["url" => url("/courses/save"), "id" => "form-course", "class" => "registerForm"]) }}
+        {{ Form::open(["url" => url("/courses/save"), "id" => "form-course", "class" => "registerForm", "enctype" => "multipart/form-data"]) }}
         <div class="modal-body">
             {{ Form::hidden('course', null) }}
           <div class="form-group">
             {{ Form::label("name", "Nome do Curso", ["class" => "control-label"]) }}
             <span class="help-block text-muted">Digite o nome do curso.</span>
             {{ Form::text("name", null, ["class" => "form-control input-lg", "placeholder" => "Digite aqui o nome do curso"]) }}
+          </div>
+          <div class="form-group">
+            {{ Form::label("type", "Tipo de Ensino", ["class" => "control-label"]) }}
+            <span class="help-block text-muted">Informe o tipo de ensino. Ex: (Ensino Superior, Ensino Profissional, Ensino Regular)</span>
+            {{ Form::text("type", null, ["class" => "form-control input-lg", "placeholder" => "Digite aqui o tipo de ensino"]) }}
+          </div>
+          <div class="form-group">
+            {{ Form::label("modality", "Modalidade", ["class" => "control-label"]) }}
+            <span class="help-block text-muted">Informe a modalidade do curso. Ex: (Subsequente, Integrado)</span>
+            {{ Form::text("modality", null, ["class" => "form-control input-lg", "placeholder" => "Digite aqui a modalidade"]) }}
           </div>
           <div class="form-group">
             {{ Form::label("absent", "Percentual de Faltas para Reprovação (%)", ["class" => "control-label"] ) }}
@@ -28,6 +38,11 @@
             {{ Form::label("averageFinal", "Média final", ["class" => "control-label"]) }}
             <span class="help-block text-muted">Informe o valor da média final de aprovação do seu curso.</span>
             {{ Form::text("averageFinal", "5.0", ["class" => "form-control input-lg grade"]) }}
+          </div>
+          <div class="form-group">
+            {{ Form::label("curricularProfile", "Perfil Curricular", ["class" => "control-label"]) }}
+            <span class="help-block text-muted">Anexe o arquivo do perfil curricular do curso (PDF).</span>
+            {{ Form::file("curricularProfile", ["class" => "form-control input-lg"]) }}
           </div>
         </div>
         <div class="modal-footer">

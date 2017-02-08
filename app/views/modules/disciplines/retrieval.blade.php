@@ -20,7 +20,20 @@
     <div class="block">
       <div class="row">
         <div class="col-sm-10 col-xs-12">
-          <h3 class="text-blue"><i class="fa fa-line-chart"></i> <b>RECUPERAÇÃO FINAL</b></h3>
+          <div class="row">
+            <div class="col-md-12">
+              <h3 class="text-blue"><i class="fa fa-file-text-o"></i> <b>RECUPERAÇÃO FINAL</b></h3>
+            </div>
+            <div class="col-md-12">
+              <ol class="breadcrumb bg-white">
+                <li>{{ $offer->discipline->period->course->institution->name }}</li>
+                <li>{{ $offer->discipline->period->course->name }}</li>
+                <li>{{ $offer->discipline->period->name }}</li>
+                <li>{{ $offer->getClass()->fullName() }}</li>
+                <li class="active">{{ $offer->discipline->name }}</li>
+              </ol>
+            </div>
+          </div>
         </div>
         <div class="col-sm-2 col-xs-12 text-right">
           <a href='{{ URL::to("lectures") }}' class="btn btn-default btn-block btn-block-xs">Voltar</a>
@@ -40,7 +53,7 @@
                   {{ Form::label("date-day", "Data da avaliação ")}}
                   {{ Form::selectRange("date-day", 1, 31, date("d", strtotime($offer->dateFinal)),["class" => "form-control"]) }}
                   {{ Form::selectRange("date-month", 1, 12, date("m", strtotime($offer->dateFinal)), ["class" => "form-control"]) }}
-                  {{ Form::selectRange("date-year", date("Y"), date("Y")-100, date("Y", strtotime($offer->dateFinal)), ["class" => "form-control"]) }}
+                  {{ Form::selectRange("date-year", date("Y"), date("Y")-10, date("Y", strtotime($offer->dateFinal)), ["class" => "form-control"]) }}
                 </div>
               </div>
             </div>
@@ -60,7 +73,9 @@
                                           "Projeto",
                                           "Produção Visual",
                                           "Pesquisa de Campo",
-                                          "Texto Dissertativo"
+                                          "Texto Dissertativo",
+                                          "Avaliação Prática",
+                                          "Outros"
                                         ], $offer->typeFinal, ["class" => "form-control", "required"]) }}
               </div>
             </div>
@@ -78,7 +93,7 @@
 
           <div class="row">
               <div class="col-md-12 col-xs-12">
-                <button class="btn btn-primary">Salvar</button>
+                <button class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
               </div>
           </div>
 
@@ -97,6 +112,11 @@
           <div class="block-list-item">
             <div class="row">
               <div class="col-md-12">
+              <ul class="list-inline">
+                <li><i class="fa fa-undo icon-default"></i> Desfazer</li>
+                <li><i class="fa fa-send text-info"></i> Salvar</li>
+              </ul>
+
               {{ Form::open(["id" => "exam-form"]) }}
                 <table class="table table-hover">
                   <thead>
@@ -139,4 +159,3 @@
     </div>
 
 @stop
-

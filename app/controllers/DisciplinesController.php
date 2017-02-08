@@ -8,7 +8,7 @@ class DisciplinesController extends \BaseController {
    */
   private $idUser;
 
-  public function DisciplinesController()
+  public function __construct()
   {
     $id = Session::get("user");
     if ($id == null || $id == "") {
@@ -35,7 +35,7 @@ class DisciplinesController extends \BaseController {
       return View::make("social.disciplines", ["listCourses" => $listCourses, "user" => $user]);
     }
     else {
-      return Redirect::guest("/");
+//      return Redirect::guest("/");
     }
   }
 
@@ -68,14 +68,14 @@ class DisciplinesController extends \BaseController {
     //~ return Input::all();
 
     $discipline = Discipline::find(Crypt::decrypt(Input::get("input-trash")));
-    $offers = DB::select("SELECT Offers.id, Classes.class
+    $offers = DB::select("SELECT Offers.id, Classes.name
                             FROM Offers, Classes
                              WHERE Classes.status = 'E' AND
                              Offers.idDiscipline=? AND
                              Offers.idClass=Classes.id", [$discipline->id]);
 
     if(count($offers)) {
-      return Redirect::to("/disciplines")->with("error", "Não foi possível excluir. <br>Disciplina vinculada à turma <b>". $offers[0]->class . "</b>");
+      return Redirect::to("/disciplines")->with("error", "Não foi possível excluir. <br>Disciplina vinculada à turma <b>". $offers[0]->name . "</b>");
     }
 
     if ($discipline) {
@@ -88,17 +88,25 @@ class DisciplinesController extends \BaseController {
     }
   }
 
-  public function getEdit()
+  public function getDiscipline()
   {
     $discipline = Discipline::find(Crypt::decrypt(Input::get("discipline")));
-    $discipline->course = Crypt::encrypt(Course::find(Period::find($discipline->idPeriod)->id)->id);
-    $discipline->period = $discipline->idPeriod;
+//    $discipline->course = Crypt::encrypt(Course::find(Period::find($discipline->idPeriod)->id)->id);
+//    $discipline->period = $discipline->idPeriod;
     return $discipline;
   }
 
   public function postEdit()
   {
-    var_dump(Input::all());
+    $discipline = Discipline::find(Crypt::decrypt(Input::get("discipline")));
+    if (!isset($discipline) || empty($discipline)) {
+      return Redirect::back()->with("error", "Não foi possível editar a disciplina");
+    } else {
+      $discipline->name = Input::get("name");
+      $discipline->ementa = Input::get("ementa");
+      $discipline->save();
+      return Redirect::back()->with("success", "Disciplina editada com sucesso!");
+    }
   }
 
   /**
@@ -120,20 +128,20 @@ class DisciplinesController extends \BaseController {
     if(Input::get("course")) {
       $disciplines = DB::select("SELECT Disciplines.id AS id, Disciplines.name AS name, Periods.name AS period FROM Disciplines, Periods WHERE idPeriod = Periods.id AND idCourse = ? AND Disciplines.status = 'E'", [Crypt::decrypt(Input::get("course"))]);
       return View::make("social.disciplines.list", [ "disciplines" => $disciplines ]);
-    }  
+    }
   }
-  
+
   public function getEmenta() {
-      
+
       $discipline = Discipline::find(Crypt::decrypt(Input::get("offer")));
-      
-//      
+
+//
 //      if(!$ementa) {
 //        $ementa = "false";
 //      }
-     
-      return $discipline; 
-   
+
+      return $discipline;
+
   }
 
 }

@@ -49,7 +49,7 @@ class AvaliableController extends \BaseController {
     }
     $exam->date = Input::get("date-year") . "-" . Input::get("date-month") . "-" . Input::get("date-day");
     $exam->title = Input::get("title");
-//    $exam->weight = Input::get("weight");
+    //  $exam->weight = Input::get("weight");
     if (Input::get("weight") != "") $exam->weight = Input::get("weight");
     $exam->type = Input::get("type");
     $exam->comments = Input::get("comment");
@@ -80,16 +80,16 @@ class AvaliableController extends \BaseController {
     $exam->aval = "A";
     $exam->weight = "1";
     $exam->type = 2;
-//  $exam->save();
-//
-//  $attends = Attend::where("idUnit", $unit->id)->get();
-//  foreach( $attends as $attend ) {
-//    $frequency = new Frequency;
-//    $frequency->idAttend = $attend->id;
-//    $frequency->idLesson = $lesson->id;
-//    $frequency->value = "P";
-//    $frequency->save();
-//  }
+   //  $exam->save();
+    //
+   //  $attends = Attend::where("idUnit", $unit->id)->get();
+   //  foreach( $attends as $attend ) {
+   //    $frequency = new Frequency;
+   //    $frequency->idAttend = $attend->id;
+   //    $frequency->idLesson = $lesson->id;
+   //    $frequency->value = "P";
+   //    $frequency->save();
+   //  }
     return View::make("modules.avaliable", ["user" => $user, "exam" => $exam, "students" => [], "unit" => $unit]);
 //  return Redirect::to("/avaliable?e=" . Crypt::encrypt($exam->id))->with("message", "Click em salvar para criar .");;
   }
@@ -208,6 +208,10 @@ class AvaliableController extends \BaseController {
   {
     $user = User::find($this->idUser);
     $offer = Offer::find(Crypt::decrypt($offer));
+
+    /* caso não tenha data marcada, coloque a data de hoje */
+    if( strtotime($offer->dateFinal) < 0 ) $offer->dateFinal = date("Y-m-d");
+
     if (!Lecture::where("idUser", $user->id)->where("idOffer", $offer->id)->first()) {
       return Redirect::to("/logout");
     }
@@ -278,15 +282,15 @@ class AvaliableController extends \BaseController {
     return View::make("modules.liststudentsexam", ["user" => $user, "exam" => $exam, "students" => $students]);
     return Crypt::decrypt($exam);
   }
-  
+
   public function postDelete() {
     $exam = Exam::find(Crypt::decrypt(Input::get("input-trash")));
-    
+
     $unit = DB::select("SELECT Units.id, Units.status
                           FROM Units, Exams
                           WHERE Units.id = Exams.idUnit AND
                             Exams.id=?", [$exam->id]);
-    
+
     if($unit[0]->status == 'D') {
       return Redirect::guest("/lectures/units?u=".Crypt::encrypt($unit[0]->id))->with("error", "Não foi possível deletar.<br>Unidade desabilitada.");
     }
@@ -299,5 +303,5 @@ class AvaliableController extends \BaseController {
       return Redirect::guest("/lectures/units?u=".Crypt::encrypt($unit[0]->id))->with("error", "Não foi possível deletar");
     }
   }
-  
+
 }

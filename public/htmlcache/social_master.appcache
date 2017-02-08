@@ -1,0 +1,11 @@
+CACHE MANIFEST
+
+/css/bootstrap.min.css
+/css/fa/css/font-awesome.min.css
+/js/jquery.min.js
+/js/bootstrap.min.js
+/js/validations/jquery.validate.min.js
+/js/validations/additional-methods.min.js
+
+NETWORK:
+*

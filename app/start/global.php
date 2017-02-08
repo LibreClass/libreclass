@@ -14,9 +14,12 @@
 ClassLoader::addDirectories(array(
 
 	app_path().'/commands',
+	app_path().'/controllers/student',
 	app_path().'/controllers',
 	app_path().'/models',
 	app_path().'/database/seeds',
+
+  app_path().'/classes',
 
 ));
 
@@ -47,7 +50,7 @@ Log::useFiles(storage_path().'/logs/laravel-'. date('Y-m-d') .'.log');
 */
 
 App::error(function(Exception $exception, $code)
-{                     
+{
   Log::error($exception);
   if(!Config::get('app.debug')) {
     //return Redirect::to("/");
@@ -70,7 +73,7 @@ App::error(function(Exception $exception, $code)
 
 App::down(function()
 {
-	return Response::make("Be right back!", 503);
+	return Response::make("Desculpe. Estamos em manutenção. Voltaremos dentro de alguns minutos.!", 503);
 });
 
 /*

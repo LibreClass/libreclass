@@ -18,7 +18,7 @@ class LecturesController extends \BaseController {
   {
     if ($this->idUser) {
       $user = User::find($this->idUser);
-      $lectures = Lecture::where("idUser", $this->idUser)->get();
+      $lectures = Lecture::where("idUser", $this->idUser)->orderBy("order")->get();
       return View::make("offers.teacher", ["user" => $user, "lectures" => $lectures]);
     } else {
       return Redirect::guest("/");
@@ -47,7 +47,13 @@ class LecturesController extends \BaseController {
       $sum = 0.;
       foreach( $units as $unit ) {
         $exam = $unit->getAverage($aluno->id);
-        $aluno->averages[$unit->value] =  $exam[0] < $course->average ? $exam[1] : $exam[0];
+
+        if ($exam[1] !== null) {
+          $aluno->averages[$unit->value] = $exam[0] < $course->average ? $exam[1] : $exam[0];
+        } else {
+          $aluno->averages[$unit->value] = $exam[0];
+        }
+        
         $sum += $aluno->averages[$unit->value];
       }
       $aluno->med = $sum/count($units);
@@ -98,5 +104,11 @@ class LecturesController extends \BaseController {
 
     return View::make("modules.frequency", ["user" => $user, "offer" => $offer, "units" => $units, "students" => $students]);
     return $offer;
+  }
+
+  public function postSort() {
+    foreach (Input::get("order") as $key => $value) {
+      Lecture::where('idOffer', Crypt::decrypt($value))->where('idUser', $this->idUser)->update(["order" => $key+1]);
+    }
   }
 }

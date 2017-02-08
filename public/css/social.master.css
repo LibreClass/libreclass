@@ -19,6 +19,7 @@ html, body {
 
 .content {
   color: #333;
+  margin-top:10px; 
 }
 
 textarea.form-control {
@@ -183,9 +184,44 @@ textarea.form-control {
   padding: 0px;
 }
 
+.img-icon-discipline {
+  width: 60px;
+}
+
+.icon-user-min {
+  width: 30px;
+}
+
+.list-feed {
+  padding: 0px;
+}
+
+.list-feed li:nth-child {
+  padding: 5px 15px;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+
+.progress {
+  margin:0px;
+}
+
+.feed-unit {
+  margin-top: 15px;
+}
 
 @media(max-width: 768px) {
   .btn-block-xs {
     width: 100%;
   }
+}
+
+@media (max-width: 1200px) {
+	.table-responsive {
+		width: 100%;
+		margin-bottom: 15px;
+		overflow-y: hidden;
+		-ms-overflow-style: -ms-autohiding-scrollbar;
+		border: 1px solid #ddd;
+	}
 }

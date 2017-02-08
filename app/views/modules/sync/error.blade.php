@@ -37,7 +37,7 @@
             
        
               <div class="pull-right">
-                <a class="btn btn-default" href="http://libreclass-offline.app:8080">Ir para o início</a>
+                <a class="btn btn-default" href="http://localhost:6001">Ir para o início</a>
               </div>
               
             

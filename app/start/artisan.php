@@ -12,4 +12,5 @@
 */
 
 Artisan::add(new TestCommand);
+Artisan::add(new AttestCommand);
 

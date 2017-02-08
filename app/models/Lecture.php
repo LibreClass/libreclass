@@ -10,4 +10,9 @@ class Lecture extends \Eloquent {
   public function getOffer() {
     return Offer::find($this->idOffer);
   }
+
+	public function offer() {
+    return $this->belongsTo('Offer', 'idOffer');
+  }
+
 }

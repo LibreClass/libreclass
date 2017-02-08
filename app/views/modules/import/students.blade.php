@@ -20,20 +20,20 @@
     <div id="block" class="block">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <h4 class=""><b>Passo 1/1 - Importação de Alunos</b></h4>
+          <h4 class=""><b>Passo 2/2 - Importação de Alunos</b></h4>
         </div>
         <br>
         <div class="col-md-12 col-xs-12">
           <div class="progress">
-            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
-              <span>50%</span>
+            <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 70%;">
+              <span>70%</span>
             </div>
           </div>
           <div class="text-center spinupload visible-none">
             <span>Esse processo pode ser demorado. Aguarde alguns minutos.</span>
             <i class="text-info fa fa-2x fa-spinner fa-spin"></i>
-          </div>  
-          
+          </div>
+
         </div>
 
       </div>
@@ -66,10 +66,10 @@
               <a href="/import" class="btn btn-danger">Cancelar</a>
               <a href="/import/confirmattends" class="btn btn-primary btn-upload">Confirmar</a>
             </div>
-            
+
             <div class="text-center spinupload visible-none">
               <i class="text-info fa fa-2x fa-spinner fa-spin"></i>
-            </div> 
+            </div>
           </div>
         </div>
 

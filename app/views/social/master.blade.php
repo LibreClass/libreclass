@@ -12,23 +12,20 @@
 
   {{ HTML::style('css/bootstrap.min.css') }}
   {{ HTML::style('css/social.master.css') }}
-  {{ HTML::style('css/jquery-ui-1.9.2.custom.css') }}
+  {{-- HTML::style('css/jquery-ui-1.9.2.custom.css') --}}
   {{ HTML::style('css/icon-education.css') }}
   {{ HTML::style('css/fa/css/font-awesome.min.css') }}
-  {{-- HTML::style('css/bootstrapValidator.min.css') --}}
   {{ HTML::style('css/validation.css') }}
 
 
   @section('css')
   @show
-
   <!-- Scripts are placed here -->
   {{ HTML::script('js/jquery.min.js') }}
   {{ HTML::script('js/bootstrap.min.js') }}
   {{-- HTML::script('js/bootstrapValidator.js') --}}
-  {{-- HTML::script('js/language/br.js') --}}
-  {{ HTML::script('js/validations/additional-methods.min.js') }}
   {{ HTML::script('js/validations/jquery.validate.min.js') }}
+  {{ HTML::script('js/validations/additional-methods.min.js') }}
 
   @section('js')
   @show
@@ -54,6 +51,7 @@
           <li><a href="{{ URL::to('') }}"><i class="fa fa-home fa-lg"></i> Home</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
+<!--          <li><a><i class="glyphicon glyphicon-th fa-lg"></i></a></li>-->
           <li><a href="{{"/config"}}"><i class="fa fa-user fa-lg"></i> Perfil</a></li>
           <li><a href="{{"/logout"}}"><i class="fa fa-sign-out fa-lg"></i> Sair</a></li>
         </ul>
@@ -93,7 +91,7 @@
           </footer>
           
         </div>
-        <div class="col-md-10 col-md-offset-2 col-xs-11 col-xs-offset-1 col-sm-9 col-md-offset-3 content">
+        <div class="col-md-10 col-md-offset-2 col-xs-11 col-xs-offset-1 col-sm-9 col-sm-offset-3 content">
 
           @section('body')
           @show
@@ -109,6 +107,7 @@
   </div>
 
 
+  @include('messages.alert')
   @include('messages.confirm')
   @include('messages.error')
   @include('messages.success')

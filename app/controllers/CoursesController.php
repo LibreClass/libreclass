@@ -32,6 +32,18 @@ class CoursesController extends \BaseController {
       return Redirect::guest("/");
     }
   }
+  
+  public function postAllCourses() {
+    if ($this->idUser) {
+      $courses = Course::where("idInstitution", $this->idUser)->whereStatus("E")->orderBy("name")->get();
+      
+      foreach($courses as $course)
+      {                                         
+        $course->id = Crypt::encrypt($course->id);
+      }                         
+      return $courses;                                                                                                              ;
+    }  
+  }
 
   public function postSave()
   {
@@ -51,10 +63,23 @@ class CoursesController extends \BaseController {
 
     $course->idInstitution = $this->idUser;
     $course->name          = Input::get("name");
+    $course->type          = Input::get("type");
+    $course->modality      = Input::get("modality");
     $course->absentPercent = Input::get("absentPercent");
     $course->average       = Input::get("average");
     $course->averageFinal  = Input::get("averageFinal");
+    
     $course->save();
+    
+    if (Input::hasFile("curricularProfile") &&
+        Input::file("curricularProfile")->getClientOriginalExtension() === "pdf") {
+      $name = md5($course->id) . ".pdf";
+      Input::file("curricularProfile")->move(public_path() . "/uploads/curricularProfile/", $name);
+      $course->curricularProfile = $name;
+      $course->save();
+    } else {
+      return Redirect::guest("/courses")->with("error", "Problema ao realizar upload de arquivo");
+    }
     
     // Este return é realizado ao inserir novo curso ou editar um curso existente
     return Redirect::guest("/courses")->with("success", "Curso $course->name criado com sucesso!");

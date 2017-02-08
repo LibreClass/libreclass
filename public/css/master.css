@@ -36,6 +36,10 @@ h1, h2, h3, h4, h5 {
     margin: 5px 0px !important;
 }
 
+.bold {
+  font-weight: bold;
+}
+
 .logo {
     width: 250px;
 }
@@ -85,7 +89,33 @@ h1, h2, h3, h4, h5 {
 }
 
 .text-sm {
-  font-size: 8pt;
+  font-size: 10pt;
+}
+
+.panel-notification {
+  border:none;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px rgba(0,0,0,.6);
+}
+
+.notification-lesson {
+  border-left: 8px solid #006db0;
+}
+
+.notification-exam {
+  border-left: 8px solid #E87E04;
+}
+
+.panel-notification .panel-body {
+  padding: 10px 15px;
+}
+
+.panel-notification .notification-header {
+  margin-bottom: 10px;
+}
+
+.panel-notification .notification-title {
+  font-size: 14pt;
 }
 
 .badge-danger {
@@ -188,7 +218,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .btn-fx-300 {
-   width: 300px; 
+   width: 300px;
 }
 
 .btn-primary {
@@ -216,13 +246,13 @@ h1, h2, h3, h4, h5 {
 }
 
 .input-1x {
-  
+
   width: 200px;
 }
 
 .input-border-none {
   box-shadow:none;
- -webkit-box-shadow:none; 
+ -webkit-box-shadow:none;
   border:none;
   padding: 0px;
   height: 20px;
@@ -231,12 +261,12 @@ h1, h2, h3, h4, h5 {
 
 .input-border-none:focus {
   box-shadow:none;
- -webkit-box-shadow:none; 
+ -webkit-box-shadow:none;
   border:none;
   border-radius: 0px;
   border-bottom: 1px solid #006db0;
   padding: 0px;
-  height: 20px;  
+  height: 20px;
 }
 
 .input-border-bottom {
@@ -250,6 +280,10 @@ h1, h2, h3, h4, h5 {
   height: 20px;
 }
 
+.model {
+  display: none !important;
+}
+
 @media(min-width:768px) and (max-width: 991px) {
   .w60 {
     width: 80%;
@@ -260,17 +294,17 @@ h1, h2, h3, h4, h5 {
 @media(max-width: 767px) {
     .w100 {
         width: 100%;
-    } 
-    
+    }
+
     .w60, .w40 {
         width: 100%;
     }
-    
+
     .h-md {
-        
+
     }
-    
+
     .btn-fx-300 {
-        width: 100%; 
+        width: 100%;
     }
 }
