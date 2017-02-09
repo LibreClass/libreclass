@@ -21,24 +21,9 @@ Habilite os módulos necessários:
     $ php5enmod mcrypt
     $ service apache2 restart
 
-Instale o composer:
+#### Configuração do arquivo `.env.php`
 
-    $ php -r "readfile('https://getcomposer.org/installer');" | php
-    $ cp composer.phar /bin/composer
-
-Execute o composer na raiz do projeto:
-
-    $ composer install
-
-Após isto, prepare o banco de dados de acordo com a estrutura fornecida no diretório doc. Você poderá executar o projeto localmente através do comando:
-
-    $ php artisan serve
-
-Defina corretamente as permissões de arquivos, especialmente para diretório storage no projeto.
-
-## Configuração
-
-É necessário criar o arquivo `.env.php` de acordo com o arquivo `.env.php.example`, na raiz do projeto, com as informações para conexão ao banco de dados MySQL e configurações para envio de email. Exemplo:
+É necessário criar o arquivo `.env.php` de acordo com o arquivo `.env.php.example`, na raiz do projeto, com as informações para conexão ao banco de dados MySQL e configurações para envio de email. Este passo deve ser executado antes de instalar as dependências do projeto com o composer. Exemplo:
 
     <?php
     
@@ -61,6 +46,21 @@ Defina corretamente as permissões de arquivos, especialmente para diretório st
         'EMAIL_PASS'    => 'SECRET'
 
     );
+
+Instale o composer:
+
+    $ php -r "readfile('https://getcomposer.org/installer');" | php
+    $ cp composer.phar /bin/composer
+
+Execute o composer na raiz do projeto para instalar:
+
+    $ composer install
+
+Após isto, prepare o banco de dados de acordo com a estrutura fornecida no diretório doc. Você poderá executar o projeto localmente através do comando:
+
+    $ php artisan serve
+
+Defina corretamente as permissões de arquivos, especialmente para diretório storage no projeto.
 
 ## Contribuindo
 
