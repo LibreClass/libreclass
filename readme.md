@@ -15,6 +15,8 @@ Instale o php5, mysql, composer, etc:
     $ sudo apt-get install apache2 php5 php5-mcrypt php5-curl php5-imagick php5-mysql
     $ sudo apt-get install mysql-server
 
+Modifique o arquivo `apache2/php.ini`, na linha onde há `post_max_size` coloque o tamanho máximo de arquivo em 10M.
+
 Habilite os módulos necessários:
 
     $ a2enmod rewrite
