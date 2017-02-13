@@ -77,8 +77,11 @@ class CoursesController extends \BaseController {
       Input::file("curricularProfile")->move(public_path() . "/uploads/curricularProfile/", $name);
       $course->curricularProfile = $name;
       $course->save();
-    } else {
+    } else if (Input::hasFile("curricularProfile")) {
       return Redirect::guest("/courses")->with("error", "Problema ao realizar upload de arquivo");
+    } else {
+      $course->curricularProfile = "";
+      $course->save();
     }
     
     // Este return é realizado ao inserir novo curso ou editar um curso existente
