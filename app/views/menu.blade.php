@@ -17,9 +17,9 @@
           <li>
             <a href="#features">Funcionalidades</a>
           </li>
-          <li>
+          <!-- <li>
             <a href="#plans">Planos</a>
-          </li>
+          </li> -->
           <li>
             <div class="dropdown text-left text-sm">
               <a class="dropdown-toggle click" id="dropdownDownload" data-toggle="dropdown" aria-expanded="true">

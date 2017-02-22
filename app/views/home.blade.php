@@ -13,7 +13,7 @@
 </div>
 @include("midia")
 @include("features")
-@include("plans")
+<!-- @include("plans") -->
 @include("footer")
 
 @stop
