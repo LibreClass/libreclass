@@ -2,6 +2,7 @@
 
 class Unit extends \Eloquent {
   protected $table = "Units";
+  protected $fillable = ['idOffer'];
 
   public function offer() {
     return $this->belongsTo('Offer', 'idOffer');

@@ -2,6 +2,7 @@
 
 class Attend extends \Eloquent {
   protected $table = "Attends";
+  protected $fillable = ['idUser', 'idUnit'];
 
   public function getUser() {
     return User::find($this->idUser);

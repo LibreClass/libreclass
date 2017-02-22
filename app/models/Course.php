@@ -2,6 +2,7 @@
 
 class Course extends \Eloquent {
   protected $table = 'Courses';
+  protected $fillable = ['name', 'idInstitution'];
 
   public function institution() {
     return $this->belongsTo('User', 'idInstitution');

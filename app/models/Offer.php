@@ -2,6 +2,7 @@
 
 class Offer extends \Eloquent {
   protected $table = "Offers";
+  protected $fillable = ['idClass', 'idDiscipline', 'classroom', 'day_period'];
 
   public function discipline() {
     return $this->belongsTo('Discipline', 'idDiscipline');

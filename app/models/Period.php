@@ -2,6 +2,7 @@
 
 class Period extends \Eloquent {
   protected $table = 'Periods';
+  protected $fillable = ['name', 'idCourse'];
 
   public function course() {
     return $this->belongsTo('Course', 'idCourse');
