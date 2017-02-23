@@ -63,7 +63,7 @@
                 @foreach($relationships as $relationship)
                   <tr>
                     <td><a href='{{ URL::to("user/profile-student?u=".Crypt::encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
-                    <td>{{ $relationship->name }}</td>
+                    <td><a href='{{ URL::to("user/profile-student?u=".Crypt::encrypt($relationship->id)) }}'>{{ $relationship->name }}</a></td>
                     <td class="text-right">
                       <!--<i class="fa fa-pencil icon-default"></i> <i class="fa fa-trash icon-default"></i>-->
                     </td>
@@ -104,7 +104,7 @@
         </div>
       </div>
     </div>
-    
+
     <div id="block-add" class="block visible-none">
       <div class="row">
         <div class="col-md-6 col-xs-6">
@@ -149,9 +149,9 @@
               {{ Form::label("course", "Curso") }}
               {{ Form::select("course", $courses, null, ["class" => "form-control"]) }}
             </div>
-          
+
           	<div class="row">
-          		<div class="col-xs-6"> 
+          		<div class="col-xs-6">
             {{ Form::submit("Confirmar", ["class" => "btn btn-primary"]) }}
 							</div>
 							<div class="col-xs-6 text-right">
@@ -159,16 +159,16 @@
 							</div>
 						</div>
           {{ Form::close() }}
-							
+
           </div>
-          
+
           <div class="block-search-student">
             {{ Form::open(["id" => "search-student"]) }}
               {{ Form::label("search", "*Nome ou email") }}
               <span class="help-block">Localize um aluno já existente na base de dados do Libreclass</span>
               <div class="row">
                 <div class="col-md-10">
-                  <div class="form-group">      
+                  <div class="form-group">
                     {{ Form::text("search", null, ["class" => "form-control", "required", "autocomplete" => "off"]) }}
                   </div>
                 </div>
@@ -179,13 +179,13 @@
 
             {{ Form::close() }}
             <div class="text-center new-student">
-              <span class="text-primary click">Não encontrei, desejo adicionar um novo aluno</span>  
+              <span class="text-primary click">Não encontrei, desejo adicionar um novo aluno</span>
             </div>
-          <ul class="list-unstyled result list-user" t="student"></ul>
+          <ul class="list-unstyled result list-user" t="student" id="result-search-student"></ul>
           </div>
-          
-            
-          
+
+
+
 
         </div>
       </div>
