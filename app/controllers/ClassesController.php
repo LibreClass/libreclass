@@ -64,7 +64,12 @@ class ClassesController extends \BaseController {
 
   public function postListdisciplines()
   {
-    $disciplines = Discipline::where("idPeriod", Crypt::decrypt(Input::get("period")))->whereStatus('E')->get();
+		if(Input::has("flag")) {
+			$disciplines = Discipline::where("idPeriod", Crypt::decrypt(Input::get("period")))->whereStatus('E')->get();
+		}
+		else {
+			$disciplines = Discipline::where("idPeriod", Crypt::decrypt(Input::get("period")))->whereStatus('E')->get();
+		}
     //~ return $disciplines;
     return View::make("modules.disciplines.listOffer", [ "disciplines" => $disciplines ]);
   }
@@ -97,6 +102,7 @@ class ClassesController extends \BaseController {
   public function getInfo()
   {
     $class = Classe::find(Crypt::decrypt(Input::get("classe")));
+    $class->idPeriodCrypt = Crypt::encrypt($class->idPeriod);
     $class->course = Course::find(Period::find($class->idPeriod)->idCourse);
 
     return $class;
