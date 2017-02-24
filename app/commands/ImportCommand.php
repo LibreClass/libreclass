@@ -41,6 +41,8 @@ class ImportCommand extends Command {
 		'EMEF JAMES JOHNSON.csv', 'EMEF MIGUEL COUTO.csv', 'EMEF OSVALDO CRUZ.csv', 'EMEI THEREZA FRANCESCHI.csv'];
 		// $csv = utf8_encode(file_get_contents("EMEI RECANTO DO SABER.csv"));
 
+		// $files = ['EMEI RECANTO DO SABER.csv', 'EMEI THEREZA FRANCESCHI.csv'];
+		$files = ['EMEF OSVALDO CRUZ.csv'];
 		foreach ($files as $file) {
 			var_dump($file);
 			$csv = utf8_encode(file_get_contents($file));
@@ -83,11 +85,9 @@ class ImportCommand extends Command {
 							$day_period = 'M';
 							break;
 						case 'TARDE':
-						case 'Tarde':
 							$day_period = 'V';
 							break;
 						case 'NOITE':
-						case 'Noite':
 							$day_period = 'N';
 							break;
 						default:
@@ -117,6 +117,8 @@ class ImportCommand extends Command {
 					if (strlen($cols[1])){
 						if(!$professor = User::where('name', $cols[1])->whereIn('type', ['P', 'M'])->first()){
 							$professor = User::create(['name'=>$cols[1], 'type'=>'M', 'cadastre'=>'N']);
+						}
+						if(!Relationship::where('idUser', $institution->id)->where('idFriend', $professor->id)->count()){
 							Relationship::create(['idUser'=>$institution->id, 'idFriend'=>$professor->id, 'type'=>'2']);
 						}
 					}
