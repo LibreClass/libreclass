@@ -41,8 +41,7 @@ class ImportCommand extends Command {
 		'EMEF JAMES JOHNSON.csv', 'EMEF MIGUEL COUTO.csv', 'EMEF OSVALDO CRUZ.csv', 'EMEI THEREZA FRANCESCHI.csv'];
 		// $csv = utf8_encode(file_get_contents("EMEI RECANTO DO SABER.csv"));
 
-		// $files = ['EMEI RECANTO DO SABER.csv', 'EMEI THEREZA FRANCESCHI.csv'];
-		$files = ['EMEF OSVALDO CRUZ.csv'];
+		$files = ['EMEF OSVALDO CRUZ.csv', 'APAE - ESCOLA REVIVER.csv'];
 		foreach ($files as $file) {
 			var_dump($file);
 			$csv = utf8_encode(file_get_contents($file));
