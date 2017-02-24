@@ -154,9 +154,9 @@
           		<div class="col-xs-6"> 
             {{ Form::submit("Confirmar", ["class" => "btn btn-primary"]) }}
 							</div>
-							<div class="col-xs-6 text-right">
+							<!-- <div class="col-xs-6 text-right">
 								<a href="" class="add-censo">Adicionar informações do censo escolar</a>
-							</div>
+							</div> -->
 						</div>
           {{ Form::close() }}
 							
