@@ -27,7 +27,8 @@ $(function() {
       $("#formEditClass input[name='class']").val(data.name);
 
 			$("#modalEditClass .EditClass-list-disciplines").load("classes/listdisciplines", {
-	      "period": data.idPeriodCrypt,
+	      "period_id": data.idPeriodCrypt,
+		  "classe_id": classe,
 	      "flag": 1
 	    }, function(){
 	    });
