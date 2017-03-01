@@ -37,7 +37,7 @@
 
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="btn-group">
+        <!-- <div class="btn-group">
           <button class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Ações
             <span class="caret"></span>
           </button>
@@ -45,7 +45,7 @@
             <li><a href="#">Atestados</a></li>
             <li><a href="#" class="student-history">Histórico</a></li>
           </ul>
-        </div>
+        </div> -->
         <button class="btn btn-default" id="btnLinkStudent" data="{{ Crypt::encrypt($profile->id) }}"><i class="icon-classes fa-fw"></i> Vincular turma</button>
         <button class="btn btn-default" id="btnCertificate" data="{{ Crypt::encrypt($profile->id) }}"><i class="fa fa-file-o fa-fw"></i> Atestado</button>
         @if($profile->type == "N")
