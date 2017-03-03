@@ -9,10 +9,9 @@ $(function (){
     $(".block-search-student").hide();
     $(".block-new-student").show();
   });
-  
+
   $("#search-student").submit(function(){
-    alert();
-    $(this).nextAll(".result").load("/user/find-user/"+encodeURI($(this).find("input:text").val()),
+    $('#result-search-student').load("/user/find-user/"+encodeURI($(this).find("input:text").val()),
     link).show();
     return false;
   });
@@ -73,14 +72,14 @@ $(function (){
      });
     });
   }).change();
-	
+
 	$(".add-censo").click(function() {
 //		alert($("input[name='enrollment']").);
 //		alert($("input[name='enrollment']").val());
-//		
+//
 		location.href = "/censo/student";
 		if($("input[name='enrollment']").val() && $("input[name='name']").val()) {
-	
+
 			$.confirm("Clique em Sim para salvar o novo aluno e seguir para adicionar as informações do censo.", function() {
 				$.ajax({
 					url: location.href,
@@ -100,5 +99,5 @@ $(function (){
 		}
 		return false;
 	});
-	
+
 });

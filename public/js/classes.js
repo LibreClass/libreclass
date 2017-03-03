@@ -26,6 +26,13 @@ $(function() {
       $("#formEditClass input[name='classId']").val(classe);
       $("#formEditClass input[name='class']").val(data.name);
 
+			$("#modalEditClass .EditClass-list-disciplines").load("classes/listdisciplines", {
+	      "period_id": data.idPeriodCrypt,
+		  "classe_id": classe,
+	      "flag": 1
+	    }, function(){
+	    });
+
       $("#modalEditClass").modal();
     });
   });
@@ -200,9 +207,9 @@ $(function() {
     });
     return false;
   });
-	
+
 	/*Delelar Unidade*/
-	
+
 	$("#delete-unit").click(function() {
 		$.post("/courses/all-courses", {})
 			.done(function(data) {
