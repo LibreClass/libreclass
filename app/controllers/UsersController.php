@@ -35,61 +35,65 @@ class UsersController extends \BaseController {
   public function getTeacher()
   {
     if ($this->idUser)
+    {
+      $block = 30;
+      $search = Input::has("search") ? Input::get("search") : "";
+      $current = (int) Input::has("current") ? Input::get("current"): 0;
+      $user = User::find($this->idUser);
+      $courses = Course::where("idInstitution", $this->idUser)
+                       ->whereStatus("E")
+                       ->orderBy("name")
+                       ->get();
+      $listCourses = ["" => ""];
+      foreach ($courses as $course)
       {
-        $block = 30;
-        $search = Input::has("search") ? Input::get("search") : "";
-        $current = (int) Input::has("current") ? Input::get("current"): 0;
-        $user = User::find($this->idUser);
-        $courses = Course::where("idInstitution", $this->idUser)
-                         ->whereStatus("E")
-                         ->orderBy("name")
-                         ->get();
-        $listCourses = ["" => ""];
-        foreach ($courses as $course)
-          {
-            $listCourses[$course->name] = $course->name;
-          }
-
-        $relationships = DB::select("SELECT Users.id, Users.name, Users.enrollment, Users.type "
-                                    . "FROM Users, Relationships "
-                                    . "WHERE Relationships.idUser=? AND Relationships.type='2' AND Relationships.idFriend=Users.id "
-                                    . "AND Relationships.status='E' AND (Users.name LIKE ? OR Users.enrollment=?) "
-                                    . " ORDER BY name LIMIT ? OFFSET ?",
-                                    [$this->idUser, "%$search%", $search, $block, $current*$block ]);
-
-        $length = DB::select("SELECT count(*) as 'length' "
-                                    . "FROM Users, Relationships "
-                                    . "WHERE Relationships.idUser=? AND Relationships.type='2' AND Relationships.idFriend=Users.id "
-                                    . "AND (Users.name LIKE ? OR Users.enrollment=?) ", [$this->idUser, "%$search%", $search ]);
-
-
-        return View::make("modules.addTeachers",
-                           [
-                             "courses"       => $listCourses,
-                             "user"          => $user,
-                             "relationships" => $relationships,
-                             "length"        => (int) $length[0]->length,
-                             "block"         => (int) $block,
-                             "current"       => (int) $current
-                           ]
-                         );
-
+        $listCourses[$course->name] = $course->name;
       }
+
+      $relationships = DB::select("SELECT Users.id, Users.name, Users.enrollment, Users.type "
+                                  . "FROM Users, Relationships "
+                                  . "WHERE Relationships.idUser=? AND Relationships.type='2' AND Relationships.idFriend=Users.id "
+                                  . "AND Relationships.status='E' AND (Users.name LIKE ? OR Users.enrollment=?) "
+                                  . " ORDER BY name LIMIT ? OFFSET ?",
+                                  [$this->idUser, "%$search%", $search, $block, $current*$block ]);
+
+      $length = DB::select("SELECT count(*) as 'length' "
+                                  . "FROM Users, Relationships "
+                                  . "WHERE Relationships.idUser=? AND Relationships.type='2' AND Relationships.idFriend=Users.id "
+                                  . "AND (Users.name LIKE ? OR Users.enrollment=?) ", [$this->idUser, "%$search%", $search ]);
+
+      return View::make(
+        "modules.addTeachers",
+        [
+          "courses"       => $listCourses,
+          "user"          => $user,
+          "relationships" => $relationships,
+          "length"        => (int) $length[0]->length,
+          "block"         => (int) $block,
+          "current"       => (int) $current
+        ]
+      );
+
+    }
     else
-      {
-        return Redirect::guest("/");
-      }
+    {
+      return Redirect::guest("/");
+    }
   }
 
   public function postTeacher()
   {
     // Verifica se o número de matrícula já existe
 
-
-    if (strlen(Input::get("teacher"))) {
+    if (strlen(Input::get("teacher")))
+    {
       $user = User::find(Crypt::decrypt(Input::get("teacher")));
-      if ( $user->type == "P")
+
+      // Tipo P é professor com conta liberada. Ele mesmo deve atualizar as suas informações e não a instituição.
+      if ($user->type == "P") {
         return Redirect::guest("/user/teacher")->with("error", "Professor não pode ser editado!");
+      }
+      $user->email = Input::get("email");
       $user->enrollment = Input::get("enrollment");
       $user->name = Input::get("name");
       $user->formation = Input::get("formation");
@@ -104,20 +108,18 @@ class UsersController extends \BaseController {
       }
       $user = new User;
       $user->type = "M";
-
-
+      // $user->email = Input::get("email");
       $user->enrollment = Input::get("enrollment");
       $user->name = Input::get("name");
       $user->formation = Input::get("formation");
       $user->gender = Input::get("gender");
-
       if (Input::has("date-year")) {
         $user->birthdate = Input::get("date-year") . "-"
                          . Input::get("date-month") . "-"
                          . Input::get("date-day");
       }
-
       $user->save();
+
       $relationship = new Relationship;
       $relationship->idUser   = $this->idUser;
       $relationship->idFriend = $user->id;
@@ -125,9 +127,10 @@ class UsersController extends \BaseController {
       $relationship->type     = "2";
       $relationship->save();
 
-    return Redirect::guest("/user/teacher")->with("success", "Professor cadastrado com sucesso!");
-    }
+      $this->postInvite($user->id);
 
+      return Redirect::guest("/user/teacher")->with("success", "Professor cadastrado com sucesso!");
+    }
   }
 
   public function getProfileStudent()
@@ -305,11 +308,13 @@ class UsersController extends \BaseController {
     }
   }
 
-  public function postInvite()
+  public function postInvite($id = null)
   {
     $user = User::find($this->idUser);
-
-    $guest = User::find(Crypt::decrypt( Input::has("teacher") ? Input::get("teacher") : Input::get("guest")));
+    if ($id)
+      $guest = User::find($id);
+    else
+      $guest = User::find(Crypt::decrypt( Input::has("teacher") ? Input::get("teacher") : Input::get("guest")));
 
     if (($guest->type == "M" or $guest->type == "N") and Relationship::where("idUser", $this->idUser)->where("idFriend", $guest->id)->first()) {
       if (User::whereEmail(Input::get("email"))->first()) {
@@ -320,11 +325,13 @@ class UsersController extends \BaseController {
         $guest->email = Input::get("email");
         $password = substr(md5(microtime()),1,rand(4,7));
         $guest->password = Hash::make($password);
-
-        Mail::send('email.invite', ["institution" => $user->name, "name" => $guest->name, "email" => $guest->email, "password" => $password], function($message)
+        Mail::send('email.invite', [
+          "institution" => $user->name,
+          "name" => $guest->name,
+          "email" => $guest->email,
+          "password" => $password
+        ], function($message) use ($guest)
         {
-
-          $guest = User::find(Crypt::decrypt( Input::has("teacher") ? Input::get("teacher") : Input::get("guest")));
           $message->to( Input::get("email"), $guest->name )
                   ->subject("Seja bem-vindo");
         });
@@ -333,7 +340,7 @@ class UsersController extends \BaseController {
       }
       catch (Exception $e)
       {
-        return Redirect::back()->with("error", "Erro ao realizar a operação, tente mais tarde");
+        return Redirect::back()->with("error", "Erro ao realizar a operação, tente mais tarde (" . $e->getMessage() .") id: " . $id . ", email: " . Input::get("email"));
       }
     }
     else {
