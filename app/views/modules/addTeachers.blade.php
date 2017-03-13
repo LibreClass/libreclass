@@ -18,7 +18,7 @@
 <div class="row">
   <div class="col-md-8 col-xs-12 col-sm-12">
     <div id="block">
-      
+
       <div class="block">
 
         <div class="row">
@@ -46,7 +46,7 @@
             </div>
             {{ Form::close() }}
           </div>
-            
+
         <div class="col-md-12  table-responsive">
           @if(count($relationships) == 0)
              <h4 class="text-center">Não há professores cadastrados</h4>
@@ -60,6 +60,7 @@
                   </tr>
                 </thead>
                 <tbody>
+
                 @foreach($relationships as $relationship)
                   <tr>
                     <td> <a href='{{ URL::to("user/profile-teacher?u=".Crypt::encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
@@ -113,7 +114,7 @@
         </div>
       </div>
     </div>
-  </div>        
+  </div>
 </div>
 
 <div class="modal fade visible-none" id="invite-teacher-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -137,10 +138,10 @@
       {{ Form::close()}}
     </div>
   </div>
-</div>  
-  
-@include("modules.addTeachersModal")  
-  
+</div>
+
+@include("modules.addTeachersModal")
+
 <div class="visible-none">
 {{ Form::open(["id" => "delete-discipline", "url" => url("/disciplines/delete")]) }}
   {{ Form::hidden("discipline", null) }}
