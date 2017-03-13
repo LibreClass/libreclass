@@ -78,4 +78,33 @@ $(function() {
     location.reload();
   });
 
+  var timeout = null;
+  $("#modalAddTeacher .spinner").hide();
+  $("#modalAddTeacher .teacher-registered").hide();
+
+  $("#modalAddTeacher input[name='email']").keyup(function() {
+    $("#modalAddTeacher .spinner").show();
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      searchEmail($("#modalAddTeacher input[name='email']").val());
+    }.bind(this), 1000);
+  }.bind(this));
+
+  function searchEmail(str) {
+    $("#modalAddTeacher .spinner").hide();
+    $.post('/user/search-teacher', { str: str }, function(data) {
+      if (data.status == 1) {
+        $("#modalAddTeacher input[name='name']").val(data.teacher.name).prop('disabled', 'disabled');
+        $("#modalAddTeacher select[name='formation']").val(data.teacher.formation).prop('disabled', 'disabled');
+        $("#modalAddTeacher input[name='registered']").val('true');
+        $("#modalAddTeacher .teacher-registered").show();
+      } else if (data.status == 0) {
+        $("#modalAddTeacher input[name='name']").val('').prop('disabled', false);
+        $("#modalAddTeacher select[name='formation']").val('').prop('disabled', false);
+        $("#modalAddTeacher input[name='registered']").val('');
+        ("#modalAddTeacher .teacher-registered").hide();
+      }
+    });
+  }
+
 });

@@ -15,6 +15,25 @@ class UsersController extends \BaseController {
     }
   }
 
+  public function postSearchTeacher() {
+    $teacher = User::where('email', Input::get('str'))->first();
+    \Log::info('post search teacher', [$teacher]);
+    if ($teacher) {
+      return Response::json([
+        'status' => 1,
+        'teacher' => [
+          'enrollment' => $teacher->enrollment,
+          'name' => $teacher->name,
+          'formation' => $teacher->formation
+        ]
+      ]);
+    } else {
+      return Response::json([
+        'status' => 0
+      ]);
+    }
+  }
+
   public function anyTeachersFriends()
   {
     $teachers = DB::select("SELECT Users.id, Users.name, Users.photo, Users.enrollment as 'comment'"
@@ -85,9 +104,21 @@ class UsersController extends \BaseController {
   {
     // Verifica se o número de matrícula já existe
 
-    if (strlen(Input::get("teacher")))
+    if (strlen(Input::get("teacher")) && !strlen(Input::get("registered")))
     {
       $user = User::find(Crypt::decrypt(Input::get("teacher")));
+      if (strlen(Input::get("registered"))) {
+        $relationship = Relationship::where('idUser', $this->idUser)->where('idFriend', $user->id)->first();
+        if (!$relationship) {
+          $relationship = new Relationship;
+          $relationship->idUser   = $this->idUser;
+          $relationship->idFriend = $user->id;
+          $relationship->status   = "E";
+          $relationship->type     = "2";
+          $relationship->save();
+        }
+        return Redirect::guest("/user/teacher")->with("success", "Professor cadastrado com sucesso!");
+      }
 
       // Tipo P é professor com conta liberada. Ele mesmo deve atualizar as suas informações e não a instituição.
       if ($user->type == "P") {
@@ -100,8 +131,7 @@ class UsersController extends \BaseController {
       $user->gender = Input::get("gender");
       $user->save();
       return Redirect::guest("/user/teacher")->with("success", "Professor editado com sucesso!");
-    }
-    else {
+    } else {
       $verify = User::whereEnrollment(Input::get("enrollment"))->first();
       if ( isset($verify) || $verify != null ) {
         return Redirect::guest("/user/teacher")->with("error", "Este número de inscrição já está cadastrado!");
