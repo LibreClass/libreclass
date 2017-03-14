@@ -17,7 +17,7 @@
 
 <div class="row">
   <div class="col-md-8 col-xs-12 col-sm-12">
-    
+
     <div class="block">
       <div class="row">
         <div class="col-sm-10">
@@ -28,13 +28,13 @@
         </div>
       </div>
     </div>
-    
+
     <div id="block" class="block">
-      
+
       <div class="row">
         <div class="col-xs-12">
           <h4>{{ $profile->name }}</h4><br>
-          <p><b>Matrícula: </b> {{ $profile->enrollment }}</p>
+          <!--<p><b>Matrícula: </b> {{-- $profile->enrollment --}}</p>-->
           <p><b>Email: </b> {{ $profile->email == "" ? "Email não cadastrado" : $profile->email }}</p>
           <p><b>Data de Nascimento: </b> {{ date("d/m/Y", strtotime($profile->birthdate)) }}</p>
           <p><b>Sexo: </b> {{ $profile->gender == "F" ? "Feminino" : ($profile->gender == "M" ? "Masculino" : "Sexo não informado") }}</p>
