@@ -96,11 +96,13 @@ $(function() {
       if (data.status == 1) {
         $("#modalAddTeacher input[name='name']").val(data.teacher.name).prop('disabled', 'disabled');
         $("#modalAddTeacher select[name='formation']").val(data.teacher.formation).prop('disabled', 'disabled');
+        $("#modalAddTeacher input[name='teacher']").val(data.teacher.id);
         $("#modalAddTeacher input[name='registered']").val('true');
         $("#modalAddTeacher .teacher-registered").show();
       } else if (data.status == 0) {
         $("#modalAddTeacher input[name='name']").val('').prop('disabled', false);
         $("#modalAddTeacher select[name='formation']").val('').prop('disabled', false);
+        $("#modalAddTeacher input[name='teacher']").val('');
         $("#modalAddTeacher input[name='registered']").val('');
         ("#modalAddTeacher .teacher-registered").hide();
       }
