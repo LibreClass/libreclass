@@ -80,7 +80,7 @@ $(function() {
 
   var timeout = null;
   $("#modalAddTeacher .spinner").hide();
-  $("#modalAddTeacher .teacher-registered").hide();
+  $("#modalAddTeacher .teacher-message").hide();
 
   $("#modalAddTeacher input[name='email']").keyup(function() {
     $("#modalAddTeacher .spinner").show();
@@ -92,19 +92,26 @@ $(function() {
 
   function searchEmail(str) {
     $("#modalAddTeacher .spinner").hide();
+    $("#modalAddTeacher .teacher-message").hide();
+    $("#modalAddTeacher button[type='submit']").prop('disabled', false);
     $.post('/user/search-teacher', { str: str }, function(data) {
       if (data.status == 1) {
         $("#modalAddTeacher input[name='name']").val(data.teacher.name).prop('disabled', 'disabled');
         $("#modalAddTeacher select[name='formation']").val(data.teacher.formation).prop('disabled', 'disabled');
         $("#modalAddTeacher input[name='teacher']").val(data.teacher.id);
         $("#modalAddTeacher input[name='registered']").val('true');
-        $("#modalAddTeacher .teacher-registered").show();
+        $("#modalAddTeacher .teacher-message b").html('<b>' + data.message + '</b>');
+        $("#modalAddTeacher .teacher-message").show();
       } else if (data.status == 0) {
         $("#modalAddTeacher input[name='name']").val('').prop('disabled', false);
         $("#modalAddTeacher select[name='formation']").val('').prop('disabled', false);
         $("#modalAddTeacher input[name='teacher']").val('');
         $("#modalAddTeacher input[name='registered']").val('');
-        ("#modalAddTeacher .teacher-registered").hide();
+        ("#modalAddTeacher .teacher-message").hide();
+      } else if (data.status == -1) {
+        $("#modalAddTeacher button[type='submit']").prop('disabled', 'disable');
+        $("#modalAddTeacher .teacher-message b").html('<b>' + data.message + '</b>');
+        $("#modalAddTeacher .teacher-message").show();
       }
     });
   }

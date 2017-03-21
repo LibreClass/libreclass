@@ -15,7 +15,7 @@
               {{ Form::label("email", "Email", ["class" => "control-label"]) }}
               <span class="help-block">Informe o email do professor. <img class="spinner" height="25" src="/images/spinner.svg" alt="spinner"></span>
               {{ Form::email("email", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
-              <span class="teacher-registered text-info"><b>Este professor já está cadastrado no LibreClass e será vinculado à sua instituição.</b></span>
+              <span class="teacher-message text-info"><b>Este professor já está cadastrado no LibreClass e será vinculado à sua instituição.</b></span>
             </div>
 
             <div class="form-group">

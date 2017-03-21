@@ -19,14 +19,23 @@ class UsersController extends \BaseController {
     $teacher = User::where('email', Input::get('str'))->first();
     \Log::info('post search teacher', [$teacher]);
     if ($teacher) {
-      return Response::json([
-        'status' => 1,
-        'teacher' => [
-          'id' => Crypt::encrypt($teacher->id),
-          'name' => $teacher->name,
-          'formation' => $teacher->formation
-        ]
-      ]);
+      $relationship = Relationship::where('idUser', $this->idUser)->where('idFriend', $teacher->id)->first();
+      if (!$relationship) {
+        return Response::json([
+          'status' => 1,
+          'teacher' => [
+            'id' => Crypt::encrypt($teacher->id),
+            'name' => $teacher->name,
+            'formation' => $teacher->formation
+          ],
+          'message' => 'Este professor já está cadastrado no LibreClass e será vinculado à sua instituição.'
+        ]);
+      } else {
+        return Response::json([
+          'status' => -1,
+          'message' => 'Este professor já está vinculado à instituição!'
+        ]);
+      }
     } else {
       return Response::json([
         'status' => 0
