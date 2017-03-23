@@ -20,33 +20,10 @@ Route::get('/ie', function(){
 
 Route::controller('/classrooms', "ClassroomController");
 
-//Route::controller('LoL', "\student\DisciplinesController");
+// Route::controller('LoL', "\student\DisciplinesController");
 Route::get('student', function() {
   return View::make("students.disciplines");
 });
-
-//---------- Teste de uso da classe FPDF extendida em Offer
-// use reports\cetep\Offer as Relatorio;
-// Route::get('pdf', function(){
-//    $fpdf = new Relatorio('L', 'cm', 'A4');
-//    $fpdf->AddPage();
-//    $fpdf->SetMargins(1, 1, 1);
-//    $fpdf->SetAutoPageBreak(TRUE, 1);
-//    $fpdf->SetAuthor('LibreClass');
-//    $fpdf->SetTitle('Diário_'.date('Y-m-d'));
-//    $fpdf->SetFont('Times', '', 8);
-//    $fpdf->campoAssinatura();
-//    $fpdf->Output('Diário_'.date('Y-m-d').'.pdf', 'I');
-//    exit;
-// });
-
-// Route::get('mail', function() {
-//   Mail::send('email.welcome', ["url" => "ola", "name" => "nome", "email" => "user@gmail.com" ], function($message)
-//   {
-//     $message->to( "user@gmail.com", "user" )->cc("user@sysvale.com")
-//             ->subject("Seja bem-vindo");
-//   });
-// });
 
 Route::controller('sync', "SyncController");
 
@@ -59,8 +36,7 @@ Route::get('help/{rota}', 'HelpController@getView');
 
 if (Session::get("user") == null) {
   Route::controller('/', 'LoginController');
-}
-else {
+} else {
   /*
    * Perfil de instituição
    */
