@@ -28,6 +28,11 @@ $(function() {
     $("#formAddTeacher input[name='name']").val("");
     $("#formAddTeacher input[name='formation']").val("");
     $("#modalAddTeacher").modal();
+    $("#modalAddTeacher input[name='email']").val('');
+    $("#modalAddTeacher input[name='enrollment']").prop('disabled', false).val('');
+    $("#modalAddTeacher input[name='name']").prop('disabled', false).val('');
+    $("#modalAddTeacher select[name='formation']").prop('disabled', false).val('');
+    $("#modalAddTeacher .teacher-message").hide();
   });
 
   $(".edit-teacher").click(function(){
@@ -94,6 +99,7 @@ $(function() {
     $("#modalAddTeacher .spinner").hide();
     $("#modalAddTeacher .teacher-message").hide();
     $("#modalAddTeacher button[type='submit']").prop('disabled', false);
+    $("#modalAddTeacher input[name='enrollment']").prop('disabled', false);
     $.post('/user/search-teacher', { str: str }, function(data) {
       if (data.status == 1) {
         $("#modalAddTeacher input[name='name']").val(data.teacher.name).prop('disabled', 'disabled');
@@ -106,8 +112,11 @@ $(function() {
         $("#modalAddTeacher select[name='formation']").val('').prop('disabled', false);
         $("#modalAddTeacher input[name='teacher']").val('');
         $("#modalAddTeacher input[name='registered']").val('');
-        ("#modalAddTeacher .teacher-message").hide();
+        $("#modalAddTeacher .teacher-message").hide();
       } else if (data.status == -1) {
+        $("#modalAddTeacher input[name='enrollment']").val(data.teacher.enrollment).prop('disabled', 'disabled');
+        $("#modalAddTeacher input[name='name']").val(data.teacher.name).prop('disabled', 'disabled');
+        $("#modalAddTeacher select[name='formation']").val(data.teacher.formation).prop('disabled', 'disabled');
         $("#modalAddTeacher button[type='submit']").prop('disabled', 'disable');
         $("#modalAddTeacher .teacher-message").html('<b>' + data.message + '</b>').show();
       }
