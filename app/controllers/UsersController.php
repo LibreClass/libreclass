@@ -339,6 +339,8 @@ class UsersController extends \BaseController {
     $profile = Crypt::decrypt(Input::get("u"));
     if ( $profile ) {
       $profile = User::find($profile);
+      $relationship = Relationship::where('idUser', $this->idUser)->where('idFriend', $profile->id)->first();
+      $profile->enrollment = $relationship->enrollment;
       switch ($profile->formation) {
         case '0': $profile->formation = "Não quero informar"; break;
         case '1': $profile->formation = "Ensino Fundamental"; break;
