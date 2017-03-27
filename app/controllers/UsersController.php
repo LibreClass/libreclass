@@ -33,6 +33,12 @@ class UsersController extends \BaseController {
       } else {
         return Response::json([
           'status' => -1,
+          'teacher' => [
+            'id' => Crypt::encrypt($teacher->id),
+            'name' => $teacher->name,
+            'formation' => $teacher->formation,
+            'enrollment' => $relationship->enrollment
+          ],
           'message' => 'Este professor já está vinculado à instituição!'
         ]);
       }
