@@ -287,6 +287,7 @@ DROP TABLE IF EXISTS `Relationships`;
 CREATE TABLE `Relationships` (
   `idUser` int(11) unsigned NOT NULL COMMENT 'Id do usuário',
   `idFriend` int(11) unsigned NOT NULL COMMENT 'Id do amigo do usuário',
+  `enrollment` varchar(50) DEFAULT NULL COMMENT 'Matricula ',
   `status` char(1) NOT NULL DEFAULT 'E' COMMENT 'Relacionamento ativo ou inativo',
   `type` char(1) DEFAULT NULL COMMENT 'F-friends;P-parents;S-subscribe; 1-instituição->aluno; 2-instituição->professor; 3-professor->aluno',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -365,4 +366,4 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2016-10-20 03:02:53
+-- 2017-03-14 13:01:44

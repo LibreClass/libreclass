@@ -28,6 +28,11 @@ $(function() {
     $("#formAddTeacher input[name='name']").val("");
     $("#formAddTeacher input[name='formation']").val("");
     $("#modalAddTeacher").modal();
+    $("#modalAddTeacher input[name='email']").val('');
+    $("#modalAddTeacher input[name='enrollment']").prop('disabled', false).val('');
+    $("#modalAddTeacher input[name='name']").prop('disabled', false).val('');
+    $("#modalAddTeacher select[name='formation']").prop('disabled', false).val('');
+    $("#modalAddTeacher .teacher-message").hide();
   });
 
   $(".edit-teacher").click(function(){
@@ -77,5 +82,45 @@ $(function() {
   $("#modalAddTeacherDiscipline").on("hide.bs.modal", function(){
     location.reload();
   });
+
+  var timeout = null;
+  $("#modalAddTeacher .spinner").hide();
+  $("#modalAddTeacher .teacher-message").hide();
+
+  $("#modalAddTeacher input[name='email']").keyup(function() {
+    $("#modalAddTeacher .spinner").show();
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      searchEmail($("#modalAddTeacher input[name='email']").val());
+    }.bind(this), 1000);
+  }.bind(this));
+
+  function searchEmail(str) {
+    $("#modalAddTeacher .spinner").hide();
+    $("#modalAddTeacher .teacher-message").hide();
+    $("#modalAddTeacher button[type='submit']").prop('disabled', false);
+    $("#modalAddTeacher input[name='enrollment']").prop('disabled', false);
+    $.post('/user/search-teacher', { str: str }, function(data) {
+      if (data.status == 1) {
+        $("#modalAddTeacher input[name='name']").val(data.teacher.name).prop('disabled', 'disabled');
+        $("#modalAddTeacher select[name='formation']").val(data.teacher.formation).prop('disabled', 'disabled');
+        $("#modalAddTeacher input[name='teacher']").val(data.teacher.id);
+        $("#modalAddTeacher input[name='registered']").val('true');
+        $("#modalAddTeacher .teacher-message").html('<b>' + data.message + '</b>').show();
+      } else if (data.status == 0) {
+        $("#modalAddTeacher input[name='name']").val('').prop('disabled', false);
+        $("#modalAddTeacher select[name='formation']").val('').prop('disabled', false);
+        $("#modalAddTeacher input[name='teacher']").val('');
+        $("#modalAddTeacher input[name='registered']").val('');
+        $("#modalAddTeacher .teacher-message").hide();
+      } else if (data.status == -1) {
+        $("#modalAddTeacher input[name='enrollment']").val(data.teacher.enrollment).prop('disabled', 'disabled');
+        $("#modalAddTeacher input[name='name']").val(data.teacher.name).prop('disabled', 'disabled');
+        $("#modalAddTeacher select[name='formation']").val(data.teacher.formation).prop('disabled', 'disabled');
+        $("#modalAddTeacher button[type='submit']").prop('disabled', 'disable');
+        $("#modalAddTeacher .teacher-message").html('<b>' + data.message + '</b>').show();
+      }
+    });
+  }
 
 });

@@ -5,20 +5,20 @@
 }
 
 .disable{
-  
+
 }
 
 .form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
   cursor: not-allowed;
-  background-color: #fff;
+  background-color: #bbb;
   opacity: 1;
-  
+
 /*  do mesmo jeito;*/
 }
 /* stop the glowing blue shadow */
 .form-inside .form-control, .form-inside .form-control:focus {
   box-shadow:none;
- -webkit-box-shadow:none; 
+ -webkit-box-shadow:none;
   border:none;
 }
 
@@ -34,7 +34,7 @@
   border-radius: 4px;
   padding: 2px;
   display: inline-block;
-  
+
 }
 
 .form-inside-icon {
@@ -114,7 +114,7 @@
   margin: 5px 0px;
   border-radius: 10px;
   border: 3px dotted #308dd0;
-  
+
 }
 
 .sortFocus {
@@ -188,7 +188,7 @@
 }
 
 .avatar-small {
-  
+
 }
 
 .mr {

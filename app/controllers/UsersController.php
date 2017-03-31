@@ -15,9 +15,43 @@ class UsersController extends \BaseController {
     }
   }
 
+  public function postSearchTeacher() {
+    $teacher = User::where('email', Input::get('str'))->first();
+    \Log::info('post search teacher', [$teacher]);
+    if ($teacher) {
+      $relationship = Relationship::where('idUser', $this->idUser)->where('idFriend', $teacher->id)->first();
+      if (!$relationship) {
+        return Response::json([
+          'status' => 1,
+          'teacher' => [
+            'id' => Crypt::encrypt($teacher->id),
+            'name' => $teacher->name,
+            'formation' => $teacher->formation
+          ],
+          'message' => 'Este professor já está cadastrado no LibreClass e será vinculado à sua instituição.'
+        ]);
+      } else {
+        return Response::json([
+          'status' => -1,
+          'teacher' => [
+            'id' => Crypt::encrypt($teacher->id),
+            'name' => $teacher->name,
+            'formation' => $teacher->formation,
+            'enrollment' => $relationship->enrollment
+          ],
+          'message' => 'Este professor já está vinculado à instituição!'
+        ]);
+      }
+    } else {
+      return Response::json([
+        'status' => 0
+      ]);
+    }
+  }
+
   public function anyTeachersFriends()
   {
-    $teachers = DB::select("SELECT Users.id, Users.name, Users.photo, Users.enrollment as 'comment'"
+    $teachers = DB::select("SELECT Users.id, Users.name, Users.photo, Relationships.enrollment as 'comment'"
                                 . "FROM Users, Relationships "
                                 . "WHERE Relationships.idUser=? AND Relationships.type='2' "
                                   . "AND Relationships.idFriend=Users.id "
@@ -50,17 +84,17 @@ class UsersController extends \BaseController {
         $listCourses[$course->name] = $course->name;
       }
 
-      $relationships = DB::select("SELECT Users.id, Users.name, Users.enrollment, Users.type "
+      $relationships = DB::select("SELECT Users.id, Users.name, Relationships.enrollment, Users.type "
                                   . "FROM Users, Relationships "
                                   . "WHERE Relationships.idUser=? AND Relationships.type='2' AND Relationships.idFriend=Users.id "
-                                  . "AND Relationships.status='E' AND (Users.name LIKE ? OR Users.enrollment=?) "
+                                  . "AND Relationships.status='E' AND (Users.name LIKE ? OR Relationships.enrollment=?) "
                                   . " ORDER BY name LIMIT ? OFFSET ?",
                                   [$this->idUser, "%$search%", $search, $block, $current*$block ]);
 
       $length = DB::select("SELECT count(*) as 'length' "
                                   . "FROM Users, Relationships "
                                   . "WHERE Relationships.idUser=? AND Relationships.type='2' AND Relationships.idFriend=Users.id "
-                                  . "AND (Users.name LIKE ? OR Users.enrollment=?) ", [$this->idUser, "%$search%", $search ]);
+                                  . "AND (Users.name LIKE ? OR Relationships.enrollment=?) ", [$this->idUser, "%$search%", $search ]);
 
       return View::make(
         "modules.addTeachers",
@@ -85,31 +119,43 @@ class UsersController extends \BaseController {
   {
     // Verifica se o número de matrícula já existe
 
-    if (strlen(Input::get("teacher")))
+    if ( strlen(Input::get("teacher")) )
     {
       $user = User::find(Crypt::decrypt(Input::get("teacher")));
+      if (strlen(Input::get("registered"))) {
+        $relationship = Relationship::where('idUser', $this->idUser)->where('idFriend', $user->id)->first();
+        if (!$relationship) {
+          $relationship = new Relationship;
+          $relationship->idUser   = $this->idUser;
+          $relationship->idFriend = $user->id;
+          $relationship->enrollment = Input::get('enrollment');
+          $relationship->status   = "E";
+          $relationship->type     = "2";
+          $relationship->save();
+        }
+        return Redirect::guest("/user/teacher")->with("success", "Professor vinculado com sucesso!");
+      }
 
       // Tipo P é professor com conta liberada. Ele mesmo deve atualizar as suas informações e não a instituição.
       if ($user->type == "P") {
         return Redirect::guest("/user/teacher")->with("error", "Professor não pode ser editado!");
       }
       $user->email = Input::get("email");
-      $user->enrollment = Input::get("enrollment");
+      // $user->enrollment = Input::get("enrollment");
       $user->name = Input::get("name");
       $user->formation = Input::get("formation");
       $user->gender = Input::get("gender");
       $user->save();
       return Redirect::guest("/user/teacher")->with("success", "Professor editado com sucesso!");
-    }
-    else {
-      $verify = User::whereEnrollment(Input::get("enrollment"))->first();
+    } else {
+      $verify = Relationship::whereEnrollment(Input::get("enrollment"))->where('idUser', $this->idUser)->first();
       if ( isset($verify) || $verify != null ) {
         return Redirect::guest("/user/teacher")->with("error", "Este número de inscrição já está cadastrado!");
       }
       $user = new User;
       $user->type = "M";
       // $user->email = Input::get("email");
-      $user->enrollment = Input::get("enrollment");
+      // $user->enrollment = Input::get("enrollment");
       $user->name = Input::get("name");
       $user->formation = Input::get("formation");
       $user->gender = Input::get("gender");
@@ -123,6 +169,7 @@ class UsersController extends \BaseController {
       $relationship = new Relationship;
       $relationship->idUser   = $this->idUser;
       $relationship->idFriend = $user->id;
+      $relationship->enrollment = Input::get("enrollment");
       $relationship->status   = "E";
       $relationship->type     = "2";
       $relationship->save();
@@ -292,6 +339,8 @@ class UsersController extends \BaseController {
     $profile = Crypt::decrypt(Input::get("u"));
     if ( $profile ) {
       $profile = User::find($profile);
+      $relationship = Relationship::where('idUser', $this->idUser)->where('idFriend', $profile->id)->first();
+      $profile->enrollment = $relationship->enrollment;
       switch ($profile->formation) {
         case '0': $profile->formation = "Não quero informar"; break;
         case '1': $profile->formation = "Ensino Fundamental"; break;
@@ -340,7 +389,7 @@ class UsersController extends \BaseController {
       }
       catch (Exception $e)
       {
-        return Redirect::back()->with("error", "Erro ao realizar a operação, tente mais tarde (" . $e->getMessage() .") id: " . $id . ", email: " . Input::get("email"));
+        return Redirect::back()->with("error", "Erro ao realizar a operação, tente mais tarde (" . $e->getMessage() .")");
       }
     }
     else {
@@ -458,6 +507,7 @@ class UsersController extends \BaseController {
   public function getInfouser()
   {
     $user = User::find(Crypt::decrypt(Input::get("user")));
+    $user->enrollment = DB::table('Relationships')->where('idUser', $this->idUser)->where('idFriend', $user->id)->pluck('enrollment');
     $user->password = null;
     return $user;
   }
