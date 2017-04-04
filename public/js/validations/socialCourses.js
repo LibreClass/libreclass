@@ -1,9 +1,9 @@
 $(function () {
 
   $('#form-course').validate({
-    rules: { 
-      "name": { 
-        required: true 
+    rules: {
+      "name": {
+        required: true
       },
       "absentPercent": {
         required: true,
@@ -14,12 +14,12 @@ $(function () {
       "average": {
         required: true,
         number:true,
-        range: [0.01, 9.99]
+        range: [0.01, 99.99]
       },
       "averageFinal": {
         required: true,
         number:true,
-        range: [0.01, 9.99]
+        range: [0.01, 99.99]
       }
     },
     messages: {

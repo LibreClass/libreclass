@@ -22,7 +22,7 @@ class CoursesController extends \BaseController {
       $courses = Course::where("idInstitution", $this->idUser)->whereStatus("E")->orderBy("name")->get();
       $listcourses = [];
       foreach($courses as $course )
-      {  
+      {
         $listcourses[Crypt::encrypt($course->id)] = $course->name;
         $course->periods = Period::where("idCourse", $course->id)->get();
       }
@@ -32,17 +32,17 @@ class CoursesController extends \BaseController {
       return Redirect::guest("/");
     }
   }
-  
+
   public function postAllCourses() {
     if ($this->idUser) {
       $courses = Course::where("idInstitution", $this->idUser)->whereStatus("E")->orderBy("name")->get();
-      
+
       foreach($courses as $course)
-      {                                         
+      {
         $course->id = Crypt::encrypt($course->id);
-      }                         
+      }
       return $courses;                                                                                                              ;
-    }  
+    }
   }
 
   public function postSave()
@@ -68,9 +68,9 @@ class CoursesController extends \BaseController {
     $course->absentPercent = Input::get("absentPercent");
     $course->average       = Input::get("average");
     $course->averageFinal  = Input::get("averageFinal");
-    
+
     $course->save();
-    
+
     if (Input::hasFile("curricularProfile") &&
         Input::file("curricularProfile")->getClientOriginalExtension() === "pdf") {
       $name = md5($course->id) . ".pdf";
@@ -83,10 +83,10 @@ class CoursesController extends \BaseController {
       $course->curricularProfile = "";
       $course->save();
     }
-    
+
     // Este return é realizado ao inserir novo curso ou editar um curso existente
     return Redirect::guest("/courses")->with("success", "Curso $course->name criado com sucesso!");
-    
+
     //~ return Input::all();
     return $course;
   }

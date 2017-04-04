@@ -1,6 +1,7 @@
 <?php
 
-class AvaliableController extends \BaseController {
+class AvaliableController extends \BaseController
+{
 
   /**
    * Armazena o ID do usuário
@@ -13,8 +14,7 @@ class AvaliableController extends \BaseController {
     $id = Session::get("user");
     if ($id == null || $id == "") {
       $this->idUser = false;
-    }
-    else {
+    } else {
       $this->idUser = Crypt::decrypt($id);
     }
   }
@@ -28,11 +28,11 @@ class AvaliableController extends \BaseController {
       $students = Attend::where("idUnit", $exam->idUnit)->get();
     }
 //  elseif (  ) /* gerar recuperação */
-//    $students = Attend::where("idUnit", $exam->idUnit)->where->get();
-//    $students = DB::select("SELECT Users.name AS name, Attends.id AS idAttend, Frequencies.value AS value
-//                            FROM Frequencies, Attends, Users
-//                            WHERE Frequencies.idAttend=Attends.id AND Attends.idUser=Users.id AND Frequencies.idLesson=?
-//                            ORDER BY Users.name", [$lesson->id]);
+    //    $students = Attend::where("idUnit", $exam->idUnit)->where->get();
+    //    $students = DB::select("SELECT Users.name AS name, Attends.id AS idAttend, Frequencies.value AS value
+    //                            FROM Frequencies, Attends, Users
+    //                            WHERE Frequencies.idAttend=Attends.id AND Attends.idUser=Users.id AND Frequencies.idLesson=?
+    //                            ORDER BY Users.name", [$lesson->id]);
     return View::make("modules.avaliable", ["user" => $user, "exam" => $exam, "students" => $students, "unit" => Unit::find($exam->idUnit)]);
 //  return View::make("modules.avaliable", ["user" => $user, "students" => $students]);
   }
@@ -41,8 +41,7 @@ class AvaliableController extends \BaseController {
   {
     if (Input::has("exam")) {
       $exam = Exam::find(Crypt::decrypt(Input::get("exam")));
-    }
-    else {
+    } else {
       $exam = new Exam;
       $exam->idUnit = Crypt::decrypt(Input::get("unit"));
       $exam->aval = "A";
@@ -50,18 +49,21 @@ class AvaliableController extends \BaseController {
     $exam->date = Input::get("date-year") . "-" . Input::get("date-month") . "-" . Input::get("date-day");
     $exam->title = Input::get("title");
     //  $exam->weight = Input::get("weight");
-    if (Input::get("weight") != "") $exam->weight = Input::get("weight");
+    if (Input::get("weight") != "") {
+      $exam->weight = Input::get("weight");
+    }
+
     $exam->type = Input::get("type");
     $exam->comments = Input::get("comment");
     $exam->save();
 
     if (!Input::has("exam")) {
       $attends = Attend::where("idUnit", $exam->idUnit)->get();
-      foreach( $attends as $attend ) {
+      foreach ($attends as $attend) {
         $value = new ExamsValue;
         $value->idAttend = $attend->id;
-        $value->idExam   = $exam->id;
-        $value->value    = "";
+        $value->idExam = $exam->id;
+        $value->value = "";
         $value->save();
       }
     }
@@ -80,16 +82,16 @@ class AvaliableController extends \BaseController {
     $exam->aval = "A";
     $exam->weight = "1";
     $exam->type = 2;
-   //  $exam->save();
+    //  $exam->save();
     //
-   //  $attends = Attend::where("idUnit", $unit->id)->get();
-   //  foreach( $attends as $attend ) {
-   //    $frequency = new Frequency;
-   //    $frequency->idAttend = $attend->id;
-   //    $frequency->idLesson = $lesson->id;
-   //    $frequency->value = "P";
-   //    $frequency->save();
-   //  }
+    //  $attends = Attend::where("idUnit", $unit->id)->get();
+    //  foreach( $attends as $attend ) {
+    //    $frequency = new Frequency;
+    //    $frequency->idAttend = $attend->id;
+    //    $frequency->idLesson = $lesson->id;
+    //    $frequency->value = "P";
+    //    $frequency->save();
+    //  }
     return View::make("modules.avaliable", ["user" => $user, "exam" => $exam, "students" => [], "unit" => $unit]);
 //  return Redirect::to("/avaliable?e=" . Crypt::encrypt($exam->id))->with("message", "Click em salvar para criar .");;
   }
@@ -99,17 +101,19 @@ class AvaliableController extends \BaseController {
     try {
       $exam = Crypt::decrypt(Input::get("exam"));
       $attend = Crypt::decrypt(Input::get("student"));
-      $value = (float) str_replace(",",".", Input::get("value"));
-      if ($value > 10 || $value < 0) {
-        throw new Exception('Division by zero.');
-      }
-      else {
+      $value = (float) str_replace(",", ".", Input::get("value"));
+
+      $a = Attend::find($attend);
+      $average = $a->getUnit()->getOffer()->getClass()->getPeriod()->getCourse()->average;
+
+      if (($average > 10 && ($value > 100 || $value < 0)) || ($average <= 10 && ($value > 10 || $value < 0))) {
+        throw new Exception('Invalid value.');
+      } else {
         $value = sprintf("%.2f", $value);
       }
       if (ExamsValue::where("idAttend", $attend)->where("idExam", $exam)->first()) {
         ExamsValue::where("idAttend", $attend)->where("idExam", $exam)->update(["value" => $value]);
-      }
-      else {
+      } else {
         $examsvalue = new ExamsValue;
         $examsvalue->idAttend = $attend;
         $examsvalue->idExam = $exam;
@@ -117,8 +121,7 @@ class AvaliableController extends \BaseController {
         $examsvalue->save();
       }
       return $value;
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       return "error";
     }
   }
@@ -141,8 +144,7 @@ class AvaliableController extends \BaseController {
       $course = Unit::find($unit)->getOffer()->getDiscipline()->getPeriod()->getCourse();
       $attends = Attend::where("idUnit", $unit)->get();
       return View::make("modules.units.retrieval", ["exam" => $final, "user" => $user, "attends" => $attends, "average" => $course->average]);
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       return "$e";
     }
   }
@@ -180,17 +182,15 @@ class AvaliableController extends \BaseController {
     try {
       $offer = Crypt::decrypt(Input::get("offer"));
       $student = Crypt::decrypt(Input::get("student"));
-      $value = (float) str_replace(",",".", Input::get("value"));
+      $value = (float) str_replace(",", ".", Input::get("value"));
       if ($value > 10 || $value < 0) {
         throw new Exception('Division by zero.');
-      }
-      else {
+      } else {
         $value = sprintf("%.2f", $value);
       }
       if (FinalExam::where("idUser", $student)->where("idOffer", $offer)->first()) {
         FinalExam::where("idUser", $student)->where("idOffer", $offer)->update(["value" => $value]);
-      }
-      else {
+      } else {
         $offervalue = new FinalExam;
         $offervalue->idUser = $student;
         $offervalue->idOffer = $offer;
@@ -198,8 +198,7 @@ class AvaliableController extends \BaseController {
         $offervalue->save();
       }
       return $value;
-    }
-    catch (Exception $e) {
+    } catch (Exception $e) {
       return "error";
     }
   }
@@ -210,7 +209,9 @@ class AvaliableController extends \BaseController {
     $offer = Offer::find(Crypt::decrypt($offer));
 
     /* caso não tenha data marcada, coloque a data de hoje */
-    if( strtotime($offer->dateFinal) < 0 ) $offer->dateFinal = date("Y-m-d");
+    if (strtotime($offer->dateFinal) < 0) {
+      $offer->dateFinal = date("Y-m-d");
+    }
 
     if (!Lecture::where("idUser", $user->id)->where("idOffer", $offer->id)->first()) {
       return Redirect::to("/logout");
@@ -222,22 +223,20 @@ class AvaliableController extends \BaseController {
                           where Units.idOffer=? AND Units.id=Attends.idUnit AND Attends.idUser=Users.id
                           group by Attends.idUser
                           order by Users.name", [$offer->id]);
-    foreach ($alunos as $aluno)
-    {
+    foreach ($alunos as $aluno) {
       $aluno->absence = $offer->qtdAbsences($aluno->id);
       $aluno->averages = [];
       $sum = 0.;
-      foreach ($units as $unit)
-      {
+      foreach ($units as $unit) {
         $exam = $unit->getAverage($aluno->id);
-        $aluno->averages[$unit->value] =  $exam[0] < $course->average ? $exam[1] : $exam[0];
+        $aluno->averages[$unit->value] = $exam[0] < $course->average ? $exam[1] : $exam[0];
         $sum += $aluno->averages[$unit->value];
       }
-      $aluno->med = $sum/count($units);
+      $aluno->med = $sum / count($units);
       $final = FinalExam::where("idUser", $aluno->id)->where("idOffer", $offer->id)->first();
       $aluno->final = $final ? $final->value : "";
     }
-    return View::make("modules.disciplines.retrieval", [ "user" => $user, "alunos" => $alunos, "course" => $course, "offer" => $offer]);
+    return View::make("modules.disciplines.retrieval", ["user" => $user, "alunos" => $alunos, "course" => $course, "offer" => $offer]);
   }
 
   public function getAverageUnit($unit)
@@ -247,27 +246,25 @@ class AvaliableController extends \BaseController {
     $sumWeight = Exam::whereAval("A")->where("idUnit", $unit->id)->sum("weight");
     $sumWeight = $sumWeight ? $sumWeight : 1;
     $attends = Attend::where("idUnit", $unit->id)->get();
-    foreach ($attends as $attend)
-    {
-      if($final and ($examfinal = ExamsValue::where("idAttend", $attend->id)->where("idExam",$final->id)->first())) {
+    foreach ($attends as $attend) {
+      if ($final and ($examfinal = ExamsValue::where("idAttend", $attend->id)->where("idExam", $final->id)->first())) {
         $attend->final = $examfinal->value;
-      }
-      else {
+      } else {
         $attend->final = "F";
       }
       $values = ExamsValue::where("idAttend", $attend->id)->get();
       $sum = 0.;
       foreach ($values as $value) {
-        $sum += $value->value*Exam::find($value->idExam)->weight;
+        $sum += $value->value * Exam::find($value->idExam)->weight;
       }
-      $attend->media = $sum/$sumWeight;
+      $attend->media = $sum / $sumWeight;
       $attend->name = User::find($attend->idUser)->name;
 //    $result = $media < $course->average ? "FINAL" : "APROVADO";
-//    echo User::find($attend->idUser)->name . " | $sumWeight | $sum | $media | $result<br>";
+      //    echo User::find($attend->idUser)->name . " | $sumWeight | $sum | $media | $result<br>";
     }
 //  echo "Total de avaliações: $qtdExam<br>";
-//  echo "Peso: $sumWeight<br>";
-//  echo "Média do curso: $course->average<br><br>";
+    //  echo "Peso: $sumWeight<br>";
+    //  echo "Média do curso: $course->average<br><br>";
     return $attends;
   }
 
@@ -283,7 +280,8 @@ class AvaliableController extends \BaseController {
     return Crypt::decrypt($exam);
   }
 
-  public function postDelete() {
+  public function postDelete()
+  {
     $exam = Exam::find(Crypt::decrypt(Input::get("input-trash")));
 
     $unit = DB::select("SELECT Units.id, Units.status
@@ -291,16 +289,15 @@ class AvaliableController extends \BaseController {
                           WHERE Units.id = Exams.idUnit AND
                             Exams.id=?", [$exam->id]);
 
-    if($unit[0]->status == 'D') {
-      return Redirect::guest("/lectures/units?u=".Crypt::encrypt($unit[0]->id))->with("error", "Não foi possível deletar.<br>Unidade desabilitada.");
+    if ($unit[0]->status == 'D') {
+      return Redirect::guest("/lectures/units?u=" . Crypt::encrypt($unit[0]->id))->with("error", "Não foi possível deletar.<br>Unidade desabilitada.");
     }
     if ($exam) {
       $exam->status = "D";
       $exam->save();
-      return Redirect::guest("/lectures/units?u=".Crypt::encrypt($unit[0]->id))->with("success", "Avaliação excluída com sucesso!");
-    }
-    else {
-      return Redirect::guest("/lectures/units?u=".Crypt::encrypt($unit[0]->id))->with("error", "Não foi possível deletar");
+      return Redirect::guest("/lectures/units?u=" . Crypt::encrypt($unit[0]->id))->with("success", "Avaliação excluída com sucesso!");
+    } else {
+      return Redirect::guest("/lectures/units?u=" . Crypt::encrypt($unit[0]->id))->with("error", "Não foi possível deletar");
     }
   }
 
