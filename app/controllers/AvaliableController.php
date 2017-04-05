@@ -275,11 +275,24 @@ class AvaliableController extends \BaseController
     $user = User::find($this->idUser);
     $exam = Exam::find(Crypt::decrypt($exam));
     $students = null;
+
+    $calculation = $exam->getUnit()->calculation;
+
     if ($exam->aval == "A") {
       $students = Attend::where("idUnit", $exam->idUnit)->get();
     }
-    return View::make("modules.liststudentsexam", ["user" => $user, "exam" => $exam, "students" => $students]);
-    return Crypt::decrypt($exam);
+
+    switch ($calculation) {
+      case "S": // Soma
+      case "A": // Média Aritmética
+      case "W": // Média Ponderada
+        return View::make("modules.liststudentsexam", ["user" => $user, "exam" => $exam, "students" => $students]);
+        break;
+      case "P": // Parecer Descritivo
+        return View::make("modules.liststudentsexamDescriptive", ["user" => $user, "exam" => $exam, "students" => $students]);
+        break;
+    }
+    // return Crypt::decrypt($exam);
   }
 
   public function postDelete()
