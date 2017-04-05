@@ -109,7 +109,9 @@ class AvaliableController extends \BaseController
       if (($average > 10 && ($value > 100 || $value < 0)) || ($average <= 10 && ($value > 10 || $value < 0))) {
         throw new Exception('Invalid value.');
       } else {
-        $value = sprintf("%.2f", $value);
+        if ($average <= 10) {
+          $value = sprintf("%.2f", $value);
+        }
       }
       if (ExamsValue::where("idAttend", $attend)->where("idExam", $exam)->first()) {
         ExamsValue::where("idAttend", $attend)->where("idExam", $exam)->update(["value" => $value]);
