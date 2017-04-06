@@ -1,19 +1,33 @@
 <?php
 
-class Attend extends \Eloquent {
+class Attend extends \Eloquent
+{
   protected $table = "Attends";
   protected $fillable = ['idUser', 'idUnit'];
 
-  public function getUser() {
+  public function getUser()
+  {
     return User::find($this->idUser);
   }
 
-  public function getExamsValue( $exam ) {
+  public function getExamsValue($exam)
+  {
     $examValue = ExamsValue::where("idExam", $exam)->where("idAttend", $this->id)->first();
-    if( $examValue )
+    if ($examValue) {
       return $examValue->value;
-    else
+    } else {
       return null;
+    }
+  }
+
+  public function getExamsDescriptive($exam)
+  {
+    $examDescriptive = ExamsDescriptive::where("idExam", $exam)->where("idAttend", $this->id)->first();
+    if ($examDescriptive) {
+      return ["description" => $examDescriptive->description, "approved" => $examDescriptive->approved];
+    } else {
+      return null;
+    }
   }
 
   public function getUnit()

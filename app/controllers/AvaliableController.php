@@ -128,6 +128,32 @@ class AvaliableController extends \BaseController
     }
   }
 
+  public function postExamDescriptive()
+  {
+    try {
+      $exam = Crypt::decrypt(Input::get("exam"));
+      $attend = Crypt::decrypt(Input::get("student"));
+      $examsvalue = ExamsDescriptive::where("idAttend", $attend)->where("idExam", $exam)->first();
+      if ($examsvalue) {
+        ExamsDescriptive::where("idAttend", $attend)->where("idExam", $exam)->update(["description" => Input::get("description"), "approved" => Input::get("approved")]);
+      } else {
+        $examsvalue = new ExamsDescriptive;
+        $examsvalue->idAttend = $attend;
+        $examsvalue->idExam = $exam;
+        $examsvalue->description = Input::get("description");
+        $examsvalue->approved = Input::get("approved");
+        $examsvalue->save();
+      }
+      return Response::json([
+        "status" => 1,
+        "description" => $examsvalue->description,
+        "approved" => $examsvalue->approved,
+      ]);
+    } catch (Exception $e) {
+      return Response::json(["status" => 0, "message" => $e->getMessage()]);
+    }
+  }
+
   public function getFinalunit($unit = "")
   {
     try
@@ -276,7 +302,7 @@ class AvaliableController extends \BaseController
     $exam = Exam::find(Crypt::decrypt($exam));
     $students = null;
 
-    $calculation = $exam->getUnit()->calculation;
+    $calculation = $exam->unit->calculation;
 
     if ($exam->aval == "A") {
       $students = Attend::where("idUnit", $exam->idUnit)->get();
