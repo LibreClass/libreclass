@@ -11,6 +11,11 @@
 |
  */
 
+// Route::get('/test-snappy', function () {
+//   $pdf = PDF::loadView('help.exams');
+//   return $pdf->stream();
+// });
+
 Route::controller('/censo', 'CensoController');
 
 // Erro ao detectar internet explorer
