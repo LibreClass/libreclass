@@ -101,7 +101,7 @@
                     <td>
                       <div class="">
                         <div class="">
-                          {{ Form::textarea('exam-description', $student->getExamsDescriptive($exam->id)["description"], ['size' => '45x5', 'maxlength' => 60000]) }}
+                          {{ Form::textarea('exam-description', $student->getDescriptiveExam($exam->id)["description"], ['size' => '45x5', 'maxlength' => 60000]) }}
                         </div>
                         <!-- <div class="pull-left feedback-response small"></div> -->
                       </div>
@@ -109,7 +109,7 @@
                     <td>
                       <div class="radio">
                         <label>
-                          @if ($student->getExamsDescriptive($exam->id)["approved"] == 'A')
+                          @if ($student->getDescriptiveExam($exam->id)["approved"] == 'A')
                             <input type="radio" class="approved" name="approved-{{ $key }}" value="A" checked>
                           @else
                             <input type="radio" class="approved" name="approved-{{ $key }}" value="A">
@@ -119,7 +119,7 @@
                       </div>
                       <div class="radio">
                         <label>
-                          @if ($student->getExamsDescriptive($exam->id)["approved"] == 'R')
+                          @if ($student->getDescriptiveExam($exam->id)["approved"] == 'R')
                             <input type="radio" class="approved" name="approved-{{ $key }}" value="R" checked>
                           @else
                             <input type="radio" class="approved" name="approved-{{ $key }}" value="R">
