@@ -169,21 +169,42 @@ class UnitsController extends \BaseController
    */
   public function getReportUnit($idUnit)
   {
+    try {
+      $unit = Unit::find(Crypt::decrypt($idUnit));
+      switch ($unit->calculation) {
+        case 'S':
+        case 'A':
+        case 'W':
+          return $this->printDefaultReport($unit);
+          break;
+        case 'P':
+          return $this->printDescriptiveReport($unit); // to do
+          break;
+        default:
+          throw new Exception('Error: Unknown report type');
+          break;
+      }
+    } catch (Exception $e) {
+      return $e->getMessage();
+    }
+  } //--- Imprimir PDF
+
+  private function printDefaultReport(Unit $unit)
+  {
     // Array utilizado para imprimir PDF
     $info = [];
 
     $user = User::find($this->idUser);
-    $unit = Unit::find(Crypt::decrypt($idUnit));
     $offer = Offer::find($unit->idOffer);
-    $discipline = $offer->getDiscipline();
     $class = $offer->getClass();
+    $discipline = $offer->getDiscipline();
     $period = $discipline->getPeriod();
     $course = $period->getCourse();
     $institution = $course->getInstitution();
     $institution->city = $institution->printLocation();
     $teacher = $offer->getLectures() ? User::find($offer->getLectures()->idUser) : null;
 
-    //PERÍODO DO DIA
+    // Período do dia
     if ($offer->day_period == "M") {
       $offer->day_period = "Matutino";
     } else if ($offer->day_period == "V") {
@@ -195,6 +216,7 @@ class UnitsController extends \BaseController
     //  if ($offer->getLectures()->idUser != $this->idUser) {
     //    return Redirect::to("/lectures")->with("error", "Você não tem acesso a essa página");
     //  }
+
     $students = DB::select("select Users.id, Users.name "
       . "from Users, Attends, Units "
       . "where Units.idOffer=? and Attends.idUnit=Units.id and Attends.idUser=Users.id "
@@ -301,6 +323,27 @@ class UnitsController extends \BaseController
     return;
     //  return View::make("modules.frequency", ["user" => $user, "offer" => $offer, "unit" => $unit, "students" => $students]);
     //  return $offer;
+  }
 
-  } //--- Imprimir PDF
+  private function printDescriptiveReport(Unit $unit)
+  {
+    $data = [];
+    $exams = $unit->getExams();
+
+    $data['exams'] = [];
+    foreach ($exams as $exam) {
+      $data['exams'][] = ['data' => $exam, 'descriptions' => $exam->descriptive_exams()];
+    }
+
+    $institution = $unit->offer->classe->period->course->institution()->first();
+    $institution->local = $institution->printCityState();
+
+    $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', [
+      'data' => $data,
+      'institution' => $institution,
+      'unit' => $unit,
+    ]);
+    return $pdf->stream();
+  }
+
 }

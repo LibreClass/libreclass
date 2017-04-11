@@ -133,11 +133,11 @@ class AvaliableController extends \BaseController
     try {
       $exam = Crypt::decrypt(Input::get("exam"));
       $attend = Crypt::decrypt(Input::get("student"));
-      $examsvalue = ExamsDescriptive::where("idAttend", $attend)->where("idExam", $exam)->first();
+      $examsvalue = DescriptiveExam::where("idAttend", $attend)->where("idExam", $exam)->first();
       if ($examsvalue) {
-        ExamsDescriptive::where("idAttend", $attend)->where("idExam", $exam)->update(["description" => Input::get("description"), "approved" => Input::get("approved")]);
+        DescriptiveExam::where("idAttend", $attend)->where("idExam", $exam)->update(["description" => Input::get("description"), "approved" => Input::get("approved")]);
       } else {
-        $examsvalue = new ExamsDescriptive;
+        $examsvalue = new DescriptiveExam;
         $examsvalue->idAttend = $attend;
         $examsvalue->idExam = $exam;
         $examsvalue->description = Input::get("description");
