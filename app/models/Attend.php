@@ -20,9 +20,9 @@ class Attend extends \Eloquent
     }
   }
 
-  public function getExamsDescriptive($exam)
+  public function getDescriptiveExam($exam)
   {
-    $examDescriptive = ExamsDescriptive::where("idExam", $exam)->where("idAttend", $this->id)->first();
+    $examDescriptive = DescriptiveExam::where("idExam", $exam)->where("idAttend", $this->id)->first();
     if ($examDescriptive) {
       return ["description" => $examDescriptive->description, "approved" => $examDescriptive->approved];
     } else {
