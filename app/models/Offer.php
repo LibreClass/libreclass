@@ -82,4 +82,14 @@ class Offer extends \Eloquent
     $course = DB::select("SELECT Periods.idCourse FROM Classes, Periods WHERE ?=Classes.id AND Classes.idPeriod=Periods.id", [$this->idClass])[0]->idCourse;
     return Course::find($course);
   }
+
+  public function getTeachers()
+  {
+    $teachers = [];
+    $lectures = Lecture::where("idOffer", $this->id)->get();
+    foreach ($lectures as $lecture) {
+      $teachers[] = $lecture->getUser()->name;
+    }
+    return $teachers;
+  }
 }
