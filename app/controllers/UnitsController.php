@@ -178,7 +178,7 @@ class UnitsController extends \BaseController
           return $this->printDefaultReport($unit);
           break;
         case 'P':
-          return $this->printDescriptiveReport($unit); // to do
+          return $this->printDescriptiveReport($unit);
           break;
         default:
           throw new Exception('Error: Unknown report type');
@@ -329,10 +329,23 @@ class UnitsController extends \BaseController
   {
     $data = [];
     $exams = $unit->getExams();
+    $unit->count_lessons = $unit->countLessons();
+
+    $lessons = $unit->getLessonsToPdf();
 
     $data['exams'] = [];
     foreach ($exams as $exam) {
-      $data['exams'][] = ['data' => $exam, 'descriptions' => $exam->descriptive_exams()];
+      $descriptions = $exam->descriptive_exams();
+      foreach ($descriptions as $description) {
+        $description->student->absence = 0;
+        foreach ($lessons as $lesson) {
+          $value = Frequency::getValue($description->student->id, $lesson->id);
+          if ($value == 'F') {
+            $description->student->absence++;
+          }
+        }
+      }
+      $data['exams'][] = ['data' => $exam, 'descriptions' => $descriptions];
     }
 
     $institution = $unit->offer->classe->period->course->institution()->first();
