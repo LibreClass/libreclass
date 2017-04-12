@@ -328,12 +328,11 @@ class UnitsController extends \BaseController
   private function printDescriptiveReport(Unit $unit)
   {
     $data = [];
+
     $exams = $unit->getExams();
     $unit->count_lessons = $unit->countLessons();
+    $lessons = $unit->getLessons();
 
-    $lessons = $unit->getLessonsToPdf();
-
-    $data['exams'] = [];
     foreach ($exams as $exam) {
       $descriptions = $exam->descriptive_exams();
       foreach ($descriptions as $description) {
@@ -350,12 +349,12 @@ class UnitsController extends \BaseController
 
     $institution = $unit->offer->classe->period->course->institution()->first();
     $institution->local = $institution->printCityState();
+    $data['institution'] = $institution;
+    $data['unit'] = $unit;
+    $data['discipline'] = $unit->offer->discipline->name;
+    $data['teachers'] = $unit->offer->getTeachers();
 
-    $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', [
-      'data' => $data,
-      'institution' => $institution,
-      'unit' => $unit,
-    ]);
+    $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', ['data' => $data]);
     return $pdf->stream();
   }
 
