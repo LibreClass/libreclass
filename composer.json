@@ -15,6 +15,7 @@
 		"barryvdh/laravel-snappy": "0.1.x@dev"
 	},
 	"require-dev": {
+		"lusitanian/oauth": "dev-master",
 		"artdarek/oauth-4-laravel": "dev-master"
   	},
 	"autoload": {
