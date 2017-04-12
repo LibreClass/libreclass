@@ -9,24 +9,24 @@
 
 	<body>
 
-		<header style="margin-bottom: 30px;">
+		<header style="margin-bottom: 15px;">
 			<table>
 				<tr>
-					<td style="width: 20%; padding-right: 15px;"><img style="width: 85%;" src="{{ public_path() }}/images/logo-arroio_dos_ratos-rs.jpg" class="img-responsive"></td>
-					<td style="width: 60%;" class="text-center">
+					<td style="width: 16%; padding-right: 15px;"><img style="width: 85%;" src="{{ public_path() }}/images/logo-arroio_dos_ratos-rs.jpg" class="img-responsive"></td>
+					<td style="width: 68%;" class="text-center">
 						<div style="width: 100%;">
 							<h4>{{ $institution->name }}</h4>
 							<h5>{{ $institution->street }}, {{ $institution->local }}</h5>
 							<h5>Código UEE: {{ $institution->uee }}</h5>
 						</div>
 					</td>
-					<td style="width: 20%; padding-left: 15px;"><img src="{{ public_path() . $institution->photo }}" class="img-responsive"></td>
+					<td style="width: 16%; padding-left: 15px;"><img src="{{ public_path() . $institution->photo }}" class="img-responsive"></td>
 				</tr>
 			</table>
 		</header>
 
 		<div>
-			<ol class="breadcrumb bg-white">
+			<ol class="breadcrumb">
         <li>{{ $unit->offer->discipline->period->course->name }}</li>
         <li>{{ $unit->offer->discipline->period->name }}</li>
         <li>{{ $unit->offer->getClass()->fullName() }}</li>
@@ -47,6 +47,7 @@
 						<tr>
 							<td>
 								<h5><b>{{ $d->student->name }} <small>{{ $d->approved == 'A' ? 'Aprovado' : 'Reprovado' }}</small></b></h5>
+								<h5><b>Aulas realizadas: {{ $unit->count_lessons }} / Faltas: {{ $d->student->absence }}</b></h5>
 								<p>{{ $d->description }}</p>
 							</td>
 						</tr>
