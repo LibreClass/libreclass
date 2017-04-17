@@ -46,13 +46,15 @@ if (Session::get("user") == null) {
    * Perfil de instituição
    */
   if (Session::get("type") == "I") {
+    Route::get('/user/scholar-report', "UsersController@printScholarReport");
+    Route::post('user/teacher/delete', "UsersController@postUnlink");
+    Route::get('classes/units/report-unit/{idUnit}', "UnitsController@getReportUnit");
+
     Route::controller('courses', "CoursesController");
     Route::controller('disciplines', "DisciplinesController");
     Route::controller('classes/lessons', "LessonsController");
     Route::controller('classes/offers', "OffersController");
-    Route::get('classes/units/report-unit/{idUnit}', "UnitsController@getReportUnit");
     Route::controller('classes', "ClassesController");
-    Route::post('user/teacher/delete', "UsersController@postUnlink");
     Route::controller('user', "UsersController");
     Route::controller('import', "CSVController");
     Route::controller('permissions', "PermissionController");
@@ -63,6 +65,9 @@ if (Session::get("user") == null) {
    * Perfil de professor
    */
   if (Session::get("type") == "P") {
+    Route::get('user/profile', "UsersController@getProfile");
+    Route::get('user/student', "UsersController@getStudent");
+    Route::post('user/student', "UsersController@postStudent");
     Route::controller('courses', "CoursesController");
     Route::controller('classes/panel', "ClassesController");
     Route::controller('classes', "ClassesController");
@@ -71,10 +76,6 @@ if (Session::get("user") == null) {
     Route::controller('lectures', "LecturesController");
     Route::controller('avaliable', "AvaliableController");
     Route::controller('lessons', "LessonsController"); /* anotações de aula */
-    Route::get('user/profile', "UsersController@getProfile");
-    Route::get('user/student', "UsersController@getStudent");
-    Route::post('user/student', "UsersController@postStudent");
-
     Route::controller('attends', "\student\DisciplinesController");
   }
 
