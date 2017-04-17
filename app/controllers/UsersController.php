@@ -190,7 +190,6 @@ class UsersController extends \BaseController
       $listidsclasses[Crypt::encrypt($class->id)] = "[$class->class] $class->name";
 
     }
-
     if ($profile) {
       $profile = User::find($profile);
       $attests = Attest::where("idStudent", $profile->id)->where("idInstitution", $user->id)->orderBy("date", "desc")->get();
@@ -525,5 +524,37 @@ class UsersController extends \BaseController
     $r->save();
 
     return Redirect::back()->with("success", "Relacionamento criado com sucesso.");
+  }
+
+  public function printScholarReport()
+  {
+    $data = [];
+    $data['institution'] = User::find($this->idUser);
+    $data['student'] = User::find(Crypt::decrypt(Input::get('u')));
+
+    $disciplines = DB::select("
+      SELECT
+        Courses.id as course,
+        Disciplines.name,
+        Offers.id as offer,
+        Attends.id as attend,
+        Classes.status as statusclasse
+      FROM
+        Classes, Periods, Courses, Disciplines, Offers, Units, Attends
+      WHERE
+        Courses.idInstitution =  ?
+        and Courses.id = Periods.idCourse
+        and Periods.id = Classes.idPeriod
+        and Classes.class =  ?
+        and Classes.id = Offers.idClass
+        and Offers.idDiscipline = Disciplines.id
+        and Offers.id = Units.idOffer
+        and Units.id = Attends.idUnit and Attends.idUser =  ?
+      GROUP BY Offers.id", [$this->idUser, Input::get('c'), $data['student']->id]
+    );
+    $data['disciplines'] = $disciplines;
+
+    $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.final_result', ['data' => $data]);
+    return $pdf->stream();
   }
 }
