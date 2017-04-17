@@ -28,7 +28,7 @@
               </a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownDownload">
                 <li role="presentation">
-                  <a href="ftp://anonymous@sysvale.com:contato@sysvale.com@ftp.sysvale.com/LibreClass_x86.exe" target="_blank">
+                  <a href="ftp://anonymous@sysvale.com:contato@sysvale.com@ftp.sysvale.com/LibreClass.exe" target="_blank">
                     <i class="fa fa-windows text-blue"></i>
                     Libreclass Offline Win
                   </a>
