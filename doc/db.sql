@@ -119,6 +119,21 @@ CREATE TABLE `Courses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+DROP TABLE IF EXISTS `DescriptiveExams`;
+CREATE TABLE `DescriptiveExams` (
+  `idAttend` int(11) unsigned NOT NULL,
+  `idExam` int(11) unsigned NOT NULL,
+  `description` text NOT NULL,
+  `approved` char(1) DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  KEY `idAttend` (`idAttend`),
+  KEY `idExam` (`idExam`),
+  CONSTRAINT `DescriptiveExams_ibfk_1` FOREIGN KEY (`idAttend`) REFERENCES `Attends` (`id`) ON DELETE NO ACTION,
+  CONSTRAINT `DescriptiveExams_ibfk_2` FOREIGN KEY (`idExam`) REFERENCES `Exams` (`id`) ON DELETE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+
 DROP TABLE IF EXISTS `Disciplines`;
 CREATE TABLE `Disciplines` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -330,7 +345,7 @@ CREATE TABLE `Units` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `idOffer` int(10) unsigned NOT NULL,
   `value` int(11) NOT NULL DEFAULT '1' COMMENT '''1'' = primeira unidade;''2'' = segunda unidade;...',
-  `calculation` char(1) CHARACTER SET utf8 DEFAULT 'A' COMMENT 'Tipo de cálculo para média( ''S'' = sum; ''A'' = avarage, ''W''=média ponderada)',
+  `calculation` char(1) CHARACTER SET utf8 DEFAULT 'A' COMMENT 'Tipo de cálculo para média( ''S'' = sum; ''A'' = avarage, ''W''=média ponderada, ''P'' = Parecer Descritivo)',
   `status` char(1) NOT NULL DEFAULT 'E' COMMENT '"E" => "Enable", "D" => "Disable"',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -366,4 +381,4 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2017-03-14 13:01:44
+-- 2017-04-17 18:05:30
