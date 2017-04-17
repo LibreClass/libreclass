@@ -70,7 +70,7 @@
             {{ Form::open(["id" => "form-calculation"]) }}
               {{ Form::hidden("unit", Crypt::encrypt($unit_current->id)) }}
               {{ Form::label("calculation", "Cálculo da Média") }}
-              {{ Form::select("calculation", ["S" => "Soma", "A" => "Média Aritmética", "W" => "Média Ponderada"], $unit_current->calculation, ["class" => "form-control"]) }}
+              {{ Form::select("calculation", ["S" => "Soma", "A" => "Média Aritmética", "W" => "Média Ponderada", "P" => "Parecer Descritivo"], $unit_current->calculation, ["class" => "form-control"]) }}
             {{ Form::close() }}
           </div>
         </div>

@@ -21,14 +21,14 @@ $(function(){
         value:   $(this).val(),
         student: $(this).closest("tr").attr("id"),
         exam:    $(this).closest("tbody").attr("id")
-      }, function(data){
-//        $(_this).closest("div").removeClass("has-error has-warning").addClass("has-success");
+      }, function(data) {
+        // $(_this).closest("div").removeClass("has-error has-warning").addClass("has-success");
         $(_this).closest("div").next(".feedback-response").html("<span class='label label-success'><i class='fa fa-check'></i><b> Salvo</b></span>");
         $(".exam-value").attr("disabled", false);
         $(_this).closest("tr"). next("tr").find("input").focus();
 
-        if ( data == "error" ) {
-//          $(_this).closest("div").removeClass("has-success has-warning").addClass("has-error");
+        if (data == "error") {
+          // $(_this).closest("div").removeClass("has-success has-warning").addClass("has-error");
           $(_this).closest("div").next(".feedback-response").html("<span class='label label-danger'><i class='fa fa-remove'></i><b> Inválido</b></span>");
         }
         else {
@@ -36,12 +36,30 @@ $(function(){
           $(_this).attr("data", data);
         }
       });
-//       alert($(this).val());
-
+      // alert($(this).val());
     }
     else {
       $(this).closest("div").next(".feedback-response").html("<span class='label label-default'>Enter para salvar</span>");
     }
+  });
+
+  $("#exam-form").on("click", ".save-descriptive", function(e) {
+    var button = e.currentTarget;
+    $(button).html("Salvando");
+    var data_json = {
+      student: $(this).closest("tr").attr("id"),
+      exam:    $(this).closest("tbody").attr("id"),
+      description: $(this).closest("tr").find("textarea[name='exam-description']").val(),
+      approved: $(this).closest("tr").find("input.approved[type='radio']:checked").val()
+    };
+    $.post("/avaliable/exam-descriptive", data_json, function(data) {
+        if (data.status == 1) {
+          $(button).html("Salvo!").removeClass("btn-default").addClass("btn-success");
+        } else if (data.status == 0) {
+          $(button).html("Erro!").removeClass("btn-default").addClass("btn-danger");
+        }
+      }
+    );
   });
 
   $(".exam-value").change(function(){

@@ -128,6 +128,32 @@ class AvaliableController extends \BaseController
     }
   }
 
+  public function postExamDescriptive()
+  {
+    try {
+      $exam = Crypt::decrypt(Input::get("exam"));
+      $attend = Crypt::decrypt(Input::get("student"));
+      $examsvalue = DescriptiveExam::where("idAttend", $attend)->where("idExam", $exam)->first();
+      if ($examsvalue) {
+        DescriptiveExam::where("idAttend", $attend)->where("idExam", $exam)->update(["description" => Input::get("description"), "approved" => Input::get("approved")]);
+      } else {
+        $examsvalue = new DescriptiveExam;
+        $examsvalue->idAttend = $attend;
+        $examsvalue->idExam = $exam;
+        $examsvalue->description = Input::get("description");
+        $examsvalue->approved = Input::get("approved");
+        $examsvalue->save();
+      }
+      return Response::json([
+        "status" => 1,
+        "description" => $examsvalue->description,
+        "approved" => $examsvalue->approved,
+      ]);
+    } catch (Exception $e) {
+      return Response::json(["status" => 0, "message" => $e->getMessage()]);
+    }
+  }
+
   public function getFinalunit($unit = "")
   {
     try
@@ -275,11 +301,24 @@ class AvaliableController extends \BaseController
     $user = User::find($this->idUser);
     $exam = Exam::find(Crypt::decrypt($exam));
     $students = null;
+
+    $calculation = $exam->unit->calculation;
+
     if ($exam->aval == "A") {
       $students = Attend::where("idUnit", $exam->idUnit)->get();
     }
-    return View::make("modules.liststudentsexam", ["user" => $user, "exam" => $exam, "students" => $students]);
-    return Crypt::decrypt($exam);
+
+    switch ($calculation) {
+      case "S": // Soma
+      case "A": // Média Aritmética
+      case "W": // Média Ponderada
+        return View::make("modules.liststudentsexam", ["user" => $user, "exam" => $exam, "students" => $students]);
+        break;
+      case "P": // Parecer Descritivo
+        return View::make("modules.liststudentsexamDescriptive", ["user" => $user, "exam" => $exam, "students" => $students]);
+        break;
+    }
+    // return Crypt::decrypt($exam);
   }
 
   public function postDelete()

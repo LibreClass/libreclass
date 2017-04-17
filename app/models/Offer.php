@@ -1,47 +1,62 @@
 <?php
 
-class Offer extends \Eloquent {
+class Offer extends \Eloquent
+{
   protected $table = "Offers";
   protected $fillable = ['idClass', 'idDiscipline', 'classroom', 'day_period'];
 
-  public function discipline() {
+  public function discipline()
+  {
     return $this->belongsTo('Discipline', 'idDiscipline');
   }
 
-  public function units() {
+  public function units()
+  {
     return $this->hasMany('Unit', 'idOffer');
   }
 
-  public function getDiscipline() {
+  public function classe()
+  {
+    return $this->belongsTo('Classe', 'idClass');
+  }
+
+  public function getDiscipline()
+  {
     return Discipline::find($this->idDiscipline);
   }
 
-  public function getClass() {
+  public function getClass()
+  {
     return Classe::find($this->idClass);
   }
 
-  public function getFirstUnit() {
+  public function getFirstUnit()
+  {
     return Unit::where("idOffer", $this->id)->first();
   }
 
-  public function getLastUnit() {
+  public function getLastUnit()
+  {
     return Unit::where("idOffer", $this->id)->orderBy("value", "desc")->first();
   }
 
-  public function getUnits() {
+  public function getUnits()
+  {
     return Unit::where("idOffer", $this->id)->get();
   }
 
-  public function getLectures() {
+  public function getLectures()
+  {
     return Lecture::where("idOffer", $this->id)->first();
   }
 
-  public function getAllLectures() {
+  public function getAllLectures()
+  {
     return Lecture::where("idOffer", $this->id)->get();
   }
 
-
-  public function qtdAbsences( $idStudent ) {
+  public function qtdAbsences($idStudent)
+  {
     return DB::select("SELECT COUNT(*) as 'qtd'
                         FROM Units, Attends, Lessons, Frequencies
                         WHERE Units.idOffer=? AND
@@ -53,7 +68,8 @@ class Offer extends \Eloquent {
                               Attends.idUser=?", [$this->id, $idStudent])[0]->qtd;
   }
 
-  public function qtdLessons() {
+  public function qtdLessons()
+  {
     return DB::select("SELECT COUNT(*) as 'qtd'
                         FROM Units, Lessons
                         WHERE Units.idOffer=? AND
@@ -65,5 +81,15 @@ class Offer extends \Eloquent {
   {
     $course = DB::select("SELECT Periods.idCourse FROM Classes, Periods WHERE ?=Classes.id AND Classes.idPeriod=Periods.id", [$this->idClass])[0]->idCourse;
     return Course::find($course);
+  }
+
+  public function getTeachers()
+  {
+    $teachers = [];
+    $lectures = Lecture::where("idOffer", $this->id)->get();
+    foreach ($lectures as $lecture) {
+      $teachers[] = $lecture->getUser()->name;
+    }
+    return $teachers;
   }
 }

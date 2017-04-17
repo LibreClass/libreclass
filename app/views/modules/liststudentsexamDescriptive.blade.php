@@ -49,11 +49,11 @@
         </div>
       </div>
       <hr>
-@if( isset($exam->id) )
-  {{ Form::hidden("exam", Crypt::encrypt($exam->id)) }}
-@else
-  {{ Form::hidden("unit", Crypt::encrypt($exam->idUnit)) }}
-@endif
+      @if( isset($exam->id) )
+        {{ Form::hidden("exam", Crypt::encrypt($exam->id)) }}
+      @else
+        {{ Form::hidden("unit", Crypt::encrypt($exam->idUnit)) }}
+      @endif
       <div class="row">
         <div class="col-md-8 col-xs-8">
           <span class="text-info"><i class="fa fa-calendar"></i>{{ " ". date("d / m / Y", strtotime($exam->date)) }}</span>
@@ -71,45 +71,74 @@
       <div class="block-list">
         <div class="row">
           <div class="col-md-12">
-            <h3 class="text-blue"><b><i class="fa fa-bar-chart"></i> Inserção de Notas</b></h3>
+            <h3 class="text-blue"><b><i class="fa fa-bar-chart"></i> Insersão de avaliações</b></h3>
           </div>
         </div>
         <div class="block-list-item">
           <div class="row">
             <div class="col-md-12">
-              <ul class="list-inline">
+
+              <!-- <ul class="list-inline">
                 <li><i class="fa fa-undo icon-default"></i> Desfazer</li>
                 <li><i class="fa fa-send text-info"></i> Salvar</li>
-              </ul>
+              </ul> -->
 
-
-            {{ Form::open(["id" => "exam-form"]) }}
+              {{ Form::open(["id" => "exam-form"]) }}
 
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th style="width: 60%;">Nome</th>
-                    <th></th>
+                    <th>Nome</th>
+                    <th>Parecer descritivo</th>
+                    <th>Resultado</th>
                   </tr>
                 </thead>
                 <tbody id='{{ Crypt::encrypt($exam->id) }}'>
 
-@foreach($students as $student )
+                  @foreach ($students as $key=>$student)
                   <tr id='{{ Crypt::encrypt($student->id) }}'>
                     <td>{{ $student->getUser()->name }}</td>
                     <td>
-                      <div class="form-inline">
-                        <div class="form-inside pull-left">
-                          {{ Form::text("exam-value", $student->getExamsValue($exam->id), ["class" => "form-control-1x form-control exam-value", "data" => $student->getExamsValue($exam->id)]) }}
-                          <i class="fa fa-undo form-inside-icon icon-default click back-avaliable"></i>
-                          <i class="fa fa-send form-inside-icon text-info click submit-avaliable"></i>
+                      <div class="">
+                        <div class="">
+                          {{ Form::textarea('exam-description', $student->getDescriptiveExam($exam->id)["description"], ['size' => '45x5', 'maxlength' => 60000]) }}
                         </div>
-                        <div class="pull-left feedback-response small"></div>
+                        <!-- <div class="pull-left feedback-response small"></div> -->
                       </div>
-
+                    </td>
+                    <td>
+                      <div class="radio">
+                        <label>
+                          @if ($student->getDescriptiveExam($exam->id)["approved"] == 'A')
+                            <input type="radio" class="approved" name="approved-{{ $key }}" value="A" checked>
+                          @else
+                            <input type="radio" class="approved" name="approved-{{ $key }}" value="A">
+                          @endif
+                            Aprovado
+                        </label>
+                      </div>
+                      <div class="radio">
+                        <label>
+                          @if ($student->getDescriptiveExam($exam->id)["approved"] == 'R')
+                            <input type="radio" class="approved" name="approved-{{ $key }}" value="R" checked>
+                          @else
+                            <input type="radio" class="approved" name="approved-{{ $key }}" value="R">
+                          @endif
+                          Reprovado
+                        </label>
+                      </div>
+                      <div>
+                        <button class="btn btn-default save-descriptive">Salvar</button>
+                      </div>
+                      <!-- <div class="save-descriptive">
+                        <button class="btn btn-default">Salvando</button>
+                      </div>
+                      <div class="save-descriptive">
+                        <button class="btn btn-success">Salvo!</button>
+                      </div> -->
                     </td>
                   </tr>
-@endforeach
+                  @endforeach
 
                 </tbody>
               </table>
