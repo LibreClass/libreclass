@@ -327,35 +327,44 @@ class UnitsController extends \BaseController
 
   private function printDescriptiveReport(Unit $unit)
   {
-    $data = [];
+    try {
+      $data = [];
 
-    $exams = $unit->getExams();
-    $unit->count_lessons = $unit->countLessons();
-    $lessons = $unit->getLessons();
+      $exams = $unit->getExams();
+      $unit->count_lessons = $unit->countLessons();
+      $lessons = $unit->getLessons();
 
-    foreach ($exams as $exam) {
-      $descriptions = $exam->descriptive_exams();
-      foreach ($descriptions as $description) {
-        $description->student->absence = 0;
-        foreach ($lessons as $lesson) {
-          $value = Frequency::getValue($description->student->id, $lesson->id);
-          if ($value == 'F') {
-            $description->student->absence++;
+      $institution = $unit->offer->classe->period->course->institution()->first();
+      $institution->local = $institution->printCityState();
+
+      if (!isset($institution->photo) || empty($institution->photo)) {
+        throw new Exception('Erro! Instituição não concluiu o cadastro. Foto/logotipo não identificado.');
+      }
+
+      foreach ($exams as $exam) {
+        $descriptions = $exam->descriptive_exams();
+        foreach ($descriptions as $description) {
+          $description->student->absence = 0;
+          foreach ($lessons as $lesson) {
+            $value = Frequency::getValue($description->student->id, $lesson->id);
+            if ($value == 'F') {
+              $description->student->absence++;
+            }
           }
         }
+        $data['exams'][] = ['data' => $exam, 'descriptions' => $descriptions];
       }
-      $data['exams'][] = ['data' => $exam, 'descriptions' => $descriptions];
+
+      $data['institution'] = $institution;
+      $data['unit'] = $unit;
+      $data['discipline'] = $unit->offer->discipline->name;
+      $data['teachers'] = $unit->offer->getTeachers();
+
+      $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', ['data' => $data]);
+      return $pdf->stream();
+    } catch (Exception $e) {
+      return $e->getMessage();
     }
-
-    $institution = $unit->offer->classe->period->course->institution()->first();
-    $institution->local = $institution->printCityState();
-    $data['institution'] = $institution;
-    $data['unit'] = $unit;
-    $data['discipline'] = $unit->offer->discipline->name;
-    $data['teachers'] = $unit->offer->getTeachers();
-
-    $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', ['data' => $data]);
-    return $pdf->stream();
   }
 
 }
