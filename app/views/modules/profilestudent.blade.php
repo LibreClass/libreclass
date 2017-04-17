@@ -29,7 +29,6 @@
             <p><b>Email: </b> {{ $profile->email == "" ? "Email não cadastrado" : $profile->email }}</p>
             <p><b>Data de Nascimento: </b> {{ date("d/m/Y", strtotime($profile->birthdate)) }}</p>
             <p><b>Sexo: </b> {{ $profile->gender == "F" ? "Feminino" : ($profile->gender == "M" ? "Masculino" : "Sexo não informado") }}</p>
-            <p><b>Turma Vinculada: </b></p>
           </div>
         </div>
       </div>
@@ -48,6 +47,7 @@
         </div> -->
         <button class="btn btn-default" id="btnLinkStudent" data="{{ Crypt::encrypt($profile->id) }}"><i class="icon-classes fa-fw"></i> Vincular turma</button>
         <button class="btn btn-default" id="btnCertificate" data="{{ Crypt::encrypt($profile->id) }}"><i class="fa fa-file-o fa-fw"></i> Atestado</button>
+        <button class="btn btn-default" id="btnReport" data="{{ Crypt::encrypt($profile->id) }}"><i class="fa fa-file-o fa-fw"></i> Boletim</button>
         @if($profile->type == "N")
           <button class="btn btn-default" id="btnInvite" data="{{ Crypt::encrypt($profile->id) }}"><i class="fa fa-envelope-o fa-fw"></i> Enviar convite</button>
         @endif
@@ -95,5 +95,6 @@
 @include("modules.student.linkingStudentClasse", ["listidsclasses" => $listidsclasses])
 @include("modules.student.modalCertificate")
 @include("modules.student.modalInvite")
+@include("modules.student.modalScholarReport")
 
 @stop
