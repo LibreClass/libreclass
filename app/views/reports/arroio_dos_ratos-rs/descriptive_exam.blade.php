@@ -47,6 +47,7 @@
 						@endforeach
 		  		@endif
 		  	<h5>
+		  	<h5><b>Aulas realizadas:</b> {{ $data['unit']->count_lessons }}</h5>
 				<h5><strong>Título da avaliação: </strong>{{ $exam['data']['title'] }}
 					<small>{{ date_format(date_create($exam['data']['date']), "d/m/Y") }}</small>
 				</h5>
@@ -58,7 +59,7 @@
 						<tr>
 							<td>
 								<h5><b>{{ $d->student->name }} <small>{{ $d->approved == 'A' ? 'Aprovado' : 'Reprovado' }}</small></b></h5>
-								<h5><b>Aulas realizadas: {{ $data['unit']->count_lessons }} / Faltas: {{ $d->student->absence }}</b></h5>
+								<h5>Faltas: {{ $d->student->absence }}</b></h5>
 								<p>{{ $d->description }}</p>
 							</td>
 						</tr>
