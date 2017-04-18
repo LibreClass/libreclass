@@ -531,6 +531,8 @@ class UsersController extends \BaseController
     $data = [];
     $data['institution'] = User::find($this->idUser);
     $data['student'] = User::find(Crypt::decrypt(Input::get('u')));
+    $e = Relationship::where('idUser', $this->idUser)->where('idFriend', $data['student']->id)->first();
+    $data['student']['enrollment'] = $e['enrollment'];
 
     $disciplines = DB::select("
       SELECT
@@ -550,9 +552,32 @@ class UsersController extends \BaseController
         and Offers.idDiscipline = Disciplines.id
         and Offers.id = Units.idOffer
         and Units.id = Attends.idUnit and Attends.idUser =  ?
-      GROUP BY Offers.id", [$this->idUser, Input::get('c'), $data['student']->id]
+      GROUP BY Offers.id",
+      [$this->idUser, Input::get('c'), $data['student']->id]
     );
-    $data['disciplines'] = $disciplines;
+
+    if (!$disciplines) {
+      return "Aluno não possui disciplinas.";
+    }
+
+    foreach ($disciplines as $key => $discipline) {
+      $data['disciplines'][$key] = (array) $discipline;
+      $finalExam = FinalExam::where('idOffer', $data['disciplines'][$key]['offer'])->where('idUser', $data['student']['id'])->first();
+      $units = Offer::find($data['disciplines'][$key]['offer'])->units()->orderBy('created_at')->get();
+      foreach ($units as $unit) {
+        $exams = $unit->getExams();
+        $average = number_format($unit->getAverage($data['student']['id'])[0], 0);
+        $data['disciplines'][$key][$unit->value]['average'] = ($average > 10) ? number_format($average, 0) : number_format($average, 2);
+        $examRecovery = $unit->getRecovery();
+        if ($examRecovery) {
+          $attend = Attend::where('idUnit', $unit->id)->where('idUser', $data['student']['id'])->first();
+          $data['disciplines'][$key][$unit->value]['recovery'] = ExamsValue::where('idAttend', $attend->id)->where('idExam', $examRecovery->id)->first()->value;
+        }
+      }
+    }
+
+    $data['course'] = Course::find($disciplines[0]->course);
+    $data['classe'] = Offer::find($disciplines[0]->offer)->classe;
 
     $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.final_result', ['data' => $data]);
     return $pdf->stream();
