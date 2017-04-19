@@ -68,6 +68,20 @@ class Offer extends \Eloquent
                               Attends.idUser=?", [$this->id, $idStudent])[0]->qtd;
   }
 
+  public function qtdUnitAbsences($idStudent, $unitValue)
+  {
+    return DB::select("SELECT COUNT(*) as 'qtd'
+                        FROM Units, Attends, Lessons, Frequencies
+                        WHERE Units.idOffer = ? AND
+                              Units.value = ? AND
+                              Units.id = Lessons.idUnit AND
+                              Lessons.id = Frequencies.idLesson AND
+                              Lessons.deleted_at IS NULL AND
+                              Frequencies.idAttend = Attends.id AND
+                              Frequencies.value = 'F' AND
+                              Attends.idUser = ?", [$this->id, $unitValue, $idStudent])[0]->qtd;
+  }
+
   public function qtdLessons()
   {
     return DB::select("SELECT COUNT(*) as 'qtd'
@@ -75,6 +89,16 @@ class Offer extends \Eloquent
                         WHERE Units.idOffer=? AND
                               Units.id=Lessons.idUnit AND
                               Lessons.deleted_at IS NULL", [$this->id])[0]->qtd;
+  }
+
+  public function qtdUnitLessons($unitValue)
+  {
+    return DB::select("SELECT COUNT(*) as 'qtd'
+                        FROM Units, Lessons
+                        WHERE Units.idOffer=? AND
+                              Units.value=? AND
+                              Units.id=Lessons.idUnit AND
+                              Lessons.deleted_at IS NULL", [$this->id, $unitValue])[0]->qtd;
   }
 
   public function getCourse()
