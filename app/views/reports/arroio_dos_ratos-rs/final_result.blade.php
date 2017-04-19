@@ -61,58 +61,60 @@
 					@endforeach
 				</tr>
 				<tr>
-					<td class="small" colspan="2">1ª Unidade</td>
+					<td class="small" colspan="2">1º Trimestre</td>
 					@foreach ($data['disciplines'] as $discipline)
 						<td class='text-center small'>{{ isset($discipline[1]['average']) ? $discipline[1]['average'] : 0  }}</td>
 						<td class='text-center small'>{{ isset($discipline[1]['recovery']) ? $discipline[1]['recovery'] : '--'  }}</td>
 					@endforeach
 				</tr>
 				<tr>
-					<td class="small" colspan="2">2ª Unidade</td>
+					<td class="small" colspan="2">2º Trimestre</td>
 					@foreach ($data['disciplines'] as $discipline)
 						<td class='text-center small'>{{ isset($discipline[2]['average']) ? $discipline[2]['average'] : 0  }}</td>
 						<td class='text-center small'>{{ isset($discipline[2]['recovery']) ? $discipline[2]['recovery'] : '--'  }}</td>
 					@endforeach
 				</tr>
 				<tr>
-					<td class="small" colspan="2">3ª Unidade</td>
+					<td class="small" colspan="2">3º Trimestre</td>
 					@foreach ($data['disciplines'] as $discipline)
 						<td class='text-center small'>{{ isset($discipline[3]['average']) ? $discipline[3]['average'] : 0  }}</td>
 						<td class='text-center small'>{{ isset($discipline[3]['recovery']) ? $discipline[3]['recovery'] : '--'  }}</td>
+					@endforeach
+				</tr>
+				<tr>
+					<td class="small" colspan="2">Assiduidade</td>
+					@foreach ($data['disciplines'] as $discipline)
+						<td class='text-center small'>A</td>
+						<td class='text-center small'>F</td>
+					@endforeach
+				</tr>
+				<tr>
+					<td class="small" colspan="2">1º Trimestre</td>
+					@foreach ($data['disciplines'] as $discipline)
+						<td class='text-center small'>{{ isset($discipline[1]['lessons']) ? $discipline[1]['lessons'] : 0  }}</td>
+						<td class='text-center small'>{{ isset($discipline[1]['absenceses']) ? $discipline[1]['absenceses'] : 0  }}</td>
+					@endforeach
+				</tr>
+				<tr>
+					<td class="small" colspan="2">2º Trimestre</td>
+					@foreach ($data['disciplines'] as $discipline)
+						<td class='text-center small'>{{ isset($discipline[2]['lessons']) ? $discipline[2]['lessons'] : 0  }}</td>
+						<td class='text-center small'>{{ isset($discipline[2]['absenceses']) ? $discipline[2]['absenceses'] : 0  }}</td>
+					@endforeach
+				</tr>
+				<tr>
+					<td class="small" colspan="2">3º Trimestre</td>
+					@foreach ($data['disciplines'] as $discipline)
+						<td class='text-center small'>{{ isset($discipline[3]['lessons']) ? $discipline[3]['lessons'] : 0  }}</td>
+						<td class='text-center small'>{{ isset($discipline[3]['absenceses']) ? $discipline[3]['absenceses'] : 0  }}</td>
 					@endforeach
 				</tr>
 			</table>
 		</div>
 
 		<div>
+			<p class='small'>N = Nota média.<br>R = Nota de recuperação.<br>A = Aulas realizadas.<br>F = Faltas.</p>
 			<p class='small'>Obs: A nota mínima para que o aluno seja considerado aprovado, ou seja, apto às aprendizagens seguintes é 50.</p>
-		</div>
-
-		<div>
-			<h4 class='text-center breadcrumb'>Assiduidade</h4>
-		</div>
-
-		<div>
-			<table class='table table-bordered'>
-				<tr>
-					<td class='text-center'></td>
-					<td class='text-center'><b>1ª Unidade</b></td>
-					<td class='text-center'><b>2ª Unidade</b></td>
-					<td class='text-center'><b>3ª Unidade</b></td>
-				</tr>
-				<tr>
-					<td class='text-center'><b>Dias letivos</b></td>
-					<td class='text-center'></td>
-					<td class='text-center'></td>
-					<td class='text-center'></td>
-				</tr>
-				<tr>
-					<td class='text-center'><b>Faltas</b></td>
-					<td class='text-center'></td>
-					<td class='text-center'></td>
-					<td class='text-center'></td>
-				</tr>
-			</table>
 		</div>
 
 		<div>
@@ -124,9 +126,9 @@
 				<tr>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
-					<td class='text-center small'><b>1ª Un.</b></td>
-					<td class='text-center small'><b>2ª Un.</b></td>
-					<td class='text-center small'><b>3ª Un.</b></td>
+					<td class='text-center small'><b>1ª tri.</b></td>
+					<td class='text-center small'><b>2ª tri.</b></td>
+					<td class='text-center small'><b>3ª tri.</b></td>
 				</tr>
 				<tr>
 					<td class='text-center small'>01</td>
@@ -151,49 +153,63 @@
 				</tr>
 				<tr>
 					<td class='text-center small'>04</td>
-					<td class='small'>Buscar esclarecimento e dúvidas com o professor.</td>
+					<td class='small'>Realizar as tarefas de casa e ter pontualidade na entrega dos trabalhos.</td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 				</tr>
 				<tr>
 					<td class='text-center small'>05</td>
-					<td class='small'>Cuidar a frequência escolar.</td>
+					<td class='small'>Buscar esclarecimento e dúvidas com o professor.</td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 				</tr>
 				<tr>
 					<td class='text-center small'>06</td>
-					<td class='small'>Procure ser mais caprichoso e organizado com seu material escolar, pois facilitará seus estudos.</td>
+					<td class='small'>Cuidar a frequência escolar.</td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 				</tr>
 				<tr>
 					<td class='text-center small'>07</td>
-					<td class='small'>Evite conversas desnecessárias e brincadeiras em horário de aula, pois estas atitudes estão prejudicando seu rendimento e dos colegas.</td>
+					<td class='small'>Evitar atrasos no primeiro período e/ou retorno do recreio.</td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 				</tr>
 				<tr>
 					<td class='text-center small'>08</td>
-					<td class='small'>Procure ler mais, frequentar a biblioteca.</td>
+					<td class='small'>Procure ser mais caprichoso e organizado com seu material escolar, pois facilitará seus estudos.</td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 				</tr>
 				<tr>
 					<td class='text-center small'>09</td>
-					<td class='small'>Conhece, respeita e cumpre as combinações feitas na turma.</td>
+					<td class='small'>Evite conversas desnecessárias e brincadeiras em horário de aula, pois estas atitudes estão prejudicando seu rendimento e dos colegas.</td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 				</tr>
 				<tr>
 					<td class='text-center small'>10</td>
-					<td class='small'>Realize suas tarefas em casa.</td>
+					<td class='small'>Conforme a lei Nº 12.884/2008 é proibido o uso de aparelhos eletrônicos durante as aulas.</td>
+					<td class='text-center small'></td>
+					<td class='text-center small'></td>
+					<td class='text-center small'></td>
+				</tr>
+				<tr>
+					<td class='text-center small'>11</td>
+					<td class='small'>Procure ler mais, frequentar a biblioteca.</td>
+					<td class='text-center small'></td>
+					<td class='text-center small'></td>
+					<td class='text-center small'></td>
+				</tr>
+				<tr>
+					<td class='text-center small'>12</td>
+					<td class='small'>Conhece, respeita e cumpre as combinações feitas na turma.</td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
 					<td class='text-center small'></td>
@@ -201,48 +217,18 @@
 			</table>
 		</div>
 
-		<!-- <div>
-			<ol class="breadcrumb">
-        <li>{{-- $data['unit']->offer->discipline->period->course->name --}}</li>
-        <li>{{-- $data['unit']->offer->discipline->period->name --}}</li>
-        <li>{{-- $data['unit']->offer->getClass()->fullName() --}}</li>
-        <li>Unidade {{-- $data['unit']->value --}}</li>
-      </ol>
-		</div> -->
+		<br>
 
-		<!-- <div class="pdf"> -->
-		  <!-- @ foreach ($ data['exams'] as $ exam) -->
-		  	<!-- <h5><strong>Disciplina: </strong> {{-- $data['discipline'] --}}</h5> -->
-		  	<!-- <h5> -->
-		  		<!-- @ if (count($ data['teachers']) == 1) -->
-			  		<!-- <strong>Professor(a): </strong> -->
-		  			<!-- <span>{{-- $data['teachers'][0] --}}</span> -->
-		  		<!-- @ elseif (count($ data['teachers']) > 1) -->
-		  			<!-- <strong>Professores(as): </strong> -->
-						<!-- @ foreach ($ data['teachers'] as $ teacher) -->
-							<!-- <span>{{-- $teacher --}}</span> -->
-						<!-- @ endforeach -->
-		  		<!-- @ endif -->
-		  	<!-- <h5> -->
-				<!-- <h5><strong>Título da avaliação: </strong>{{-- $exam['data']['title'] --}} -->
-					<!-- <small>{{-- date_format(date_create($exam['data']['date']), "d/m/Y") --}}</small> -->
-				<!-- </h5> -->
-				<!-- @ if ($exam['data']['comments']) -->
-					<!-- <h5><strong>Descrição: </strong>{{-- $exam['data']['comments'] --}}</h5> -->
-				<!-- @ endif -->
-				<!-- <table class="table table-bordered"> -->
-					<!-- @ foreach ($ exam['descriptions'] as $ d) -->
-						<!-- <tr> -->
-							<!-- <td> -->
-								<h5><b>{{-- $d->student->name --}} <small>{{-- $d->approved == 'A' ? 'Aprovado' : 'Reprovado' --}}</small></b></h5>
-								<!-- <h5><b>Aulas realizadas: {{-- $data['unit']->count_lessons --}} / Faltas: {{-- $d->student->absence --}}</b></h5> -->
-								<!-- <p>{{-- $d->description --}}</p> -->
-							<!-- </td> -->
-						<!-- </tr> -->
-					<!-- @ endforeach -->
-				<!-- </table> -->
-			<!-- @ endforeach -->
-		<!-- </div> -->
+		<div class='container-fluid'>
+			<div class='row'>
+				<div class='col-xs-4 text-center'>
+					Data: _____/_____/_____
+				</div>
+				<div class='col-xs-8 text-center'>
+					Ass. Supervisora: ______________________________________
+				</div>
+			</div>
+		</div>
 
 	</body>
 
