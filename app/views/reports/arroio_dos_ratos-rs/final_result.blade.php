@@ -117,107 +117,7 @@
 			<p class='small'>Obs: A nota mínima para que o aluno seja considerado aprovado, ou seja, apto às aprendizagens seguintes é 50.</p>
 		</div>
 
-		<div>
-			<h4 class='text-center breadcrumb'>Observações</h4>
-		</div>
-
-		<div>
-			<table class='table table-bordered'>
-				<tr>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'><b>1ª tri.</b></td>
-					<td class='text-center small'><b>2ª tri.</b></td>
-					<td class='text-center small'><b>3ª tri.</b></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>01</td>
-					<td class='small'>Parabéns continue sendo um ótimo aluno.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>02</td>
-					<td class='small'>Estamos observando seu esforço para melhorar cada vez mais.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>03</td>
-					<td class='small'>Precisa estudar mais, somente assim conseguirá atingir os objetivos propostos. Acreditamos em ti.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>04</td>
-					<td class='small'>Realizar as tarefas de casa e ter pontualidade na entrega dos trabalhos.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>05</td>
-					<td class='small'>Buscar esclarecimento e dúvidas com o professor.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>06</td>
-					<td class='small'>Cuidar a frequência escolar.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>07</td>
-					<td class='small'>Evitar atrasos no primeiro período e/ou retorno do recreio.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>08</td>
-					<td class='small'>Procure ser mais caprichoso e organizado com seu material escolar, pois facilitará seus estudos.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>09</td>
-					<td class='small'>Evite conversas desnecessárias e brincadeiras em horário de aula, pois estas atitudes estão prejudicando seu rendimento e dos colegas.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>10</td>
-					<td class='small'>Conforme a lei Nº 12.884/2008 é proibido o uso de aparelhos eletrônicos durante as aulas.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>11</td>
-					<td class='small'>Procure ler mais, frequentar a biblioteca.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-				<tr>
-					<td class='text-center small'>12</td>
-					<td class='small'>Conhece, respeita e cumpre as combinações feitas na turma.</td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-					<td class='text-center small'></td>
-				</tr>
-			</table>
-		</div>
-
-		<br>
+		<br><br><br>
 
 		<div class='container-fluid'>
 			<div class='row'>
@@ -225,7 +125,7 @@
 					Data: _____/_____/_____
 				</div>
 				<div class='col-xs-8 text-center'>
-					Ass. Supervisora: ______________________________________
+					Ass. Supervisor(a): ___________________________________
 				</div>
 			</div>
 		</div>
