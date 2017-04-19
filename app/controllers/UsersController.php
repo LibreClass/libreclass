@@ -529,8 +529,14 @@ class UsersController extends \BaseController
   public function printScholarReport()
   {
     $data = [];
+
+    // Obtém dados da instituição
     $data['institution'] = User::find($this->idUser);
+
+    // Obtém dados do aluno
     $data['student'] = User::find(Crypt::decrypt(Input::get('u')));
+
+    // Obtém número de matrícula do aluno na instituição
     $e = Relationship::where('idUser', $this->idUser)->where('idFriend', $data['student']->id)->first();
     $data['student']['enrollment'] = $e['enrollment'];
 
@@ -556,19 +562,34 @@ class UsersController extends \BaseController
       [$this->idUser, Input::get('c'), $data['student']->id]
     );
 
+    // $offer = Offer::find($disciplines[0]->offer);
+    // dd($offer->qtdLessons());
+
     if (!$disciplines) {
       return "Aluno não possui disciplinas.";
     }
 
     foreach ($disciplines as $key => $discipline) {
+
+      // Obtém informações da disciplinas
       $data['disciplines'][$key] = (array) $discipline;
-      $finalExam = FinalExam::where('idOffer', $data['disciplines'][$key]['offer'])->where('idUser', $data['student']['id'])->first();
+
+      // Obtém unidades
       $units = Offer::find($data['disciplines'][$key]['offer'])->units()->orderBy('created_at')->get();
+
       foreach ($units as $unit) {
-        $exams = $unit->getExams();
+        // Obtém quantidade de aulas realizadas
+        $data['disciplines'][$key][$unit->value]['lessons'] = Offer::find($unit->idOffer)->qtdUnitLessons($unit->value);
+
+        // Obtém quantidade de faltas
+        $data['disciplines'][$key][$unit->value]['absenceses'] = Offer::find($unit->idOffer)->qtdUnitAbsences($data['student']['id'], $unit->value);
+
+        // Obtém a média do alunos por disciplina por unidade
         $average = number_format($unit->getAverage($data['student']['id'])[0], 0);
         $data['disciplines'][$key][$unit->value]['average'] = ($average > 10) ? number_format($average, 0) : number_format($average, 2);
         $examRecovery = $unit->getRecovery();
+
+        // Verifica se há prova de recuperação
         if ($examRecovery) {
           $attend = Attend::where('idUnit', $unit->id)->where('idUser', $data['student']['id'])->first();
           $data['disciplines'][$key][$unit->value]['recovery'] = ExamsValue::where('idAttend', $attend->id)->where('idExam', $examRecovery->id)->first()->value;
@@ -576,7 +597,10 @@ class UsersController extends \BaseController
       }
     }
 
+    // Obtém dados do curso
     $data['course'] = Course::find($disciplines[0]->course);
+
+    // Obtém dados da turma
     $data['classe'] = Offer::find($disciplines[0]->offer)->classe;
 
     $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.final_result', ['data' => $data]);
