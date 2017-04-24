@@ -38,6 +38,17 @@ $(function (){
     $("#modalInvite").modal();
   });
 
+  $("#btnReport").unbind("click").click(function() {
+    $("#modalScholarReport").modal();
+  });
+
+  $("#modalScholarReport").on("click", "button[type='submit']", function(e) {
+    e.preventDefault();
+    var student = new URLSearchParams(window.location.search).get('u');
+    var classe = $('#class-modal-change').val();
+    window.open($(e.currentTarget).attr('data-url') + '?u=' + student + '&c=' + classe);
+  });
+
   $("#classe").change(function(){
     $.post("/classes/list-offers",{
       class: $(this).val(),
