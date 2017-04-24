@@ -211,11 +211,17 @@ class AvaliableController extends \BaseController
       $offer = Crypt::decrypt(Input::get("offer"));
       $student = Crypt::decrypt(Input::get("student"));
       $value = (float) str_replace(",", ".", Input::get("value"));
-      if ($value > 10 || $value < 0) {
-        throw new Exception('Division by zero.');
+
+      $average = Offer::find($offer)->getClass()->getPeriod()->getCourse()->average;
+
+      if (($average > 10 && ($value > 100 || $value < 0)) || ($average <= 10 && ($value > 10 || $value < 0))) {
+        throw new Exception('Invalid value.');
       } else {
-        $value = sprintf("%.2f", $value);
+        if ($average <= 10) {
+          $value = sprintf("%.2f", $value);
+        }
       }
+
       if (FinalExam::where("idUser", $student)->where("idOffer", $offer)->first()) {
         FinalExam::where("idUser", $student)->where("idOffer", $offer)->update(["value" => $value]);
       } else {
