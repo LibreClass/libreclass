@@ -331,6 +331,9 @@ class UnitsController extends \BaseController
       $data = [];
 
       $exams = $unit->getExams();
+      if (count($exams) == 0) {
+        throw new Exception('Não há avaliações para gerar o relatório de parecer descritivo.');
+      }
       $unit->count_lessons = $unit->countLessons();
       $lessons = $unit->getLessons();
 
