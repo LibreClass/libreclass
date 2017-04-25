@@ -37,7 +37,6 @@ $(function() {
 
   $(".edit-teacher").click(function(){
     var teacher = $(this).closest(".data").attr("data");
-    //alert(teacher);
     $.getJSON("/user/infouser", {
       "user": teacher
     }).done(function(data) {
@@ -46,6 +45,23 @@ $(function() {
       $("#formAddTeacher input[name='name']").val(data.name);
       $("#formAddTeacher input[name='formation']").val(data.formation);
       $("#modalAddTeacher").modal();
+    }).fail(function() {
+      $("#modalAlert .modal-body").html("<span class='text-center'>Não foi possível realizar a operação. Se o problema persistir contate o <a href='mailto:suporte@sysvale.com'>suporte</a></span>");
+      $("#modalAlert").modal();
+    });
+  });
+
+  $(".edit-register-teacher").click(function() {
+		var modalTarget = $('#modalEditRegisterTeacher');
+    var teacher = $(this).closest(".data").attr("data");
+    //alert(teacher);
+    $.getJSON("/user/infouser", {
+      "user": teacher
+    }).done(function(data) {
+			console.log(data);
+      $(modalTarget).find("input[name='teacher']").val(teacher);
+      $(modalTarget).find("input[name='enrollment']").val(data.enrollment);
+      modalTarget.modal();
     }).fail(function() {
       $("#modalAlert .modal-body").html("<span class='text-center'>Não foi possível realizar a operação. Se o problema persistir contate o <a href='mailto:suporte@sysvale.com'>suporte</a></span>");
       $("#modalAlert").modal();

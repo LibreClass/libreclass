@@ -48,6 +48,7 @@ if (Session::get("user") == null) {
   if (Session::get("type") == "I") {
     Route::get('/user/scholar-report', "UsersController@printScholarReport");
     Route::post('user/teacher/delete', "UsersController@postUnlink");
+    Route::post('user/teacher/update-enrollment', "UsersController@updateEnrollment");
     Route::get('classes/units/report-unit/{idUnit}', "UnitsController@getReportUnit");
 
     Route::controller('courses', "CoursesController");
