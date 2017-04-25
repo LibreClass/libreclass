@@ -40,7 +40,7 @@
                                             "Ensino Superior Completo",
                                             "Pós-Graduado",
                                             "Mestre",
-                                            "Doutor"], null, ["class" => "form-control input-lg"]) }}
+                                            "Doutor"], null, ["class" => "form-control input-lg", "required"]) }}
             </div>
 
         </div>
