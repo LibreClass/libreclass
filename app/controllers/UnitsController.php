@@ -319,10 +319,6 @@ class UnitsController extends \BaseController
     $fpdf->signatureField();
     // echo print_r($studentInfo, true);
     $fpdf->Output('Diário_' . date('Y-m-d') . '.pdf', 'I');
-
-    return;
-    //  return View::make("modules.frequency", ["user" => $user, "offer" => $offer, "unit" => $unit, "students" => $students]);
-    //  return $offer;
   }
 
   private function printDescriptiveReport(Unit $unit)
@@ -332,7 +328,7 @@ class UnitsController extends \BaseController
 
       $exams = $unit->getExams();
       if (count($exams) == 0) {
-        throw new Exception('Não há avaliações para gerar o relatório de parecer descritivo.');
+        throw new Exception('É necessário criar pelo menos uma avaliação para gerar o relatório de parecer descritivo.');
       }
       $unit->count_lessons = $unit->countLessons();
       $lessons = $unit->getLessons();
@@ -341,7 +337,7 @@ class UnitsController extends \BaseController
       $institution->local = $institution->printCityState();
 
       if (!isset($institution->photo) || empty($institution->photo)) {
-        throw new Exception('Erro! Instituição não concluiu o cadastro. Foto/logotipo não identificado.');
+        throw new Exception('A Instituição não concluiu o cadastro, pois não identificamos a foto de perfil que é utilizada para construir o relatório.');
       }
 
       foreach ($exams as $exam) {
@@ -366,7 +362,9 @@ class UnitsController extends \BaseController
       $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', ['data' => $data]);
       return $pdf->stream();
     } catch (Exception $e) {
-      return $e->getMessage();
+      return View::make("reports.report_error", [
+        "message" => $e->getMessage(),
+      ]);
     }
   }
 
