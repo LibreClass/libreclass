@@ -328,7 +328,7 @@ class UnitsController extends \BaseController
 
       $exams = $unit->getExams();
       if (count($exams) == 0) {
-        throw new Exception('É necessário criar pelo menos uma avaliação para gerar o relatório de parecer descritivo.');
+        throw new Exception('É necessário criar pelo menos uma <b>avaliação</b> para gerar o relatório de parecer descritivo.');
       }
       $unit->count_lessons = $unit->countLessons();
       $lessons = $unit->getLessons();
@@ -337,7 +337,7 @@ class UnitsController extends \BaseController
       $institution->local = $institution->printCityState();
 
       if (!isset($institution->photo) || empty($institution->photo)) {
-        throw new Exception('A Instituição não concluiu o cadastro, pois não identificamos a foto de perfil que é utilizada para construir o relatório.');
+        throw new Exception('A Instituição não concluiu o cadastro, pois não identificamos a <b>foto de perfil</b> que é utilizada para construir o relatório.');
       }
 
       foreach ($exams as $exam) {
