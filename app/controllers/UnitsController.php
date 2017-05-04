@@ -191,134 +191,101 @@ class UnitsController extends \BaseController
 
   private function printDefaultReport(Unit $unit)
   {
-    // Array utilizado para imprimir PDF
-    $info = [];
+    try {
+      $data = [];
+      $institution = $unit->offer->classe->period->course->institution()->first();
+      $institution->local = $institution->printCityState();
+      $data['institution'] = $institution;
+      $data['classe'] = $unit->offer->getClass();
+      $data['period'] = $unit->offer->classe->getPeriod();
+      $data['course'] = $unit->offer->classe->period->getCourse();
 
-    $user = User::find($this->idUser);
-    $offer = Offer::find($unit->idOffer);
-    $class = $offer->getClass();
-    $discipline = $offer->getDiscipline();
-    $period = $discipline->getPeriod();
-    $course = $period->getCourse();
-    $institution = $course->getInstitution();
-    $institution->city = $institution->printLocation();
-    $teacher = $offer->getLectures() ? User::find($offer->getLectures()->idUser) : null;
+      $offer = Offer::find($unit->idOffer);
 
-    // Período do dia
-    if ($offer->day_period == "M") {
-      $offer->day_period = "Matutino";
-    } else if ($offer->day_period == "V") {
-      $offer->day_period = "Vespertino";
-    } else if ($offer->day_period == "N") {
-      $offer->day_period = "Noturno";
-    }
-
-    //  if ($offer->getLectures()->idUser != $this->idUser) {
-    //    return Redirect::to("/lectures")->with("error", "Você não tem acesso a essa página");
-    //  }
-
-    $students = DB::select("select Users.id, Users.name "
-      . "from Users, Attends, Units "
-      . "where Units.idOffer=? and Attends.idUnit=Units.id and Attends.idUser=Users.id "
-      . "group by Users.id order by Users.name", [$offer->id]);
-
-    $lessons = $unit->getLessonsToPdf();
-
-    $exams = $unit->getExams();
-    $countLessons = $unit->countLessons();
-
-    $street = empty($institution->city) ? $institution->street . ", " . $institution->city : $institution->city;
-
-    // Prepara informações do cabeçalho
-    $classInfo = [
-      "institution_name" => $institution->name,
-      "institution_street" => $street,
-      "institution_uee" => $institution->uee,
-      "periodo_letivo" => $class->class,
-      "tipo_de_ensino" => $course->type,
-      "modalidade" => $course->modality,
-      "submodalidade" => $course->name,
-      "serie" => $period->name,
-      "turma" => $class->name,
-      "periodo_dia" => $offer->day_period,
-      "disciplina" => $discipline->name,
-      "professor" => $teacher ? $teacher->name : "",
-      "unidade" => $unit->value,
-      "maxlessons" => $offer->maxlessons,
-      "toughtLessons" => $countLessons,
-    ];
-
-    // Formata datas de provas para impressão
-    $examsDate = [0 => "", 1 => "", 2 => "", 3 => ""];
-    for ($i = 0; $i < 4; $i++) {
-      if (isset($exams[$i])) {
-        $tmpExamDate = explode("-", $exams[$i]->date);
-        $examsDate[$i] = $tmpExamDate[2] . "/" . $tmpExamDate[1] . "/" . $tmpExamDate[0];
+      $students = DB::select(""
+        . " SELECT Users.id, Users.name "
+        . " FROM Users, Attends, Units "
+        . " WHERE Units.idOffer=? AND Attends.idUnit=Units.id AND Attends.idUser=Users.id "
+        . " GROUP BY Users.id "
+        . " ORDER BY Users.name ASC", [$offer->id]
+      );
+      $data['students'] = [];
+      foreach ($students as $student) {
+        $data['students'][] = $student;
       }
-    }
 
-    $num = 0;
-    // Percorre a lista de todos os alunos
-    foreach ($students as $student) {
-      $faltas = 0;
-      $info[$num]["num"] = $num + 1;
-      $info[$num]["name"] = $student->name;
+      $lessons = $unit->getLessonsToPdf();
 
-      // Prepara o array com as frequências do aluno
-      for ($i = 0; $i < 45; $i++) {
-        if (isset($lessons[$i])) {
-          $value = Frequency::getValue($student->id, $lessons[$i]->id);
-          if ($value == "F") {
-            $faltas++;
+      // Prepara o nome das aulas com a data de realização das mesmas
+      $data['lessons'] = [];
+      foreach ($lessons as $key => $lesson) {
+        $date = explode('-', $lesson->date)[2] . '/' . explode('-', $lesson->date)[1] . '/' . explode('-', $lesson->date)[0];
+        $data['lessons'][$key] = 'Aula ' . (string) ($key + 1) . ' - ' . $date;
+        // dd($data['lessons'][$key]);
+      }
+
+      // Percorre a lista de todos os alunos
+      foreach ($data['students'] as $key => $student) {
+        $absences = 0;
+        $data['students'][$key]->number = $key + 1;
+
+        // Obtém frequência escolar do aluno
+        $data['students'][$key]->absences = [];
+        for ($i = 0; $i < count($lessons); $i++) {
+          if (isset($lessons[$i])) {
+            $value = Frequency::getValue($student->id, $lessons[$i]->id);
+            if ($value == "F") {
+              $absences++;
+            }
+            $data['students'][$key]->absences[$i] = ($value == "P") ? "." : $value;
+          } else {
+            $data['students'][$key]->absences[$i] = ".";
           }
-          $info[$num]["lesson-" . ($i + 1)] = ($value == "P") ? "." : $value;
-        } else {
-          $info[$num]["lesson-" . ($i + 1)] = ".";
         }
-      }
 
-      // Prepara o array com as avaliações do aluno
-      for ($i = 0; $i < 4; $i++) {
-        if (isset($exams[$i])) {
-          $info[$num]["exam-" . ($i + 1)] = ExamsValue::getValue($student->id, $exams[$i]->id);
-        } else {
-          $info[$num]["exam-" . ($i + 1)] = "-";
+        $exams = $unit->getExams();
+        $data['exams'] = [];
+        foreach ($exams as $_key => $exam) {
+          $data['exams'][$_key] = $exam;
+          $data['exams'][$_key]['number'] = $_key + 1;
+          $date = explode('-', $exam->date)[2] . '/' . explode('-', $exam->date)[1] . '/' . explode('-', $exam->date)[0];
+          $data['exams'][$_key]['date'] = $date;
         }
+
+        $data['students'][$key]->exams = [];
+
+        // Inclui as avaliações realizadas pelo anulo
+        foreach ($exams as $exam) {
+          $data['students'][$key]->exams[] = ExamsValue::getValue($student->id, $exam->id) ? ExamsValue::getValue($student->id, $exam->id) : '-';
+        }
+        // dd($data['students'][$key]);
+
+        // Registra a média e a média final após prova de recuperação
+        $average = $unit->getAverage($student->id);
+        $data['students'][$key]->average = empty($average[0]) ? "-" : sprintf("%.2f", $average[0]);
+        $data['students'][$key]->finalAverage = empty($average[1]) ? "-" : sprintf("%.2f", $average[1]);
+
+        // Quantidade total de faltas
+        $data['students'][$key]->countAbsences = (string) $absences;
       }
-      $average = $unit->getAverage($student->id);
-      $info[$num]["average"] = empty($average[0]) ? "-" : sprintf("%.2f", $average[0]);
-      $info[$num]["final-average"] = empty($average[1]) ? "-" : sprintf("%.2f", $average[1]);
+      // dd($data['students']);
 
-      // Quantidade total de faltas
-      $info[$num]["absence"] = (string) $faltas;
-      $num++;
+      $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.class_diary', ['data' => $data])
+        ->setPaper('a4')
+        ->setOrientation('landscape')
+        ->setOption('margin-top', 5)
+        ->setOption('margin-right', 5)
+        ->setOption('margin-bottom', 5)
+        ->setOption('margin-left', 5);
+      return $pdf->stream();
+
+      // return View::make('reports.arroio_dos_ratos-rs.class_diary', ['data' => $data]);
+
+    } catch (Exception $e) {
+      return View::make("reports.report_error", [
+        "message" => $e->getMessage() . ' ' . $e->getLine(),
+      ]);
     }
-
-    $fpdf = new \reports\cetep\Offer($classInfo, $examsDate);
-    $fpdf->AddPage();
-    $fpdf->SetMargins(1, 1, 1);
-    $fpdf->SetAutoPageBreak(true, 1);
-    $fpdf->SetAuthor('LibreClass');
-    $fpdf->SetTitle('LibreClass Report - ' . date('Y-m-d'));
-    $fpdf->SetFont('Times', '', 8);
-
-    // Imprime no PDF as informações de cada aluno
-    foreach ($info as $studentInfo) {
-      echo $fpdf->insertStudent($studentInfo);
-    }
-
-    // Imprime as notas de aula
-    $i = 1;
-    foreach ($lessons as $lesson) {
-      // if (!empty($lesson->notes)) {
-      $fpdf->insertLessonNotes($i, $lesson->title, $lesson->notes);
-      // }
-      $i++;
-    }
-
-    $fpdf->signatureField();
-    // echo print_r($studentInfo, true);
-    $fpdf->Output('Diário_' . date('Y-m-d') . '.pdf', 'I');
   }
 
   private function printDescriptiveReport(Unit $unit)
