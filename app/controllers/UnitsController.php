@@ -189,6 +189,13 @@ class UnitsController extends \BaseController
     }
   } //--- Imprimir PDF
 
+  /**
+   * Imprime o relatório da oferta, acessível pelo perfil de professor e instituição, quando o método de
+   * avaliação for somatório, média aritmética ou média ponderada.
+   *
+   * @param  Unit   $unit [Unidade a gerar relatório]
+   * @return [File]       [PDF com o relatório preparado para impressão]
+   */
   private function printDefaultReport(Unit $unit)
   {
     try {
@@ -243,6 +250,9 @@ class UnitsController extends \BaseController
           }
         }
 
+        // Quantidade total de faltas
+        $data['students'][$key]->countAbsences = (string) $absences;
+
         $exams = $unit->getExams();
         $data['exams'] = [];
         foreach ($exams as $_key => $exam) {
@@ -258,15 +268,11 @@ class UnitsController extends \BaseController
         foreach ($exams as $exam) {
           $data['students'][$key]->exams[] = ExamsValue::getValue($student->id, $exam->id) ? ExamsValue::getValue($student->id, $exam->id) : '-';
         }
-        // dd($data['students'][$key]);
 
         // Registra a média e a média final após prova de recuperação
         $average = $unit->getAverage($student->id);
         $data['students'][$key]->average = empty($average[0]) ? "-" : sprintf("%.2f", $average[0]);
         $data['students'][$key]->finalAverage = empty($average[1]) ? "-" : sprintf("%.2f", $average[1]);
-
-        // Quantidade total de faltas
-        $data['students'][$key]->countAbsences = (string) $absences;
       }
       // dd($data['students']);
 
@@ -283,20 +289,76 @@ class UnitsController extends \BaseController
 
     } catch (Exception $e) {
       return View::make("reports.report_error", [
-        "message" => $e->getMessage() . ' ' . $e->getLine(),
+        "message" => $e->getMessage() . ' ' . $e->getLine() . '.',
       ]);
     }
   }
 
+  /**
+   * Imprime o relatório da oferta, acessível pelo perfil de professor e instituição, quando o método de
+   * avaliação for Parecer Descritivo.
+   *
+   * @param  Unit   $unit [Unidade a gerar relatório]
+   * @return [File]       [PDF com o relatório preparado para impressão]
+   */
   private function printDescriptiveReport(Unit $unit)
   {
     try {
       $data = [];
+      $institution = $unit->offer->classe->period->course->institution()->first();
+      $institution->local = $institution->printCityState();
+      $data['institution'] = $institution;
+      $data['classe'] = $unit->offer->getClass();
+      $data['period'] = $unit->offer->classe->getPeriod();
+      $data['course'] = $unit->offer->classe->period->getCourse();
 
-      $exams = $unit->getExams();
-      if (count($exams) == 0) {
-        throw new Exception('É necessário criar pelo menos uma <b>avaliação</b> para gerar o relatório de parecer descritivo.');
+      $offer = Offer::find($unit->idOffer);
+
+      $students = DB::select(""
+        . " SELECT Users.id, Users.name "
+        . " FROM Users, Attends, Units "
+        . " WHERE Units.idOffer=? AND Attends.idUnit=Units.id AND Attends.idUser=Users.id "
+        . " GROUP BY Users.id "
+        . " ORDER BY Users.name ASC", [$offer->id]
+      );
+      $data['students'] = [];
+      foreach ($students as $student) {
+        $data['students'][] = $student;
       }
+
+      $lessons = $unit->getLessonsToPdf();
+
+      // Prepara o nome das aulas com a data de realização das mesmas
+      $data['lessons'] = [];
+      foreach ($lessons as $key => $lesson) {
+        $date = explode('-', $lesson->date)[2] . '/' . explode('-', $lesson->date)[1] . '/' . explode('-', $lesson->date)[0];
+        $data['lessons'][$key] = 'Aula ' . (string) ($key + 1) . ' - ' . $date;
+        // dd($data['lessons'][$key]);
+      }
+
+      // Percorre a lista de todos os alunos
+      foreach ($data['students'] as $key => $student) {
+        $absences = 0;
+        $data['students'][$key]->number = $key + 1;
+
+        // Obtém frequência escolar do aluno
+        $data['students'][$key]->absences = [];
+        for ($i = 0; $i < count($lessons); $i++) {
+          if (isset($lessons[$i])) {
+            $value = Frequency::getValue($student->id, $lessons[$i]->id);
+            if ($value == "F") {
+              $absences++;
+            }
+            $data['students'][$key]->absences[$i] = ($value == "P") ? "." : $value;
+          } else {
+            $data['students'][$key]->absences[$i] = ".";
+          }
+        }
+
+        // Quantidade total de faltas
+        $data['students'][$key]->countAbsences = (string) $absences;
+      }
+
       $unit->count_lessons = $unit->countLessons();
       $lessons = $unit->getLessons();
 
@@ -307,30 +369,41 @@ class UnitsController extends \BaseController
         throw new Exception('A Instituição não concluiu o cadastro, pois não identificamos a <b>foto de perfil</b> que é utilizada para construir o relatório.');
       }
 
-      foreach ($exams as $exam) {
-        $descriptions = $exam->descriptive_exams();
-        foreach ($descriptions as $description) {
-          $description->student->absence = 0;
-          foreach ($lessons as $lesson) {
-            $value = Frequency::getValue($description->student->id, $lesson->id);
-            if ($value == 'F') {
-              $description->student->absence++;
+      $exams = $unit->getExams();
+      if (count($exams) == 0) {
+        $data['exams'] = null;
+        // throw new Exception('É necessário criar pelo menos uma <b>avaliação</b> para gerar o relatório de parecer descritivo.');
+      } else {
+        foreach ($exams as $exam) {
+          $descriptions = $exam->descriptive_exams();
+          foreach ($descriptions as $description) {
+            $description->student->absence = 0;
+            foreach ($lessons as $lesson) {
+              $value = Frequency::getValue($description->student->id, $lesson->id);
+              if ($value == 'F') {
+                $description->student->absence++;
+              }
             }
           }
+          $data['exams'][] = ['data' => $exam, 'descriptions' => $descriptions];
         }
-        $data['exams'][] = ['data' => $exam, 'descriptions' => $descriptions];
       }
 
-      $data['institution'] = $institution;
       $data['unit'] = $unit;
       $data['discipline'] = $unit->offer->discipline->name;
       $data['teachers'] = $unit->offer->getTeachers();
 
-      $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', ['data' => $data]);
+      $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.descriptive_exam', ['data' => $data])
+        ->setPaper('a4')
+        ->setOrientation('landscape')
+        ->setOption('margin-top', 5)
+        ->setOption('margin-right', 5)
+        ->setOption('margin-bottom', 5)
+        ->setOption('margin-left', 5);
       return $pdf->stream();
     } catch (Exception $e) {
       return View::make("reports.report_error", [
-        "message" => $e->getMessage(),
+        "message" => $e->getMessage() . ' ' . $e->getLine() . '.',
       ]);
     }
   }
