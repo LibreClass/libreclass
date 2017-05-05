@@ -176,6 +176,13 @@ class UsersController extends \BaseController
     }
   }
 
+	public function updateEnrollment()
+	{
+		$user = User::find(Crypt::decrypt(Input::get("teacher")));
+		Relationship::where('idUser', $this->idUser)->where('idFriend', $user->id)->update(['enrollment' => Input::get('enrollment')]);
+		return Redirect::guest("/user/teacher")->with("success", "Matrícula editada com sucesso!");
+	}
+
   public function getProfileStudent()
   {
     $user = User::find($this->idUser);
