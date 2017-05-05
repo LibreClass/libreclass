@@ -15,6 +15,9 @@
 			td {
 				white-space: nowrap;
 			}
+			tr {
+				page-break-inside: avoid;
+			}
 			.limited-width {
 				max-width: 3em;
 			}
@@ -83,6 +86,7 @@
 					@foreach ($data['lessons'] as $lesson)
 						<th class="rotate vertical"><div>{{ $lesson }}</div></th>
 					@endforeach
+					<th class="rotate vertical"><div>Faltas</div></th>
 				</tr>
 				@foreach ($data['students'] as $student)
 					<tr>
@@ -91,6 +95,7 @@
 						@foreach ($student->absences as $absence)
 							<td class="text-center">{{ $absence }}</td>
 						@endforeach
+						<td class="text-center">{{ $student->countAbsences }}</td>
 					</tr>
 				@endforeach
 			</table>
