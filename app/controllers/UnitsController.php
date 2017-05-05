@@ -343,7 +343,7 @@ class UnitsController extends \BaseController
         $data['lessons_notes'][$key] = [
           'description' => 'Aula ' . (string) ($key + 1) . ' - ' . $date,
           'title' => isset($lesson->title) && !empty($lesson->title) ? $lesson->title : 'Sem título',
-          'note' => isset($lesson->notes) && !empty($lesson->notes) ? $lesson->notes : 'Sem nota de aula',
+          'note' => isset($lesson->notes) && !empty($lesson->notes) ? $lesson->notes : 'Sem nota de aula.',
         ];
         // dd($data['lessons'][$key]);
       }
