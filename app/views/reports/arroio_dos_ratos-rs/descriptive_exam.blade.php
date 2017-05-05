@@ -106,11 +106,11 @@
 		</div>
 
 		@foreach ($data['lessons_notes'] as $lessons_note)
-			<div class="panel panel-default">
-			  <div class="panel-heading">{{ $lessons_note['description'] }}</div>
+			<div class="panel panel-default small">
+			  <div class="panel-heading"><b>{{ $lessons_note['description'] }}</b></div>
 			  <div class="panel-body">
-			    <p>Título: {{ $lessons_note['title'] }}</p>
-			    <p>Nota de aula: {{ $lessons_note['note'] }}</p>
+			    <p><b>Título:</b> {{ $lessons_note['title'] }}</p>
+			    <p><b>Nota de aula:</b> {{ $lessons_note['note'] }}</p>
 			  </div>
 			</div>
 		@endforeach
@@ -120,7 +120,7 @@
 				<h5 class='text-center breadcrumb'>Avaliações</h5>
 			</div>
 
-			<div class="pdf">
+			<div class="pdf small">
 			  @foreach ($data['exams'] as $exam)
 			  	<h5><strong>Disciplina: </strong> {{ $data['discipline'] }}</h5>
 			  	<h5>
