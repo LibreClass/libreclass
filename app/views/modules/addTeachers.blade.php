@@ -72,9 +72,8 @@
 												<ul class="dropdown-menu data" role="menu" data="{{ Crypt::encrypt($relationship->id) }}" data-name="{{ $relationship->name }}">
                         @if($relationship->type == "M")
                         	<li><a class="edit-teacher click" title="Edita informações do professor"><i class="fa fa-edit text-info"></i> Editar</a></li>
-												@elseif($relationship->type == "P")
-													<li><a class="edit-register-teacher click" title="Edita matrícula do professor"><i class="fa fa-edit text-info"></i> Editar matrícula</a></li>
                         @endif
+													<li><a class="edit-register-teacher click" title="Edita matrícula do professor"><i class="fa fa-edit text-info"></i> Editar matrícula</a></li>
                         <li><a class="trash click" title="Excluir relacionamento do professor com a instituição"><i class="fa fa-unlink text-danger"></i> Excluir</a></li>
                         @if($relationship->type == "M")
                         	<li><a class="click invite-teacher" title="Liberar acesso do professor às ofertas da instituição"><i class="fa fa-key text-info"></i> Liberar Acesso</a></li>
