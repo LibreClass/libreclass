@@ -15,7 +15,7 @@
 			td {
 				white-space: nowrap;
 			}
-			tr {
+			tr, .panel {
 				page-break-inside: avoid;
 			}
 			.limited-width {
@@ -100,6 +100,20 @@
 				@endforeach
 			</table>
 		</div>
+
+		<div>
+			<h5 class='text-center breadcrumb'>Notas de aula</h5>
+		</div>
+
+		@foreach ($data['lessons_notes'] as $lessons_note)
+			<div class="panel panel-default">
+			  <div class="panel-heading">{{ $lessons_note['description'] }}</div>
+			  <div class="panel-body">
+			    <p>Título: {{ $lessons_note['title'] }}</p>
+			    <p>Nota de aula: {{ $lessons_note['note'] }}</p>
+			  </div>
+			</div>
+		@endforeach
 
 		<div>
 			<h5 class='text-center breadcrumb'>Avaliações</h5>

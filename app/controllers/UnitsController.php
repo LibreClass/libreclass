@@ -225,9 +225,15 @@ class UnitsController extends \BaseController
 
       // Prepara o nome das aulas com a data de realização das mesmas
       $data['lessons'] = [];
+      $data['lessons_notes'] = [];
       foreach ($lessons as $key => $lesson) {
         $date = explode('-', $lesson->date)[2] . '/' . explode('-', $lesson->date)[1] . '/' . explode('-', $lesson->date)[0];
         $data['lessons'][$key] = 'Aula ' . (string) ($key + 1) . ' - ' . $date;
+        $data['lessons_notes'][$key] = [
+          'description' => 'Aula ' . (string) ($key + 1) . ' - ' . $date,
+          'title' => isset($lesson->title) && !empty($lesson->title) ? $lesson->title : 'Sem título',
+          'note' => isset($lesson->notes) && !empty($lesson->notes) ? $lesson->notes : 'Sem nota de aula',
+        ];
         // dd($data['lessons'][$key]);
       }
 
@@ -330,9 +336,15 @@ class UnitsController extends \BaseController
 
       // Prepara o nome das aulas com a data de realização das mesmas
       $data['lessons'] = [];
+      $data['lessons_notes'] = [];
       foreach ($lessons as $key => $lesson) {
         $date = explode('-', $lesson->date)[2] . '/' . explode('-', $lesson->date)[1] . '/' . explode('-', $lesson->date)[0];
         $data['lessons'][$key] = 'Aula ' . (string) ($key + 1) . ' - ' . $date;
+        $data['lessons_notes'][$key] = [
+          'description' => 'Aula ' . (string) ($key + 1) . ' - ' . $date,
+          'title' => isset($lesson->title) && !empty($lesson->title) ? $lesson->title : 'Sem título',
+          'note' => isset($lesson->notes) && !empty($lesson->notes) ? $lesson->notes : 'Sem nota de aula',
+        ];
         // dd($data['lessons'][$key]);
       }
 
