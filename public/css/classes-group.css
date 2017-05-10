@@ -1,0 +1,13 @@
+@import "social.master.css";
+
+.panel {
+  margin-bottom: 10px;
+}
+
+.panel-daily .panel-heading {
+  background-color: #fff;
+}
+
+div.list-group a > i.fa {
+  padding: 0 10px 0 0;
+}
