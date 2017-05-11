@@ -51,11 +51,15 @@ if (Session::get("user") == null) {
     Route::post('user/teacher/update-enrollment', "UsersController@updateEnrollment");
     Route::get('classes/units/report-unit/{idUnit}', "UnitsController@getReportUnit");
 
+    Route::get('classes/group/{idClass}', "ClassesGroupController@loadClassGroup");
+
     Route::controller('courses', "CoursesController");
     Route::controller('disciplines', "DisciplinesController");
+
     Route::controller('classes/lessons', "LessonsController");
     Route::controller('classes/offers', "OffersController");
     Route::controller('classes', "ClassesController");
+
     Route::controller('user', "UsersController");
     Route::controller('import', "CSVController");
     Route::controller('permissions', "PermissionController");
