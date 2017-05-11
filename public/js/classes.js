@@ -37,6 +37,28 @@ $(function() {
     });
   });
 
+  $(".group").click(function(){
+    var classe = $(this).closest(".data").attr("key");
+
+    // $.getJSON("/classes/info", {
+    //   "classe": classe
+    // }, function(data){
+    //   $("#formEditClass input[name='classId']").val(classe);
+    //   $("#formEditClass input[name='class']").val(data.name);
+
+    //   $("#modalEditClass .EditClass-list-disciplines").load("classes/listdisciplines", {
+    //     "period_id": data.idPeriodCrypt,
+    //   "classe_id": classe,
+    //     "flag": 1
+    //   }, function(){
+    //   });
+
+    //   $("#modalEditClass").modal();
+    // });
+
+    window.location.href = "/classes/group/" + classe;
+  });
+
   $("#new-class").click(function(){
     $("#formAddClass input[name='class']").val("");
     $("#modalAddClass").modal();
