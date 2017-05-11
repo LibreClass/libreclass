@@ -11,3 +11,11 @@
 div.list-group a > i.fa {
   padding: 0 10px 0 0;
 }
+
+.center {
+  margin: auto;
+}
+
+.pd-bottom {
+  padding-bottom: 20px;
+}
