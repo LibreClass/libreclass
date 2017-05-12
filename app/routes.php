@@ -51,6 +51,7 @@ if (Session::get("user") == null) {
     Route::post('user/teacher/update-enrollment', "UsersController@updateEnrollment");
     Route::get('classes/units/report-unit/{idUnit}', "UnitsController@getReportUnit");
 
+    Route::post('classes/group/create', "ClassesGroupController@createMasterOffer");
     Route::get('classes/group/{idClass}', "ClassesGroupController@loadClassGroup");
 
     Route::controller('courses', "CoursesController");

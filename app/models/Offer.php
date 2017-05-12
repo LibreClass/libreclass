@@ -3,7 +3,7 @@
 class Offer extends \Eloquent
 {
   protected $table = "Offers";
-  protected $fillable = ['idClass', 'idDiscipline', 'classroom', 'day_period'];
+  protected $fillable = ['idClass', 'idDiscipline', 'classroom', 'day_period', 'grouping'];
 
   public function discipline()
   {
