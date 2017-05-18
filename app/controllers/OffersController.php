@@ -69,12 +69,14 @@ class OffersController extends \BaseController
     $old = Unit::where("idOffer", $offer->id)->orderBy("value", "desc")->first();
 
     $unit = new Unit;
-    $unit->idOffer = $old->idOffer;
-    $unit->value = $old->value + 1;
-    $unit->calculation = $old->calculation;
+    $unit->idOffer = $offer->id;
+    if ($old) {
+      $unit->value = $old->value + 1;
+      $unit->calculation = $old->calculation;
+    }
     $unit->save();
 
-    $attends = Attend::where("idUnit", $old->id)->get();
+    $attends = Attend::where("idUnit", $offer->id)->get();
 
     foreach ($attends as $attend) {
       $new = new Attend;

@@ -27,9 +27,9 @@
           <li class="panel panel-default panel-daily" data-id="{{ Crypt::encrypt($lecture->idOffer) }}">
             <div class="panel-heading sortLocal">
               <span class="text-muted">
-                {{ $lecture->offer->discipline->period->course->institution->name }} &nbsp; / &nbsp;
-                {{ $lecture->offer->discipline->period->course->name }} &nbsp; / &nbsp;
-                {{ $lecture->offer->discipline->period->name }} &nbsp; / &nbsp;
+                {{ $lecture->offer->classe->period->course->institution->name }} &nbsp; / &nbsp;
+                {{ $lecture->offer->classe->period->course->name }} &nbsp; / &nbsp;
+                {{ $lecture->offer->classe->period->name }} &nbsp; / &nbsp;
                 {{ $lecture->offer->getClass()->fullName() }}
               </span>
             </div>
