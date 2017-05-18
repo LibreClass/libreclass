@@ -39,7 +39,11 @@
     <div class="block">
       <div class="row">
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <p class="text-md text-link">{{ $offer->getDiscipline()->name }}</p>
+          <p class="text-md text-link">
+            {{ $offer->getDiscipline()->name }}
+            {{ ($offer->offer) ? ' <small class="text-muted">(' . $offer->offer->discipline->name . ')</small>' : '' }}
+            {{ ($offer->grouping == 'M') ? ' <small class="text-info">(Grupo de disciplinas)</small>' : '' }}
+          </p>
         </div>
       </div>
 
@@ -73,7 +77,7 @@
               <p>Turno: Vespertino</p>
             @elseif($offer->day_period == "N")
               <p>Turno: Noturno</p>
-            @else  
+            @else
               <p>Turno: Não informado</p>
             @endif
             <p>Quantidade máxima de aulas: {{ $offer->maxlessons }}</p>

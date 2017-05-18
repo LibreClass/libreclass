@@ -44,7 +44,6 @@ class OffersController extends \BaseController
         $offer->teachers = $teachers;
         if (isset($offer->idOffer) && !empty($offer->idOffer)) {
           $offer->offer = Offer::find($offer->idOffer);
-          $offer->offer->discipline;
         }
       }
 
