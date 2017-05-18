@@ -52,6 +52,7 @@ if (Session::get("user") == null) {
     Route::get('classes/units/report-unit/{idUnit}', "UnitsController@getReportUnit");
 
     Route::post('classes/group/create', "ClassesGroupController@createMasterOffer");
+    Route::post('classes/group/offers', 'ClassesGroupController@jsonOffers');
     Route::get('classes/group/{idClass}', "ClassesGroupController@loadClassGroup");
 
     Route::controller('courses', "CoursesController");
