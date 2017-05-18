@@ -22,23 +22,48 @@ class ClassesGroupController extends \BaseController
    */
   public function loadClassGroup($idClass)
   {
-    $disciplines = [];
-    $offers = Offer::where('idClass', Crypt::decrypt($idClass))->where('grouping', 'N')->get();
-    foreach ($offers as $offer) {
-      if ($offer->discipline) {
-        $disciplines[] = (object) [
-          'name' => $offer->discipline->name,
-          'id' => Crypt::encrypt($offer->id),
-        ];
-      }
-    }
-
     $classe = Classe::find(Crypt::decrypt($idClass));
-    $classe->disciplines = $disciplines;
+    $classe->disciplines = $this->getOffers($idClass);
     $classe->id = Crypt::encrypt($classe->id);
 
     $user = User::find($this->idUser);
     return View::make("modules.classesGroup", ['user' => $user, 'classe' => $classe]);
+  }
+
+  /**
+   * Obtém nomes e ids das ofertas associadas a uma turma
+   * @param  [string] $idClass [Id criptografado da turma]
+   * @return [array]           [Ofertas]
+   */
+  private function getOffers($idClass)
+  {
+    $o = [];
+    $offers = Offer::where('idClass', Crypt::decrypt($idClass))->get();
+    foreach ($offers as $offer) {
+      if ($offer->discipline) {
+        $o[] = (object) [
+          'name' => $offer->discipline->name,
+          'id' => Crypt::encrypt($offer->id),
+          'grouping' => $offer->grouping,
+          'master_discipline' => ($offer->grouping == 'S') ? Offer::find($offer->idOffer)->discipline->name : null,
+        ];
+      }
+    }
+    return $o;
+  }
+
+  /**
+   * Retorna nomes e ids das ofertas associadas a uma turma em formato JSON
+   * @param  [string] $idClass [Id criptografado da turma]
+   * @return [json]            [Ofertas]
+   */
+  public function jsonOffers()
+  {
+    try {
+      return Response::json(['status' => 1, 'disciplines' => $this->getOffers(Input::get('idClass'))]);
+    } catch (Exception $e) {
+      return Response::json(['status' => 0, 'message' => 'Erro: ' . $e->getMessage() . ' (' . $e->getLine() . ')']);
+    }
   }
 
   /**
