@@ -76,22 +76,15 @@
               <div>
                 <label>Selecione as disciplinas que deseja agrupar</label>
               </div>
-              <div class="row center pd-bottom form-group">
-                @foreach ($classe->disciplines as $discipline)
-                  <div class="col-lg-4 col-md-6 col-xs-12">
-                    <div class="checkbox">
-                      <label>
-                        <input name="offers" type="checkbox" value="{{ $discipline->id }}">
-                        {{ $discipline->name }}
-                      </label>
-                    </div>
-                  </div>
-                @endforeach
+
+              <div id="disciplines" class="row center pd-bottom form-group">
+                <!-- disciplines -->
               </div>
+
               <div class="row">
                 <div class="col-xs-12">
                   <div class="buttons-hide">
-                    <a href="/classes" class="btn btn-default">Cancelar</a>
+                    <a href="/classes" class="btn btn-default">Sair</a>
                     <button type="button" class="btn btn-primary step-2">Agrupar ofertas</button>
                   </div>
                 </div>
@@ -172,6 +165,26 @@
       <div class="modal-body">
         <div class="text-center">
           <span class="text-center">Ofertas foram agrupadas com sucesso!</span>
+        </div>
+        <br>
+        <div class="text-right">
+          <button class="btn btn-default" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="modalError" tabindex="-1" aria-labelledby="modalError" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header modal-header-error">
+        <span class="text-md"><b> &nbsp;Erro</b></span>
+        <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+      </div>
+      <div class="modal-body">
+        <div class="text-center">
+          <span class="text-center">Preencha as informações corretamente!</span>
         </div>
         <br>
         <div class="text-right">
