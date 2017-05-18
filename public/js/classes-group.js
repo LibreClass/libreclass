@@ -32,11 +32,42 @@ $(function() {
         'name': name
       }, function(data) {
         if (data.status == 1) {
-          // Mostra modal de disciplina agrupada com sucesso...
-          window.location = '/classes';
+          $('#modalSuccess').modal();
+          loadDisciplines(classe);
+        } else {
+          $('#modalError').modal();
         }
       }
     );
   });
 
+  loadDisciplines($('#block').attr('data-classe'));
 });
+
+function loadDisciplines(classe) {
+  $.post('/classes/group/offers', {'idClass': classe}, function(data) {
+    if (data.status == 1) {
+      $('#disciplines').html('');
+      data.disciplines.forEach( function(element, index) {
+        var data = '' +
+          '<div class="col-lg-4 col-md-6 col-xs-12">' +
+            '<div class="checkbox">' +
+              '<label' +
+                (element.grouping == 'S' ? ' class="text-muted" ': '') +
+                (element.grouping == 'M' ? ' class="text-info" ': '') +
+              '>'+
+                '<input name="offers" type="checkbox"' +
+                  (element.grouping == 'S' || element.grouping == 'M' ? ' disabled ': '') +
+                  'value="' + element.id +
+                '">' +
+                element.name +
+                (element.grouping == 'S' ? ' <br><small>(' + element.master_discipline + ')</small>' : '') +
+                (element.grouping == 'M' ? ' <br><small>(Grupo de ofertas)</small>' : '') +
+              '</label>' +
+            '</div>'+
+          '</div>';
+        $('#disciplines').append(data);
+      });
+    }
+  });
+}
