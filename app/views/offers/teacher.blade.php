@@ -39,7 +39,11 @@
             <div class="row">
               <div class="col-md-12">
                 {{--<a href='{{ URL::to("/lectures/units?u=" . Crypt::encrypt($lecture->offer->units[count($lecture->offer->units)-1]->id) ) }}' class="text-md text-link">{{ $lecture->offer->discipline->name }}</a>--}}
-								<h4 class="bold">{{ $lecture->offer->discipline->name }}</h4>
+								<h4 class="bold">
+                  {{ $lecture->offer->discipline->name }}
+                  {{ ($lecture->offer->grouping == 'M') ? '<small class="text-info">(Grupo de disciplinas)</small>' : '' }}
+                  {{ ($lecture->offer->grouping == 'S') ? '<small class="text-muted">(' . $lecture->offer->master->discipline->name . ')</small>' : '' }}
+                </h4>
                 <p>Sala: {{$lecture->offer->classroom}}</p>
                 <br>
               </div>
