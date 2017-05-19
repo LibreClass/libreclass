@@ -1,6 +1,7 @@
 <?php
 
-class LecturesController extends \BaseController {
+class LecturesController extends \BaseController
+{
 
   private $idUser;
 
@@ -25,11 +26,12 @@ class LecturesController extends \BaseController {
     }
   }
 
-  public function getFinalreport ($offer = "") {
+  public function getFinalreport($offer = "")
+  {
     if ($this->idUser) {
       $user = User::find($this->idUser);
     }
-    $offer  = Offer::find(Crypt::decrypt($offer));
+    $offer = Offer::find(Crypt::decrypt($offer));
     $course = $offer->getDiscipline()->getPeriod()->getCourse();
     $qtdLessons = $offer->qtdLessons();
 
@@ -45,7 +47,7 @@ class LecturesController extends \BaseController {
       $aluno->absence = $offer->qtdAbsences($aluno->id);
       $aluno->averages = [];
       $sum = 0.;
-      foreach( $units as $unit ) {
+      foreach ($units as $unit) {
         $exam = $unit->getAverage($aluno->id);
 
         if ($exam[1] !== null) {
@@ -53,10 +55,10 @@ class LecturesController extends \BaseController {
         } else {
           $aluno->averages[$unit->value] = $exam[0];
         }
-        
+
         $sum += $aluno->averages[$unit->value];
       }
-      $aluno->med = $sum/count($units);
+      $aluno->med = $sum / count($units);
 
       if ($aluno->med >= $course->average) {
         $aluno->rec = "-";
@@ -74,19 +76,20 @@ class LecturesController extends \BaseController {
         }
       }
       $qtdLessons = $qtdLessons ? $qtdLessons : 1; /* evitar divisão por zero */
-      if ($aluno->absence/$qtdLessons*100. > $course->absentPercent ) {
+      if ($aluno->absence / $qtdLessons * 100. > $course->absentPercent) {
         $aluno->result = "Rep. por falta";
         $aluno->status = "label-danger";
       }
     }
 
-    return View::make("modules.disciplines.finalreport",
-                      ["user" => $user,
-                       "units" => $units,
-                       "students" => $alunos,
-                       "offer" => $offer,
-                       "qtdLessons" => $qtdLessons,
-                       "course" => $course]);
+    return View::make("modules.disciplines.finalreport", [
+      "user" => $user,
+      "units" => $units,
+      "students" => $alunos,
+      "offer" => $offer,
+      "qtdLessons" => $qtdLessons,
+      "course" => $course,
+    ]);
   }
 
   public function getFrequency($offer)
@@ -98,17 +101,18 @@ class LecturesController extends \BaseController {
     }
     $units = Unit::where("idOffer", $offer->id)->get();
     $students = DB::select("select Users.id, Users.name "
-                            . "from Users, Attends, Units "
-                            . "where Units.idOffer=? and Attends.idUnit=Units.id and Attends.idUser=Users.id "
-                            . "group by Users.id order by Users.name", [$offer->id]);
+      . "from Users, Attends, Units "
+      . "where Units.idOffer=? and Attends.idUnit=Units.id and Attends.idUser=Users.id "
+      . "group by Users.id order by Users.name", [$offer->id]);
 
     return View::make("modules.frequency", ["user" => $user, "offer" => $offer, "units" => $units, "students" => $students]);
     return $offer;
   }
 
-  public function postSort() {
+  public function postSort()
+  {
     foreach (Input::get("order") as $key => $value) {
-      Lecture::where('idOffer', Crypt::decrypt($value))->where('idUser', $this->idUser)->update(["order" => $key+1]);
+      Lecture::where('idOffer', Crypt::decrypt($value))->where('idUser', $this->idUser)->update(["order" => $key + 1]);
     }
   }
 }
