@@ -53,7 +53,13 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
-          <h3 class="pull-left text-blue"><b>{{ $unit_current->offer->discipline->name }}</b></h3>
+          <h3 class="pull-left text-blue">
+            <b>
+              {{ $unit_current->offer->discipline->name }}
+              {{ ($unit_current->offer->grouping == 'M') ? '<small class="text-info">(Grupo de disciplinas)</small>' : '' }}
+              {{ ($unit_current->offer->grouping == 'S') ? '<small class="text-muted">(' . $unit_current->offer->master->discipline->name . ')</small>' : '' }}
+            </b>
+          </h3>
         </div>
       </div>
 
