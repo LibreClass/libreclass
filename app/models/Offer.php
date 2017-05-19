@@ -10,6 +10,11 @@ class Offer extends \Eloquent
     return $this->belongsTo('Offer', 'idOffer');
   }
 
+  public function slaves()
+  {
+    return $this->hasMany('Offer', 'idOffer');
+  }
+
   public function discipline()
   {
     return $this->belongsTo('Discipline', 'idDiscipline');

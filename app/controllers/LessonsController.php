@@ -66,6 +66,28 @@ class LessonsController extends \BaseController
       $frequency->save();
     }
 
+    if ($unit->offer->grouping == 'M') {
+      $offers = $unit->offer->slaves;
+      foreach ($offers as $offer) {
+        $unit_slave = $offer->units()->where('value', $unit->value)->first();
+        $lesson_slave = new Lesson;
+        $lesson_slave->idUnit = $unit_slave->id;
+        $lesson_slave->date = $lesson->date;
+        $lesson_slave->title = $lesson->title;
+        Log::info('Lesson Slave', [$lesson_slave]);
+        $lesson_slave->save();
+
+        $attends_slaves = Attend::where("idUnit", $unit_slave->id)->get();
+        foreach ($attends_slaves as $attend_slave) {
+          $frequency_slave = new Frequency;
+          $frequency_slave->idAttend = $attend_slave->id;
+          $frequency_slave->idLesson = $lesson_slave->id;
+          $frequency_slave->value = "P";
+          $frequency_slave->save();
+        }
+      }
+    }
+
     return Redirect::to("/lessons?l=" . Crypt::encrypt($lesson->id))->with("success", "Uma nova aula foi criada com sucesso.");
     return $lesson;
   }
