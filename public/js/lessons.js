@@ -102,23 +102,23 @@ function events(){
   $(".lesson-copy-for").unbind( "click" ).click(function(){
     $("#formCopyLessonFor .form-submit").fadeIn();
     $("#formCopyLessonFor .form-process").fadeOut();
-    
+
     var lesson = $(this).closest(".data").attr("key");
     $("#formCopyLessonFor input[name='lesson']").val(lesson);
     $.post("/lessons/list-offers", {})
      .done(function(data){
       console.log(data);
       $.each(data, function (i, item) {
-        $("#formCopyLessonFor select[name='offer']").append($('<option>', { 
+        $("#formCopyLessonFor select[name='offer']").append($('<option>', {
             value: item.id,
-            text : item.class + " / " + item.name 
+            text : item.class + " / " + item.name
         }));
       });
-        
+
       $("#modalCopyLessonFor").modal();
     });
   });
-  
+
   $("#formCopyLessonFor").submit(function() {
     $("#formCopyLessonFor .form-submit").fadeOut();
     $("#formCopyLessonFor .form-process").fadeIn();
@@ -140,7 +140,7 @@ function events(){
       });
     return false;
   });
-  
+
   $("#insert-plan").unbind( "click" ).click(function() {
     $("#plan-lesson").toggle("fast");
   });
@@ -163,7 +163,7 @@ function events(){
   $(".change-frequency").unbind( "click" ).click(function(){
 
     if ( _this ) {
-      alert("calma ai");
+      alert("O LibreClass ainda está enviando a última solicitação. Por favor, aguarde.");
       return false; /* evita multiplas solicitações */
     }
 
