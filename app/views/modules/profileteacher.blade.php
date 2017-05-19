@@ -56,11 +56,11 @@
           <table class="table table-hover">
             <tbody>
               @foreach($profile->offers as $offer)
-                @if($offer->discipline->period->course->idInstitution == $user->id)
+                @if($offer->classe->period->course->idInstitution == $user->id)
                 <tr>
                   <td>
                     <span class="bold">{{ $offer->discipline->name }}</span><br>
-                    <span class="text-sm text-muted">{{ $offer->discipline->period->course->name }} / {{ $offer->discipline->period->name }}</span>
+                    <span class="text-sm text-muted">{{ $offer->classe->period->course->name }} / {{ $offer->classe->period->name }}</span>
                   </td>
                 </tr>
                 @endif

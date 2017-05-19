@@ -27,9 +27,9 @@
             </div>
             <div class="col-md-12">
               <ol class="breadcrumb bg-white">
-                <li>{{ $lesson->unit->offer->discipline->period->course->institution->name }}</li>
-                <li>{{ $lesson->unit->offer->discipline->period->course->name }}</li>
-                <li>{{ $lesson->unit->offer->discipline->period->name }}</li>
+                <li>{{ $lesson->unit->offer->classe->period->course->institution->name }}</li>
+                <li>{{ $lesson->unit->offer->classe->period->course->name }}</li>
+                <li>{{ $lesson->unit->offer->classe->period->name }}</li>
                 <li>{{ $lesson->unit->offer->getClass()->fullName() }}</li>
                 <li class="active">{{ $lesson->unit->offer->discipline->name }}</li>
               </ol>
@@ -51,7 +51,7 @@
               <span class="help-block text-muted">Informe a data de realização da aula.</span>
             <div class="form-inline">
               <div class="form-group">
-                
+
                 {{ Form::selectRange("date-day", 1, 31, date("d", strtotime($lesson->date)),["class" => "form-control"]) }}
                 {{ Form::selectRange("date-month", 1, 12, date("m", strtotime($lesson->date)), ["class" => "form-control"]) }}
                 {{ Form::selectRange("date-year", date("Y"), date("Y")-100, date("Y", strtotime($lesson->date)), ["class" => "form-control"]) }}
@@ -126,7 +126,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -183,7 +183,7 @@
               </div>
             </div>
           </div>
-    
+
           <button class="btn btn-primary btn-lg pull-right"><i class="fa fa-save"></i> Salvar Aula</button>
 
           <br>
