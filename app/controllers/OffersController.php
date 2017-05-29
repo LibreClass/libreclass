@@ -70,13 +70,11 @@ class OffersController extends \BaseController
 
     $unit = new Unit;
     $unit->idOffer = $offer->id;
-    if ($old) {
-      $unit->value = $old->value + 1;
-      $unit->calculation = $old->calculation;
-    }
+    $unit->value = $old->value + 1;
+    $unit->calculation = $old->calculation;
     $unit->save();
 
-    $attends = Attend::where("idUnit", $offer->id)->get();
+    $attends = Attend::where("idUnit", $old->id)->get();
 
     foreach ($attends as $attend) {
       $new = new Attend;

@@ -163,9 +163,8 @@ class LessonsController extends \BaseController
   }
 
   /**
-   * Replica a frequência para as ofertas slaves.
-   * A frequência é replicada por aluno por aula em oferta. É verificado se o aluno existe
-   * nas ofertas slaves.
+   * Replica a frequência para as ofertas slaves. A frequência é replicada por
+   * aluno por aula em oferta. É verificado se o aluno existe nas ofertas slaves.
    *
    * @param  [type] $idAttend [description]
    * @param  [type] $idLesson [description]
@@ -174,13 +173,16 @@ class LessonsController extends \BaseController
    */
   private function slavesFrequency($idAttend, $idLesson, $value)
   {
-    if (Attend::find($idAttend)->unit->offer->grouping != 'M') {
+    if (Attend::find($idAttend)->getUnit()->offer->grouping != 'M') {
       return;
     }
     try {
       $lesson_number = -1;
-      $unit = Attend::find($idAttend)->unit;
-      $lessons = Lesson::where("idUnit", $unit->id)->whereStatus('E')->orderBy("date", "desc")->orderBy("id", "desc")->get();
+      $unit = Attend::find($idAttend)->getUnit();
+      $lessons = Lesson::where("idUnit", $unit->id)
+        ->whereStatus('E')->orderBy("date", "desc")
+        ->orderBy("id", "desc")
+        ->get();
       foreach ($lessons as $key => $lesson) {
         if ($lesson->id == $idLesson) {
           $lesson_number = $key;
@@ -194,17 +196,31 @@ class LessonsController extends \BaseController
         throw new Exception('Oferta "slave" não encontrada!', 1);
       }
       foreach ($slaveOffers as $o) {
-        // ...
+        $o_unit = Unit::where('idOffer', $o->id)->where('value', $unit->value)->first();
+        if (!$o_unit) {
+          throw new Exception('Não foi encontrada uma unidade correspondente na oferta slave!', 1);
+        }
+        $o_lessons = $lessons = Lesson::where("idUnit", $o_unit->id)->whereStatus('E')->orderBy("date", "desc")->orderBy("id", "desc")->get();
+        if (!$o_lessons[$lesson_number]) {
+          throw new Exception('Não foi encontrada a aula correspondente na oferta slave!', 1);
+        }
+        $o_student = Attend::find($idAttend)->getUser();
+        $o_attend = Attend::where('idUser', $o_student->id)->where('idUnit', $o_unit->id)->first();
+        if (!$o_attend) {
+          throw new Exception('Relacionamento inconsistente entre unidade e aluno', 1);
+        }
+        $o_frequency = Frequency::where("idAttend", $o_attend->id)->where("idLesson", $o_lessons[$lesson_number]->id)->update(["value" => $value]);
       }
 
     } catch (Exception $e) {
-      if ($e->getCode() == 1) {
+      // if ($e->getCode() == 1) {
         Log::info('slavesFrequency', [
-          'message' => 'Erro: "' . $e->getMessage() . '"',
+          'message' => 'Erro: ' . $e->getMessage(),
           'file' => $e->getFile(),
           'line' => $e->getLine(),
+          'code' => $e->getCode(),
         ]);
-      }
+      // }
     }
   }
 
@@ -299,9 +315,11 @@ class LessonsController extends \BaseController
 
     foreach ($offers as $offer) {
       $offer->id = Crypt::encrypt($offer->id);
-    }
-
-    return $offers;
+    }$frequency = new Frequency;
+        $frequency->idAttend = $attend->id;
+        $frequency->idLesson = $copy->id;
+        $frequency->value = "P";
+        $frequency->save();
   }
 
   public function anyDelete()

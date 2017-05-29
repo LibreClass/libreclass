@@ -82,6 +82,11 @@ class ClassesGroupController extends \BaseController
         'idDiscipline' => $master_discipline->id,
         'grouping' => 'M',
       ]);
+      $unit = new Unit;
+      $unit->IdOffer = $master_offer->id;
+      $unit->value = "1";
+      $unit->calculation = "A";
+      $unit->save();
       foreach (Input::get('offers') as $offer_id) {
         $id = Crypt::decrypt($offer_id);
         $offer = Offer::find($id);
