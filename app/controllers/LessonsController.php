@@ -163,7 +163,10 @@ class LessonsController extends \BaseController
   }
 
   /**
-   * [slavesFrequency description]
+   * Replica a frequência para as ofertas slaves.
+   * A frequência é replicada por aluno por aula em oferta. É verificado se o aluno existe
+   * nas ofertas slaves.
+   *
    * @param  [type] $idAttend [description]
    * @param  [type] $idLesson [description]
    * @param  [type] $value    [description]
