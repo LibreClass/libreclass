@@ -64,6 +64,7 @@ class LessonsController extends \BaseController
     $lesson->date = date("Y-m-d");
     $lesson->title = "Sem título";
     $lesson->save();
+    $lessons_count = count(Lesson::where('idUnit', $unit->id)->get());
 
     $attends = Attend::where("idUnit", $unit->id)->get();
     foreach ($attends as $attend) {
@@ -78,6 +79,10 @@ class LessonsController extends \BaseController
       $offers = $unit->offer->slaves;
       foreach ($offers as $offer) {
         $unit_slave = $offer->units()->where('value', $unit->value)->first();
+        $lessons_count_slave = count(Lesson::where('idUnit', $unit_slave->id)->get());
+        if ($lessons_count_slave >= $lessons_count) {
+          continue;
+        }
         $lesson_slave = new Lesson;
         $lesson_slave->idUnit = $unit_slave->id;
         $lesson_slave->date = $lesson->date;
