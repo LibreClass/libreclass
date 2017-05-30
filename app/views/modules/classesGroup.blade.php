@@ -123,7 +123,7 @@
             </div>
             <div class="modal-body">
               <p>Quando uma aula for criada em uma oferta agrupada a mesma será replicada para as outras ofertas. Assim, o professor terá agilidade ao gerenciar ofertas que são semelhantes.</p>
-              <p>Exemplo: Se o professor irá lecionar a oferta de <b>Aritmética</b> e depois <b>Geometria</b>, consecutivamente, e sabe que a frequência será igual nas duas aulas, basta criar a aula na oferta agrupada <b class="text-success">Matemática</b> que a aula será criada sibultaneamente nas ofertas citadas anteriormente.</p>
+              <p>Exemplo: Se o professor irá lecionar a oferta de <b>Aritmética</b> e depois <b>Geometria</b>, consecutivamente, e sabe que a frequência será igual nas duas aulas, basta criar a aula na oferta agrupada <b class="text-success">Matemática</b> que a aula será criada simultaneamente nas ofertas citadas anteriormente.</p>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
