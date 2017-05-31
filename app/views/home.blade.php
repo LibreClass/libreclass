@@ -17,5 +17,3 @@
 @include("footer")
 
 @stop
-
-<!-- teste -->
