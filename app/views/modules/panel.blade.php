@@ -152,11 +152,9 @@
             </div>
         </li>
 
-
         {{ ""; $i = count($lessons) }}
         @forelse( $lessons as $lesson )
           <li class="panel panel-default panel-daily data" key="{{Crypt::encrypt($lesson->id)}}">
-
 
             <div class="panel-heading">
               <div class="row">
@@ -168,9 +166,11 @@
                   <i class="pull-right fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
                     <li><a href='{{ URL::to("/lessons?l=" . Crypt::encrypt($lesson->id)) }}'><i class="fa fa-edit text-blue"></i> Editar</a></li>
-                    <li class="lesson-copy click"><a><i class="fa fa-copy text-blue"></i> Duplicar </a></li>
-                    <li class="lesson-copy-with click"><a><i class="fa fa-copy text-blue"></i> Duplicar com Frequência</a></li>
-                    <li class="lesson-copy-for click"><a><i class="fa fa-exchange text-blue"></i> Duplicar para...</a></li>
+                    @if ($lesson->unit->offer->grouping != 'M')
+                      <li class="lesson-copy click"><a><i class="fa fa-copy text-blue"></i> Duplicar </a></li>
+                      <li class="lesson-copy-with click"><a><i class="fa fa-copy text-blue"></i> Duplicar com Frequência</a></li>
+                      <li class="lesson-copy-for click"><a><i class="fa fa-exchange text-blue"></i> Duplicar para...</a></li>
+                    @endif
                     <li><a href='{{ URL::to("/lessons/delete/") }}' class="trash click"><i class="fa fa-trash text-danger"></i> Deletar</a></li>
                   </ul>
                   <i class="pull-right fa fa-file-text-o icon-default infolesson click"></i>
