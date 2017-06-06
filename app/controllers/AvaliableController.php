@@ -52,12 +52,24 @@ class AvaliableController extends \BaseController
     if (Input::get("weight") != "") {
       $exam->weight = Input::get("weight");
     }
-
     $exam->type = Input::get("type");
     $exam->comments = Input::get("comment");
     $exam->save();
 
     if (!Input::has("exam")) {
+      $this->createExamsValues($exam);
+    }
+    return Redirect::to("/lectures/units?u=" . Crypt::encrypt($exam->idUnit))->with("success", "Avaliação atualizada com sucesso.");
+  }
+
+  /**
+   * Cria os ExamsValue para o Exam (avaliação) criado.
+   * @param  Exam  $exam  [Objeto Exam com dados da avaliação]
+   * @return [boolean]  [Retorna true em caso de sucesso ou false caso aconteça algum erro]
+   */
+  private function createExamsValues(Exam $exam)
+  {
+    try {
       $attends = Attend::where("idUnit", $exam->idUnit)->get();
       foreach ($attends as $attend) {
         $value = new ExamsValue;
@@ -66,9 +78,13 @@ class AvaliableController extends \BaseController
         $value->value = "";
         $value->save();
       }
+      return true;
+    } catch (Exception $e) {
+      Log::info('createExamsValues Error', ['message' => $e->getMessage()]);
+      return false;
     }
 
-    return Redirect::to("/lectures/units?u=" . Crypt::encrypt($exam->idUnit))->with("success", "Avaliação atualizada com sucesso.");
+
   }
 
   public function getNew()
