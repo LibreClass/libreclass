@@ -4,6 +4,26 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<style type="text/css" media="screen">
+			.page-break-inside {
+				page-break-inside: avoid;
+			}
+			.page-break {
+				page-break-before: always;
+			}
+			.box {
+				padding: 15px;
+				border: 1px solid #ddd;
+				margin-bottom: 15px
+			}
+
+			.bg-muted {
+				padding: 5px;
+				background: #eee;
+			}
+
+
+		</style>
 	</head>
 
 	<body>
@@ -47,7 +67,7 @@
 
 		<div>
 			<table class='table table-bordered'>
-				<tr>
+				<tr class="bg-muted">
 					<td class="text-center small" colspan="2" style='vertical-align: middle;'>Componente curricular</td>
 					@foreach ($data['disciplines'] as $discipline)
 					<td class="text-center small" colspan="2" style='vertical-align: middle;'>{{ $discipline['name'] }}</td>
@@ -81,7 +101,7 @@
 						<td class='text-center small'>{{ isset($discipline[3]['recovery']) ? $discipline[3]['recovery'] : '--'  }}</td>
 					@endforeach
 				</tr>
-				<tr>
+				<tr class='bg-muted'>
 					<td class="small" colspan="2">Assiduidade</td>
 					@foreach ($data['disciplines'] as $discipline)
 						<td class='text-center small'>A</td>
@@ -129,6 +149,51 @@
 				</div>
 			</div>
 		</div>
+
+		<div class="page-break small">
+			<h4 class="text-center breadcrumb">Pareceres descritivos</h4>
+
+				@foreach ($data['pareceres']->disciplines as $discipline)
+					{{-- {{ var_dump($discipline); }} --}}
+
+					@if($discipline->hasParecer)
+						<div>
+							<h4>{{$discipline->name}}</h4>
+						</div>
+
+						@foreach ($discipline->units as $unit)
+							@if(isset($unit->pareceres))
+								<div class="bg-muted">
+									<strong>{{ $unit->value }}º TRIMESTRE</strong> <small>(Unidade {{ $unit->value }} )</small>
+								</div>
+								<br />
+								@forelse($unit['pareceres'] as $parecer)
+									<div class="box">
+										<div class="row">
+											<div class="col-xs-6 small text-uppercase">
+												<strong>Tipo de avaliação:</strong> <br />{{ $parecer->exam->type }}
+											</div>
+											<div class="col-xs-6 small text-uppercase">
+												<strong>Título: </strong> <br />{{ $parecer->exam->title }}
+											</div>
+										</div>
+										<br />
+										<div class="small text-uppercase"><strong>Parecer: {{ $parecer->approved == 'A' ? 'Aprovado' : 'Reprovado' }} </strong></div>
+										<p>{{ $parecer->description }}</p>
+									</div>
+								@empty
+									<p>
+										Parecer não informado
+									</p>
+								@endforelse
+							@endif
+						@endforeach
+						<br />
+					@endif
+				@endforeach
+			</div>
+		</div>
+
 
 	</body>
 
