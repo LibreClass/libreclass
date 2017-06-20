@@ -176,12 +176,12 @@ class UsersController extends \BaseController
     }
   }
 
-	public function updateEnrollment()
-	{
-		$user = User::find(Crypt::decrypt(Input::get("teacher")));
-		Relationship::where('idUser', $this->idUser)->where('idFriend', $user->id)->update(['enrollment' => Input::get('enrollment')]);
-		return Redirect::guest("/user/teacher")->with("success", "Matrícula editada com sucesso!");
-	}
+  public function updateEnrollment()
+  {
+    $user = User::find(Crypt::decrypt(Input::get("teacher")));
+    Relationship::where('idUser', $this->idUser)->where('idFriend', $user->id)->update(['enrollment' => Input::get('enrollment')]);
+    return Redirect::guest("/user/teacher")->with("success", "Matrícula editada com sucesso!");
+  }
 
   public function getProfileStudent()
   {
@@ -593,13 +593,19 @@ class UsersController extends \BaseController
 
         // Obtém a média do alunos por disciplina por unidade
         $average = number_format($unit->getAverage($data['student']['id'])[0], 0);
-        $data['disciplines'][$key][$unit->value]['average'] = ($average > 10) ? number_format($average, 0) : number_format($average, 2);
+        if ($unit->calculation != 'P') {
+          $data['disciplines'][$key][$unit->value]['average'] = ($average > 10) ? number_format($average, 0) : number_format($average, 2);
+        } else {
+          $data['disciplines'][$key][$unit->value]['average'] = '<small>Parecer<br>descritivo</small>';
+        }
+
         $examRecovery = $unit->getRecovery();
 
         // Verifica se há prova de recuperação
         if ($examRecovery) {
           $attend = Attend::where('idUnit', $unit->id)->where('idUser', $data['student']['id'])->first();
-          $data['disciplines'][$key][$unit->value]['recovery'] = ExamsValue::where('idAttend', $attend->id)->where('idExam', $examRecovery->id)->first()->value;
+          $recovery = ExamsValue::where('idAttend', $attend->id)->where('idExam', $examRecovery->id)->first();
+          $data['disciplines'][$key][$unit->value]['recovery'] = isset($recovery) && $recovery->value ? $recovery->value : '--';
         }
       }
     }
