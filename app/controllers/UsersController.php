@@ -207,7 +207,7 @@ class UsersController extends \BaseController
   }
 
 	public function postGetStudent() {
-		$student = User::whereId(Crypt::decrypt(Input::get('student_id')))->first(['id', 'name', 'email', 'birthdate', 'enrollment']);
+		$student = User::whereId(Crypt::decrypt(Input::get('student_id')))->first(['id', 'name', 'email', 'birthdate', 'enrollment', 'gender', 'course']);
 		if(!$student) {
 			return ['status'=>0, 'message'=> 'Não encontrado'];
 		}
@@ -420,7 +420,7 @@ class UsersController extends \BaseController
 
       $listCourses = ["" => ""];
       foreach ($courses as $course) {
-        $listCourses[$course->name] = $course->name;
+        $listCourses[$course->id] = $course->name;
       }
 
       $relationships = DB::select("SELECT Users.id, Users.name, Users.enrollment "
@@ -470,6 +470,7 @@ class UsersController extends \BaseController
     $user->name = Input::get("name");
     $user->email = strlen(Input::get("email")) ? Input::get("email") : null;
 		$user->course = Input::get("course");
+		$user->gender = Input::get("gender");
     $user->birthdate = Input::get("date-year") . "-" . Input::get("date-month") . "-" . Input::get("date-day");
     $user->save();
 

@@ -22,7 +22,9 @@ $(function (){
 				form.find('[name="date-month"]').val(parseInt(month));
 				form.find('[name="date-year"]').val(year);
 				form.find('[name="name"]').val(data.student.name);
+				form.find('[name="gender"]').val(data.student.gender);
 				form.find('[name="email"]').val(data.student.email || "");
+				form.find('[name="course"]').val(data.student.course);
 
 				$('#block', '#view-student').hide();
 				$(".block-search-student", '#view-student').hide();

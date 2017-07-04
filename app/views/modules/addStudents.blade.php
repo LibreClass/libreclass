@@ -149,10 +149,20 @@
               {{ Form::label("name", "*Nome") }}
               {{ Form::text("name", null, ["class" => "form-control", "required"]) }}
             </div>
-            <div class="form-group">
-              {{ Form::label("email", "Email") }}
-              {{ Form::email("email", null, ["class" => "form-control"]) }}
-            </div>
+						<div class="row">
+							<div class="col-xs-12 col-sm-4">
+								<div class="form-group">
+									{{ Form::label("gender", "*Sexo") }}
+									{{ Form::select("gender", ['M'=> 'Masculino', 'F'=> 'Feminino'], null, ["class" => "form-control", 'required']) }}
+								</div>
+							</div>
+							<div class="col-xs-12 col-sm-8">
+								<div class="form-group">
+									{{ Form::label("email", "Email") }}
+									{{ Form::email("email", null, ["class" => "form-control"]) }}
+								</div>
+							</div>
+						</div>
             <div class="form-group">
               {{ Form::label("course", "Curso") }}
               {{ Form::select("course", $courses, null, ["class" => "form-control"]) }}
