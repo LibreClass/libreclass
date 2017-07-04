@@ -33,6 +33,8 @@ class LecturesController extends \BaseController {
     $course = $offer->getDiscipline()->getPeriod()->getCourse();
     $qtdLessons = $offer->qtdLessons();
 
+		$lessons = $offer->lessons();
+
     $alunos = DB::select("SELECT Users.id, Users.name
                           FROM Attends, Units, Users
                           WHERE Units.idOffer=? AND Units.id=Attends.idUnit AND Attends.idUser=Users.id
@@ -43,6 +45,23 @@ class LecturesController extends \BaseController {
 
     foreach ($alunos as $aluno) {
       $aluno->absence = $offer->qtdAbsences($aluno->id);
+
+			//Obtém os atestados e quantidade
+			$attests = Attest::where('idStudent', $aluno->id)->get();
+			$qtdAttests = 0;
+			foreach($lessons as $lesson) {
+				foreach($attests as $attest) {
+					$attest->dateFinish = date('Y-m-d', strtotime($attest->date. '+ '. ($attest->days - 1) .' days'));
+					//If true, aluno possui um atestado para o dia da aula.
+					if (($lesson->date >= $attest->date) && ($lesson->date <= $attest->dateFinish))
+					{
+						$qtdAttests++;
+					}
+				}
+			}
+			$aluno->absence -= $qtdAttests;
+
+
       $aluno->averages = [];
       $sum = 0.;
       foreach( $units as $unit ) {
@@ -53,7 +72,7 @@ class LecturesController extends \BaseController {
         } else {
           $aluno->averages[$unit->value] = $exam[0];
         }
-        
+
         $sum += $aluno->averages[$unit->value];
       }
       $aluno->med = $sum/count($units);

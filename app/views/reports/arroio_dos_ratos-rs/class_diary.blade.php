@@ -99,6 +99,10 @@
 					</tr>
 				@endforeach
 			</table>
+			<div class="text-right small">
+				Legenda da frequência: 'F': Falta, '.': Presença, 'A': Atestado
+			</div>
+			<br />
 		</div>
 
 		<div>

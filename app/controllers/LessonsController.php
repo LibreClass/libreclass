@@ -20,7 +20,7 @@ class LessonsController extends \BaseController {
 
       $lesson = Lesson::find(Crypt::decrypt(Input::get("l")));
 
-      $students = DB::select("SELECT Users.name AS name, Attends.id AS idAttend, Frequencies.value AS value, Units.idOffer, Attends.idUser
+      $students = DB::select("SELECT Users.name AS name, Attends.id AS idAttend, Frequencies.value AS value, Units.idOffer, Attends.idUser, Units.id AS idUnit
                                 FROM Frequencies, Attends, Users, Units
                                 WHERE Frequencies.idAttend=Attends.id AND
                                       Attends.idUser=Users.id AND
@@ -28,16 +28,40 @@ class LessonsController extends \BaseController {
                                       Attends.idUnit=Units.id
                                 ORDER BY Users.name", [$lesson->id]);
 
+			//Obtém todas a aulas da oferta da aula para calcular atestados;
+			$allLessons = Unit::find($students[0]->idUnit)->getOffer()->lessons();
+
       foreach ($students as $student) {
+				//Obtém os atestados
+				$attests = Attest::where('idStudent',$student->idUser)->get();
+				$qtdAttests = 0;
+				foreach($attests as $attest) {
+					$attest->dateFinish = date('Y-m-d', strtotime($attest->date. '+ '. ($attest->days - 1) .' days'));
+
+					//If true, aluno possui um atestado para o dia da aula.
+					if (($lesson->date >= $attest->date) && ($lesson->date <= $attest->dateFinish))
+					{
+						$student->attest = true;
+					}
+
+					foreach($allLessons as $tmpLesson) {
+						if (($tmpLesson->date >= $attest->date) && ($tmpLesson->date <= $attest->dateFinish))
+						{
+							$qtdAttests++;
+						}
+					}
+				}
+
         $frequency = DB::select("SELECT Offers.maxlessons, COUNT(*) as qtd "
                                   . "FROM Offers, Units, Attends, Frequencies "
                                   . "WHERE Offers.id=? AND Offers.id=Units.idOffer AND Units.id=Attends.idUnit "
                                     . "AND Attends.idUser=? AND Attends.id=Frequencies.idAttend AND Frequencies.value='F'",
                                 [$student->idOffer, $student->idUser])[0];
         $student->maxlessons = $frequency->maxlessons;
-        $student->qtd = $frequency->qtd;
+				// var_dump([$frequency->qtd, $qtdAttests]);
+        $student->qtd = $frequency->qtd - $qtdAttests;
       }
-
+			// return $students;
       return View::make("modules.lessons", ["user" => $user, "lesson" => $lesson, "students" => $students]);
     }
     else {
@@ -109,6 +133,27 @@ class LessonsController extends \BaseController {
                               . "AND Attends.idUser=? AND Attends.id=Frequencies.idAttend AND Frequencies.value='F'",
                             [$idOffer, $attend->idUser])[0];
 
+
+		$student = $attend->getUser();
+		//Obtém todas a aulas da oferta da aula para calcular atestados;
+		$allLessons = Offer::find($idOffer)->lessons();
+		// return $allLessons;
+
+		//Obtém os atestados
+		$attests = Attest::where('idStudent',$student->id)->get();
+		$qtdAttests = 0;
+		foreach($attests as $attest) {
+			$attest->dateFinish = date('Y-m-d', strtotime($attest->date. '+ '. ($attest->days - 1) .' days'));
+
+			foreach($allLessons as $tmpLesson) {
+				//If true, aluno possui um atestado para o dia da aula.
+				if (($tmpLesson->date >= $attest->date) && ($tmpLesson->date <= $attest->dateFinish))
+				{
+					$qtdAttests++;
+				}
+			}
+		}
+		$frequency->qtd -= $qtdAttests;
     return Response::json(["status" => $status, "value" => $value, "frequency" => sprintf("%d (%.1f %%)", $frequency->qtd, 100.*$frequency->qtd/$frequency->maxlessons)]);
   }
 

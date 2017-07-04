@@ -222,7 +222,6 @@ class UnitsController extends \BaseController
       }
 
       $lessons = $unit->getLessonsToPdf();
-
       // Prepara o nome das aulas com a data de realização das mesmas
       $data['lessons'] = [];
       $data['lessons_notes'] = [];
@@ -239,6 +238,7 @@ class UnitsController extends \BaseController
 
       // Percorre a lista de todos os alunos
       foreach ($data['students'] as $key => $student) {
+
         $absences = 0;
         $data['students'][$key]->number = $key + 1;
 
@@ -254,6 +254,19 @@ class UnitsController extends \BaseController
           } else {
             $data['students'][$key]->absences[$i] = ".";
           }
+
+					$attests = Attest::where('idStudent',$student->id)->get();
+					foreach($attests as $attest) {
+						$attest->dateFinish = date('Y-m-d', strtotime($attest->date. '+ '. ($attest->days - 1) .' days'));
+
+						//If true, aluno possui um atestado para o dia da aula.
+						if (($lessons[$i]->date >= $attest->date) && ($lessons[$i]->date <= $attest->dateFinish))
+						{
+							$data['students'][$key]->absences[$i] = "A";
+							$absences--;
+						}
+					}
+
         }
 
         // Quantidade total de faltas

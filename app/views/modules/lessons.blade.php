@@ -51,7 +51,7 @@
               <span class="help-block text-muted">Informe a data de realização da aula.</span>
             <div class="form-inline">
               <div class="form-group">
-                
+
                 {{ Form::selectRange("date-day", 1, 31, date("d", strtotime($lesson->date)),["class" => "form-control"]) }}
                 {{ Form::selectRange("date-month", 1, 12, date("m", strtotime($lesson->date)), ["class" => "form-control"]) }}
                 {{ Form::selectRange("date-year", date("Y"), date("Y")-100, date("Y", strtotime($lesson->date)), ["class" => "form-control"]) }}
@@ -126,7 +126,7 @@
                 </div>
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
@@ -183,7 +183,7 @@
               </div>
             </div>
           </div>
-    
+
           <button class="btn btn-primary btn-lg pull-right"><i class="fa fa-save"></i> Salvar Aula</button>
 
           <br>
@@ -217,7 +217,19 @@
                   @foreach($students as $student )
                     <tr id='{{ Crypt::encrypt($student->idAttend) }}'>
                       <td>{{ $student->name }}</td>
-                      <td><button class='btn change-frequency pull-right {{ $student->value == "P" ? "btn-success" : "btn-danger" }} center-block'>{{ $student->value }}</button></td>
+                      <td class="text-right text-sm">
+												@if(isset($student->attest))
+													Com atestado
+												@endif
+											</td>
+                      <td>
+												@if($student->value == 'A')
+													<?php
+														$student->value = 'F';
+													?>
+												@endif
+												<button class='btn change-frequency pull-right {{ $student->value == "P" ? "btn-success" : "btn-danger" }} center-block'>{{ $student->value }}</button>
+											</td>
                       <td>{{ sprintf("%d (%.1f %%)", $student->qtd, 100.*$student->qtd/$student->maxlessons) }}</td>
                     </tr>
                   @endforeach
@@ -248,4 +260,3 @@
 </script>
 
 @stop
-

@@ -77,7 +77,7 @@
                 @foreach($attests as $attest)
                 <tr>
                   <td>{{ date("d/m/Y", strtotime($attest->date)) }}</td>
-                  <td>{{ $attest->days }}</td>
+                  <td>{{ $attest->days ." dias"}}</td>
                   <td>{{ $attest->description }}</td>
                 </tr>
                 @endforeach

@@ -91,6 +91,15 @@ class Offer extends \Eloquent
                               Lessons.deleted_at IS NULL", [$this->id])[0]->qtd;
   }
 
+	public function lessons()
+	{
+		return DB::select("SELECT *
+                        FROM Units, Lessons
+                        WHERE Units.idOffer=? AND
+                              Units.id=Lessons.idUnit AND
+                              Lessons.deleted_at IS NULL", [$this->id]);
+	}
+
   public function qtdUnitLessons($unitValue)
   {
     return DB::select("SELECT COUNT(*) as 'qtd'
