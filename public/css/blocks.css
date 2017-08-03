@@ -198,3 +198,7 @@
 .ml {
   margin-left: 15px;
 }
+
+ul.dropdown-menu a > i.fa {
+  padding: 0 5px 0 0;
+}

@@ -83,6 +83,7 @@
                           <i class="pull-right fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
                             <li><a class="classe-edit"><i class="fa fa-edit text-primary"></i> Editar</a></li>
+                            <li><a class="group"><i class="fa fa-share-alt text-primary"></i> Agrupar ofertas</a></li>
                             <li><a class="change-status click" href="/classes/change-status" value="B"><i class="fa fa-times-circle" style="color: red;"></i> Bloquear</a></li>
                             <li><a class="trash click"><i class="fa fa-trash text-danger"></i> Deletar</a></li>
                           </ul>

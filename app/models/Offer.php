@@ -3,7 +3,17 @@
 class Offer extends \Eloquent
 {
   protected $table = "Offers";
-  protected $fillable = ['idClass', 'idDiscipline', 'classroom', 'day_period'];
+  protected $fillable = ['idClass', 'idDiscipline', 'classroom', 'day_period', 'grouping'];
+
+  public function master()
+  {
+    return $this->belongsTo('Offer', 'idOffer');
+  }
+
+  public function slaves()
+  {
+    return $this->hasMany('Offer', 'idOffer');
+  }
 
   public function discipline()
   {

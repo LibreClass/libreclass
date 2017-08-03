@@ -27,9 +27,9 @@
             </div>
             <div class="col-md-12">
               <ol class="breadcrumb bg-white">
-                <li>{{ $lesson->unit->offer->discipline->period->course->institution->name }}</li>
-                <li>{{ $lesson->unit->offer->discipline->period->course->name }}</li>
-                <li>{{ $lesson->unit->offer->discipline->period->name }}</li>
+                <li>{{ $lesson->unit->offer->classe->period->course->institution->name }}</li>
+                <li>{{ $lesson->unit->offer->classe->period->course->name }}</li>
+                <li>{{ $lesson->unit->offer->classe->period->name }}</li>
                 <li>{{ $lesson->unit->offer->getClass()->fullName() }}</li>
                 <li class="active">{{ $lesson->unit->offer->discipline->name }}</li>
               </ol>

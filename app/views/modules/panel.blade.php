@@ -33,9 +33,9 @@
               </div>
               <div class="col-md-12">
                 <ol class="breadcrumb bg-white">
-                  <li>{{ $unit_current->offer->discipline->period->course->institution->name }}</li>
-                  <li>{{ $unit_current->offer->discipline->period->course->name }}</li>
-                  <li>{{ $unit_current->offer->discipline->period->name }}</li>
+                  <li>{{ $unit_current->offer->classe->period->course->institution->name }}</li>
+                  <li>{{ $unit_current->offer->classe->period->course->name }}</li>
+                  <li>{{ $unit_current->offer->classe->period->name }}</li>
                   <li class="active">{{ $unit_current->offer->getClass()->fullName() }}</li>
                 </ol>
               </div>
@@ -53,7 +53,13 @@
     <div class="panel-body">
       <div class="row">
         <div class="col-md-12">
-          <h3 class="pull-left text-blue"><b>{{ $unit_current->offer->discipline->name }}</b></h3>
+          <h3 class="pull-left text-blue">
+            <b>
+              {{ $unit_current->offer->discipline->name }}
+              {{ ($unit_current->offer->grouping == 'M') ? '<small class="text-info">(Grupo de disciplinas)</small>' : '' }}
+              {{ ($unit_current->offer->grouping == 'S') ? '<small class="text-muted">(' . $unit_current->offer->master->discipline->name . ')</small>' : '' }}
+            </b>
+          </h3>
         </div>
       </div>
 
@@ -146,11 +152,9 @@
             </div>
         </li>
 
-
         {{ ""; $i = count($lessons) }}
         @forelse( $lessons as $lesson )
           <li class="panel panel-default panel-daily data" key="{{Crypt::encrypt($lesson->id)}}">
-
 
             <div class="panel-heading">
               <div class="row">
@@ -162,9 +166,11 @@
                   <i class="pull-right fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
                   <ul class="dropdown-menu dropdown-menu-right" role="menu">
                     <li><a href='{{ URL::to("/lessons?l=" . Crypt::encrypt($lesson->id)) }}'><i class="fa fa-edit text-blue"></i> Editar</a></li>
-                    <li class="lesson-copy click"><a><i class="fa fa-copy text-blue"></i> Duplicar </a></li>
-                    <li class="lesson-copy-with click"><a><i class="fa fa-copy text-blue"></i> Duplicar com Frequência</a></li>
-                    <li class="lesson-copy-for click"><a><i class="fa fa-exchange text-blue"></i> Duplicar para...</a></li>
+                    @if ($lesson->unit->offer->grouping != 'M')
+                      <li class="lesson-copy click"><a><i class="fa fa-copy text-blue"></i> Duplicar </a></li>
+                      <li class="lesson-copy-with click"><a><i class="fa fa-copy text-blue"></i> Duplicar com Frequência</a></li>
+                      <li class="lesson-copy-for click"><a><i class="fa fa-exchange text-blue"></i> Duplicar para...</a></li>
+                    @endif
                     <li><a href='{{ URL::to("/lessons/delete/") }}' class="trash click"><i class="fa fa-trash text-danger"></i> Deletar</a></li>
                   </ul>
                   <i class="pull-right fa fa-file-text-o icon-default infolesson click"></i>

@@ -137,7 +137,7 @@ CREATE TABLE `DescriptiveExams` (
 DROP TABLE IF EXISTS `Disciplines`;
 CREATE TABLE `Disciplines` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `idPeriod` int(11) unsigned NOT NULL,
+  `idPeriod` int(11) unsigned DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL COMMENT 'Nome da disciplina',
   `ementa` text COMMENT 'ementa da disciplina',
   `status` char(1) NOT NULL DEFAULT 'E' COMMENT '''E'' = Enabled; ''D'' = Disabled; ''F'' = Finalized;',
@@ -264,6 +264,7 @@ CREATE TABLE `Logs` (
 DROP TABLE IF EXISTS `Offers`;
 CREATE TABLE `Offers` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `idOffer` int(11) unsigned DEFAULT NULL,
   `idClass` int(11) unsigned NOT NULL,
   `idDiscipline` int(11) unsigned NOT NULL,
   `classroom` varchar(40) DEFAULT NULL,
@@ -273,6 +274,7 @@ CREATE TABLE `Offers` (
   `dateFinal` date NOT NULL,
   `comments` text,
   `status` char(1) NOT NULL DEFAULT 'E',
+  `grouping` char(1) NOT NULL DEFAULT 'N' COMMENT 'N = ''Nothing'', ''M'' = Master, ''S'' = Slave',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -381,4 +383,4 @@ CREATE TABLE `Users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- 2017-04-17 18:05:30
+-- 2017-05-29 19:30:05
