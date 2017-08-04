@@ -31,10 +31,10 @@ class LessonsController extends \BaseController
                                 ORDER BY Users.name", [$lesson->id]);
 
 			//Obtém todas a aulas da oferta da aula para calcular atestados;
-			$allLessons = Unit::find($students[0]->idUnit)->getOffer()->lessons();
 
       foreach ($students as $student) {
 				//Obtém os atestados
+				$allLessons = Unit::find($student->idUnit)->getOffer()->lessons();
 				$attests = Attest::where('idStudent',$student->idUser)->get();
 				$qtdAttests = 0;
 				foreach($attests as $attest) {
