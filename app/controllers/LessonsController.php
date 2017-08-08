@@ -70,13 +70,18 @@ class LessonsController extends \BaseController
     }
   }
 
-  public function getNew()
+  public function anyNew()
   {
     $unit = Unit::find(Crypt::decrypt(Input::get("unit")));
 
+		$date = date("Y-m-d");
+		if(Input::has("date-year") && Input::has("date-month") && Input::has("date-day")) {
+			$date = Input::get("date-year") . "-" . Input::get("date-month") . "-" . Input::get("date-day");
+		}
+
     $lesson = new Lesson;
     $lesson->idUnit = $unit->id;
-    $lesson->date = date("Y-m-d");
+    $lesson->date = $date;
     $lesson->title = "Sem título";
     $lesson->save();
     $lessons_count = count(Lesson::where('idUnit', $unit->id)->get());
@@ -91,7 +96,17 @@ class LessonsController extends \BaseController
     }
 
     if ($unit->offer->grouping == 'M') {
-      $offers = $unit->offer->slaves;
+			if(Input::has('slaves')) {
+				$slaves = [];
+				foreach (Input::get('slaves') as $key => $s) {
+					$slaves[] = (int) Crypt::decrypt($s);
+				}
+				$offers = Offer::whereIn('id', $slaves)->get();
+			}
+			else {
+				$offers = $unit->offer->slaves;
+			}
+
       foreach ($offers as $offer) {
         $unit_slave = $offer->units()->where('value', $unit->value)->first();
         $lessons_count_slave = count(Lesson::where('idUnit', $unit_slave->id)->get());
@@ -100,7 +115,7 @@ class LessonsController extends \BaseController
         }
         $lesson_slave = new Lesson;
         $lesson_slave->idUnit = $unit_slave->id;
-        $lesson_slave->date = $lesson->date;
+        $lesson_slave->date = Input::get("date-year") . "-" . Input::get("date-month") . "-" . Input::get("date-day");
         $lesson_slave->title = $lesson->title;
         Log::info('Lesson Slave', [$lesson_slave]);
         $lesson_slave->save();
@@ -116,8 +131,15 @@ class LessonsController extends \BaseController
       }
     }
 
-    return Redirect::to("/lessons?l=" . Crypt::encrypt($lesson->id))->with("success", "Uma nova aula foi criada com sucesso.");
-    return $lesson;
+		$lesson->id = Crypt::encrypt($lesson->id);
+
+		if(Request::isMethod('post')) {
+			return ['status'=> 1, 'lesson'=> $lesson];
+		}
+		else {
+			return Redirect::to("/lessons?l=" . $lesson->id)->with("success", "Uma nova aula foi criada com sucesso.");
+		}
+
   }
 
   public function postSave()
@@ -177,7 +199,7 @@ class LessonsController extends \BaseController
       [$idOffer, $attend->idUser]
     )[0];
 
-    $this->slavesFrequency($attend->id, $idLesson, $value);
+  	$this->slavesFrequency($attend->id, $idLesson, $value);
 
     return Response::json(["status" => $status, "value" => $value, "frequency" => sprintf("%d (%.1f %%)", $frequency->qtd, 100. * $frequency->qtd / $frequency->maxlessons)]);
   }
@@ -196,52 +218,69 @@ class LessonsController extends \BaseController
     if (Attend::find($idAttend)->getUnit()->offer->grouping != 'M') {
       return;
     }
-    try {
-      $lesson_number = -1;
-      $unit = Attend::find($idAttend)->getUnit();
-      $lessons = Lesson::where("idUnit", $unit->id)
-        ->whereStatus('E')->orderBy("date", "desc")
-        ->orderBy("id", "desc")
-        ->get();
-      foreach ($lessons as $key => $lesson) {
-        if ($lesson->id == $idLesson) {
-          $lesson_number = $key;
-        }
-      }
-      if ($lesson_number == -1) {
-        throw new Exception('Aula não encontrada!', 1);
-      }
-      $slaveOffers = Offer::where('idOffer', $unit->offer->id)->get();
-      if (!$slaveOffers) {
-        throw new Exception('Oferta "slave" não encontrada!', 1);
-      }
-      foreach ($slaveOffers as $o) {
-        $o_unit = Unit::where('idOffer', $o->id)->where('value', $unit->value)->first();
-        if (!$o_unit) {
-          throw new Exception('Não foi encontrada uma unidade correspondente na oferta slave!', 1);
-        }
-        $o_lessons = $lessons = Lesson::where("idUnit", $o_unit->id)->whereStatus('E')->orderBy("date", "desc")->orderBy("id", "desc")->get();
-        if (!$o_lessons[$lesson_number]) {
-          throw new Exception('Não foi encontrada a aula correspondente na oferta slave!', 1);
-        }
-        $o_student = Attend::find($idAttend)->getUser();
-        $o_attend = Attend::where('idUser', $o_student->id)->where('idUnit', $o_unit->id)->first();
-        if (!$o_attend) {
-          throw new Exception('Relacionamento inconsistente entre unidade e aluno', 1);
-        }
-        $o_frequency = Frequency::where("idAttend", $o_attend->id)->where("idLesson", $o_lessons[$lesson_number]->id)->update(["value" => $value]);
-      }
+		$unit = Attend::find($idAttend)->getUnit();
+		$slaveOffers = Offer::where('idOffer', $unit->offer->id)->get();
+		$groupLesson = Lesson::find($idLesson);
+		$student = Attend::find($idAttend)->getUser();
 
-    } catch (Exception $e) {
-      // if ($e->getCode() == 1) {
-        Log::info('slavesFrequency', [
-          'message' => 'Erro: ' . $e->getMessage(),
-          'file' => $e->getFile(),
-          'line' => $e->getLine(),
-          'code' => $e->getCode(),
-        ]);
-      // }
-    }
+
+		foreach($slaveOffers as $o) {
+			$o_unit = Unit::where('idOffer', $o->id)->where('value', $unit->value)->first();
+			$lessons = Lesson::where("idUnit", $o_unit->id)->where('date', $groupLesson->date)->whereStatus('E')->orderBy("date", "desc")->orderBy("id", "desc")->get();
+
+			foreach ($lessons as $key => $lesson) {
+				$o_attend = Attend::where('idUser', $student->id)->where('idUnit', $o_unit->id)->first();
+				Frequency::where("idAttend", $o_attend->id)->where("idLesson", $lesson->id)->update(["value" => $value]);
+			}
+		}
+
+    // try {
+		//
+		//
+    //   $lesson_number = -1;
+    //   $lessons = Lesson::where("idUnit", $unit->id)
+    //     ->whereStatus('E')->orderBy("date", "desc")
+    //     ->orderBy("id", "desc")
+    //     ->get();
+    //   foreach ($lessons as $key => $lesson) {
+    //     if ($lesson->id == $idLesson) {
+    //       $lesson_number = $key;
+    //     }
+    //   }
+    //   if ($lesson_number == -1) {
+    //     throw new Exception('Aula não encontrada!', 1);
+    //   }
+    //   $slaveOffers = Offer::where('idOffer', $unit->offer->id)->get();
+    //   if (!$slaveOffers) {
+    //     throw new Exception('Oferta "slave" não encontrada!', 1);
+    //   }
+    //   foreach ($slaveOffers as $o) {
+    //     $o_unit = Unit::where('idOffer', $o->id)->where('value', $unit->value)->first();
+    //     if (!$o_unit) {
+    //       throw new Exception('Não foi encontrada uma unidade correspondente na oferta slave!', 1);
+    //     }
+    //     $o_lessons = $lessons = Lesson::where("idUnit", $o_unit->id)->whereStatus('E')->orderBy("date", "desc")->orderBy("id", "desc")->get();
+    //     if (!$o_lessons[$lesson_number]) {
+    //       throw new Exception('Não foi encontrada a aula correspondente na oferta slave!', 1);
+    //     }
+    //     $o_student = Attend::find($idAttend)->getUser();
+    //     $o_attend = Attend::where('idUser', $o_student->id)->where('idUnit', $o_unit->id)->first();
+    //     if (!$o_attend) {
+    //       throw new Exception('Relacionamento inconsistente entre unidade e aluno', 1);
+    //     }
+    //     $o_frequency = Frequency::where("idAttend", $o_attend->id)->where("idLesson", $o_lessons[$lesson_number]->id)->update(["value" => $value]);
+    //   }
+		//
+    // } catch (Exception $e) {
+    //   // if ($e->getCode() == 1) {
+    //     Log::info('slavesFrequency', [
+    //       'message' => 'Erro: ' . $e->getMessage(),
+    //       'file' => $e->getFile(),
+    //       'line' => $e->getLine(),
+    //       'code' => $e->getCode(),
+    //     ]);
+    //   // }
+    // }
   }
 
   public function postDelete()
@@ -329,17 +368,15 @@ class LessonsController extends \BaseController
    */
   public function postListOffers()
   {
-    $offers = DB::select("SELECT Offers.id, Disciplines.name, Classes.class FROM Lectures, Offers, Classes, Disciplines "
-      . "WHERE Lectures.idUser=? AND Lectures.idOffer=Offers.id AND Offers.idClass=Classes.id AND Offers.idDiscipline=Disciplines.id",
+    $offers = DB::select("SELECT Offers.id, Disciplines.name, Classes.class, Periods.name as `periodName`, Courses.name as `courseName` FROM Lectures, Offers, Classes, Disciplines, Periods, Courses "
+      . "WHERE Lectures.idUser=? AND Lectures.idOffer=Offers.id AND Offers.idClass=Classes.id AND Offers.idDiscipline=Disciplines.id AND Disciplines.idPeriod=Periods.id AND Periods.idCourse=Courses.id",
       [$this->idUser]);
 
     foreach ($offers as $offer) {
       $offer->id = Crypt::encrypt($offer->id);
-    }$frequency = new Frequency;
-        $frequency->idAttend = $attend->id;
-        $frequency->idLesson = $copy->id;
-        $frequency->value = "P";
-        $frequency->save();
+    }
+
+		return $offers;
   }
 
   public function anyDelete()

@@ -243,4 +243,18 @@ class OffersController extends \BaseController
     return Redirect::to("/classes/offers?t=" . Crypt::encrypt($offer->idClass))->with("success", "Unidade deletada com sucesso!");
   }
 
+	public function postOffersGrouped() {
+		if(!Input::has('group_id')) {
+			return ['status'=> 0];
+		}
+
+		$groupId = Input::get('group_id');
+		$offers = Offer::where('idOffer', Crypt::decrypt($groupId))->where('grouping', 'S')->get();
+		foreach ($offers as $key => $offer) {
+			$offer->id = Crypt::encrypt($offer->id);
+			$offer->_discipline = $offer->discipline;
+		}
+		return ['status' => 1, 'offers' => $offers];
+	}
+
 }

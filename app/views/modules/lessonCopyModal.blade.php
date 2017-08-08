@@ -1,12 +1,12 @@
 <div class="modal fade" id="modalCopyLessonFor" tabindex="-1" role="Modal Copy Lesson For" aria-labelledby="modalCopyLessonFor" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        
+
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h3 class="modal-title text-blue"><b><i class="fa fa-exchange"></i> Duplicar aula para outro diário</b></h3>
         </div>
-        
+
         {{ Form::open(["id" => "formCopyLessonFor"]) }}
         <div class="modal-body">
           <p>Esta funcionalidade permite que você duplique uma aula para outro diário ativo.</p>
@@ -16,12 +16,12 @@
               <div class="form-group">
                 {{ Form::label("offer", "Diário") }}
                 <span class="help-block text-muted">Selecione o diário de destino da aula.</span>
-                {{ Form::select("offer", [], null, ["class" => "form-control input-lg"]) }}
+                {{ Form::select("offer", [], null, ["class" => "form-control"]) }}
               </div>
             </div>
           </div>
         </div>
-        
+
         <div class="modal-footer">
           <div class="form-submit">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -31,7 +31,7 @@
             <i class="fa fa-spin fa-spinner fa-lg text-muted"></i> Processando.
           </div>
         </div>
-        {{ Form::close() }} 
+        {{ Form::close() }}
       </div>
     </div>
-  </div>  
+  </div>

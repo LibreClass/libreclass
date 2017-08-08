@@ -50,7 +50,9 @@
 
               <div class="col-md-6">
                 <div class="list-group">
-                  <a class="list-group-item text-link view-syllabus click" key="{{Crypt::encrypt($lecture->offer->discipline->id)}}"><i class="fa fa-file-text"></i> Ementa</a>
+									@if($lecture->offer->grouping != 'M')
+										<a class="list-group-item text-link view-syllabus click" key="{{Crypt::encrypt($lecture->offer->discipline->id)}}"><i class="fa fa-file-text"></i> Ementa</a>
+									@endif
                   <a href='{{ URL::to("/lectures/frequency/" . Crypt::encrypt($lecture->offer->id)) }}' class="list-group-item text-link">
                     <i class=" fa fa-check-square-o"></i> Frequência
                   </a>

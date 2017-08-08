@@ -105,13 +105,14 @@ function events(){
 
     var lesson = $(this).closest(".data").attr("key");
     $("#formCopyLessonFor input[name='lesson']").val(lesson);
+		$("#formCopyLessonFor select[name='offer']").empty();
+
     $.post("/lessons/list-offers", {})
      .done(function(data){
-      console.log(data);
       $.each(data, function (i, item) {
         $("#formCopyLessonFor select[name='offer']").append($('<option>', {
             value: item.id,
-            text : item.class + " / " + item.name
+            text : item.courseName + ' / ' + item.periodName + ' / ' + item.class + " / " + item.name
         }));
       });
 
@@ -197,5 +198,52 @@ function events(){
 
     return false;
   });
+
+	$('#new-lesson-group').unbind('click').click(function(e) {
+		e.preventDefault();
+		var modalTarget = $('#modalLessonGroupOffers');
+		var listOffersGrouped = modalTarget.find('.groupOffersList').empty();
+		var id = $(e.currentTarget).attr('offer-id');
+		$.post('/offers/get-grouped', { group_id: id }, function(data) {
+			if(!data.status) {
+				alert('Não foi possível carregar as ofertas do grupo de ofertas. Se o erro persistir contate o suporte.');
+			}
+			else {
+				data.offers.forEach(function(item) {
+					listOffersGrouped.append(
+						'<li class="list-group-item"><label><input type="checkbox" name="slaves" value="'+ item.id +'" checked/> '+ item._discipline.name +'</label>'
+					);
+				});
+			}
+		});
+		modalTarget.modal();
+	});
+
+	$("#createLessonGroup").unbind('submit').submit(function(e) {
+		e.preventDefault();
+		var form = $(e.currentTarget);
+		var arr = form.serializeArray();
+
+		obj = {};
+		arr.forEach(function(item) {
+			if(obj[item.name]) {
+				obj[item.name] = $.makeArray(obj[item.name]);
+				obj[item.name].push(item.value);
+			} else {
+				obj[item.name] = item.value;
+			}
+		});
+
+		obj.slaves = $.makeArray(obj.slaves);
+
+		$.post('/lessons/new', obj, function(data) {
+			$('#modalLessonGroupOffers');
+			alert('Aula criada com sucesso.');
+			location.href = '/lessons?l='+ data.lesson.id;
+		}).fail(function() {
+			alert('Erro ao criar aula. Se o erro persistir contate o suporte');
+		});
+
+	});
 
 }

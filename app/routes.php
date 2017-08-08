@@ -84,6 +84,7 @@ if (Session::get("user") == null) {
     Route::controller('avaliable', "AvaliableController");
     Route::controller('lessons', "LessonsController"); /* anotações de aula */
     Route::controller('attends', "\student\DisciplinesController");
+		Route::any('offers/get-grouped', 'OffersController@postOffersGrouped');
   }
 
   Route::controller('config', "ConfigController");

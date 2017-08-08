@@ -109,7 +109,11 @@
               </div>
 
               <div class="col-md-6 col-xs-6">
-                <a id="new-block" class="btn btn-default pull-right" href='{{"/lessons/new?unit=" . Crypt::encrypt($unit_current->id)}}'><i class="fa fa-plus"></i> Nova aula</a>
+								@if($unit_current->offer->grouping == 'M')
+									<a id="new-lesson-group" class="btn btn-default pull-right" href='{{"/lessons/new?unit=" . Crypt::encrypt($unit_current->id)}}' offer-id="{{ Crypt::encrypt($unit_current->offer->id) }}"><i class="fa fa-plus"></i> Nova aula</a>
+								@else
+									<a id="new-block" class="btn btn-default pull-right" href='{{"/lessons/new?unit=" . Crypt::encrypt($unit_current->id)}}' offer-id="{{ Crypt::encrypt($unit_current->offer->id) }}"><i class="fa fa-plus"></i> Nova aula</a>
+								@endif
               </div>
             </div>
           </div>
@@ -159,7 +163,11 @@
             <div class="panel-heading">
               <div class="row">
                 <div class="col-xs-6">
-                  Aula {{ $i-- }}
+									@if($unit_current->offer->grouping != 'M')
+                  	Aula {{ $i-- }}
+									@else
+										<div class="text-info"><i class="fa fa-calendar"></i> {{ date("d/m/Y", strtotime($lesson->date)) }}</div>
+									@endif
                 </div>
 
                 <div class="col-xs-6">
@@ -181,7 +189,9 @@
             <div class="panel-body">
               <div class="row">
                 <div class="col-md-12">
-                  <p class="text-info"><i class="fa fa-calendar"></i> {{ date("d/m/Y", strtotime($lesson->date)) }}</p>
+									@if($unit_current->offer->grouping != 'M')
+                  	<p class="text-info"><i class="fa fa-calendar"></i> {{ date("d/m/Y", strtotime($lesson->date)) }}</p>
+									@endif
                   <p  class="text-md text-blue">
                     <a href='{{ URL::to("/lessons?l=" . Crypt::encrypt($lesson->id)) }}'>{{ $lesson->title }}</a>
                   </p>
@@ -309,6 +319,48 @@
       </div>
     </div>
   </div>
+</div>
+
+<div class="modal fade" id="modalLessonGroupOffers" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+
+			<form id="createLessonGroup">
+				<input type="text" name="group_id" value="{{ Crypt::encrypt($unit_current->offer->id) }}" hidden>
+				<input type="text" name="unit" value="{{ Crypt::encrypt($unit_current->id) }}" hidden>
+
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h3 class="modal-title">Grupo de ofertas</h3>
+				</div>
+				<div class="modal-body">
+					<div>As aulas criadas para grupo serão também criadas nas ofertas do grupo.</div>
+					<div>Todas as aulas criadas no mesmo dia receberá a mesma frequência do grupo de ofertas.</div>
+					<br />
+					<label>Data da aula</label>
+					<div class="form-inline">
+						<div class="form-group">
+							{{ Form::selectRange("date-day", 1, 31, date('d'),["class" => "form-control"]) }}
+							{{ Form::selectRange("date-month", 1, 12, date("m"), ["class" => "form-control"]) }}
+							{{ Form::selectRange("date-year", date("Y"), date("Y")-100, date("Y"), ["class" => "form-control"]) }}
+						</div>
+					</div>
+					<br />
+					<strong>Ofertas do grupo</strong>
+					<div>Selecione as ofertas para qual esta aula será criada.</div>
+					<br />
+					<ul class="list-group groupOffersList">
+
+					</ul>
+
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary">Criar</button>
+				</div>
+			</form>
+
+		</div>
+	</div>
 </div>
 
 @include('modules.lessonCopyModal')
