@@ -3,7 +3,7 @@
 
 	<head>
 		<meta charset="UTF-8">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<link rel="stylesheet" href="{{ public_path('/css/bootstrap.min.css') }}">
 		<style type="text/css" media="screen">
 			.vertical {
 				vertical-align: middle !important;
@@ -38,7 +38,6 @@
 	</head>
 
 	<body>
-
 		<header style="margin-bottom: 15px;">
 			<table>
 				<tr>
@@ -50,7 +49,11 @@
 							<h5>Código UEE: {{ $data['institution']->uee }}</h5>
 						</div>
 					</td>
-					<td style="width: 10%; padding-left: 15px;"><img src="{{ public_path() . $data['institution']->photo }}" class="img-responsive"></td>
+					@if(!empty($data['institution']->photo) && file_exists(public_path($data['institution']->photo)))
+						<td style="width: 10%; padding-left: 15px;">
+								<img src="{{ public_path() . $data['institution']->photo }}" class="img-responsive">
+						</td>
+					@endif
 				</tr>
 			</table>
 		</header>
