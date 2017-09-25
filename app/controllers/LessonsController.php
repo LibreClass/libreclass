@@ -17,7 +17,6 @@ class LessonsController extends \BaseController
 
   public function getIndex()
   {
-
     if ($this->idUser) {
       $user = User::find($this->idUser);
       $lesson = Lesson::find(Crypt::decrypt(Input::get("l")));
@@ -25,6 +24,7 @@ class LessonsController extends \BaseController
       $students = DB::select("SELECT Users.name AS name, Attends.id AS idAttend, Frequencies.value AS value, Units.idOffer, Attends.idUser, Units.id AS idUnit
                                 FROM Frequencies, Attends, Users, Units
                                 WHERE Frequencies.idAttend=Attends.id AND
+																			Attends.status != 'T' AND
                                       Attends.idUser=Users.id AND
                                       Frequencies.idLesson=? AND
                                       Attends.idUnit=Units.id
