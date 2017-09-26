@@ -75,7 +75,6 @@ $(function (){
     e.preventDefault();
     var student = new URLSearchParams(window.location.search).get('u');
 		var data = $(e.currentTarget).serialize();
-		console.log($(e.currentTarget).serializeArray());
     window.open($(e.currentTarget).attr('data-url') + '?u=' + student + '&' + data);
   });
 
@@ -84,7 +83,7 @@ $(function (){
       class: $(this).val(),
       student: $("#formLinkStudentClasse input[name='student']").val()
     }, function(data){
-      console.log(data);
+      // console.log(data);
       $("#list-offers").html("");
       for (var i = 0 ; i < data.length ; i++)
         $("#list-offers").append($("<input>", {
