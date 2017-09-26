@@ -77,6 +77,7 @@
 					<td class="text-center small" colspan="2" style='vertical-align: middle;'>{{ $discipline['name'] }}</td>
 					@endforeach
 				</tr>
+
 				<tr>
 					<td colspan="2"></td>
 					@foreach ($data['disciplines'] as $discipline)
@@ -84,7 +85,19 @@
 						<td class='text-center small'>R</td>
 					@endforeach
 				</tr>
-				<tr>
+
+				@foreach ($data['units'] as $key => $unit)
+
+					<tr>
+						<td class="small" colspan="2">{{ $unit->value ."º"}} Trimestre</td>
+						@foreach ($data['disciplines'] as $discipline)
+							<td class='text-center small'>{{ isset($discipline[$unit->value]['average']) ? $discipline[$unit->value]['average'] : 0  }}</td>
+							<td class='text-center small'>{{ isset($discipline[$unit->value]['recovery']) ? $discipline[$unit->value]['recovery'] : '--'  }}</td>
+						@endforeach
+					</tr>
+				@endforeach
+
+				{{-- <tr>
 					<td class="small" colspan="2">1º Trimestre</td>
 					@foreach ($data['disciplines'] as $discipline)
 						<td class='text-center small'>{{ isset($discipline[1]['average']) ? $discipline[1]['average'] : 0  }}</td>
@@ -104,7 +117,8 @@
 						<td class='text-center small'>{{ isset($discipline[3]['average']) ? $discipline[3]['average'] : 0  }}</td>
 						<td class='text-center small'>{{ isset($discipline[3]['recovery']) ? $discipline[3]['recovery'] : '--'  }}</td>
 					@endforeach
-				</tr>
+				</tr> --}}
+
 				<tr class='bg-muted'>
 					<td class="small" colspan="2">Assiduidade</td>
 					@foreach ($data['disciplines'] as $discipline)
@@ -112,7 +126,17 @@
 						<td class='text-center small'>F</td>
 					@endforeach
 				</tr>
-				<tr>
+				@foreach ($data['units'] as $key => $unit)
+
+					<tr>
+						<td class="small" colspan="2">{{ $unit->value .'º' }} Trimestre</td>
+						@foreach ($data['disciplines'] as $discipline)
+							<td class='text-center small'>{{ isset($discipline[1]['lessons']) ? $discipline[1]['lessons'] : 0  }}</td>
+							<td class='text-center small'>{{ isset($discipline[1]['absenceses']) ? $discipline[1]['absenceses'] : 0  }}</td>
+						@endforeach
+					</tr>
+				@endforeach
+				{{-- <tr>
 					<td class="small" colspan="2">1º Trimestre</td>
 					@foreach ($data['disciplines'] as $discipline)
 						<td class='text-center small'>{{ isset($discipline[1]['lessons']) ? $discipline[1]['lessons'] : 0  }}</td>
@@ -132,7 +156,7 @@
 						<td class='text-center small'>{{ isset($discipline[3]['lessons']) ? $discipline[3]['lessons'] : 0  }}</td>
 						<td class='text-center small'>{{ isset($discipline[3]['absenceses']) ? $discipline[3]['absenceses'] : 0  }}</td>
 					@endforeach
-				</tr>
+				</tr> --}}
 			</table>
 		</div>
 

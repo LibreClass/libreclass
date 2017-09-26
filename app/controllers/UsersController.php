@@ -571,7 +571,8 @@ class UsersController extends \BaseController
         Disciplines.name,
         Offers.id as offer,
         Attends.id as attend,
-        Classes.status as statusclasse
+        Classes.status as statusclasse,
+				Units.value as value
       FROM
         Classes, Periods, Courses, Disciplines, Offers, Units, Attends
       WHERE
@@ -583,9 +584,12 @@ class UsersController extends \BaseController
         and Offers.idDiscipline = Disciplines.id
         and Offers.id = Units.idOffer
         and Units.id = Attends.idUnit and Attends.idUser =  ?
+				and Units.value IN (?)
       GROUP BY Offers.id",
-      [$this->idUser, Input::get('c'), $data['student']->id]
+      [$this->idUser, Input::get('class'), $data['student']->id, implode(',', Input::get('unit_value'))]
     );
+
+		// dd($disciplines);
 
     // $offer = Offer::find($disciplines[0]->offer);
     // dd($offer->qtdLessons());
@@ -607,8 +611,8 @@ class UsersController extends \BaseController
 			$pareceres->disciplines[$key]->hasParecer = false;
 
       // Obtém unidades
-      $units = Offer::find($data['disciplines'][$key]['offer'])->units()->orderBy('created_at')->get();
-			// dd($units);
+      // $units = Offer::find($data['disciplines'][$key]['offer'])->units()->orderBy('created_at')->get();
+      $units = Offer::find($data['disciplines'][$key]['offer'])->units()->whereIn('value', Input::get('unit_value'))->orderBy('created_at')->get();
 			// $pareceres = [];
       foreach ($units as $key2 => $unit) {
 				var_dump($key2, $key);
@@ -666,6 +670,8 @@ class UsersController extends \BaseController
 
     // Obtém dados da turma
     $data['classe'] = Offer::find($disciplines[0]->offer)->classe;
+		$data['units'] = $units;
+		// dd($data['units']);
 
     $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.final_result', ['data' => $data]);
     return $pdf->stream();

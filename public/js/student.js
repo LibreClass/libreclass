@@ -71,11 +71,12 @@ $(function (){
     $("#modalScholarReport").modal();
   });
 
-  $("#modalScholarReport").on("click", "button[type='submit']", function(e) {
+  $("#modalScholarReport").on("submit", "#form-scholar-report", function(e) {
     e.preventDefault();
     var student = new URLSearchParams(window.location.search).get('u');
-    var classe = $('#class-modal-change').val();
-    window.open($(e.currentTarget).attr('data-url') + '?u=' + student + '&c=' + classe);
+		var data = $(e.currentTarget).serialize();
+		console.log($(e.currentTarget).serializeArray());
+    window.open($(e.currentTarget).attr('data-url') + '?u=' + student + '&' + data);
   });
 
   $("#classe").change(function(){
