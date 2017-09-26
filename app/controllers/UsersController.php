@@ -595,7 +595,7 @@ class UsersController extends \BaseController
     // dd($offer->qtdLessons());
 
     if (!$disciplines) {
-      return "Aluno não possui disciplinas.";
+      return "Não há informações para gerar o boletim.";
     }
 
 		//Variável para acumular os pareceres
@@ -615,9 +615,9 @@ class UsersController extends \BaseController
       $units = Offer::find($data['disciplines'][$key]['offer'])->units()->whereIn('value', Input::get('unit_value'))->orderBy('created_at')->get();
 			// $pareceres = [];
       foreach ($units as $key2 => $unit) {
-				var_dump($key2, $key);
-				var_dump('<br />');
-				var_dump('<br />');
+				// var_dump($key2, $key);
+				// var_dump('<br />');
+				// var_dump('<br />');
 				$pareceres->disciplines[$key]->units[] = $unit;
         // Obtém quantidade de aulas realizadas
         $data['disciplines'][$key][$unit->value]['lessons'] = Offer::find($unit->idOffer)->qtdUnitLessons($unit->value);
