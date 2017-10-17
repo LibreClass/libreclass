@@ -212,7 +212,7 @@ class UnitsController extends \BaseController
       $students = DB::select(""
         . " SELECT Users.id, Users.name "
         . " FROM Users, Attends, Units "
-        . " WHERE Units.idOffer=? AND Attends.idUnit=Units.id AND Attends.idUser=Users.id AND Attends.status != 'T' "
+        . " WHERE Units.idOffer=? AND Attends.idUnit=Units.id AND Attends.idUser=Users.id AND Attends.status = 'M' "
         . " GROUP BY Users.id "
         . " ORDER BY Users.name ASC", [$offer->id]
       );
@@ -336,7 +336,7 @@ class UnitsController extends \BaseController
       $students = DB::select(""
         . " SELECT Users.id, Users.name "
         . " FROM Users, Attends, Units "
-        . " WHERE Units.idOffer=? AND Attends.idUnit=Units.id AND Attends.idUser=Users.id AND Attends.status != 'T'"
+        . " WHERE Units.idOffer=? AND Attends.idUnit=Units.id AND Attends.idUser=Users.id AND Attends.status = 'M'"
         . " GROUP BY Users.id "
         . " ORDER BY Users.name ASC", [$offer->id]
       );
