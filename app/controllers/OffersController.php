@@ -70,18 +70,28 @@ class OffersController extends \BaseController
 
     $unit = new Unit;
     $unit->idOffer = $offer->id;
-    $unit->value = $old->value + 1;
-    $unit->calculation = $old->calculation;
+
+		if(!$old) {
+			$unit->value = 1;
+			$unit->calculation = 'A';
+		}
+		else {
+			$unit->value = $old->value + 1;
+			$unit->calculation = $old->calculation;
+		}
     $unit->save();
 
-    $attends = Attend::where("idUnit", $old->id)->get();
+		if($old) {
+			$attends = Attend::where("idUnit", $old->id)->get();
 
-    foreach ($attends as $attend) {
-      $new = new Attend;
-      $new->idUnit = $unit->id;
-      $new->idUser = $attend->idUser;
-      $new->save();
-    }
+			foreach ($attends as $attend) {
+				$new = new Attend;
+				$new->idUnit = $unit->id;
+				$new->idUser = $attend->idUser;
+				$new->save();
+			}
+		}
+
 
     return Redirect::to("/classes/offers?t=" . Crypt::encrypt($offer->idClass))->with("success", "Unidade criada com sucesso!");
   }
