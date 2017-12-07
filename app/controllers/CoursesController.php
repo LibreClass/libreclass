@@ -64,6 +64,7 @@ class CoursesController extends \BaseController {
     $course->idInstitution = $this->idUser;
     $course->name          = Input::get("name");
     $course->type          = Input::get("type");
+    $course->quant_unit    = Input::get("quant_unit");
     $course->modality      = Input::get("modality");
     $course->absentPercent = Input::get("absentPercent");
     $course->average       = Input::get("average");
@@ -85,7 +86,7 @@ class CoursesController extends \BaseController {
     }
 
     // Este return é realizado ao inserir novo curso ou editar um curso existente
-    return Redirect::guest("/courses")->with("success", "Curso $course->name criado com sucesso!");
+    return Redirect::guest("/courses")->with("success", "Curso $course->name salvo com sucesso!");
 
     //~ return Input::all();
     return $course;
@@ -120,7 +121,7 @@ class CoursesController extends \BaseController {
     {
       $course = Course::find(Crypt::decrypt(Input::get("course")));
       if( $course->idInstitution != $this->user->id )
-        throw new Exception("Esse usuario nao tem acesso ao curso.");
+        throw new Exception("Esse usuário nao tem acesso ao curso.");
 
       $periods = Period::where("idCourse", $course->id)->get();
       foreach($periods as $period)
@@ -144,7 +145,7 @@ class CoursesController extends \BaseController {
     {
       $course = Course::find(Crypt::decrypt(Input::get("course")));
       if( $course->idInstitution != $this->user->id )
-        throw new Exception("Esse usuario nao tem aceso ao curso.");
+        throw new Exception("Esse usuário nao tem aceso ao curso.");
 
       if ( Input::has("key") )
         $period = Period::find(Crypt::decrypt(Input::get("key")));

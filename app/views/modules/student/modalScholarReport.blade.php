@@ -17,31 +17,24 @@
 	              </div>
 	            </div>
 	          </div>
+						<div class="row">
+	            <div class="col-xs-12">
+	              <div class="form-group">
+	                <h4>Curso</h4>
+									<select name="course" class="form-control" id="select-scholar-report-course">
+										@foreach($courses as $course)
+											<option value="{{$course->id}}" quant-unit="{{$course->quant_unit}}">{{$course->name}}</option>
+										@endforeach
+									</select>
+	              </div>
+	            </div>
+	          </div>
 						<br />
 						<div>
 							Selecione as unidades
 						</div>
-						<div class="row">
-							<div class="col-xs-3">
-								<div class="checkbox">
-									<label><input type="checkbox" name="unit_value[]" value="1" checked>Unidade 1</label>
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="checkbox">
-									<label><input type="checkbox" name="unit_value[]" value="2" checked>Unidade 2</label>
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="checkbox">
-									<label><input type="checkbox" name="unit_value[]" value="3" checked>Unidade 3</label>
-								</div>
-							</div>
-							<div class="col-xs-3">
-								<div class="checkbox">
-									<label><input type="checkbox" name="unit_value[]" value="4" checked>Unidade 4</label>
-								</div>
-							</div>
+						<div class="row list-units-course">
+
 						</div>
 	        </div>
 

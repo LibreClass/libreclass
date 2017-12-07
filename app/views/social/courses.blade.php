@@ -68,6 +68,7 @@
                 <ul class="list-unstyled">
                   <li><b>Tipo de Ensino: </b>{{ $course->type }}</li>
                   <li><b>Modalidade: </b>{{ $course->modality }}</li>
+                  <li><b>Trimestres/Unidades: </b>{{ $course->quant_unit }}</li>
                   <li><b>Faltas (Reprovação): </b>{{ $course->absentPercent . "%" }}</li>
                   <li><b>Média do Curso: </b>{{ $course->average }}</li>
                   <li><b>Média da Final: </b>{{ $course->averageFinal }}</li>
@@ -99,13 +100,13 @@
     <div class="block">
       <div class="text-center text-md">Você não possui cursos cadastrados.</div>
     </div>
-    
+
     <div class="block">
       <div class="">
         <h3>Como posso obter diários?</h3>
         <br>
-        <p>Para obter diários é necessário que uma instituição de ensino vincule a sua conta a uma disciplina. 
-           Quando isto acontecer, a disciplina liberada pela instituição irá aparecer aqui e você poderá ter acesso 
+        <p>Para obter diários é necessário que uma instituição de ensino vincule a sua conta a uma disciplina.
+           Quando isto acontecer, a disciplina liberada pela instituição irá aparecer aqui e você poderá ter acesso
            à mesma.</p>
       </div>
     </div>
