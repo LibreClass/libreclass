@@ -9,7 +9,20 @@
         <div class="col-xs-10">
           <span class="hidden-xs">Meus cursos</span>
         </div>
-      </div>  
+      </div>
+    </div>
+  </a>
+
+  <a href="/periods" class="menu-option">
+    <div class="sidebar-option">
+      <div class="row">
+        <div class="col-xs-2">
+          <i class="fa fa-bookmark"></i>
+        </div>
+        <div class="col-xs-10">
+          <span class="hidden-xs">Meus períodos</span>
+        </div>
+      </div>
     </div>
   </a>
 
@@ -64,7 +77,7 @@
       </div>
     </div>
   </a>
-{{-- 
+{{--
   <a href="/permissions" class="menu-option">
     <div class="sidebar-option">
       <div class="row">
@@ -93,7 +106,7 @@
 --}}
 
  @elseif ( $user->type == "P" )
- 
+
   <a href="/lectures" class="menu-option">
     <div class="sidebar-option">
       <div class="row">
@@ -104,11 +117,11 @@
           <span class="hidden-xs">Meus Diários</span>
         </div>
       </div>
-      
-      
+
+
     </div>
   </a>
- 
+
 @elseif ( $user->type == "S" )
 
   <a href="/classrooms/campus" class="menu-option">
@@ -116,7 +129,7 @@
       <span class="hidden-xs">Campus</span>
     </div>
   </a>
-  
+
   <a href="/classrooms" class="menu-option">
     <div class="sidebar-option">
       <span class="hidden-xs">Prédios</span>
@@ -140,5 +153,5 @@
       <span class="hidden-xs">Laboratórios</span>
     </div>
   </a>
-  
+
  @endif

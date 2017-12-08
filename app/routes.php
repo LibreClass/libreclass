@@ -57,6 +57,7 @@ if (Session::get("user") == null) {
 
     Route::controller('courses', "CoursesController");
     Route::controller('disciplines', "DisciplinesController");
+		Route::controller('periods', "PeriodsController");
 
     Route::controller('classes/lessons', "LessonsController");
     Route::controller('classes/offers', "OffersController");
