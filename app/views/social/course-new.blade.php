@@ -25,9 +25,9 @@
             {{ Form::text("modality", null, ["class" => "form-control input-lg", "placeholder" => "Digite aqui a modalidade"]) }}
           </div>
 					<div class="form-group">
-            {{ Form::label("quant_unit", "Total de trimestres", ["class" => "control-label"]) }}
+            {{ Form::label("quantUnit", "Total de trimestres", ["class" => "control-label"]) }}
             <span class="help-block text-muted">Quantidade de trimestres ou unidades</span>
-            {{ Form::text("quant_unit", null, ["class" => "form-control grade input-lg", "placeholder" => "Informe a quantidade de trimestres ou unidades do curso"]) }}
+            {{ Form::text("quantUnit", null, ["class" => "form-control grade input-lg", "placeholder" => "Informe a quantidade de trimestres ou unidades do curso"]) }}
           </div>
           <div class="form-group">
             {{ Form::label("absent", "Percentual de Faltas para Reprovação (%)", ["class" => "control-label"] ) }}

@@ -23,7 +23,7 @@
 	                <h4>Curso</h4>
 									<select name="course" class="form-control" id="select-scholar-report-course">
 										@foreach($courses as $course)
-											<option value="{{$course->id}}" quant-unit="{{$course->quant_unit}}">{{$course->name}}</option>
+											<option value="{{$course->id}}" quant-unit="{{$course->quantUnit}}">{{$course->name}}</option>
 										@endforeach
 									</select>
 	              </div>

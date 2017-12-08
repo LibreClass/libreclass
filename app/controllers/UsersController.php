@@ -203,7 +203,7 @@ class UsersController extends \BaseController
 			// $courses = DB::select("SELECT Courses.id, Courses.name FROM Users, Courses, Periods, Disciplines, Attends, Units, Offers "
 			// . "WHERE Users.id=? AND Users.id = Attends.idUser AND Units.id = Attends.idUnit AND Offers.id = Units.idOffer "
 			// . "AND Disciplines.id = Offers.idDiscipline AND Disciplines.idPeriod = Periods.id AND Periods.idCourse = Courses.id", [$profile]);
-			$courses = DB::select("SELECT Courses.id, Courses.name, Courses.quant_unit FROM Attends, Units, Offers, Disciplines, Periods, Courses, Classes "
+			$courses = DB::select("SELECT Courses.id, Courses.name, Courses.quantUnit FROM Attends, Units, Offers, Disciplines, Periods, Courses, Classes "
 			. " WHERE Units.id = Attends.idUnit "
 			. " AND Offers.id = Units.idOffer "
 			. " AND Disciplines.id = Offers.idDiscipline "

@@ -141,12 +141,12 @@ $(function (){
 	});
 
 	$('#select-scholar-report-course').change(function(e) {
-		var quant_unit = $(e.target).find('option:selected').attr('quant-unit');
-		if(quant_unit == 0) {
-			quant_unit = 4;
+		var quantUnit = $(e.target).find('option:selected').attr('quant-unit');
+		if(quantUnit == 0) {
+			quantUnit = 4;
 		}
 		$("#modalScholarReport").find(".list-units-course").empty();
-		for(var i=1; i <= quant_unit; i++) {
+		for(var i=1; i <= quantUnit; i++) {
 			$("#modalScholarReport").find(".list-units-course").append(
 				'<div class="col-xs-3">'+
 					'<div class="checkbox">'+

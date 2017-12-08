@@ -64,7 +64,7 @@ class CoursesController extends \BaseController {
     $course->idInstitution = $this->idUser;
     $course->name          = Input::get("name");
     $course->type          = Input::get("type");
-    $course->quant_unit    = Input::get("quant_unit");
+    $course->quantUnit    = Input::get("quantUnit");
     $course->modality      = Input::get("modality");
     $course->absentPercent = Input::get("absentPercent");
     $course->average       = Input::get("average");

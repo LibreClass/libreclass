@@ -1,9 +1,9 @@
 $(document).ready(function(){
-  
+
   $('#modalPeriods').on('hidden.bs.modal', function () {
    location.reload();
   });
-  
+
   $("#new-course").click(function(){
     $("#form-course input[name='course']").val("");
     $("#form-course input[name='name']").val("");
@@ -33,10 +33,10 @@ $(document).ready(function(){
     $.getJSON("/courses/edit", {
       "course": course
     }, function(data){
-      //console.log(data);
       $("#form-course input[name='name']").val(data.name);
       $("#form-course input[name='type']").val(data.type);
       $("#form-course input[name='modality']").val(data.modality);
+      $("#form-course input[name='quantUnit']").val(data.quantUnit);
 //      $("#form-course input[name='ementa']").val(data.ementa);
       $("#form-course input[name='absentPercent']").val(data.absentPercent);
       $("#form-course input[name='average']").val(data.average);
@@ -95,4 +95,3 @@ $(document).ready(function(){
 
   });
 });
-
