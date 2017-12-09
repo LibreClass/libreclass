@@ -15,3 +15,4 @@ Artisan::add(new TestCommand);
 Artisan::add(new AttestCommand);
 Artisan::add(new ImportCommand);
 Artisan::add(new CreateOfferCommand);
+Artisan::add(new ResolveTransferidosCommand);
