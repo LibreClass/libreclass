@@ -122,7 +122,7 @@ class LecturesController extends \BaseController
     $units = Unit::where("idOffer", $offer->id)->get();
     $students = DB::select("select Users.id, Users.name "
       . "from Users, Attends, Units "
-      . "where Units.idOffer=? and Attends.idUnit=Units.id and Attends.idUser=Users.id "
+      . "where Units.idOffer=? and Attends.idUnit=Units.id and Attends.idUser=Users.id and Attends.status = 'M'"
       . "group by Users.id order by Users.name", [$offer->id]);
 
     return View::make("modules.frequency", ["user" => $user, "offer" => $offer, "units" => $units, "students" => $students]);
