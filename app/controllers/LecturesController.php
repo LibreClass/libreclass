@@ -40,6 +40,7 @@ class LecturesController extends \BaseController
     $alunos = DB::select("SELECT Users.id, Users.name
                           FROM Attends, Units, Users
                           WHERE Units.idOffer=? AND Units.id=Attends.idUnit AND Attends.idUser=Users.id
+													AND Attends.status = 'M'
                           GROUP BY Attends.idUser
                           ORDER BY Users.name", [$offer->id]);
 
