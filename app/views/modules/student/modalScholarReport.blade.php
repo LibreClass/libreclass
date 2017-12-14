@@ -12,8 +12,8 @@
 	          <div class="row">
 	            <div class="col-xs-12">
 	              <div class="form-group">
-	                <h4>Selecione o período que deseja obter o boletim</h4>
-	                {{ Form::select("class", $listclasses, null, ["class" => "form-control", "id" => "class-modal-change"]) }}
+	                <h4>Selecione o ano letivo</h4>
+	                {{ Form::select("schoolYear", ['2017'=>'2017'], null, ["class" => "form-control", "id" => "class-modal-change"]) }}
 	              </div>
 	            </div>
 	          </div>

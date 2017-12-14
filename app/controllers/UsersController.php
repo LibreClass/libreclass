@@ -576,7 +576,7 @@ class UsersController extends \BaseController
   public function printScholarReport()
   {
     $data = [];
-
+		$data['units'] = 0;
     // Obtém dados da instituição
     $data['institution'] = User::find($this->idUser);
 
@@ -601,18 +601,20 @@ class UsersController extends \BaseController
         Courses.idInstitution =  ?
         and Courses.id = Periods.idCourse
         and Periods.id = Classes.idPeriod
-        and Classes.class =  ?
+        and Classes.schoolYear =  ?
         and Classes.id = Offers.idClass
         and Offers.idDiscipline = Disciplines.id
         and Offers.id = Units.idOffer
         and Units.id = Attends.idUnit and Attends.idUser =  ?
 				and Units.value IN (?)
+				and Classes.status = 'E'
 				and Courses.id = ?
       GROUP BY Offers.id",
-      [$this->idUser, Input::get('class'), $data['student']->id, implode(',', Input::get('unit_value')), Input::get('course')]
+      [$this->idUser, Input::get('schoolYear'), $data['student']->id, implode(',', Input::get('unit_value')), Input::get('course')]
     );
 
-		// dd($disciplines);
+		// dd(Input::get('course'));
+		// dd(array_pluck($disciplines, 'offer'));
 
     // $offer = Offer::find($disciplines[0]->offer);
     // dd($offer->qtdLessons());
@@ -684,6 +686,7 @@ class UsersController extends \BaseController
           $data['disciplines'][$key][$unit->value]['recovery'] = isset($recovery) && $recovery->value ? $recovery->value : '--';
         }
       }
+			$data['units'] = count($data['units']) < count($units) ? $units : $data['units'];
     }
 		//Guarda pareceres
 		$data['pareceres'] = $pareceres;
@@ -693,8 +696,6 @@ class UsersController extends \BaseController
 
     // Obtém dados da turma
     $data['classe'] = Offer::find($disciplines[0]->offer)->classe;
-		$data['units'] = $units;
-		// dd($data['units']);
 
     $pdf = PDF::loadView('reports.arroio_dos_ratos-rs.final_result', ['data' => $data]);
     return $pdf->stream();
