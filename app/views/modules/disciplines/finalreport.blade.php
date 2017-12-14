@@ -38,7 +38,7 @@
                 <b>Sala: </b> {{ $offer->getClass()->classroom }}</p>
               <p ><b>Professor: </b> {{ $user->name }}</p>
             </div>
-            
+
             <br>
           </div>
           <div class="row">
@@ -54,10 +54,10 @@
                         <th>{{ "U". $unit->value }}</th>
         @endforeach
                         <th>Média</th>
-                        <th>Rec</th>
+                        <th>Rec. Final</th>
                         <th>Faltas</th>
-                        <th>Resultado</th>
-                      </tr>                
+                        {{-- <th>Resultado</th> --}}
+                      </tr>
                     </thead>
 
                     <tbody>
@@ -66,30 +66,34 @@
 													<td>{{ $student->name }}</td>
 													@foreach ( $student->averages as $average )
 														@if( $average < $course->average )
-															<td><span class="text-danger">{{ sprintf("%.2f", $average) }}</span></td>
+															<td><span class="badge badge-danger">{{ sprintf("%.2f", $average) }}</span></td>
 														@else
-															<td><span >{{ sprintf("%.2f", $average) }}</span></td>
+															<td><span class="badge badge-primary">{{ sprintf("%.2f", $average) }}</span></td>
 														@endif
 													@endforeach
 													@if ( $student->med < $course->average )
-														<td><b><span class="text-danger">{{ sprintf("%.2f", $student->med) }}</span></b></td>
+														<td><span class="text-danger">{{ sprintf("%.2f", $student->med) }}</span></td>
 													@else
-														<td><b><span class="text-success">{{ sprintf("%.2f", $student->med) }}</span></b></td>
-													@endif  
+														<td><span class="text-success">{{ sprintf("%.2f", $student->med) }}</span></td>
+													@endif
 
 													@if ( $student->rec < $course->averageFinal )
-														<td><b><span class="text-danger">{{ $student->rec }}</span></b></td>
+														@if($student->rec == '-')
+															<td><b><span>{{ $student->rec }}</span></b></td>
+														@else
+															<td><b><span class="badge badge-danger">{{ $student->rec }}</span></b></td>
+														@endif
 													@else
-														<td><b><span class="text-success">{{ $student->rec }}</span></b></td>
+														<td><b><span class="badge badge-primary">{{ $student->rec }}</span></b></td>
 													@endif
 
 													@if ( $student->absence/$qtdLessons*100 > $course->absentPercent )
 														<td><span class="badge badge-danger">{{ sprintf("%.1f", $student->absence/$qtdLessons*100)." %"}}</span></td>
 													@else
-														<td><span class="badge">{{ sprintf("%.1f", $student->absence/$qtdLessons*100)." %"}}</span></td>
+														<td><span class="badge badge-primary">{{ sprintf("%.1f", $student->absence/$qtdLessons*100)." %"}}</span></td>
 													@endif
 
-													<td><b><span class="label {{$student->status}}">{{ $student->result }}</span></b></td>
+													{{-- <td><b><span class="label {{$student->status}}">{{ $student->result }}</span></b></td> --}}
 												</tr>
 											@endforeach
 
@@ -97,15 +101,14 @@
                   </table>
                 </div>
               </div>
-            </div>  
+            </div>
           </div>
 
     </div>
 
-            
-        
+
+
   </div>
 </div>
 
 @stop
-

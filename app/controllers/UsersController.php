@@ -197,10 +197,32 @@ class UsersController extends \BaseController
       $listidsclasses[Crypt::encrypt($class->id)] = "[$class->class] $class->name";
 
     }
+
     if ($profile) {
       $profile = User::find($profile);
+			// $courses = DB::select("SELECT Courses.id, Courses.name FROM Users, Courses, Periods, Disciplines, Attends, Units, Offers "
+			// . "WHERE Users.id=? AND Users.id = Attends.idUser AND Units.id = Attends.idUnit AND Offers.id = Units.idOffer "
+			// . "AND Disciplines.id = Offers.idDiscipline AND Disciplines.idPeriod = Periods.id AND Periods.idCourse = Courses.id", [$profile]);
+			$courses = DB::select("SELECT Courses.id, Courses.name, Courses.quantUnit FROM Attends, Units, Offers, Disciplines, Periods, Courses, Classes "
+			. " WHERE Units.id = Attends.idUnit "
+			. " AND Offers.id = Units.idOffer "
+			. " AND Disciplines.id = Offers.idDiscipline "
+			. " AND Periods.id = Disciplines.idPeriod "
+			// . " AND Classes.idPeriod = Periods.id "
+			. " AND Courses.id = Periods.idCourse "
+			. " AND Attends.idUser = ? "
+			. " GROUP BY Courses.id", [$profile->id]);
+
+			$listCourses = [];
+			foreach ($courses as $course) {
+	      // $listCourses[$course->name] = $course->name;
+	      $listCourses[Crypt::encrypt($course->id)] = "$course->name";
+
+	    }
+			// dd($listCourses);
+
       $attests = Attest::where("idStudent", $profile->id)->where("idInstitution", $user->id)->orderBy("date", "desc")->get();
-      return View::make("modules.profilestudent", ["user" => $user, "profile" => $profile, "listclasses" => $listclasses, "attests" => $attests, "listidsclasses" => $listidsclasses]);
+      return View::make("modules.profilestudent", ["user" => $user, "profile" => $profile, "listclasses" => $listclasses, "attests" => $attests, "listidsclasses" => $listidsclasses, "listCourses" => $listCourses, 'courses' => $courses]);
     } else {
       return Redirect::guest("/");
     }
@@ -585,8 +607,9 @@ class UsersController extends \BaseController
         and Offers.id = Units.idOffer
         and Units.id = Attends.idUnit and Attends.idUser =  ?
 				and Units.value IN (?)
+				and Courses.id = ?
       GROUP BY Offers.id",
-      [$this->idUser, Input::get('class'), $data['student']->id, implode(',', Input::get('unit_value'))]
+      [$this->idUser, Input::get('class'), $data['student']->id, implode(',', Input::get('unit_value')), Input::get('course')]
     );
 
 		// dd($disciplines);

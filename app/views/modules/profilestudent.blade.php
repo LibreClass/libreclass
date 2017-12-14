@@ -95,6 +95,6 @@
 @include("modules.student.linkingStudentClasse", ["listidsclasses" => $listidsclasses])
 @include("modules.student.modalCertificate")
 @include("modules.student.modalInvite")
-@include("modules.student.modalScholarReport")
+@include("modules.student.modalScholarReport", ["listCourses" => $listCourses])
 
 @stop

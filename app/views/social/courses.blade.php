@@ -68,6 +68,7 @@
                 <ul class="list-unstyled">
                   <li><b>Tipo de Ensino: </b>{{ $course->type }}</li>
                   <li><b>Modalidade: </b>{{ $course->modality }}</li>
+                  <li><b>Trimestres/Unidades: </b>{{ $course->quantUnit }}</li>
                   <li><b>Faltas (Reprovação): </b>{{ $course->absentPercent . "%" }}</li>
                   <li><b>Média do Curso: </b>{{ $course->average }}</li>
                   <li><b>Média da Final: </b>{{ $course->averageFinal }}</li>

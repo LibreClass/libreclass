@@ -140,4 +140,22 @@ $(function (){
 		return false;
 	});
 
+	$('#select-scholar-report-course').change(function(e) {
+		var quantUnit = $(e.target).find('option:selected').attr('quant-unit');
+		if(quantUnit == 0) {
+			quantUnit = 4;
+		}
+		$("#modalScholarReport").find(".list-units-course").empty();
+		for(var i=1; i <= quantUnit; i++) {
+			$("#modalScholarReport").find(".list-units-course").append(
+				'<div class="col-xs-3">'+
+					'<div class="checkbox">'+
+						'<label><input type="checkbox" name="unit_value[]" value="'+ i +'" checked>Unidade '+ i +'</label>'+
+					'</div>'+
+				'</div>'
+			);
+		}
+	});
+
+	$('#select-scholar-report-course').trigger('change');
 });

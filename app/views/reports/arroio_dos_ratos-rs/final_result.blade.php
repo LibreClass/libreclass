@@ -131,8 +131,8 @@
 					<tr>
 						<td class="small" colspan="2">{{ $unit->value .'º' }} Trimestre</td>
 						@foreach ($data['disciplines'] as $discipline)
-							<td class='text-center small'>{{ isset($discipline[1]['lessons']) ? $discipline[1]['lessons'] : 0  }}</td>
-							<td class='text-center small'>{{ isset($discipline[1]['absenceses']) ? $discipline[1]['absenceses'] : 0  }}</td>
+							<td class='text-center small'>{{ isset($discipline[$unit->value]['lessons']) ? $discipline[$unit->value]['lessons'] : 0  }}</td>
+							<td class='text-center small'>{{ isset($discipline[$unit->value]['absenceses']) ? $discipline[$unit->value]['absenceses'] : 0  }}</td>
 						@endforeach
 					</tr>
 				@endforeach

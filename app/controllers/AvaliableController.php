@@ -271,6 +271,7 @@ class AvaliableController extends \BaseController
     $alunos = DB::select("select Users.id, Users.name
                           from Attends, Units, Users
                           where Units.idOffer=? AND Units.id=Attends.idUnit AND Attends.idUser=Users.id
+													AND Attends.status = 'M'
                           group by Attends.idUser
                           order by Users.name", [$offer->id]);
     foreach ($alunos as $aluno) {
@@ -327,7 +328,7 @@ class AvaliableController extends \BaseController
     $calculation = $exam->unit->calculation;
 
     if ($exam->aval == "A") {
-      $students = Attend::where("idUnit", $exam->idUnit)->get();
+      $students = Attend::where("idUnit", $exam->idUnit)->where("status", "M")->get();
     }
 
     switch ($calculation) {
