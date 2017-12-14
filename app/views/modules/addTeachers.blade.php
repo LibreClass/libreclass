@@ -40,8 +40,8 @@
               {{ Form::label("search", "Procurar", ["class" => "text-md control-label"] ) }}
               <span class="help-block text-muted">Faça a busca informando parte do nome desejado ou número da matrícula.</span>
               <div class="input-group col-md-12">
-                {{ Form::text("search", Input::get("search"), ["class" => "form-control input-lg"] ) }}
-                <span class="input-group-btn"><button id="submit-teacher" class="btn btn-lg btn-primary"><i class="fa fa-lg fa-search"></i></button></span>
+                {{ Form::text("search", Input::get("search"), ["class" => "form-control"] ) }}
+                <span class="input-group-btn"><button id="submit-teacher" class="btn btn-primary"><i class="fa fa-lg fa-search"></i></button></span>
               </div>
             </div>
             {{ Form::close() }}

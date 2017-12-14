@@ -63,6 +63,8 @@ if (Session::get("user") == null) {
     Route::controller('classes/offers', "OffersController");
     Route::controller('classes', "ClassesController");
 
+		Route::controller('attends', "AttendsController");
+
     Route::controller('user', "UsersController");
     Route::controller('import', "CSVController");
     Route::controller('permissions', "PermissionController");

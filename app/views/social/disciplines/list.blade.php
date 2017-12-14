@@ -2,8 +2,8 @@
 <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th><span class="text-md">Período</span></th>
-      <th><span class="text-md">Disciplina</span></th>
+      <th>Período</th>
+      <th>Disciplina</th>
       <th></th>
     </tr>
   </thead>

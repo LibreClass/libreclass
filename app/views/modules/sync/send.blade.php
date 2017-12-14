@@ -41,13 +41,13 @@
               <br>
 
               <h3 class="text-center"><i class="fa fa-cloud-upload text-info"></i> Sincronizar dados</h3>
-              
+
               <hr>
               <p>Ao clicar em <b>confirmar</b>, os dados do LibreClass Online serão atualizados com as informações do aplicativo offline.</p>
               <p>Isso significa que o servidor online ficará igual ao offline.</p>
               <p>Essa ação é irreversível.</p>
               <br>
-              
+
               <div id="form-send">
                 {{ Form::open(["id" => "form-data",  "method" => "get"]) }}
                   {{ Form::hidden("confirm", "confirm") }}
@@ -61,9 +61,9 @@
               </div>
               <div id="spin-send" class="text-center visible-none">
                 <i class="fa fa-spinner fa-spin fa-2x text-blue"></i><br>
-                <span class='text-muted text-md'>Aguarde. Estamos sincronizando.</span>
+                <span class='text-muted'>Aguarde. Estamos sincronizando.</span>
               </div>
-              
+
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@
   </div>
 
   <script>
-      
+
       $("#form-data-submit").click(function(){
         $("#form-send").hide();
         $("#spin-send").show();

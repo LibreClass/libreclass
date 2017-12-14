@@ -21,7 +21,7 @@
     <div id="block" class="block">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <h4 class=""><b>Passo 2/3 - Importação de Professores</b></h4>
+          <h4 ><b>Passo 2/3 - Importação de Professores</b></h4>
         </div>
         <br>
         <div class="col-md-12">
@@ -33,8 +33,8 @@
           <div class="text-center spinupload visible-none">
             <span>Esse processo pode ser demorado. Aguarde alguns minutos.</span>
             <i class="text-info fa fa-2x fa-spinner fa-spin"></i>
-          </div>  
-          
+          </div>
+
         </div>
         <br>
       </div>
@@ -59,7 +59,7 @@
               <tr>
                 <td>{{ $matricula }}</td>
                 <td>{{ $teacher[0]}}</td>
-                <td>{{ $teacher[1] == 0 ? "<span class='label label-primary text-sm'>Novo</span>" : "" }}</td>
+                <td>{{ $teacher[1] == 0 ? "<span class='label label-primary'>Novo</span>" : "" }}</td>
               </tr>
             @endforeach
               </tbody>
@@ -71,7 +71,7 @@
             </div>
             <div class="text-center spinupload visible-none">
               <i class="text-info fa fa-2x fa-spinner fa-spin"></i>
-            </div>  
+            </div>
           </div>
         </div>
 

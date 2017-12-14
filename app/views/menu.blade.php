@@ -21,7 +21,7 @@
             <a href="#plans">Planos</a>
           </li> -->
           <li>
-            <div class="dropdown text-left text-sm">
+            <div class="dropdown text-left">
               <a class="dropdown-toggle click" id="dropdownDownload" data-toggle="dropdown" aria-expanded="true">
                 Download
                 <span class="caret"></span>
@@ -50,12 +50,12 @@
           </li>
           <li>
             <!--<button  type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLogin"><b>Login</b></button>-->
-            <a href="/login" style="color: #fff" class="btn btn-primary btn-lg">Login</a>
+            <a href="/login" style="color: #fff" class="btn btn-primary">Login</a>
           </li>
         </ul>
       </div>
       <div class="menu-list text-right visible-xs visible-sm">
-        <a href="/login" style="color: #fff" class="btn btn-primary btn-lg">Login</a>
+        <a href="/login" style="color: #fff" class="btn btn-primary">Login</a>
       </div>
 
     </nav>

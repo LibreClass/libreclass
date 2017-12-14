@@ -4,7 +4,7 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title text-blue"><b><i class="fa fa-fw fa-bookmark"></i>Período</b></h3>
+        <h4 class="modal-title text-blue"><b><i class="fa fa-fw fa-bookmark"></i>Período</b></h3>
       </div>
 
       {{ Form::open([ "url" => URL::to("periods/save"), "id" => "form-add-period"]) }}
@@ -16,7 +16,7 @@
             <div class="form-group">
 							{{ Form::label("course_id", "Curso") }}
               <span class="help-block text-muted">Selecione o curso</span>
-              {{ Form::select("course_id", $listCourses, null, ["class" => "form-control input-lg"]) }}
+              {{ Form::select("course_id", $listCourses, null, ["class" => "form-control"]) }}
             </div>
           </div>
         </div>
@@ -25,14 +25,14 @@
             <div class="form-group">
               {{ Form::label("name", "Nome", ["class" => "control-label"]) }}
               <span class="help-block text-muted">Informe o nome do período ou série</span>
-              {{ Form::text("name", null, ["class" => "form-control input-lg"]) }}
+              {{ Form::text("name", null, ["class" => "form-control"]) }}
             </div>
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
               {{ Form::label("progression_value", "Sequência de progressão", ["class" => "control-label"]) }}
               <span class="help-block text-muted">Informe a sequência da progressão</span>
-              {{ Form::number("progression_value", null, ["class" => "form-control input-lg"]) }}
+              {{ Form::number("progression_value", null, ["class" => "form-control"]) }}
             </div>
           </div>
         </div>

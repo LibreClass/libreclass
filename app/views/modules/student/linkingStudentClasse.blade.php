@@ -3,7 +3,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title text-blue"><b><i class="icon-classes"></i> Vincular aluno em turma</b></h3>
+          <h4 class="modal-title text-blue"><b><i class="icon-classes"></i> Vincular aluno em turma</b></h4>
         </div>
         {{ Form::open(["id" => "formLinkStudentClasse"]) }}
         <div class="modal-body">
@@ -12,7 +12,7 @@
             <div class="form-group">
               {{ Form::label("classe", "Turma", ["control" => "control-label"]) }}
               <span class="help-block">Selecione uma turma</span>
-              {{ Form::select("classe", $listidsclasses, null, ["class" => "form-control input-lg"]) }}
+              {{ Form::select("classe", $listidsclasses, null, ["class" => "form-control"]) }}
             </div>
 
             <div class="list-offers" id="list-offers"></div>

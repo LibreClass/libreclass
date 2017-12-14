@@ -27,8 +27,8 @@
 }
 
 html, body {
-    font-family: Dosis;
-    font-size: 12pt;
+    font-family: 'Open Sans';
+    font-size: 14px;
     height: 100%;
 }
 
@@ -89,7 +89,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .text-sm {
-  font-size: 10pt;
+  font-size: 10px;
 }
 
 .panel-notification {
@@ -115,7 +115,7 @@ h1, h2, h3, h4, h5 {
 }
 
 .panel-notification .notification-title {
-  font-size: 14pt;
+  font-size: 13px;
 }
 
 .badge-danger {

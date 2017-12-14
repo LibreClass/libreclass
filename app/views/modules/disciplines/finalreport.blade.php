@@ -31,12 +31,12 @@
 
           <div class="row">
             <div class="col-md-12">
-              <p class=""><b>Curso:</b> {{ $offer->getDiscipline()->getPeriod()->getCourse()->name . " - "}}
+              <p ><b>Curso:</b> {{ $offer->getDiscipline()->getPeriod()->getCourse()->name . " - "}}
                 <b>Período: </b> {{ $offer->getDiscipline()->getPeriod()->name  }}</p>
-              <p class=""><b>Disciplina: </b>{{ $offer->getDiscipline()->name }}</p>
-              <p class=""><b>Turma: </b>{{ $offer->getClass()->name ." - " }}
+              <p ><b>Disciplina: </b>{{ $offer->getDiscipline()->name }}</p>
+              <p ><b>Turma: </b>{{ $offer->getClass()->name ." - " }}
                 <b>Sala: </b> {{ $offer->getClass()->classroom }}</p>
-              <p class=""><b>Professor: </b> {{ $user->name }}</p>
+              <p ><b>Professor: </b> {{ $user->name }}</p>
             </div>
             
             <br>
@@ -68,7 +68,7 @@
 														@if( $average < $course->average )
 															<td><span class="text-danger">{{ sprintf("%.2f", $average) }}</span></td>
 														@else
-															<td><span class="">{{ sprintf("%.2f", $average) }}</span></td>
+															<td><span >{{ sprintf("%.2f", $average) }}</span></td>
 														@endif
 													@endforeach
 													@if ( $student->med < $course->average )

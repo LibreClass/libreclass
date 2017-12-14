@@ -15,7 +15,7 @@
     <h4>{{ $discipline->name }}</h4>
     @foreach($teachers as $teacher)
       <img src="{{ strlen($teacher->photo) ? $teacher->photo : "/images/user-photo-default.jpg" }}" class="icon-user-min img-circle">
-      <span class="text-sm">{{ $teacher->name }}</span>
+      <span >{{ $teacher->name }}</span>
     @endforeach
     <i id="average" average="{{ $course->average }}" averageFinal="{{ $course->averageFinal }}" hidden></i>
   </div>
@@ -37,8 +37,8 @@
         <li class="panel panel-notification model">
           <div class="panel-body">
             <div class="notification-header text-blue">
-              <span class="notification-date text-sm"><i class="fa fa-calendar fa-fw"></i></span>
-              <span class="notification-info label label-success pull-right text-sm"></span>
+              <span class="notification-date"><i class="fa fa-calendar fa-fw"></i></span>
+              <span class="notification-info label label-success pull-right"></span>
             </div>
             <div>
               <span class="notification-title"></span>

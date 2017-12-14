@@ -144,7 +144,7 @@
   height: 30px;
   font-weight: normal;
   border-radius: 25px;
-  font-size: 10pt;
+  font-size: 12px;
   position: relative;
   display: inline-block;
 }
@@ -201,4 +201,8 @@
 
 ul.dropdown-menu a > i.fa {
   padding: 0 5px 0 0;
+}
+
+.dropdown-menu > li > a {
+	font-size: 12px;
 }

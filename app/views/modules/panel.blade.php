@@ -105,7 +105,7 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-md-6 col-xs-6">
-                <h4 class="">AULAS</h4>
+                <h4 >AULAS</h4>
               </div>
 
               <div class="col-md-6 col-xs-6">
@@ -147,7 +147,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p class="text-info lesson-date"><i class="fa fa-calendar"></i></p>
-                  <p  class="text-md text-blue">
+                  <p  class="text-blue">
                     <a class="lesson-title" href=''></a>
                   </p>
                   <p class="lesson-description"></p>
@@ -192,7 +192,7 @@
 									@if($unit_current->offer->grouping != 'M')
                   	<p class="text-info"><i class="fa fa-calendar"></i> {{ date("d/m/Y", strtotime($lesson->date)) }}</p>
 									@endif
-                  <p  class="text-md text-blue">
+                  <p  class="text-blue">
                     <a href='{{ URL::to("/lessons?l=" . Crypt::encrypt($lesson->id)) }}'>{{ $lesson->title }}</a>
                   </p>
 
@@ -222,7 +222,7 @@
             <div class="row">
 
               <div class="col-md-6 col-xs-6">
-                <h4 class="">AVALIAÇÕES</h4>
+                <h4 >AVALIAÇÕES</h4>
               </div>
 
               <div class="col-md-6 col-xs-6">
@@ -259,7 +259,7 @@
                   <div class="row">
                     <div class="col-md-12">
                       <p class="text-info"><i class="fa fa-calendar"></i> {{ date("d/m/Y", strtotime($recovery->date)) }}</p>
-                      <p class="text-md text-info">
+                      <p class="text-info">
                         <a href='{{ URL::to("/avaliable/finalunit/" . Crypt::encrypt($unit_current->id)) }}'>
                         {{ $recovery->title }}
                         </a>
@@ -298,7 +298,7 @@
               <div class="row">
                 <div class="col-md-12">
                   <p class="text-info"><i class="fa fa-calendar"></i> {{ date("d/m/Y", strtotime($exam->date)) }}</p>
-                  <p class="text-md text-info">
+                  <p class="text-info">
                     <a href='{{ URL::to("/avaliable/liststudentsexam/" . Crypt::encrypt($exam->id)) }}'>
                     {{ $exam->title }}
                     </a>
@@ -331,7 +331,7 @@
 
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h3 class="modal-title">Grupo de ofertas</h3>
+					<h4 class="modal-title">Grupo de ofertas</h3>
 				</div>
 				<div class="modal-body">
 					<div>As aulas criadas para grupo serão também criadas nas ofertas do grupo.</div>

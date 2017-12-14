@@ -10,4 +10,4 @@
   </div>
 </div>
 <br>
-<div class="" id="class-list"></div>
+<div id="class-list"></div>

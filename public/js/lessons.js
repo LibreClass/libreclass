@@ -130,12 +130,12 @@ function events(){
     })
       .done(function() {
         $("#modalCopyLessonFor").modal("hide");
-        $("#modalAlert .modal-title").html("<span class='text-md'>Aviso</span>");
+        $("#modalAlert .modal-title").html("<span>Aviso</span>");
         $("#modalAlert .modal-body").html("<p>Aula duplicada com sucesso. </p>");
         $("#modalAlert").modal();
       })
       .fail(function() {
-        $("#modalAlert .modal-title").html("<span class='text-md'>Erro</span>");
+        $("#modalAlert .modal-title").html("<span>Erro</span>");
         $("#modalAlert .modal-body").html("<p>Não foi possível duplicar a aula.</p>");
         $("#modalAlert").modal();
       });

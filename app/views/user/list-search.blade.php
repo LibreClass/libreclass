@@ -5,7 +5,7 @@
       <div class="pull-left mr">
         {{ HTML::image($user->photo, null, ["class" => "user-photo-2x img-circle"]) }}  
       </div>
-      <div class="">
+      <div >
         <span>{{ $user->name }}</span> - 
         <span>{{ $user->email }}</span><br>
         <span>{{ date("d/m/Y", strtotime($user->birthdate)) }}</span>  

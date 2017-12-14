@@ -19,9 +19,9 @@
         <div class="checkbox">
           <label>
             <input name="discipline" type="checkbox" value='{{ Crypt::encrypt($discipline->id) }}'  {{ Bind::where("idUser", $teacher)->where("idDiscipline", $discipline->id)->first() ? "checked" : "" }}/>
-            <span class="">{{ $course->name }}</span> /
-            <span class="">{{ $period->name }}</span> /
-            <span class="">{{ $discipline->name }}</span>
+            <span >{{ $course->name }}</span> /
+            <span >{{ $period->name }}</span> /
+            <span >{{ $discipline->name }}</span>
 
           </label>
         </div>

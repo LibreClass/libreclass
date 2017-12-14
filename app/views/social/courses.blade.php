@@ -97,15 +97,15 @@
     </div> <!--Fim do bloco visível-->
 
     <div class="block">
-      <div class="text-center text-md">Você não possui cursos cadastrados.</div>
+      <div class="text-center">Você não possui cursos cadastrados.</div>
     </div>
-    
+
     <div class="block">
-      <div class="">
+      <div >
         <h3>Como posso obter diários?</h3>
         <br>
-        <p>Para obter diários é necessário que uma instituição de ensino vincule a sua conta a uma disciplina. 
-           Quando isto acontecer, a disciplina liberada pela instituição irá aparecer aqui e você poderá ter acesso 
+        <p>Para obter diários é necessário que uma instituição de ensino vincule a sua conta a uma disciplina.
+           Quando isto acontecer, a disciplina liberada pela instituição irá aparecer aqui e você poderá ter acesso
            à mesma.</p>
       </div>
     </div>

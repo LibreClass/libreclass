@@ -9,7 +9,7 @@
       {{ Form::open(["url" => URL::to("/classes/offers/teacher"), "id" => "formLinkingTeacher"]) }}
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title text-blue"><b><i class="fa fa-link"></i> Vincular Professor</b></h3>
+        <h4 class="modal-title text-blue"><b><i class="fa fa-link"></i> Vincular Professor</b></h3>
       </div>
       <div class="modal-body">
 
@@ -72,11 +72,11 @@
 
 
         </div>
-        
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-lg btn-default" data-dismiss="modal">Cancelar</button>
-        <button class="pull-right btn btn-lg btn-primary">Concluir</button>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+        <button class="pull-right btn btn-primary">Concluir</button>
       </div>
       {{ Form::close() }}
     </div>

@@ -4,7 +4,7 @@
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title text-blue"><b><i class="fa fa-lock text-danger fa-fw"></i>Bloquear Unidade</b></h3>
+          <h4 class="modal-title text-blue"><b><i class="fa fa-lock text-danger fa-fw"></i>Bloquear Unidade</b></h3>
         </div>
 
         {{ Form::open(["id" => "formBlockUnit"]) }}
@@ -16,12 +16,12 @@
               <div class="form-group">
                 {{ Form::label("course", "Curso") }}
                 <span class="help-block text-muted">Selecione o curso.</span>
-                {{ Form::select("course", [], null, ["class" => "form-control input-lg"]) }}
+                {{ Form::select("course", [], null, ["class" => "form-control"]) }}
               </div>
               <div class="form-group">
                 {{ Form::label("unit", "Unidade") }}
                 <span class="help-block text-muted">Selecione a unidade a ser bloqueada.</span>
-                {{ Form::select("unit", [], null, ["class" => "form-control input-lg"]) }}
+                {{ Form::select("unit", [], null, ["class" => "form-control"]) }}
               </div>
             </div>
           </div>

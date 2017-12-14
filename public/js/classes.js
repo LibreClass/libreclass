@@ -270,4 +270,110 @@ $(function() {
 		return false;
 	});
 
+	$("#view-classes [name='schoolYear']").change(function(e) {
+		location.href="/classes?year="+$(e.target).val();
+	});
+
+	$(".progression", "#view-classes").click(function(e){
+		var id = $(e.target).closest('tr.classe-item').attr('key');
+		$.post('attends/by-classe', {'classe_id': id}, function(data) {
+			var list = $("#modalProgressionClasses").find('.list-attends').empty();
+			if(!data.attends.length) {
+
+			}
+			else {
+				data.attends.forEach(function(item) {
+					list.append(
+					'<li class="list-group-item">'+
+						'<fieldset>'+
+							'<div class="row">'+
+								'<div class="col-xs-4">'+ item.user_name +'</div>'+
+								'<div class="col-xs-4">'+
+									'<select name="classe_id" class="form-control"></select>'+
+								'</div>'+
+								'<div class="col-xs-4">'+
+									'<select name="offers_id" class="form-control" multiple>'+
+										'<option value="">asdasd<option>'+
+										'<option value="">asdasd<option>'+
+										'<option value="">asdasd<option>'+
+										'<option value="">asdasd<option>'+
+									'</select>'+
+								'</div>'+
+							'</div>'+
+						'</fieldset>'+
+					'</li>'
+					);
+				});
+			}
+			$("#modalProgressionClasses").modal();
+		});
+  });
+
+	$("#receive-classes", "#view-classes").click(function(){
+		var year = $("#view-classes [name='schoolYear']").val();
+		var modal = $("#modalReceiveClass");
+		var list = modal.find('.list-classes').empty();
+		$.post('classes/classes-by-year', { 'year': year - 1 }, function(data) {
+			if(data.classes.length) {
+				var mapStatus = {
+					'F': {status: 'Encerrada', label: 'label-default'},
+					'B': {status: 'Bloqueada', label: 'label-danger'},
+					'E': {status: 'Ativa', label: 'label-success'}
+				};
+
+				data.classes.forEach(function(classe) {
+					list.append(
+						'<li class="list-group-item">'+
+							'<div class="checkbox checkbox-m-0">'+
+								'<div class="row">'+
+								'<div class="col-xs-10">'+
+									'<label><input type="checkbox" name="classe_id" value="'+ classe.id +'"> '+ classe.classe + ' - '+ classe.period +'</label>'+
+								'</div>'+
+								'<div class="col-xs-2 text-right">'+
+									'<span class="label '+ mapStatus[classe.status].label +'">'+ mapStatus[classe.status].status +'</span>'+
+								'</div>'+
+							'</div>'+
+						'</li>'
+					);
+				});
+				modal.modal();
+			}
+			else {
+				alert('Não existem turmas no ano anterior');
+			}
+		});
+  });
+
+	$("#formReceiveClass").submit(function(e) {
+		e.preventDefault();
+		var fields = $(e.target).serializeArray();
+		var obj = { 'classes_id': []};
+		fields.forEach(function(item, i) {
+			if(item.name == 'classe_id') {
+				obj.classes_id.push(item.value);
+			}
+		});
+
+		if(!obj.classes_id.length) {
+			dialog.info('Alerta', 'Nenhuma turma selecionada');
+			return;
+		}
+
+		dialog.confirm('Confirmação', 'Deseja confirmar essa operação?', function() {
+			dialog.waiting('Processando. Aguarde.');
+			dialog.close('confirm');
+			$.post('classes/copy-to-year', obj, function(data) {
+				if(data.status) {
+					dialog.info('Sucesso', 'A operação foi concluída com sucesso.', function() {
+						location.reload();
+					});
+				}
+				dialog.close('waiting');
+			}).fail(function() {
+				dialog.info('Erro', 'Não foi possível finalizar o processamento. Se o erro persistir, contate o suporte');
+			});
+
+		});
+	});
+
 });

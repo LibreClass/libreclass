@@ -71,7 +71,7 @@
             <div class="user-name">
               <span>{{-- $user->name --}}</span>
             </div>
-            <a href='{{"/config"}}' class="">Editar Perfil</a>
+            <a href='{{"/config"}}' >Editar Perfil</a>
           </div>
           
           <div class="sidebar-menu">
@@ -84,7 +84,7 @@
               <li id="report" class="click"><a><i class="fa fa-support"></i> Contate o suporte</a></li>
             </ul>
             
-              <span class=""><i class="fa fa-linux"></i> {{ date('Y') }} - Sysvale SoftGroup</span>
+              <span ><i class="fa fa-linux"></i> {{ date('Y') }} - Sysvale SoftGroup</span>
             </div>
             
           </footer>

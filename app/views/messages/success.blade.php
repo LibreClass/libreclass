@@ -4,16 +4,16 @@
       <div class="modal-content">
         <div class="modal-header modal-header-success">
           <i class="fa fa-check fa-lg"></i>
-          <span class="text-md"><b> &nbsp;Sucesso</b></span>
+          <span><b> &nbsp;Sucesso</b></span>
           <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
           <div class="text-center">
-            <span class="text-center">{{ Session::get("success") }}</span>  
+            <span class="text-center">{{ Session::get("success") }}</span>
           </div>
           <br>
           <div class="text-right">
-            <button class="btn btn-default" data-dismiss="modal">Fechar</button> 
+            <button class="btn btn-default" data-dismiss="modal">Fechar</button>
           </div>
         </div>
       </div>

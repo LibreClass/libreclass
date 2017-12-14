@@ -21,7 +21,7 @@
     <div id="block" class="block">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <h4 class=""><b>Passo 1/2 - Importação da Turmas</b></h4>
+          <h4 ><b>Passo 1/2 - Importação da Turmas</b></h4>
         </div>
         <br>
 
@@ -62,7 +62,7 @@
                       <tr>
                         <td>{{ $class->name }}</td>
                         <td>{{ $class->period }}</td>
-                        <td><span class='label label-primary text-sm'>Novo</span></td>
+                        <td><span class='label label-primary'>Novo</span></td>
                       </tr>
                   @endforeach
                 </tbody>

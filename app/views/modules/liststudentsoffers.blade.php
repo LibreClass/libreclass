@@ -18,11 +18,11 @@
 
 <div class="row">
   <div class="col-md-8 col-xs-12 col-sm-12">
-    
+
     <div class="block">
       <div class="row">
         <div class="col-md-10 col-sm-10">
-          <ol class="breadcrumb text-md text-sm">
+          <ol class="breadcrumb">
             <li><b>{{ $info[0]->course }}</b></li>
             <li><b>{{ $info[0]->period }}</b></li>
             <li class="active"><b>{{ $info[0]->class }}</b></li>
@@ -33,10 +33,10 @@
         </div>
       </div>
     </div>
-    
-    
+
+
     <div id="block" class="block">
-     
+
         <div class="row">
           <div class="col-md-12">
             <div class="offer-students">
@@ -65,14 +65,14 @@
                         <li><a class="status-student-offer" data="D"><i class="fa fa-thumbs-down text-primary"></i> Desistente</a></li>
                         <li><a class="status-student-offer" data="T"><i class="fa fa-exchange text-primary"></i> Transferido</a></li>
                         <li><a class="status-student-offer" data="R"><i class="fa fa-trash text-danger"></i> Remover</a></li>
-                      </ul>  
+                      </ul>
                     </div>
                   </td>
                 </tr>
                 @endforeach
               </table>
-            </div>  
-          </div>  
+            </div>
+          </div>
         </div>
 
             <br>
@@ -90,4 +90,3 @@
 
 
 @stop
-

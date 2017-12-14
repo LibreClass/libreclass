@@ -39,7 +39,7 @@
     </div>
   </a>
 
-  <a href="/classes" class="menu-option">
+  <a href="/classes?year={{date('Y')}}" class="menu-option">
     <div class="sidebar-option">
       <div class="row">
         <div class="col-xs-2">

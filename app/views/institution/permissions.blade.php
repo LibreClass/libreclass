@@ -47,7 +47,7 @@
             <th>Tipo</th>
           </tr>
         </thead>
-        <tbody class="text-sm">
+        <tbody>
           @foreach( $adminers as $adminer)
             <tr class="edit-permission" data="{{ $adminer->id }}">
               <td>{{ $adminer->name }}</td>

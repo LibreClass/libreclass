@@ -60,7 +60,7 @@
                 <tr>
                   <td>
                     <span class="bold">{{ $offer->discipline->name }}</span><br>
-                    <span class="text-sm text-muted">{{ $offer->classe->period->course->name }} / {{ $offer->classe->period->name }}</span>
+                    <span class="text-muted">{{ $offer->classe->period->course->name }} / {{ $offer->classe->period->name }}</span>
                   </td>
                 </tr>
                 @endif
@@ -91,7 +91,7 @@
                   <tr>
                     <td>
                       <span class="bold">{{ $discipline->name }}</span><br>
-                      <span class="text-sm text-muted">{{ $discipline->period->course->name }} / {{ $discipline->period->name }}</span>
+                      <span class="text-muted">{{ $discipline->period->course->name }} / {{ $discipline->period->name }}</span>
                     </td>
                   </tr>
                 @endif

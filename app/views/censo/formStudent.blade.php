@@ -33,12 +33,12 @@
 									<h4>Identificação</h4>
 								</div>
 								<div class="col-xs-2 text-right">
-										<i class="icon-toogle fa fa-chevron-down"></i>	
+										<i class="icon-toogle fa fa-chevron-down"></i>
 								</div>
 							</div>
 						</div>
-						
-						<form hidden action="" method="post" class="">
+
+						<form hidden action="" method="post">
 							<hr>
 							<div class="form-group">
 								<div class="row">
@@ -124,7 +124,7 @@
 											<option value="2">Brasileira: Nascido no exterior ou naturalizado</option>
 											<option value="3">Estrangeira</option>
 										</select>
-										
+
 									</div>
 									<div class="col-sm-3">
 										<label>*País de origem</label>
@@ -171,7 +171,7 @@
 							</div>
 							<div class="form-group">
 								<div class="row">
-									
+
 									<div class="col-sm-12">
 										<p>Informe o tipo de deficiência, transtorno global do desenvolvimento ou altas habilidades/superdotação.</p>
 										<table class="table table-hover">
@@ -323,13 +323,13 @@
 												</tr>
 											</tbody>
 										</table>
-										
+
 									</div>
 								</div>
 							</div>
 							<div class="form-group">
 								<p>Recursos necessários para a participação do aluno em avaliações do INEP (Prova Brasil, SAEB, Outros).</p>
-								
+
 								<table class="table table-hover">
 									<thead>
 									</thead>
@@ -446,17 +446,17 @@
 										</tr>
 									</tbody>
 								</table>
-								
+
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-right">
-									<button class="btn btn-primary btn-lg">Salvar informações</button>
+									<button class="btn btn-primary">Salvar informações</button>
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
-				
+
 				<div class="panel panel-default click">
 					<div class="panel-body"><div class="toogle-form">
 							<div class="row">
@@ -464,7 +464,7 @@
 									<h4>Documentos e endereço</h4>
 								</div>
 								<div class="col-xs-2 text-right">
-									<i class="icon-toogle fa fa-chevron-down"></i>	
+									<i class="icon-toogle fa fa-chevron-down"></i>
 								</div>
 							</div>
 						</div>
@@ -625,12 +625,12 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-right">
-									<button class="btn btn-primary btn-lg">Salvar informações</button>
+									<button class="btn btn-primary">Salvar informações</button>
 								</div>
 							</div>
 						</form>
 					</div>
-					
+
 				</div>
 				<div class="panel panel-default click">
 					<div class="panel-body">
@@ -640,7 +640,7 @@
 									<h4>*Vínculo (Matrícula) - Dados variáveis</h4>
 								</div>
 								<div class="col-xs-2 text-right">
-									<i class="icon-toogle fa fa-chevron-down"></i>	
+									<i class="icon-toogle fa fa-chevron-down"></i>
 								</div>
 							</div>
 						</div>
@@ -650,7 +650,7 @@
 									<div class="col-md-3">
 									<label></label>
 									<input type="text" name="" >
-										
+
 									</div>
 								</div>
 							</div>
@@ -709,7 +709,7 @@
 									</tr>
 								</tbody>
 							</table>
-							<div class="">
+							<div>
 								<p>Tipo de veículo utilizado no transporte escolar. (Pode ser informada até 3 opções de transporte.)</p>
 								<table class="table table-hover">
 									<tr>
@@ -831,10 +831,10 @@
 							</div>
 							<div class="row">
 								<div class="col-md-12 text-right">
-									<button class="btn btn-primary btn-lg">Salvar informações</button>
+									<button class="btn btn-primary">Salvar informações</button>
 								</div>
 							</div>
-						</form>	
+						</form>
 					</div>
 				</div>
 			</div>

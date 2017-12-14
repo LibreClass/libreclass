@@ -99,8 +99,8 @@
                   <tr id='{{ Crypt::encrypt($student->id) }}'>
                     <td>{{ $student->getUser()->name }}</td>
                     <td>
-                      <div class="">
-                        <div class="">
+                      <div >
+                        <div >
                           {{ Form::textarea('exam-description', $student->getDescriptiveExam($exam->id)["description"], ['size' => '45x5', 'maxlength' => 60000]) }}
                         </div>
                         <!-- <div class="pull-left feedback-response small"></div> -->
