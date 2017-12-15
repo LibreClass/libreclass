@@ -276,29 +276,41 @@ $(function() {
 
 	$(".progression", "#view-classes").click(function(e){
 		var id = $(e.target).closest('tr.classe-item').attr('key');
-		$.post('attends/by-classe', {'classe_id': id}, function(data) {
+		$.post('progression/students-and-classes', {'classe_id': id}, function(data) {
 			var list = $("#modalProgressionClasses").find('.list-attends').empty();
-			if(!data.attends.length) {
-
+			if(!data.status || !data.attends.length) {
+				$.dialog.info('Erro', data.message);
+				return;
 			}
 			else {
+				var classes = '';
+				data.next_classe.classes.forEach(function(item) {
+					classes += '<option value="'+ item.id +'">'+ item.schoolYear +' - '+data.next_classe.name +' - '+ item.name +'</option>';
+				});
+
 				data.attends.forEach(function(item) {
 					list.append(
 					'<li class="list-group-item">'+
 						'<fieldset>'+
 							'<div class="row">'+
-								'<div class="col-xs-4">'+ item.user_name +'</div>'+
-								'<div class="col-xs-4">'+
-									'<select name="classe_id" class="form-control"></select>'+
+								'<div class="col-xs-9">'+
+									'<div class="checkbox">'+
+										'<label><input type="checkbox" name="progression_check">'+ item.user_name +
+									'</div>'+
 								'</div>'+
-								'<div class="col-xs-4">'+
-									'<select name="offers_id" class="form-control" multiple>'+
-										'<option value="">asdasd<option>'+
-										'<option value="">asdasd<option>'+
-										'<option value="">asdasd<option>'+
-										'<option value="">asdasd<option>'+
+								'<div class="col-xs-3">'+
+									'<select name="progression_type" class="form-control">'+
+										'<option value="1">Progredir</option>'+
+										'<option value="0" selected>Manter</option>'+
 									'</select>'+
 								'</div>'+
+								// '<select name="classe_id" class="form-control">'+ classes +'</select>'+
+									// '<input type="radio" name="type_progression"> Progressão parcial'+
+								// '</div>'+
+								// '<div class="col-xs-3">'+
+									// '<input type="radio" name="type_progression"> Progressão integral'+
+								// '</div>'+
+							// '</div>'+
 							'</div>'+
 						'</fieldset>'+
 					'</li>'
@@ -325,13 +337,20 @@ $(function() {
 					list.append(
 						'<li class="list-group-item">'+
 							'<div class="checkbox checkbox-m-0">'+
-								'<div class="row">'+
-								'<div class="col-xs-10">'+
-									'<label><input type="checkbox" name="classe_id" value="'+ classe.id +'"> '+ classe.classe + ' - '+ classe.period +'</label>'+
-								'</div>'+
-								'<div class="col-xs-2 text-right">'+
-									'<span class="label '+ mapStatus[classe.status].label +'">'+ mapStatus[classe.status].status +'</span>'+
-								'</div>'+
+								'<fieldset class="row">'+
+									'<div class="col-xs-6">'+
+										'<label><input type="checkbox" name="classe_id" value="'+ classe.id +'"> '+ classe.classe + ' - '+ classe.period +'</label>'+
+									'</div>'+
+									'<div class="col-xs-4">'+
+										'<select name="with_offers" class="form-control input-xs">'+
+											'<option value="true">Copiar com as ofertas</option>'+
+											'<option value="false">Copiar sem as ofertas</option>'+
+										'</select>'+
+									'</div>'+
+									'<div class="col-xs-2 text-right">'+
+										'<span class="label '+ mapStatus[classe.status].label +'">'+ mapStatus[classe.status].status +'</span>'+
+									'</div>'+
+								'</fieldset>'+
 							'</div>'+
 						'</li>'
 					);
@@ -346,15 +365,25 @@ $(function() {
 
 	$("#formReceiveClass").submit(function(e) {
 		e.preventDefault();
-		var fields = $(e.target).serializeArray();
-		var obj = { 'classes_id': []};
-		fields.forEach(function(item, i) {
-			if(item.name == 'classe_id') {
-				obj.classes_id.push(item.value);
+		var fields = [];
+
+		$(e.target).find('fieldset').each(function(i, field) {
+			var classe = $(field).serializeArray();
+
+			if(classe.length == 2) {
+				fields.push({ 'classe_id' : classe[0].value, 'with_offers': classe[1].value });
 			}
+
 		});
 
-		if(!obj.classes_id.length) {
+		// var obj = { 'classes_id': []};
+		// fields.forEach(function(item, i) {
+		// 	if(item.name == 'classe_id') {
+		// 		obj.classes_id.push(item.value);
+		// 	}
+		// });
+
+		if(!fields.length) {
 			dialog.info('Alerta', 'Nenhuma turma selecionada');
 			return;
 		}
@@ -362,7 +391,7 @@ $(function() {
 		dialog.confirm('Confirmação', 'Deseja confirmar essa operação?', function() {
 			dialog.waiting('Processando. Aguarde.');
 			dialog.close('confirm');
-			$.post('classes/copy-to-year', obj, function(data) {
+			$.post('classes/copy-to-year', {'classes': fields}, function(data) {
 				if(data.status) {
 					dialog.info('Sucesso', 'A operação foi concluída com sucesso.', function() {
 						location.reload();

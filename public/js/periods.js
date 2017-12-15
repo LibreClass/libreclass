@@ -6,7 +6,7 @@ $(document).ready(function(){
 		if($(e.target).is('[edit]')) {
 			$.post('periods/read', {'period_id': $(e.target).attr('data-id')}, function(data) {
 				form.find('input[name="period_id"]').val(data.period.id);
-				form.find('input[name="course_id"]').val(data.period.course_id);
+				form.find('select[name="course_id"]').val(data.period.idCourse);
 				form.find('input[name="name"]').val(data.period.name);
 				form.find('input[name="progression_value"]').val(data.period.progression_value);
 				$("#modal-add-period").modal();
