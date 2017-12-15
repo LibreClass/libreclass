@@ -1,5 +1,5 @@
 <div class="modal fade" id="modalReceiveClass" tabindex="-1" role="Modal Add Class" aria-labelledby="" aria-hidden="true">
-	<div class="modal-dialog">
+	<div class="modal-dialog modal-lg">
 		<div class="modal-content">
 
 			<div class="modal-header">
@@ -10,8 +10,8 @@
 			<div class="modal-body">
 				<p>
 					Nesta função é possível copiar as turmas do ano anterior para o ano escolar selecionado.
-					As turmas serão copiadas com as ofertas da série e sem os alunos.
-					<br />Selecione abaixo as turmas que deseja copiar.
+					As as turmas serão copiadas sem os alunos.
+					<br />Selecione abaixo as turmas e informe se deseja copiar com as ofertas atuais.
 				</p>
 				<br />
 				<b>Turmas de {{ $schoolYear - 1 }}</b>

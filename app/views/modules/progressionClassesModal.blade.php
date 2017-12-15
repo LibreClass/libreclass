@@ -14,9 +14,8 @@
 				<br />
 
 				<div class="row">
-					<div class="col-xs-4"><strong>Aluno</strong></div>
-					<div class="col-xs-4"><strong>Série</strong></div>
-					<div class="col-xs-4"><strong>Ofertas</strong></div>
+					<div class="col-xs-9"><strong>Aluno</strong></div>
+					<div class="col-xs-3"><strong>Próxima turma</strong></div>
 				</div>
 
 				<ul class="list-group list-attends">

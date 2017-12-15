@@ -49,6 +49,7 @@ class PeriodsController extends \BaseController {
 			$period->name = Input::get('name');
 			$period->idCourse = Input::get('course_id');
 			$period->progression_value = Input::get('progression_value');
+			// dd(Input::all());
 			$period->save();
 
 			return Redirect::back()->with("success", "Período salvo com sucesso!");

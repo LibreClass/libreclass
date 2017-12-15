@@ -340,11 +340,10 @@ class ClassesController extends \BaseController
 
 	public function postCopyToYear()
   {
-		if(Input::has('classes_id')) {
-			$classes = Classe::whereIn('id', Input::get('classes_id'))->get();
-		}
-		if($classes) {
-			foreach($classes as $classe) {
+		if(Input::has('classes')) {
+			foreach(Input::get('classes') as $in) {
+				$classe = Classe::find($in['classe_id']);
+
 				$new_classe = new Classe();
 				$new_classe->idPeriod = $classe->idPeriod;
 				$new_classe->name = $classe->name;
@@ -353,6 +352,10 @@ class ClassesController extends \BaseController
 				$new_classe->status = 'E';
 
 				$new_classe->save();
+
+				if($in['with_offers'] == "false") {
+					continue;
+				}
 
 				$offers = Offer::where('idClass', $classe->id)->get();
 				$tmp_groups = [];
