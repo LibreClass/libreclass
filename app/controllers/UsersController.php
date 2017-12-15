@@ -576,7 +576,7 @@ class UsersController extends \BaseController
   public function printScholarReport()
   {
     $data = [];
-		$data['units'] = 0;
+		$data['units'] = [];
     // Obtém dados da instituição
     $data['institution'] = User::find($this->idUser);
 
@@ -688,6 +688,7 @@ class UsersController extends \BaseController
       }
 			$data['units'] = count($data['units']) < count($units) ? $units : $data['units'];
     }
+		// dd($data['units']);
 		//Guarda pareceres
 		$data['pareceres'] = $pareceres;
 
