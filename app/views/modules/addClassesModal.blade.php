@@ -4,7 +4,7 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title text-blue" id="modalAddClass"><b><i class="icon-classes"></i> Turma</b></h3>
+        <h4 class="modal-title text-blue" id="modalAddClass"><b><i class="icon-classes"></i> Turma</b></h4>
       </div>
 
       {{ Form::open([ "url" => URL::to("classes/new"), "id" => "formAddClass"]) }}
@@ -14,16 +14,23 @@
             <div class="form-group">
               {{ Form::label("period", "Curso/Período") }}
               <span class="help-block text-muted">Selecione o curso e período para a turma</span>
-              {{ Form::select("period", $listPeriod, null, ["class" => "form-control input-lg"]) }}
+              {{ Form::select("period", $listPeriod, null, ["class" => "form-control"]) }}
             </div>
           </div>
         </div>
         <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-6">
+          <div class="col-md-6 col-sm-6 col-xs-12">
+            <div class="form-group">
+              {{ Form::label("schoolYear", "Ano escolar", ["class" => "control-label"]) }}
+              <span class="help-block text-muted">Selecione o ano escolar</span>
+            	{{ Form::select("schoolYear", ['2018' => '2018'], $schoolYear, ["class" => "form-control"]) }}
+            </div>
+          </div>
+          <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
               {{ Form::label("class", "Período Letivo", ["class" => "control-label"]) }}
-              <span class="help-block text-muted">Informe o período letivo que pertence essa turma. Ex: 2015, 2015.1S</span>
-              {{ Form::text("class", null, ["class" => "form-control input-lg"]) }}
+              <span class="help-block text-muted">Ex: 2018.1, 1º Semestre, ... </span>
+              {{ Form::text("class", null, ["class" => "form-control"]) }}
             </div>
           </div>
         </div>
@@ -32,7 +39,7 @@
           <div class="col-md-12 col-sm-12 col-xs-6">
             <div class="form-group">
               <span class="help-block text-muted">Informe um nome para identificar a turma. Ex: 1º Ano A, 2º MEDIO A - Vespertino.</span>
-              {{ Form::text("name", null, ["class" => "form-control input-lg"]) }}
+              {{ Form::text("name", null, ["class" => "form-control"]) }}
             </div>
           </div>
         </div>
@@ -66,7 +73,7 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="modal-title text-blue"><b><i class="icon-classes"></i> Editar Turma</b></h3>
+        <h4 class="modal-title text-blue"><b><i class="icon-classes"></i> Editar Turma</b></h3>
       </div>
 
       {{ Form::open([ "url" => URL::to("classes/edit"), "id" => "formEditClass"]) }}
@@ -77,7 +84,7 @@
             <div class="form-group">
               {{ Form::label("class", "Nome da turma", ["class" => "control-label"]) }}
               <span class="help-block text-muted">Informe um nome para identificar a turma. Ex: 2015.1.</span>
-              {{ Form::text("class", null, ["class" => "form-control input-lg"]) }}
+              {{ Form::text("class", null, ["class" => "form-control"]) }}
             </div>
           </div>
         </div>

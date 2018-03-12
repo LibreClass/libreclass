@@ -3,7 +3,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title text-blue" id="modalAddTeacher"><b><i class="icon-teacher"></i> Professor</b></h3>
+          <h4 class="modal-title text-blue" id="modalAddTeacher"><b><i class="icon-teacher"></i> Professor</b></h3>
         </div>
         {{ Form::open(["id" => "formAddTeacher"]) }}
         <div class="modal-body">
@@ -12,23 +12,23 @@
             <div class="form-group">
               {{ Form::label("enrollment", "Matrícula", ["class" => "control-label"]) }}
               <span class="help-block">Informe a matrícula do professor.</span>
-              {{ Form::text("enrollment", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
+              {{ Form::text("enrollment", null, ["class" => "form-control", "autofocus", "required"]) }}
             </div>
             <div class="form-group">
               {{ Form::label("name", "Nome", ["class" => "control-label"]) }}
               <span class="help-block">Informe o nome completo do professor.</span>
-              {{ Form::text("name", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
+              {{ Form::text("name", null, ["class" => "form-control", "autofocus", "required"]) }}
             </div>
 
             <div class="form-group">
               {{ Form::label("gender", "Sexo", ["control" => "control-label"]) }}
               <span class="help-block">Informe o gênero do professor.</span>
-              {{ Form::select("gender", ["M" => "Masculino", "F" => "Feminino", "N" => "Não informar"], null, ["class" => "form-control input-lg"]) }}
+              {{ Form::select("gender", ["M" => "Masculino", "F" => "Feminino", "N" => "Não informar"], null, ["class" => "form-control"]) }}
             </div>
             <div class="form-group">
               {{ Form::label("formation", "Formação Acadêmica", ["control" => "control-label"]) }}
               <span class="help-block">Informe a formação acadêmica principal do professor.</span>
-              {{ Form::text("formation", null, ["class" => "form-control input-lg"]) }}
+              {{ Form::text("formation", null, ["class" => "form-control"]) }}
             </div>
 
         </div>

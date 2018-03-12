@@ -9,7 +9,7 @@
           <div class="form-group">
 {{ Form::open(["url" => url("/course/periods"), "id" => "add-periods", "class" => "registerForm"]) }}
             {{ Form::label("course", "Curso") }}
-            {{ Form::select("course", $listcourses, null, ["class" => "form-control input-lg", "placeholder" => "Escolha um curso"]) }}
+            {{ Form::select("course", $listcourses, null, ["class" => "form-control", "placeholder" => "Escolha um curso"]) }}
 {{ Form::close() }}
           </div>
             <div id="list-periods" class="list-unstyled">

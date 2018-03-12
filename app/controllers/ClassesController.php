@@ -21,6 +21,8 @@ class ClassesController extends \BaseController
       $user = User::find($this->idUser);
       $courses = Course::where("idInstitution", $this->idUser)->where("status", "E")->orderBy("name")->get();
       $listPeriod = [];
+			$listPeriodLetivo = [];
+			$year = Input::has('year') ? (int) Input::get('year') : (int) date('Y');
       foreach ($courses as $course) {
         $periods = Period::where("idCourse", $course->id)->orderBy("name")->get();
         //~ $listPeriod[$course->name] = [];
@@ -30,20 +32,57 @@ class ClassesController extends \BaseController
       }
 
       $classes = DB::select("SELECT Classes.id AS id, Periods.name AS period,
-				CONCAT('[', Classes.class, '] ', Classes.name) AS classe,
+															Classes.name AS classe_name, Classes.schoolYear AS schoolYear, Classes.class AS classe,
 															Courses.name AS name, Classes.status AS status
 														 FROM Courses, Periods, Classes
 														 WHERE Courses.idInstitution=? AND
 															Courses.status = 'E' AND
 															Classes.status <> 'D' AND
+															Classes.schoolYear IN ($year, $year-1) AND
 															Periods.idCourse=Courses.id AND
 															Classes.idPeriod=Periods.id", [$user->id]);
       //~ return $classes;
-      return View::make("modules.classes", ["listPeriod" => $listPeriod, "user" => $user, "classes" => $classes]);
+			$atual_classes = array_where($classes, function($key, $classe) use($year)
+			{
+				return $classe->schoolYear == $year;
+			});
+
+			$previous_classes = array_where($classes, function($key, $classe) use($year)
+			{
+				return $classe->schoolYear == $year-1;
+			});
+
+      return View::make("modules.classes", ["listPeriod" => $listPeriod, "user" => $user, "classes" => $classes,  "atual_classes" => $atual_classes,  "previous_classes" => $previous_classes, "schoolYear" => $year]);
     } else {
       return Redirect::guest("/");
     }
   }
+
+	public function postClassesByYear()
+	{
+		if ($this->idUser) {
+			$user = User::find($this->idUser);
+			$year = Input::has('year') ? (int) Input::get('year') : (int) date('Y');
+			// $year_previous = $year - 1;
+
+			$classes = DB::select(
+				"SELECT Classes.id AS id, Periods.name AS period,
+				CONCAT('[', Classes.class, '] ', Classes.name) AS classe, Classes.status AS status
+				FROM Courses, Periods, Classes
+				WHERE Courses.idInstitution=? AND
+				Courses.status = 'E' AND
+				Classes.status <> 'D' AND
+				Classes.schoolYear=$year AND
+				Periods.idCourse=Courses.id AND
+				Classes.idPeriod=Periods.id", [$user->id]
+			);
+
+			return ['classes' => $classes];
+		}
+		else {
+			return Redirect::guest("/");
+		}
+	}
 
   public function getPanel()
   {
@@ -154,13 +193,16 @@ class ClassesController extends \BaseController
       $class->status = Input::get("status");
       $class->save();
       if ($class->status == "E") {
-        return Redirect::guest("/classes")->with("success", "Turma ativada com sucesso!");
-      } else {
-        return Redirect::guest("/classes")->with("success", "Turma bloqueada com sucesso!<br/>Turmas bloqueadas são movidas para o final.");
+        return Redirect::back()->with("success", "Turma ativada com sucesso!");
+      }
+			else if ($class->status == "F") {
+        return Redirect::back()->with("success", "Turma encerrada com sucesso!");
+			} else {
+        return Redirect::back()->with("success", "Turma bloqueada com sucesso!<br/>Turmas bloqueadas são movidas para o final.");
       }
 
     } else {
-      return Redirect::guest("/classes")->with("error", "Não foi possível realizar essa operação!");
+      return Redirect::back()->with("error", "Não foi possível realizar essa operação!");
     }
 
   }
@@ -295,4 +337,82 @@ class ClassesController extends \BaseController
 
     }
   }
+
+	public function postCopyToYear()
+  {
+		if(Input::has('classes')) {
+			foreach(Input::get('classes') as $in) {
+				$classe = Classe::find($in['classe_id']);
+
+				$new_classe = new Classe();
+				$new_classe->idPeriod = $classe->idPeriod;
+				$new_classe->name = $classe->name;
+				$new_classe->schoolYear = $classe->schoolYear + 1;
+				$new_classe->class = '';
+				$new_classe->status = 'E';
+
+				$new_classe->save();
+
+				if($in['with_offers'] == "false") {
+					continue;
+				}
+
+				$offers = Offer::where('idClass', $classe->id)->get();
+				$tmp_groups = [];
+				foreach($offers as $offer) {
+					if($offer->grouping != "M") { // Diferente de master, porque a master é criada quando há slaves.
+						if($offer->grouping == 'S')  { // Criar grupo de ofertas / Oferta Slave
+							if(isset($tmp_groups[$offer->idOffer])) { // Se o grupo já foi criado
+								$this->createOffer($offer, $new_classe, $tmp_groups[$offer->idOffer]); //Cria oferta apontado para o novo grupo existente.
+							}
+							else {
+								$group = Offer::find($offer->idOffer);
+								$tmp_groups[$offer->idOffer] = $this->createOffer($group, $new_classe, null); //Cria grupo de oferta e guarda o id;
+								$this->createOffer($offer, $new_classe, $tmp_groups[$offer->idOffer]);
+							}
+						}
+						else {
+							$this->createOffer($offer, $new_classe, null); //Duplica oferta para o novo ano letivo
+						}
+					}
+
+					// echo("$new_classe->name | $offer->id | ");
+				}
+
+			}
+
+			return ['status' => 1, 'tmp' => $tmp_groups];
+		} else {
+			return ['status' => 0, 'message' => 'Não foi possível copiar as classes'];
+		}
+  }
+
+	public function createOffer($offer, $classe, $group) {
+
+		$new_offer = new Offer();
+		$new_offer->idClass = $classe->id;
+		$new_offer->idDiscipline = $offer->idDiscipline;
+		$new_offer->classroom = $offer->classroom;
+		$new_offer->day_period = $offer->day_period;
+		$new_offer->maxlessons = $offer->maxlessons;
+		$new_offer->typeFinal = '';
+		$new_offer->dateFinal = '';
+		$new_offer->comments = $offer->comments;
+		$new_offer->status = 'E';
+		$new_offer->grouping = $offer->grouping;
+
+		if($offer->grouping == "S") {
+			$new_offer->idOffer = $group;
+		}
+
+		$new_offer->save();
+		//Cria uma unidade
+		$unit = new Unit();
+		$unit->idOffer = $new_offer->id;
+		$unit->value = 1;
+		$unit->save();
+
+		return $new_offer->id;
+
+	}
 }

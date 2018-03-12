@@ -17,6 +17,6 @@ class Classe extends \Eloquent
 
   public function fullName()
   {
-    return "[$this->class] $this->name";
+    return "$this->name $this->class";
   }
 }

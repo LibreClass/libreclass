@@ -93,11 +93,11 @@
       @empty
 
         <div class="block">
-          <div class="text-center text-md">Você não possui diários de disciplinas</div>
+          <div class="text-center">Você não possui diários de disciplinas</div>
         </div>
 
         <div class="block">
-          <div class="">
+          <div >
             <h3>Como posso obter diários?</h3>
             <br>
             <p>Para obter diários é necessário que uma instituição de ensino vincule a sua conta a uma disciplina.

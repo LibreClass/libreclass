@@ -1,7 +1,7 @@
 @foreach($disciplines as $discipline)
 <div class="panel panel-default click">
   <div class="panel-heading panel-history">
-    <div class="">{{ $discipline->name }}</div>
+    <div>{{ $discipline->name }}</div>
   </div>
   <div class="panel-body visible-none">
     @foreach( $discipline->units as $unit )

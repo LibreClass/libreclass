@@ -21,7 +21,7 @@
 
       <div class="row">
         <div class="col-md-6 col-xs-6">
-          <h4 class="">MEUS PROFESSORES</h4>
+          <h4 >MEUS PROFESSORES</h4>
         </div>
         <div class="col-md-6 col-xs-6">
           <button id="new-block" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Novo Professor</button>

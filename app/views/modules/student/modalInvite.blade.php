@@ -3,13 +3,13 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title"><b><i class="fa fa-envelope-o fa-fw"></i> Convidar</b></h3>
+          <h4 class="modal-title"><b><i class="fa fa-envelope-o fa-fw"></i> Convidar</b></h4>
         </div>
         {{ Form::open(["id" => "formInvite", "url" => URL::to("/user/invite")]) }}
         <div class="modal-body">
 
           {{ Form::hidden("guest", Crypt::encrypt($profile->id)) }}
-          <div class="row">            
+          <div class="row">
             <div class="col-xs-12">
               <div class="form-group">
                 {{ Form::label("email", "Email", ["class" => "control-label"]) }}
@@ -18,7 +18,7 @@
               </div>
             </div>
           </div>
-          
+
         </div>
 
         <div class="modal-footer">

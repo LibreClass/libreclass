@@ -22,7 +22,7 @@
     <div id="block" class="block">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <h4 class=""></h4>
+          <h4 ></h4>
         </div>
       </div>
       <div class="block-list">

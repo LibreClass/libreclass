@@ -28,7 +28,7 @@
 
       <div class="row">
         <div class="col-md-6 col-xs-6">
-          <h4 class="">CONFIGURAÇÕES</h4>
+          <h4 >CONFIGURAÇÕES</h4>
         </div>
         <div class="col-md-6 col-xs-6 alternate visible-none">
           <button id="btn-back" class="btn btn-default pull-right">Voltar</button>

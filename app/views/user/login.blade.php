@@ -24,13 +24,13 @@ Login
   @if (Session::has("info"))
     <div class="alert alert-info text-center alert-dismissible" role="alert" >
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <span class="text-sm">{{Session::get("info")}}</span>
+      <span>{{Session::get("info")}}</span>
     </div>
   @endif
   @if (Session::has("error"))
     <div class="alert alert-danger text-center alert-dismissible" role="alert" >
       <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <span class="text-sm">{{Session::get("error")}}</span>
+      <span>{{Session::get("error")}}</span>
     </div>
   @endif
   <div class="panel panel-login">

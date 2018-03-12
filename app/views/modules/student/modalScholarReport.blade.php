@@ -5,14 +5,14 @@
 
 	        <div class="modal-header">
 	          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	          <h3 class="modal-title"><b><i class="fa fa-file-o fa-fw"></i> Gerar boletim escolar</b></h3>
+	          <h4 class="modal-title"><b><i class="fa fa-file-o fa-fw"></i> Gerar boletim escolar</b></h4>
 	        </div>
 
 	        <div class="modal-body">
 	          <div class="row">
 	            <div class="col-xs-12">
 	              <div class="form-group">
-	                <h4>Selecione o ano letivo</h4>
+	                <label>Selecione o ano letivo</label>
 	                {{ Form::select("schoolYear", ['2017'=>'2017'], null, ["class" => "form-control", "id" => "class-modal-change"]) }}
 	              </div>
 	            </div>
@@ -20,7 +20,7 @@
 						<div class="row">
 	            <div class="col-xs-12">
 	              <div class="form-group">
-	                <h4>Curso</h4>
+	                <label>Curso</label>
 									<select name="course" class="form-control" id="select-scholar-report-course">
 										@foreach($courses as $course)
 											<option value="{{$course->id}}" quant-unit="{{$course->quantUnit}}">{{$course->name}}</option>

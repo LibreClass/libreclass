@@ -521,7 +521,7 @@ class UsersController extends \BaseController
 
     if (count($offers)) {
       $str = "Erro ao desvincular professor, ele está associado a(s) disciplina(s): <br><br>";
-      $str .= "<ul class='text-justify text-sm list-group'>";
+      $str .= "<ul class='text-justify list-group'>";
       foreach ($offers as $offer) {
         $str .= "<li class='list-group-item'>$offer->course/$offer->period/$offer->class/$offer->discipline</li>";
       }

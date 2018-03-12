@@ -21,7 +21,7 @@
     <div id="block" class="block">
       <div class="row">
         <div class="col-md-12 col-xs-12">
-          <h4 class=""><b>Passo 3/3 - Importação da Oferta de Disciplina</b></h4>
+          <h4 ><b>Passo 3/3 - Importação da Oferta de Disciplina</b></h4>
         </div>
         <br>
         

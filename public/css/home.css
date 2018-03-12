@@ -47,7 +47,7 @@
 }
 
 .menu ul li a {
-  font-size: 14pt;
+  font-size: 14px;
   margin-right: 25px;
 }
 
@@ -57,7 +57,7 @@
 }
 
 .dropdown ul li a {
-  font-size: 11pt;
+  font-size: 11px;
 }
 
 .featured {
@@ -93,7 +93,7 @@
 }
 
 .text-lg {
-  font-size: 40pt;
+  font-size: 40px;
 }
 
 .logomarca {
@@ -145,7 +145,7 @@
 .menu-slider li {
   margin-top: 15px;
   font-weight: bold;
-  font-size: 12pt;
+  font-size: 14px;
   padding: 5px;
 }
 
@@ -190,7 +190,7 @@
 }
 
 .text-xs {
-  font-size: 10pt;
+  font-size: 12px;
 }
 
 /** LOGIN  */
@@ -233,7 +233,7 @@
 
 @media(max-width:991px){
   .text-lg {
-    font-size: 30pt;
+    font-size: 30px;
     text-align: center;
   }
 
@@ -247,7 +247,7 @@
     padding: 80px 0px;
   }
   .featured h3 {
-    font-size: 14pt;
+    font-size: 16px;
   }
 
   .featured img {

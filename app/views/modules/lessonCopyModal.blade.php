@@ -4,7 +4,7 @@
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title text-blue"><b><i class="fa fa-exchange"></i> Duplicar aula para outro diário</b></h3>
+          <h4 class="modal-title text-blue"><b><i class="fa fa-exchange"></i> Duplicar aula para outro diário</b></h3>
         </div>
 
         {{ Form::open(["id" => "formCopyLessonFor"]) }}

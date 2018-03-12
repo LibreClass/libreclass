@@ -183,7 +183,7 @@
             </div>
           </div>
 
-          <button class="btn btn-primary btn-lg pull-right"><i class="fa fa-save"></i> Salvar Aula</button>
+          <button class="btn btn-primary pull-right"><i class="fa fa-save"></i> Salvar Aula</button>
 
           <br>
 
@@ -216,7 +216,7 @@
                   @foreach($students as $student )
                     <tr id='{{ Crypt::encrypt($student->idAttend) }}'>
                       <td>{{ $student->name }}</td>
-                      <td class="text-right text-sm">
+                      <td class="text-right">
 												@if(isset($student->attest))
 													Com atestado
 												@endif

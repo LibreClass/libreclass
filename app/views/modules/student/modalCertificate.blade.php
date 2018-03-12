@@ -3,7 +3,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title text-blue" id="modalAddTeacher"><b><i class="fa fa-file-o fa-fw"></i> Atestado</b></h3>
+          <h4 class="modal-title text-blue" id="modalAddTeacher"><b><i class="fa fa-file-o fa-fw"></i> Atestado</b></h4>
         </div>
         {{ Form::open(["id" => "formCertificate", "url" => URL::to("/user/attest")]) }}
         <div class="modal-body">
@@ -16,9 +16,9 @@
               <div class="form-inline">
                 <div class="form-group">
 
-                  {{ Form::selectRange("date-day", 1, 31, date("d"), ["class" => "form-control input-lg", "auto-focus"]) }}
-                  {{ Form::selectRange("date-month", 1, 12, date("m"), ["class" => "form-control input-lg"]) }}
-                  {{ Form::selectRange("date-year", date("Y"), date("Y")-10, date("Y"), ["class" => "form-control input-lg"]) }}
+                  {{ Form::selectRange("date-day", 1, 31, date("d"), ["class" => "form-control", "auto-focus"]) }}
+                  {{ Form::selectRange("date-month", 1, 12, date("m"), ["class" => "form-control"]) }}
+                  {{ Form::selectRange("date-year", date("Y"), date("Y")-10, date("Y"), ["class" => "form-control"]) }}
                 </div>
               </div>
             </div>
@@ -26,14 +26,14 @@
               <div class="form-group">
                 {{ Form::label("days", "Quantidade de dias", ["class" => "control-label"]) }}
                 <span class="help-block">Número de dias válidos para atestado.</span>
-                {{ Form::number("days", null, ["class" => "form-control input-lg input-1x", "required", "min" => "1"]) }}
+                {{ Form::number("days", null, ["class" => "form-control input-1x", "required", "min" => "1"]) }}
               </div>
             </div>
           </div>
           <div class="form-group">
             {{ Form::label("description", "Descrição", ["class" => "control-label"]) }}
             <span class="help-block">Descreva o motivo do atestado.</span>
-            {{ Form::textarea("description", null, ["class" => "form-control input-lg", "autofocus", "required", "size" => "30x5"]) }}
+            {{ Form::textarea("description", null, ["class" => "form-control", "autofocus", "required", "size" => "30x5"]) }}
           </div>
         </div>
 

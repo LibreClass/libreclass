@@ -159,7 +159,7 @@
     <div class="modal-content">
       <div class="modal-header modal-header-success">
         <i class="fa fa-check fa-lg"></i>
-        <span class="text-md"><b> &nbsp;Sucesso</b></span>
+        <span><b> &nbsp;Sucesso</b></span>
         <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
       </div>
       <div class="modal-body">
@@ -179,7 +179,7 @@
   <div class="modal-dialog modal-sm">
     <div class="modal-content">
       <div class="modal-header modal-header-error">
-        <span class="text-md"><b> &nbsp;Erro</b></span>
+        <span><b> &nbsp;Erro</b></span>
         <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
       </div>
       <div class="modal-body">

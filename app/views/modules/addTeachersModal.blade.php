@@ -3,7 +3,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title text-blue" id="modalAddTeacher"><b><i class="icon-teacher"></i> Professor</b></h3>
+          <h4 class="modal-title text-blue" id="modalAddTeacher"><b><i class="icon-teacher"></i> Professor</b></h3>
         </div>
         {{ Form::open(["id" => "formAddTeacher"]) }}
         <div class="modal-body">
@@ -14,20 +14,20 @@
             <div class="form-group">
               {{ Form::label("email", "Email", ["class" => "control-label"]) }}
               <span class="help-block">Informe o email do professor. <img class="spinner" height="25" src="/images/spinner.svg" alt="spinner"></span>
-              {{ Form::email("email", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
+              {{ Form::email("email", null, ["class" => "form-control", "autofocus", "required"]) }}
               <span class="teacher-message text-info"><b>Este professor já está cadastrado no LibreClass e será vinculado à sua instituição.</b></span>
             </div>
 
             <div class="form-group">
               {{ Form::label("enrollment", "Matrícula", ["class" => "control-label"]) }}
               <span class="help-block">Informe a matrícula do professor.</span>
-              {{ Form::text("enrollment", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
+              {{ Form::text("enrollment", null, ["class" => "form-control", "autofocus", "required"]) }}
             </div>
 
             <div class="form-group">
               {{ Form::label("name", "Nome", ["class" => "control-label"]) }}
               <span class="help-block">Informe o nome completo do professor.</span>
-              {{ Form::text("name", null, ["class" => "form-control input-lg", "autofocus", "required"]) }}
+              {{ Form::text("name", null, ["class" => "form-control", "autofocus", "required"]) }}
             </div>
 
             <div class="form-group">
@@ -40,7 +40,7 @@
                                             "Ensino Superior Completo",
                                             "Pós-Graduado",
                                             "Mestre",
-                                            "Doutor"], null, ["class" => "form-control input-lg", "required"]) }}
+                                            "Doutor"], null, ["class" => "form-control", "required"]) }}
             </div>
 
         </div>

@@ -4,16 +4,16 @@
       <div class="modal-content">
         <div class="modal-header modal-header-error">
           <i class="fa fa-close"></i>
-          <span class="text-md"><b> &nbsp;Erro</b></span>
+          <span><b> &nbsp;Erro</b></span>
           <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         </div>
         <div class="modal-body">
           <div class="text-center">
-            <span class="text-center">{{ Session::get("error") }}</span>  
+            <span class="text-center">{{ Session::get("error") }}</span>
           </div>
           <br>
           <div class="text-right">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button> 
+            <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
           </div>
         </div>
       </div>

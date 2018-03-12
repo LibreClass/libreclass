@@ -60,7 +60,7 @@
     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
         <div class="panel-heading click" role="tab" id="headingOne" class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-          <h4><i class="fa fa-file-o fa-fw"></i><b> Atestados</b></h4>
+          <h3><i class="fa fa-file-o fa-fw"></i><b> Atestados</b></h3>
         </div>
 
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">

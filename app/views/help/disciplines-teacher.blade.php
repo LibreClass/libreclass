@@ -1,5 +1,5 @@
 <ol>
-  <li><p>Para acessar os diários e disciplinas é necesário que você clique no menu no lado esquerdo. <img class="" alt="cursos" src="images/help/disciplines/img-1.png"></p></li>
+  <li><p>Para acessar os diários e disciplinas é necesário que você clique no menu no lado esquerdo. <img  alt="cursos" src="images/help/disciplines/img-1.png"></p></li>
   <li>Você será redirecionado para uma página que lista todos os seus diários.
     Para cada diário, você poderá visualizar a ementa da disciplina, a frequência de seus alunos,
     o resultado final clicando no menu correspondente.</li>

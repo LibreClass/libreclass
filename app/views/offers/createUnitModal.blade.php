@@ -4,7 +4,7 @@
 
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h3 class="modal-title text-blue"><b><i class="fa fa-plus text-primary fa-fw"></i> Criar nova unidade</b></h3>
+          <h4 class="modal-title text-blue"><b><i class="fa fa-plus text-primary fa-fw"></i> Criar nova unidade</b></h3>
         </div>
 
         {{ Form::open(["id" => "formCreateUnit", "url" => "/classes/create-units"]) }}
@@ -16,7 +16,7 @@
               <div class="form-group">
                 {{ Form::label("course", "Curso") }}
                 <span class="help-block text-muted">Selecione o curso que deseja criar a unidade.</span>
-                {{ Form::select("course", [], null, ["class" => "form-control input-lg"]) }}
+                {{ Form::select("course", [], null, ["class" => "form-control"]) }}
               </div>
             </div>
           </div>

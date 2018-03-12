@@ -19,7 +19,8 @@
 <div class="block">
   <div class="row">
     <div class="col-md-10 col-sm-10">
-      <ol class="breadcrumb text-md text-sm">
+      <ol class="breadcrumb">
+        <li><b>{{ $classe->schoolYear }}</b></li>
         <li><b>{{ $course->name }}</b></li>
         <li><b>{{ $period->name }}</b></li>
         <li class="active"><b>{{ $classe->fullName() }}</b></li>
@@ -38,12 +39,14 @@
   <div class="col-md-12">
     <div class="block">
       <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12">
-          <p class="text-md text-link">
-            {{ $offer->getDiscipline()->name }}
-            {{ ($offer->offer) ? ' <small class="text-muted">(' . $offer->offer->discipline->name . ')</small>' : '' }}
-            {{ ($offer->grouping == 'M') ? ' <small class="text-info">(Grupo de disciplinas)</small>' : '' }}
-          </p>
+        <div class="col-md-9 col-sm-9 col-xs-9">
+					<p class="text-link">
+						{{ $offer->getDiscipline()->name }}
+					</p>
+				</div>
+        <div class="col-md-3 col-sm-3 col-xs-3 text-right">
+					{{ ($offer->offer) ? ' <span class="label label-primary">GRUPO: ' . $offer->offer->discipline->name . '</span>' : '' }}
+					{{ ($offer->grouping == 'M') ? ' <span class=" text-right label label-default">Grupo de disciplinas</span>' : '' }}
         </div>
       </div>
 
@@ -89,7 +92,7 @@
 
             <ul class="list-unstyled">
             @foreach( $offer->getUnits() as $unit )
-              <li class="">
+              <li >
                 <input
                   {{ !strcmp($unit->status, 'E')? "checked" : "" }}
                   class="toggle-btn toggle-event" type="checkbox" data-toggle="toggle"

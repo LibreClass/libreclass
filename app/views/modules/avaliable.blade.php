@@ -49,7 +49,7 @@
           <div class="form-group">
             {{ Form::label("title", "Título da Avaliação", ["class" => "control-label"]) }}
             <span class="help-block text-muted">Informe um título para sua avaliação.</span>
-            {{ Form::text("title", $exam->title, ["class" => "form-control input-lg", "maxlength" => "255", "placeholder" => "Informe um título para disciplina", "required"]) }}
+            {{ Form::text("title", $exam->title, ["class" => "form-control", "maxlength" => "255", "placeholder" => "Informe um título para disciplina", "required"]) }}
           </div>
         </div>
       </div>
@@ -64,9 +64,9 @@
                 {{ Form::label("date-day", "Data da avaliação", ["class" => "control-label"])}}
                 <span class="help-block text-muted">Informe a data da realização da avaliação.</span>
                 <div class="form-inline">
-                  {{ Form::selectRange("date-day", 1, 31, date("d", strtotime($exam->date)),["class" => "form-control input-lg"]) }}
-                  {{ Form::selectRange("date-month", 1, 12, date("m", strtotime($exam->date)), ["class" => "form-control input-lg"]) }}
-                  {{ Form::selectRange("date-year", date("Y"), date("Y")-100, date("Y", strtotime($exam->date)), ["class" => "form-control input-lg"]) }}
+                  {{ Form::selectRange("date-day", 1, 31, date("d", strtotime($exam->date)),["class" => "form-control"]) }}
+                  {{ Form::selectRange("date-month", 1, 12, date("m", strtotime($exam->date)), ["class" => "form-control"]) }}
+                  {{ Form::selectRange("date-year", date("Y"), date("Y")-100, date("Y", strtotime($exam->date)), ["class" => "form-control"]) }}
                 </div>
               </div>
             </div>
@@ -90,7 +90,7 @@
                                           "Texto Dissertativo",
                                           "Avaliação Prática",
                                           "Outros"
-                                        ], $exam->type, ["class" => "form-control input-lg", "required"]) }}
+                                        ], $exam->type, ["class" => "form-control", "required"]) }}
               </div>
             </div>
           </div>
@@ -100,7 +100,7 @@
               <div class="form-group row col-md-4">
                 {{ Form::label("weight", "Peso", ["class" => "control-label"]) }}
                 <span class="help-block text-muted">Informe o peso da avaliação. A nota final será calculada utilizando o peso.</span>
-                {{ Form::text("weight", $exam->weight, ["class" => "form-control input-lg", "maxlength" => "5"]) }}
+                {{ Form::text("weight", $exam->weight, ["class" => "form-control", "maxlength" => "5"]) }}
               </div>
             </div>
           </div>
@@ -111,13 +111,13 @@
               <div class="form-group">
                 {{ Form::label("comment", "Comentários", ["class" => "control-label"]) }}
                 <span class="help-block text-muted">Descreva sua avaliação. Este campo é opcional.</span>
-                {{ Form::textarea("comment", $exam->comments, ["class" => "form-control input-lg", "size" => "30x3"]) }}
+                {{ Form::textarea("comment", $exam->comments, ["class" => "form-control", "size" => "30x3"]) }}
               </div>
             </div>
           </div>
           <div class="row">
               <div class="col-md-12 col-xs-12">
-                <button class="btn btn-primary btn-lg pull-right"><i class="fa fa-save"></i> Salvar Avaliação</button>
+                <button class="btn btn-primary pull-right"><i class="fa fa-save"></i> Salvar Avaliação</button>
               </div>
           </div>
 
