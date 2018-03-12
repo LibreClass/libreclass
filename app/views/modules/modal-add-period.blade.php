@@ -21,18 +21,11 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 col-sm-6 col-xs-12">
+          <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
               {{ Form::label("name", "Nome", ["class" => "control-label"]) }}
               <span class="help-block text-muted">Informe o nome do período ou série</span>
               {{ Form::text("name", null, ["class" => "form-control"]) }}
-            </div>
-          </div>
-          <div class="col-md-6 col-sm-6 col-xs-12">
-            <div class="form-group">
-              {{ Form::label("progression_value", "Sequência de progressão", ["class" => "control-label"]) }}
-              <span class="help-block text-muted">Informe a sequência da progressão</span>
-              {{ Form::number("progression_value", null, ["class" => "form-control"]) }}
             </div>
           </div>
         </div>

@@ -276,49 +276,12 @@ $(function() {
 
 	$(".progression", "#view-classes").click(function(e){
 		var id = $(e.target).closest('tr.classe-item').attr('key');
-		$.post('progression/students-and-classes', {'classe_id': id}, function(data) {
-			var list = $("#modalProgressionClasses").find('.list-attends').empty();
-			if(!data.status || !data.attends.length) {
-				$.dialog.info('Erro', data.message);
-				return;
-			}
-			else {
-				var classes = '';
-				data.next_classe.classes.forEach(function(item) {
-					classes += '<option value="'+ item.id +'">'+ item.schoolYear +' - '+data.next_classe.name +' - '+ item.name +'</option>';
-				});
+		$('#formImportStudent').trigger('reset');
+		$("#modalProgressionClasses").find('.list-attends').empty();
+		$('.block_list_students', '#modalProgressionClasses').hide();
+		$("#modalProgressionClasses").find('[name="classe_id"]').val(id);
 
-				data.attends.forEach(function(item) {
-					list.append(
-					'<li class="list-group-item">'+
-						'<fieldset>'+
-							'<div class="row">'+
-								'<div class="col-xs-9">'+
-									'<div class="checkbox">'+
-										'<label><input type="checkbox" name="progression_check">'+ item.user_name +
-									'</div>'+
-								'</div>'+
-								'<div class="col-xs-3">'+
-									'<select name="progression_type" class="form-control">'+
-										'<option value="1">Progredir</option>'+
-										'<option value="0" selected>Manter</option>'+
-									'</select>'+
-								'</div>'+
-								// '<select name="classe_id" class="form-control">'+ classes +'</select>'+
-									// '<input type="radio" name="type_progression"> Progressão parcial'+
-								// '</div>'+
-								// '<div class="col-xs-3">'+
-									// '<input type="radio" name="type_progression"> Progressão integral'+
-								// '</div>'+
-							// '</div>'+
-							'</div>'+
-						'</fieldset>'+
-					'</li>'
-					);
-				});
-			}
-			$("#modalProgressionClasses").modal();
-		});
+		$("#modalProgressionClasses").modal();
   });
 
 	$("#receive-classes", "#view-classes").click(function(){
@@ -363,6 +326,81 @@ $(function() {
 		});
   });
 
+	$('#formImportStudent .ev-get-students').change(function(ev) {
+		var fields = {
+			previous_classe_id: $(ev.currentTarget).val(),
+			classe_id: $('#formImportStudent').find('[name="classe_id"]').val()
+		};
+
+		$.post('progression/students-and-classes', fields, function(data) {
+			var list = $("#modalProgressionClasses").find('.list-attends').empty();
+			if(!data.status) {
+				$.dialog.info('Erro', data.message);
+				return;
+			}
+			else {
+				if(!data.attends.length) {
+					list.html('<li class="list-group-item">Todos os alunos já foram importados</li>');
+				}
+				else {
+					data.attends.forEach(function(item) {
+						list.append(
+							'<li class="list-group-item ph-0">'+
+							'<fieldset>'+
+							'<div class="row">'+
+							'<div class="col-xs-9">'+
+							'<div class="checkbox">'+
+							'<label><input type="checkbox" name="student_id" value="'+ item.user_id +'">'+ item.user_name +
+							'</div>'+
+							'</div>'+
+							'</div>'+
+							'</fieldset>'+
+							'</li>'
+						);
+					});
+				}
+				// var classes = '';
+				// data.next_classe.classes.forEach(function(item) {
+				// 	classes += '<option value="'+ item.id +'">'+ item.schoolYear +' - '+data.next_classe.name +' - '+ item.name +'</option>';
+				// });
+
+				$('.block_list_students', '#modalProgressionClasses').show();
+			}
+		});
+	});
+
+	$('#formImportStudent .ev-save-import').click(function(e) {
+		var form = $(e.currentTarget).closest('form');
+		var fields = {'student_ids': [] };
+		fields.classe_id = form.find('[name="classe_id"]').val();
+		form.serializeArray().forEach(function(item) {
+			if(item.name == 'student_id') {
+				fields.student_ids.push(item.value);
+			}
+		});
+
+		if(!fields.student_ids.length) {
+			$.dialog.info('', 'Nenhum aluno está selecionado.');
+			return;
+		}
+
+		$.dialog.confirm('Confirmar', 'Deseja confirmar a importação dos alunos selecionados?', function() {
+			setTimeout(function() {
+				$.dialog.waiting('Processando... Aguarde.');
+				$.post('progression/import-student', fields, function(data) {
+					$.dialog.close();
+					if(!data.status) {
+						$.dialog.info('', data.message);
+					}
+					else {
+						$.dialog.info('Concluído', 'Alunos importados para a turma com sucesso.');
+						$('#formImportStudent .ev-get-students').trigger('change');
+					}
+				});
+			}, 100);
+		});
+	});
+
 	$("#formReceiveClass").submit(function(e) {
 		e.preventDefault();
 		var fields = [];
@@ -375,13 +413,6 @@ $(function() {
 			}
 
 		});
-
-		// var obj = { 'classes_id': []};
-		// fields.forEach(function(item, i) {
-		// 	if(item.name == 'classe_id') {
-		// 		obj.classes_id.push(item.value);
-		// 	}
-		// });
 
 		if(!fields.length) {
 			dialog.info('Alerta', 'Nenhuma turma selecionada');

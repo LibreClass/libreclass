@@ -38,21 +38,21 @@ class ClassesController extends \BaseController
 														 WHERE Courses.idInstitution=? AND
 															Courses.status = 'E' AND
 															Classes.status <> 'D' AND
-															Classes.schoolYear IN ($year, $year+1) AND
+															Classes.schoolYear IN ($year, $year-1) AND
 															Periods.idCourse=Courses.id AND
 															Classes.idPeriod=Periods.id", [$user->id]);
       //~ return $classes;
 			$atual_classes = array_where($classes, function($key, $classe) use($year)
 			{
-			    return $classe->schoolYear == $year;
+				return $classe->schoolYear == $year;
 			});
 
-			$next_classes = array_where($classes, function($key, $classe) use($year)
+			$previous_classes = array_where($classes, function($key, $classe) use($year)
 			{
-			    return $classe->schoolYear == $year+1;
+				return $classe->schoolYear == $year-1;
 			});
 
-      return View::make("modules.classes", ["listPeriod" => $listPeriod, "user" => $user, "classes" => $classes,  "atual_classes" => $atual_classes,  "next_classes" => $next_classes, "schoolYear" => $year]);
+      return View::make("modules.classes", ["listPeriod" => $listPeriod, "user" => $user, "classes" => $classes,  "atual_classes" => $atual_classes,  "previous_classes" => $previous_classes, "schoolYear" => $year]);
     } else {
       return Redirect::guest("/");
     }
@@ -406,6 +406,12 @@ class ClassesController extends \BaseController
 		}
 
 		$new_offer->save();
+		//Cria uma unidade
+		$unit = new Unit();
+		$unit->idOffer = $new_offer->id;
+		$unit->value = 1;
+		$unit->save();
+
 		return $new_offer->id;
 
 	}

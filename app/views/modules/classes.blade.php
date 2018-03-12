@@ -90,7 +90,7 @@
                           <ul class="dropdown-menu dropdown-menu-right" role="menu">
                             <li><a class="classe-edit"><i class="fa fa-edit text-primary"></i> Editar</a></li>
                             <li><a class="group"><i class="fa fa-share-alt text-primary"></i> Agrupar ofertas</a></li>
-                            <li><a class="progression"><i class="fa fa-level-up text-primary"></i> Realizar progressão</a></li>
+                            <li><a class="progression"><i class="fa fa-level-up text-primary"></i> Importar alunos</a></li>
                             <li><a class="change-status click" href="/classes/change-status" value="B"><i class="fa fa-lock" style="color: red;"></i> Bloquear</a></li>
                             <li><a class="change-status click" href="/classes/change-status" value="F"><i class="fa fa-times-circle" style="color: red;"></i> Encerrar</a></li>
                             {{-- <li><a class="trash click"><i class="fa fa-trash text-danger"></i> Deletar</a></li> --}}
@@ -166,7 +166,7 @@
 
 @include("modules.addClassesModal")
 @include("modules.receiveClassesModal", ['schoolYear' => $schoolYear])
-@include("modules.progressionClassesModal", ['next_classes' => $next_classes])
+@include("modules.progressionClassesModal", ['previous_classes' => $previous_classes])
 @include("offers.blockUnitModal")
 @include("offers.unblockUnitModal")
 @include("offers.createUnitModal")

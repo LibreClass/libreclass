@@ -8,7 +8,7 @@ $(document).ready(function(){
 				form.find('input[name="period_id"]').val(data.period.id);
 				form.find('select[name="course_id"]').val(data.period.idCourse);
 				form.find('input[name="name"]').val(data.period.name);
-				form.find('input[name="progression_value"]').val(data.period.progression_value);
+				// form.find('input[name="progression_value"]').val(data.period.progression_value);
 				$("#modal-add-period").modal();
 			});
 		}
@@ -31,9 +31,9 @@ $(document).ready(function(){
       "name": {
         required: true
       },
-      "progression_value": {
-        required: true
-      }
+      // "progression_value": {
+      //   required: true
+      // }
     },
     messages: {
       "course_id": {

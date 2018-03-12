@@ -3,7 +3,7 @@
   <thead>
     <tr>
       <th>Período</th>
-      <th>Sequência/Progressão</th>
+      {{-- <th>Sequência/Progressão</th> --}}
       <th></th>
     </tr>
   </thead>
@@ -11,7 +11,7 @@
     @foreach( $periods as $period )
       <tr data-id="{{ Crypt::encrypt($period->id) }}">
         <td>{{ $period->name }}</td>
-        <td>{{ $period->progression_value }}</td>
+        {{-- <td>{{ $period->progression_value }}</td> --}}
         <td>
           <div class="col-md-12">
             <i class="pull-right fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
