@@ -242,7 +242,7 @@ class UsersController extends \BaseController
     $student = Crypt::decrypt(Input::get("student"));
     $disciplines = DB::select("SELECT  Courses.id as course, Disciplines.name, Offers.id as offer, Attends.id as attend, Classes.status as statusclasse "
       . "FROM Classes, Periods, Courses, Disciplines, Offers, Units, Attends "
-      . "WHERE Courses.idInstitution=? AND Courses.id=Periods.idCourse AND Periods.id=Classes.idPeriod AND Classes.class=? AND Classes.id=Offers.idClass AND Offers.idDiscipline=Disciplines.id AND Offers.id=Units.idOffer AND Units.id=Attends.idUnit AND Attends.idUser=? "
+      . "WHERE Courses.idInstitution=? AND Courses.id=Periods.idCourse AND Periods.id=Classes.idPeriod AND Classes.schoolYear=? AND Classes.id=Offers.idClass AND Offers.idDiscipline=Disciplines.id AND Offers.id=Units.idOffer AND Units.id=Attends.idUnit AND Attends.idUser=? "
       . "group by Offers.id",
       [$this->idUser, Input::get("class"), $student]);
 

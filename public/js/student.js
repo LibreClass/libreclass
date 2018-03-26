@@ -12,9 +12,16 @@ $(function (){
 			var student_id = $(e.currentTarget).closest('tr.student-item').attr('data-relationship-id');
 			$.post('/user/get-student', { 'student_id': student_id }, function(data) {
 
-				var day = data.student.birthdate.split('-')[2];
-				var month = data.student.birthdate.split('-')[1];
-				var year = data.student.birthdate.split('-')[0];
+
+				var day = '';
+				var month = '';
+				var year = '';
+
+				if(data.student.birthdate) {
+					day = data.student.birthdate.split('-')[2];
+					month = data.student.birthdate.split('-')[1];
+					year = data.student.birthdate.split('-')[0];
+				}
 
 				form.find('[name="student_id"]').val(data.student.id);
 				form.find('[name="enrollment"]').val(data.student.enrollment);

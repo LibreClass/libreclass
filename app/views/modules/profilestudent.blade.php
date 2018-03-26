@@ -27,7 +27,7 @@
           <div class="col-xs-12">
             <p><b>Matrícula: </b> {{ $profile->enrollment }}</p>
             <p><b>Email: </b> {{ $profile->email == "" ? "Email não cadastrado" : $profile->email }}</p>
-            <p><b>Data de Nascimento: </b> {{ date("d/m/Y", strtotime($profile->birthdate)) }}</p>
+            <p><b>Data de Nascimento: </b> {{ isset($profile->birthdate) ? date("d/m/Y", strtotime($profile->birthdate)) : 'Não informado' }}</p>
             <p><b>Sexo: </b> {{ $profile->gender == "F" ? "Feminino" : ($profile->gender == "M" ? "Masculino" : "Sexo não informado") }}</p>
           </div>
         </div>
