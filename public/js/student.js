@@ -11,6 +11,7 @@ $(function (){
 		if($(e.currentTarget).is('[edit]')) {
 			var student_id = $(e.currentTarget).closest('tr.student-item').attr('data-relationship-id');
 			$.post('/user/get-student', { 'student_id': student_id }, function(data) {
+				form.trigger('reset');
 
 
 				var day = '';
@@ -21,13 +22,13 @@ $(function (){
 					day = data.student.birthdate.split('-')[2];
 					month = data.student.birthdate.split('-')[1];
 					year = data.student.birthdate.split('-')[0];
+					form.find('[name="date-day"]').val(parseInt(day));
+					form.find('[name="date-month"]').val(parseInt(month));
+					form.find('[name="date-year"]').val(year);
 				}
 
 				form.find('[name="student_id"]').val(data.student.id);
 				form.find('[name="enrollment"]').val(data.student.enrollment);
-				form.find('[name="date-day"]').val(parseInt(day));
-				form.find('[name="date-month"]').val(parseInt(month));
-				form.find('[name="date-year"]').val(year);
 				form.find('[name="name"]').val(data.student.name);
 				form.find('[name="gender"]').val(data.student.gender);
 				form.find('[name="email"]').val(data.student.email || "");
