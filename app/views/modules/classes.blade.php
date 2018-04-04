@@ -101,7 +101,7 @@
                     @endif
                   @endforeach
 
-                  @foreach( $classes as $classe )
+                  @foreach( $atual_classes as $classe )
                     @if( $classe->status == 'B' )
                     <tr class="data danger" key="{{Crypt::encrypt($classe->id)}}">
 											<td>
@@ -126,7 +126,7 @@
                     @endif
                   @endforeach
 
-									@foreach( $classes as $classe )
+									@foreach( $atual_classes as $classe )
                     @if( $classe->status == 'F' )
                     <tr class="data" key="{{Crypt::encrypt($classe->id)}}">
 											<td>
