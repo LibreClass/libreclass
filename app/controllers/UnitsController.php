@@ -31,6 +31,10 @@ class UnitsController extends \BaseController
         return Redirect::to("lectures")->with("error", "Esta unidade está desativada");
       }
 
+			if($unit_current->offer->classe->status == 'F') {
+				return Redirect::to("lectures")->with("error", "Não é possível acessar unidade de turmas encerradas");
+			}
+
       $units = Unit::where("idOffer", $unit_current->idOffer)->get();
       $list_units = [];
       foreach ($units as $unit) {

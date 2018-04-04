@@ -110,8 +110,8 @@
 												</a>
 												<span class="label label-danger">Bloqueada</span>
 											</td>
-                      <td>{{ $classe->name }}</td>
                       <td>{{ $classe->period }}</td>
+											<td>{{ $classe->name }}</td>
                       <td>
                         <div class="col-md-12">
                           <i class="pull-right fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
@@ -135,8 +135,8 @@
 												</a>
 												<span class="label label-default">Encerrada</span>
 											</td>
+											<td>{{ $classe->period }}</td>
                       <td>{{ $classe->name }}</td>
-                      <td>{{ $classe->period }}</td>
                       <td>
                         <div class="col-md-12">
                           <i class="pull-right fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>

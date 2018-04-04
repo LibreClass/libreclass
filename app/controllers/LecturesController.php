@@ -20,6 +20,9 @@ class LecturesController extends \BaseController
     if ($this->idUser) {
       $user = User::find($this->idUser);
       $lectures = Lecture::where("idUser", $this->idUser)->orderBy("order")->get();
+			$lectures = array_where($lectures, function($key, $value) {
+				return $value->offer->classe->status != 'F';
+			});
       return View::make("offers.teacher", ["user" => $user, "lectures" => $lectures]);
     } else {
       return Redirect::guest("/");

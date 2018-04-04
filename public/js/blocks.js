@@ -1,5 +1,5 @@
 //alert = function (e) {
-//  
+//
 //}
 
 function focusFirstField(){
@@ -68,8 +68,13 @@ function changeStatus() {
   else {
     $("#form-change-status").attr("action", $(this).attr("href"));
   }
- // alert($("#form-disable").attr("action"));
-  $.confirm("Tem certeza que deseja "+($(this).attr("value") == "B" ? "bloquear" : "ativar")+"?", function() {
+
+ 	var text = 'reativar';
+	if($(this).attr("value") == "B") text = 'bloquear';
+	else if($(this).attr("value") == "F") text = 'encerrar';
+	else if($(this).attr("value") == "E") text = 'desbloquear';
+	// alert();
+  $.confirm("Tem certeza que deseja "+text+"?", function() {
     $("#form-change-status").submit();
   });
   return false;
@@ -113,7 +118,7 @@ $(function() {
        $("#block-add").hide();
         $("#block").fadeIn();
    });
-  
+
   $("#block-new-student").click(function(){
     $("#block").hide();
     $(".block-new-student, .result").hide();
@@ -150,5 +155,3 @@ $(function() {
 
    $('.dropdown-toggle').dropdown();
 });
-
-
