@@ -1,103 +1,59 @@
-# LibreClass
+<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
-![GitHub release](https://img.shields.io/badge/Vers%C3%A3o-1.6.4-green.svg)
+<p align="center">
+<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
+</p>
 
-Este projeto tem como objetivo atender às necessidades de instituições, organizar as tarefas de professores e aproximar os alunos de processos relativos à gestão escolar.
+## About Laravel
 
-## Instalação
+Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as:
 
-Instale o apache:
+- [Simple, fast routing engine](https://laravel.com/docs/routing).
+- [Powerful dependency injection container](https://laravel.com/docs/container).
+- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
+- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
+- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
+- [Robust background job processing](https://laravel.com/docs/queues).
+- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-    $ sudo apt-get install apache2
+Laravel is accessible, yet powerful, providing tools needed for large, robust applications.
 
-Instale o php5, mysql, composer, etc:
+## Learning Laravel
 
-    $ sudo apt-get install apache2 php5 php5-mcrypt php5-curl php5-imagick php5-mysql
-    $ sudo apt-get install mysql-server
+Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of any modern web application framework, making it a breeze to get started learning the framework.
 
-Modifique o arquivo `apache2/php.ini`, na linha onde há `post_max_size` coloque o tamanho máximo de arquivo em 10M.
+If you're not in the mood to read, [Laracasts](https://laracasts.com) contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, JavaScript, and more. Boost the skill level of yourself and your entire team by digging into our comprehensive video library.
 
-Habilite os módulos necessários:
+## Laravel Sponsors
 
-    $ a2enmod rewrite
-    $ php5enmod mcrypt
-    $ service apache2 restart
+We would like to extend our thanks to the following sponsors for helping fund on-going Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell):
 
-#### Configuração do arquivo `.env.php`
+- **[Vehikl](https://vehikl.com/)**
+- **[Tighten Co.](https://tighten.co)**
+- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
+- **[British Software Development](https://www.britishsoftware.co)**
+- [Fragrantica](https://www.fragrantica.com)
+- [SOFTonSOFA](https://softonsofa.com/)
+- [User10](https://user10.com)
+- [Soumettre.fr](https://soumettre.fr/)
+- [CodeBrisk](https://codebrisk.com)
+- [1Forge](https://1forge.com)
+- [TECPRESSO](https://tecpresso.co.jp/)
+- [Pulse Storm](http://www.pulsestorm.net/)
+- [Runtime Converter](http://runtimeconverter.com/)
+- [WebL'Agence](https://weblagence.com/)
 
-É necessário criar o arquivo `.env.php` de acordo com o arquivo `.env.php.example`, na raiz do projeto, com as informações para conexão ao banco de dados MySQL e configurações para envio de email. Este passo deve ser executado antes de instalar as dependências do projeto com o composer. Exemplo:
+## Contributing
 
-    <?php
+Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
 
-        return array(
+## Security Vulnerabilities
 
-        // Database
-        'DB_HOST'     => 'localhost',
-        'DB_DATABASE' => 'libreclass-beta',
-        'DB_USERNAME' => 'libreclass',
-        'DB_PASSWORD' => 'libreClass1beta!',
+If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
 
-        // Email
-        'EMAIL_DRIVER'  => 'smtp',
-        'EMAIL_HOST'    => 'mail.libreclass.com',
-        'EMAIL_PORT'    => 25,
-        'EMAIL_FROMADD' => 'contato@libreclass.com',
-        'EMAIL_FROMNAM' => 'LibreClass',
-        'EMAIL_ENC'     => 'tls',
-        'EMAIL_UNAME'   => 'contato@libreclass.com',
-        'EMAIL_PASS'    => 'SECRET'
+## License
 
-    );
-
-Instale o composer:
-
-    $ php -r "readfile('https://getcomposer.org/installer');" | php
-    $ cp composer.phar /bin/composer
-
-Execute o composer na raiz do projeto para instalar as dependências necessárias:
-
-    $ composer install
-
-Após isto, prepare o banco de dados de acordo com a estrutura fornecida no diretório doc. Você poderá executar o projeto localmente através do comando:
-
-    $ php artisan serve
-
-Defina corretamente as permissões de arquivos, especialmente para diretório storage no projeto. Exemplo, no diretório do projeto, execute:
-
-    $ sudo chown www-data:www-data . -R
-
-## Pós-instalação
-
-#### Criando uma conta institucional
-
-Uma vez que o software está perfeitamente instalado, acesse o seu diretório e execute os passos a seguir para criar uma conta do perfil institucional:
-
-###### 1) Pelo terminal, acessar a pasta do projeto e executar o comando:
-
-    $ php artisan tinker
-
-###### 2) Ao abrir o console do artisan, criar uma senha com o método: `Hash::make($senha)`. Exemplo:
-
-    > Hash::make('1234')
-
-###### 3) Copiar a string, a mesma será utilizada para criar o usuário no banco de dados;
-
-    >  $2y$10$Azi/NDbx8WrjAsq0q9VMNeRKtUzoE4QRZOqXu/nQWsqocFXVKOQhu
-
-###### 4) Abrir o banco de dados pelo terminal:
-
-    $ mysql -u root -p
-
-###### 5) Selecionar o banco de dados do libreclass:
-
-    mysql> use libreclass-beta
-
-###### 6) Criar o usuário instituição (type = I) utilizando a string copiada no passo 3 como password:
-
-    mysql> INSERT INTO `Users` (`email`, `password`, `name`, `type`, `gender`, `birthdate`, `uee`, `course`, `formation`, `cadastre`, `idCity`, `street`, `photo`, `enrollment`, `created_at`, `updated_at`) VALUES ('meuemail@email.com', '$2y$10$Azi/NDbx8WrjAsq0q9VMNeRKtUzoE4QRZOqXu/nQWsqocFXVKOQhu', 'Nome da Instituição', 'I', NULL, NULL, NULL, NULL, '0', 'N', NULL, NULL, '/images/user-photo-default.jpg', NULL, NULL, NULL);
-
-Neste ponto você terá um usuário do tipo instituição. Poderá realizar login com o email `meuemail@email.com` e a senha `1234`.
-
-## Contribuindo
-
-Agradecemos caso deseje contribuir para o projeto!
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
