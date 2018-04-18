@@ -50,7 +50,7 @@
 					</li>
 					<li>
 						<!--<button  type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLogin"><b>Login</b></button>-->
-						<a href="/login" style="color: #fff" class="btn btn-primary">Login</a>
+						<a href="{{ action('Auth\LoginController@index') }}" style="color: #fff" class="btn btn-primary">Login</a>
 					</li>
 				</ul>
 			</div>

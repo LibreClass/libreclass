@@ -11,4 +11,5 @@
 |
 */
 
+Route::resource('login', Auth\LoginController::class);
 Route::resource('/', HomeController::class);
