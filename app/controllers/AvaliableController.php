@@ -329,6 +329,10 @@ class AvaliableController extends \BaseController
 
     if ($exam->aval == "A") {
       $students = Attend::where("idUnit", $exam->idUnit)->where("status", "M")->get();
+
+			$students = $students->sortBy(function($student) {
+				return $student->getUser()->name;
+			});
     }
 
     switch ($calculation) {
