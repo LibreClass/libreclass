@@ -13,7 +13,7 @@
 	            <div class="col-xs-12">
 	              <div class="form-group">
 	                <label>Selecione o ano letivo</label>
-	                {{ Form::select("schoolYear", ['2017'=>'2017'], null, ["class" => "form-control", "id" => "class-modal-change"]) }}
+	                {{ Form::select("schoolYear", ['2017'=>'2017', '2018' => '2018'], '2018', ["class" => "form-control", "id" => "class-modal-change"]) }}
 	              </div>
 	            </div>
 	          </div>

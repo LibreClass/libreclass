@@ -5,7 +5,7 @@
   <div class="col-sm-4">
     <div class="form-inline text-right">
       Período Letivo:
-      {{ Form::select("class", ['2017' => '2017', '2018' => '2018'], null, ["class" => "form-control", "id" => "class-change"]) }}
+      {{ Form::select("class", ['2017' => '2017', '2018' => '2018'], '2018', ["class" => "form-control", "id" => "class-change"]) }}
     </div>
   </div>
 </div>
