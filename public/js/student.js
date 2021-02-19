@@ -87,11 +87,17 @@ $(function (){
   });
 
   $("#classe").change(function(){
+    var class_id = $(this).val();
+    if (!class_id) {
+      $("#list-offers").html('Nenhuma turma selecionada');
+      return;
+    }
+
+    $("#list-offers").html('Carregando...');
     $.post("/classes/list-offers",{
-      class: $(this).val(),
+      class: class_id,
       student: $("#formLinkStudentClasse input[name='student']").val()
     }, function(data){
-      // console.log(data);
       $("#list-offers").html("");
       for (var i = 0 ; i < data.length ; i++)
         $("#list-offers").append($("<input>", {
@@ -101,7 +107,9 @@ $(function (){
           checked: data[i].status > 0,
           disabled: data[i].status > 0
         })).append(data[i].name).append("<br>");
-    }).fail(function(){alert("error");});
+    }).fail(function() {
+      alert("error");
+    });
   }).change();
 
   $("#class-change").change(function(){
@@ -149,12 +157,12 @@ $(function (){
 	});
 
 	$('#select-scholar-report-course').change(function(e) {
-		var quantUnit = $(e.target).find('option:selected').attr('quant-unit');
-		if(quantUnit == 0) {
-			quantUnit = 4;
+		var quant_unit = $(e.target).find('option:selected').attr('quant-unit');
+		if(quant_unit == 0) {
+			quant_unit = 4;
 		}
 		$("#modalScholarReport").find(".list-units-course").empty();
-		for(var i=1; i <= quantUnit; i++) {
+		for(var i=1; i <= quant_unit; i++) {
 			$("#modalScholarReport").find(".list-units-course").append(
 				'<div class="col-xs-3">'+
 					'<div class="checkbox">'+

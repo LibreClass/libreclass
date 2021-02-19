@@ -1,53 +1,70 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
-	"license": "MIT",
-	"require": {
-    "laravel/framework": "4.2.*",
-    "way/generators": "~2.0",
-    "facebook/php-sdk-v4" : "4.0.*",
-    "yangqi/htmldom": "dev-master",
-    "phpunit/phpunit-mock-objects": "2.1.*",
-    "guzzlehttp/guzzle": "~4.0",
-		"h4cc/wkhtmltopdf-amd64": "0.12.x",
-		"h4cc/wkhtmltoimage-amd64": "0.12.x",
-		"barryvdh/laravel-snappy": "0.1.x@dev"
-	},
-	"require-dev": {
-		"lusitanian/oauth": "dev-master",
-		"artdarek/oauth-4-laravel": "dev-master"
-  	},
-	"autoload": {
-		"classmap": [
-			"app/commands",
-			"app/controllers/student",
-			"app/controllers",
-			"app/models",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php",
-      "app/classes"
-		],
-    "psr-4": {
-
+    "name": "laravel/laravel",
+    "type": "project",
+    "description": "The Laravel Framework.",
+    "keywords": [
+        "framework",
+        "laravel"
+    ],
+    "license": "MIT",
+    "require": {
+        "php": "^7.4|^8.0",
+        "barryvdh/laravel-snappy": "^0.4.3",
+        "fideloper/proxy": "^4.4",
+        "h4cc/wkhtmltoimage-amd64": "^0.12.4",
+        "h4cc/wkhtmltopdf-amd64": "^0.12.4",
+        "jenssegers/mongodb": "^3.8",
+        "laravel/framework": "^8.0",
+        "laravel/tinker": "^2.5",
+        "laravelcollective/html": "^6.0"
+    },
+    "require-dev": {
+        "beyondcode/laravel-dump-server": "^1.0",
+        "filp/whoops": "^2.0",
+        "fzaninotto/faker": "^1.9.1",
+        "mockery/mockery": "^1.4.2",
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.0"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "dont-discover": []
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        },
+        "classmap": [
+            "database/seeds",
+            "database/factories"
+        ],
+        "files": [
+            "helpers/kernel.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover --ansi"
+        ],
+        "post-root-package-install": [
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+        ],
+        "post-create-project-cmd": [
+            "@php artisan key:generate --ansi"
+        ]
     }
-	},
-	"scripts": {
-		"post-install-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-update-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
-		],
-		"post-create-project-cmd": [
-			"php artisan key:generate"
-		]
-	},
-	"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "stable"
 }

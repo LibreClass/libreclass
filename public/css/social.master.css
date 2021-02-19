@@ -231,3 +231,7 @@ textarea.form-control {
 		border: 1px solid #ddd;
 	}
 }
+
+.cursor-move {
+  cursor: move;
+}

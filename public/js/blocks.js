@@ -129,7 +129,7 @@ $(function() {
   });
 
 // APENAS NÚMEROS..
-//    $("input[name='absentPercent']").keyup(function(){
+//    $("input[name='absent_percent']").keyup(function(){
 //        var newvalue = $(this).val().replace(/[^0-9]+/g,'');
 //        $(this).val(newvalue.substring(0,2));
 //    });

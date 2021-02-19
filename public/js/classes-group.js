@@ -45,7 +45,7 @@ $(function() {
 });
 
 function loadDisciplines(classe) {
-  $.post('/classes/group/offers', {'idClass': classe}, function(data) {
+  $.post('/classes/group/offers', {'class_id': classe}, function(data) {
     if (data.status == 1) {
       $('#disciplines').html('');
       data.disciplines.forEach( function(element, index) {

@@ -22,24 +22,27 @@ $(function(){
         student: $(this).closest("tr").attr("id"),
         exam:    $(this).closest("tbody").attr("id")
       }, function(data) {
-        // $(_this).closest("div").removeClass("has-error has-warning").addClass("has-success");
-        $(_this).closest("div").next(".feedback-response").html("<span class='label label-success'><i class='fa fa-check'></i><b> Salvo</b></span>");
+        $(_this).closest("div").next(".feedback-response")
+          .html("<span class='label label-success'><i class='fa fa-check'></i><b> Salvo</b></span>");
         $(".exam-value").attr("disabled", false);
-        $(_this).closest("tr"). next("tr").find("input").focus();
+        $(_this).closest("tr").next("tr").find("input").focus();
 
-        if (data == "error") {
-          // $(_this).closest("div").removeClass("has-success has-warning").addClass("has-error");
-          $(_this).closest("div").next(".feedback-response").html("<span class='label label-danger'><i class='fa fa-remove'></i><b> Inválido</b></span>");
+        $(_this).val(data);
+        $(_this).attr("data", data);
+      }).fail(function(e) {
+        $(".exam-value").attr("disabled", false);
+        if (e.status == 400) {
+          $(_this).closest("div").next(".feedback-response")
+            .html("<span class='label label-danger'><i class='fa fa-remove'></i><b> Valor inválido</b></span>");
+        } else {
+          alert('Erro inesperado. Tente novamente mais tarde ou avise o suporte.');
         }
-        else {
-          $(_this).val(data);
-          $(_this).attr("data", data);
-        }
+        $(_this).focus();
       });
-      // alert($(this).val());
     }
     else {
-      $(this).closest("div").next(".feedback-response").html("<span class='label label-default'>Enter para salvar</span>");
+      $(this).closest("div").next(".feedback-response")
+        .html("<span class='label label-default'>Enter para salvar</span>");
     }
   });
 

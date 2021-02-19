@@ -1,0 +1,15 @@
+version: '3.4'
+services:
+  libreclass_app:
+    image: lissonpsantos2/ubuntu-phps
+    restart: always
+    volumes:
+      - ./:/home/server-libreclass/
+    ports:
+      - 8002:80
+    stdin_open: true
+    tty: true
+    entrypoint:
+      - bash
+      - "entrypoint.sh"
+    working_dir: /home/server-libreclass/

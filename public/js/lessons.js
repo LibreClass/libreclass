@@ -171,8 +171,8 @@ function events(){
     _this = this;
     $(this).addClass("btn-default").removeClass("btn-danger btn-primary");
     $.post("/lessons/frequency", {
-      "idAttend": $(this).closest("tr").attr("id"),
-      "idLesson": $(this).closest("tbody").attr("id"),
+      "attend_id": $(this).closest("tr").attr("id"),
+      "lesson_id": $(this).closest("tbody").attr("id"),
       "value":    $(this).text()
     }, function (data) {
 
@@ -211,7 +211,7 @@ function events(){
 			else {
 				data.offers.forEach(function(item) {
 					listOffersGrouped.append(
-						'<li class="list-group-item"><label><input type="checkbox" name="slaves" value="'+ item.id +'" checked/> '+ item._discipline.name +'</label>'
+						'<li class="list-group-item"><label><input type="checkbox" name="slaves" value="'+ item.id +'" checked/> '+ item.discipline.name +'</label>'
 					);
 				});
 			}

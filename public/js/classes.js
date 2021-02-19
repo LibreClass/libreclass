@@ -27,7 +27,7 @@ $(function() {
       $("#formEditClass input[name='class']").val(data.name);
 
 			$("#modalEditClass .EditClass-list-disciplines").load("classes/listdisciplines", {
-	      "period_id": data.idPeriodCrypt,
+	      "period_id": data.period_idCrypt,
 		  "classe_id": classe,
 	      "flag": 1
 	    }, function(){
@@ -40,21 +40,21 @@ $(function() {
   $(".group").click(function(){
     var classe = $(this).closest(".data").attr("key");
 
-    // $.getJSON("/classes/info", {
-    //   "classe": classe
-    // }, function(data){
-    //   $("#formEditClass input[name='classId']").val(classe);
-    //   $("#formEditClass input[name='class']").val(data.name);
+    $.getJSON("/classes/info", {
+      "classe": classe
+    }, function(data){
+      $("#formEditClass input[name='classId']").val(classe);
+      $("#formEditClass input[name='class']").val(data.name);
 
-    //   $("#modalEditClass .EditClass-list-disciplines").load("classes/listdisciplines", {
-    //     "period_id": data.idPeriodCrypt,
-    //   "classe_id": classe,
-    //     "flag": 1
-    //   }, function(){
-    //   });
+      $("#modalEditClass .EditClass-list-disciplines").load("classes/listdisciplines", {
+        "period_id": data.period_idCrypt,
+      "classe_id": classe,
+        "flag": 1
+      }, function(){
+      });
 
-    //   $("#modalEditClass").modal();
-    // });
+      $("#modalEditClass").modal();
+    });
 
     window.location.href = "/classes/group/" + classe;
   });
@@ -270,7 +270,7 @@ $(function() {
 		return false;
 	});
 
-	$("#view-classes [name='schoolYear']").change(function(e) {
+	$("#view-classes [name='school_year']").change(function(e) {
 		location.href="/classes?year="+$(e.target).val();
 	});
 
@@ -285,7 +285,7 @@ $(function() {
   });
 
 	$("#receive-classes", "#view-classes").click(function(){
-		var year = $("#view-classes [name='schoolYear']").val();
+		var year = $("#view-classes [name='school_year']").val();
 		var modal = $("#modalReceiveClass");
 		var list = modal.find('.list-classes').empty();
 		$.post('classes/classes-by-year', { 'year': year - 1 }, function(data) {
@@ -361,7 +361,7 @@ $(function() {
 				}
 				// var classes = '';
 				// data.next_classe.classes.forEach(function(item) {
-				// 	classes += '<option value="'+ item.id +'">'+ item.schoolYear +' - '+data.next_classe.name +' - '+ item.name +'</option>';
+				// 	classes += '<option value="'+ item.id +'">'+ item.school_year +' - '+data.next_classe.name +' - '+ item.name +'</option>';
 				// });
 
 				$('.block_list_students', '#modalProgressionClasses').show();
@@ -388,7 +388,7 @@ $(function() {
 			setTimeout(function() {
 				$.dialog.waiting('Processando... Aguarde.');
 				$.post('progression/import-student', fields, function(data) {
-					$.dialog.close();
+					$.dialog.close($('.dialog-waiting'));
 					if(!data.status) {
 						$.dialog.info('', data.message);
 					}
