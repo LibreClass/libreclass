@@ -1,0 +1,8 @@
+.table.disciplines {
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+div.block:last-child {
+    margin-bottom: 20px;
+}
