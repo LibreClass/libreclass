@@ -20,34 +20,7 @@
           <!-- <li>
             <a href="#plans">Planos</a>
           </li> -->
-          <li>
-            <div class="dropdown text-left">
-              <a class="dropdown-toggle click" id="dropdownDownload" data-toggle="dropdown" aria-expanded="true">
-                Download
-                <span class="caret"></span>
-              </a>
-              <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownDownload">
-                <li role="presentation">
-                  <a href="ftp://anonymous@sysvale.com:contato@sysvale.com@ftp.sysvale.com/LibreClass.exe" target="_blank">
-                    <i class="fa fa-windows text-blue"></i>
-                    Libreclass Offline Win
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a href="ftp://anonymous@sysvale.com:contato@sysvale.com@ftp.sysvale.com/libreclass_1.0_i386.deb" target="_blank">
-                    <i class="fa fa-linux text-blue"></i>
-                    Libreclass Offline Linux32
-                  </a>
-                </li>
-                <li role="presentation">
-                  <a href="ftp://anonymous@sysvale.com:contato@sysvale.com@ftp.sysvale.com/libreclass_1.0_amd64.deb" target="_blank">
-                    <i class="fa fa-linux text-blue"></i>
-                    Libreclass Offline Linux64
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </li>
+          
           <li>
             <!--<button  type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLogin"><b>Login</b></button>-->
             <a href="/login" style="color: #fff" class="btn btn-primary">Login</a>

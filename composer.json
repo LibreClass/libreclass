@@ -16,7 +16,8 @@
         "jenssegers/mongodb": "^3.8",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.5",
-        "laravelcollective/html": "^6.0"
+        "laravelcollective/html": "^6.0",
+        "mongodb/mongodb": "^1.8"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
