@@ -20,6 +20,7 @@
           <!-- <li>
             <a href="#plans">Planos</a>
           </li> -->
+          <!--
           <li>
             <div class="dropdown text-left">
               <a class="dropdown-toggle click" id="dropdownDownload" data-toggle="dropdown" aria-expanded="true">
@@ -47,7 +48,7 @@
                 </li>
               </ul>
             </div>
-          </li>
+          </li>-->
           <li>
             <!--<button  type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modalLogin"><b>Login</b></button>-->
             <a href="/login" style="color: #fff" class="btn btn-primary">Login</a>
