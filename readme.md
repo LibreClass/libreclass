@@ -36,9 +36,9 @@ Então execute:
     sudo apt update && sudo apt-cache policy libssl1.0-dev
     sudo apt-get install libssl1.0-dev
 
-#### Configuração do arquivo `.env.php`
+#### Configuração do arquivo `.env`
 
-É necessário criar o arquivo `.env.php` de acordo com o arquivo `.env.php.example`, na raiz do projeto, com as informações para conexão ao banco de dados MySQL e configurações para envio de email. Este passo deve ser executado antes de instalar as dependências do projeto com o composer. Exemplo:
+É necessário criar o arquivo `.env` de acordo com o arquivo `.env.example`, na raiz do projeto, com as informações para conexão ao banco de dados MySQL e configurações para envio de email. Este passo deve ser executado antes de instalar as dependências do projeto com o composer. Exemplo:
 
     APP_NAME=Laravel
     APP_ENV=local
