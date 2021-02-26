@@ -42,7 +42,22 @@
 				</div>
 			</div>
 
+			@if(count($courses) == 0)
+			<div class="block">
+				<div class="text-center">Você não possui cursos cadastrados.</div>
+			</div>
 
+			<div class="block">
+				<div >
+					<h3>Como posso obter diários?</h3>
+					<br>
+					<p>Para obter diários é necessário que uma instituição de ensino vincule a sua conta a uma disciplina.
+						 Quando isto acontecer, a disciplina liberada pela instituição irá aparecer aqui e você poderá ter acesso
+						 à mesma.</p>
+				</div>
+			</div>
+
+			@else
 			<div class="block">
 				<!--inicio da listagem de cursos -->
 				@forelse( $courses as $course )
@@ -95,31 +110,11 @@
 				</div>
 
 				@empty
-			</div> <!--Fim do bloco visível-->
+				 @endif
 
-
-
-			<div class="block">
-				<div class="text-center">Você não possui cursos cadastrados.</div>
-			</div>
-
-
-
-
-			<div class="block">
-				<div >
-					<h3>Como posso obter diários?</h3>
-					<br>
-					<p>Para obter diários é necessário que uma instituição de ensino vincule a sua conta a uma disciplina.
-						 Quando isto acontecer, a disciplina liberada pela instituição irá aparecer aqui e você poderá ter acesso
-						 à mesma.</p>
-				</div>
-			</div>
-
-				@endforelse <!--Fim da listagem de cursos -->
-			</div> <!--Fim do bloco visível-->
-
-
+			</div> 
+				@endforelse 
+			</div> 
 		</div>
 	</div>
 
