@@ -27,15 +27,13 @@ class SocialController extends Controller
 
 		$user = auth()->user();
 
-		// Mail::send('email.suporte', [
-		// 	"descricao" => request()->get("description"),
-		// 	"email" => $user->email, "title" => request()->get("title"),
-		// ], function($message) {
-		// 	$op = ["B" => "Bugson", "O" => "Outros", "S" => "Sugestão"];
-
-		// 	$message->to(env('MAIL_SUPORTE'), "Suporte")
-		// 		->subject("LibreClass Suporte - " . $op[request()->get("value")]);
-		// });
+		Mail::send('email.suporte', [
+			"descricao" => request()->get("description"),
+			"email" => $user->email, "title" => request()->get("title"),
+		], function($message) {
+			$op = ["B" => "Bug/Erro", "O" => "Outros", "S" => "Sugestão"];
+			$message->to(env('MAIL_SUPORTE'), "Suporte")->subject("LibreClass Suporte - " . $op[request()->get("value")]);
+		});
 
 		return redirect()->back()
 			->with('success', 'Obrigado pela sua mensagem. Nossa equipe irá analisar e responderá o mais breve possível.');
