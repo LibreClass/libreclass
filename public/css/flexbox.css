@@ -1,0 +1,19 @@
+.f-container {
+    display: flex;
+}
+
+.f-align-baseline {
+    align-items: baseline;
+}
+
+.f-grow-1 {
+    flex-grow: 1;
+}
+
+.f-grow-2 {
+    flex-grow: 2;
+}
+
+.f-grow-3 {
+    flex-grow: 3;
+}

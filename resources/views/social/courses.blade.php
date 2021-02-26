@@ -42,6 +42,7 @@
 				</div>
 			</div>
 
+
 			<div class="block">
 				<!--inicio da listagem de cursos -->
 				@forelse( $courses as $course )
@@ -96,9 +97,14 @@
 				@empty
 			</div> <!--Fim do bloco visível-->
 
+
+
 			<div class="block">
 				<div class="text-center">Você não possui cursos cadastrados.</div>
 			</div>
+
+
+
 
 			<div class="block">
 				<div >

@@ -11,13 +11,14 @@
         "php": "^7.4|^8.0",
         "barryvdh/laravel-snappy": "^0.4.3",
         "fideloper/proxy": "^4.4",
-        "h4cc/wkhtmltoimage-amd64": "^0.12.4",
-        "h4cc/wkhtmltopdf-amd64": "^0.12.4",
+        "h4cc/wkhtmltoimage-amd64": "0.12.x",
+        "h4cc/wkhtmltopdf-amd64": "0.12.x",
         "jenssegers/mongodb": "^3.8",
         "laravel/framework": "^8.0",
         "laravel/tinker": "^2.5",
         "laravelcollective/html": "^6.0",
-        "mongodb/mongodb": "^1.8"
+        "mongodb/mongodb": "^1.8",
+        "profburial/wkhtmltopdf-binaries-osx": "^0.12.1"
     },
     "require-dev": {
         "beyondcode/laravel-dump-server": "^1.0",
