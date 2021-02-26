@@ -1,10 +1,11 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <title>
-  @section('title')
+    @section('title')
     LibreClass Online
-  @show
+    @show
   </title>
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="shortcut icon" href="/images/favicon.ico">
@@ -31,15 +32,15 @@
   @show
 
 </head>
-<body>
-  <div class="back">
 
-  </div>
+<body>
+  <div class="back"></div>
 
   <nav class="navbar navbar-libreclass navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+          aria-expanded="false" aria-controls="navbar">
           <span class="sr-only">Toggle navigation</span>
           <span class="fa fa-bars"></span>
         </button>
@@ -56,57 +57,47 @@
           <li><a href="/config"><i class="fa fa-user fa-lg"></i> Perfil</a></li>
           <li><a href="/logout"><i class="fa fa-sign-out fa-lg"></i> Sair</a></li>
         </ul>
-
       </div>
-
     </div>
   </nav>
 
   <div class="container-fluid navbar-fixed-margin">
-      <div class="row">
-        <div class="col-sm-3 col-md-2 col-xs-1 sidebar">
-          <div class="user-info text-center hidden-xs">
-
-            <div class="user-photo">
-              <img src="{{ auth()->user()->photo ?? "/images/user-photo-default.jpg" }}" class="img-rounded center-block">
-            </div>
-            <div class="user-name">
-              <span>{{ auth()->user()->name }}</span>
-            </div>
-            <a href="/config">Editar Perfil</a>
+    <div class="row">
+      <div class="col-sm-3 col-md-2 col-xs-1 sidebar">
+        <div class="user-info text-center hidden-xs">
+          <div class="user-photo">
+            <img src="{{ auth()->user()->photo ?? "/images/user-photo-default.jpg" }}" class="img-rounded center-block">
           </div>
-
-          <div class="sidebar-menu">
-            @include("social.menu")
+          <div class="user-name">
+            <span>{{ auth()->user()->name }}</span>
           </div>
+          <a href="/config">Editar Perfil</a>
+        </div>
 
-          <footer class="sidebar-footer visible-lg visible-sm visible-md">
-            <div class="text-center">
+        <div class="sidebar-menu">
+          @include("social.menu")
+        </div>
+
+        <footer class="sidebar-footer visible-lg visible-sm visible-md">
+          <div class="text-center">
             <ul class="list-unstyled">
               <li id="report" class="click"><a><i class="fa fa-support"></i> Contate o suporte</a></li>
             </ul>
-
-              <span ><i class="fa fa-linux"></i> {{ date('Y') }} - Sysvale SoftGroup</span>
-            </div>
-
-          </footer>
-
-        </div>
-        <div class="col-md-10 col-md-offset-2 col-xs-11 col-xs-offset-1 col-sm-9 col-sm-offset-3 content">
-
-          @section('body')
-          @show
-
-        </div>
-
+            <span><i class="fa fa-linux"></i> {{ date('Y') }} - LibreClass</span>
+          </div>
+        </footer>
+      </div>
+      <div class="col-md-10 col-md-offset-2 col-xs-11 col-xs-offset-1 col-sm-9 col-sm-offset-3 content">
+        @section('body')
+        @show
       </div>
 
+    </div>
   </div>
   <div class="visible-none">
     @include("modules.formTrash")
     @include("modules.formChangeStatus")
   </div>
-
 
   @include('messages.alert')
   @include('messages.confirm')
@@ -116,4 +107,5 @@
   @include('analytics')
 
 </body>
+
 </html>

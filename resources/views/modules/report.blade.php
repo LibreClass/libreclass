@@ -8,32 +8,24 @@
 			<form action="/suggestion" method="post">
 				@csrf
 				<div class="modal-body">
-					<p class="text-center">
-						Sua opinião é importante para o crescimento do LibreClass.
-					</p>
 					<p class="text-justify">
 						Utilize o formulário abaixo para informar um erro, sugerir melhorias
-						ou propor novas funcionalidades. A mensagem será enviada para
-						<strong>{{ env('MAIL_SUPORTE') }}</strong> e nossa equipe avaliará sua
-						solicitação para atendê-lo o mais breve possível.
+						ou propor novas funcionalidades.
 					</p>
 					<div class="form-group">
-						<label class="control-label">Título</label>
-						<span class="help-block text-muted">Informe um título para sua mensagem.</span>
+						<label class="control-label">Assunto</label>
 						<input type="text" name="title" class="form-control">
 					</div>
 					<div class="form-group">
 						<label class="control-label">Tipo da Mensagem</label>
-						<span class="help-block text-muted">Escolha um tipo para a mensagem.</span>
 						<select name="value" class="form-control">
-							<option value="S">Dar sugestão</option>
+							<option value="S">Realizar sugestão</option>
 							<option value="B">Relatar erros</option>
 							<option value="O">Outro</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<label class="control-label">Descrição</label>
-						<span class="help-block text-muted">Descreva abaixo a sua solicitação</span>
 						<textarea name="description" class="form-control" cols="6"></textarea>
 					</div>
 				</div>
