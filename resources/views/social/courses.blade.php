@@ -110,6 +110,7 @@
 				</div>
 
 				@empty
+				<!--fim lista de cursos-->
 				 @endif
 
 			</div> 
