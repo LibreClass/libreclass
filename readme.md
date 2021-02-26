@@ -75,7 +75,7 @@ Então execute:
     MAIL_FROM_ADDRESS=
     MAIL_FROM_NAME=
 
-    MAIL_SUPORTE=libreclass@libreclass.com
+    MAIL_SUPORTE=contato@libreclass.com
 
     PUSHER_APP_ID=
     PUSHER_APP_KEY=
