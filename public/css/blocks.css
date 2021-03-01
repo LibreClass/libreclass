@@ -5,6 +5,7 @@
 }
 
 .disable{
+ 
 
 }
 
@@ -90,6 +91,10 @@
   cursor: pointer;
 }
 
+.table-vertical-align>tbody>tr>td{
+  vertical-align: middle;
+}
+  
 .photo-button {
   background-color: #FFF !important;
   border: 0 !important;

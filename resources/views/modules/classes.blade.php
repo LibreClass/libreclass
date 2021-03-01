@@ -63,11 +63,11 @@
             @if( $classes == null )
             <div class="text-center">Não há turmas cadastradas</div>
             @else
-              <table class="table table-hover table-striped">
+              <table class="table table-hover table-striped table-vertical-align">
                 <thead>
                   <tr>
                     <th style="width: 40%">Turma</th>
-                    <th>Série</th>
+                    <th >Série</th>
                     <th>Curso</th>
                     <th></th>
                   </tr>
