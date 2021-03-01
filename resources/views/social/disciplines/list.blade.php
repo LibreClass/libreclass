@@ -9,10 +9,9 @@
   </thead>
 @if(count($disciplines) == 0) 
 <tbody>
-<tr><td>Não existe disciplinas</td>
-<td><td>
-</td></td>
-</tr>
+  <tr>
+    <td colspan="3">Não existem disciplinas cadastradas.</td>
+  </tr>
 </tbody>
 @else
   <tbody>
