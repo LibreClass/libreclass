@@ -7,6 +7,14 @@
       <th></th>
     </tr>
   </thead>
+@if(count($disciplines) == 0) 
+<tbody>
+<tr><td>Não existe disciplinas</td>
+<td><td>
+</td></td>
+</tr>
+</tbody>
+@else
   <tbody>
     @foreach( $disciplines as $discipline )
       <tr class="discipline data" key="{{ encrypt($discipline->id) }}">
@@ -22,8 +30,10 @@
           </div>
         </td>
       </tr>
+      <tr class="discipline data" key="{{ encrypt($discipline->id) }}">
     @endforeach
   </tbody>
+  @endif
 </table>
 @else
 <h4 class="text-center">O curso selecionado não possui disciplinas</h4>
