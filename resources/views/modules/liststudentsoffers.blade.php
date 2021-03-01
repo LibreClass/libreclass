@@ -45,6 +45,12 @@
                   <th>Nome</th>
                   <th></th>
                 </tr>
+
+                @if(count($students) == 0) 
+                <tr><td>Não existem alunos matriculados nessa turma</td></tr>
+
+                @else
+
                 @foreach($students as $student )
                 <tr id='{{ encrypt($student->id) }}' class='list-student'>
                   <td>{{ $student->name }}</td>
@@ -70,6 +76,8 @@
                   </td>
                 </tr>
                 @endforeach
+
+                @endif
               </table>
             </div>
           </div>

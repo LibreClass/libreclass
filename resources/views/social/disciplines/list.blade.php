@@ -10,7 +10,7 @@
 @if(count($disciplines) == 0) 
 <tbody>
   <tr>
-    <td colspan="3">Não existem disciplinas cadastradas</td>
+    <td colspan="3">Não existem disciplinas cadastradas.</td>
   </tr>
 </tbody>
 @else
