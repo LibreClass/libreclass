@@ -18,7 +18,18 @@
 <div class="row">
   <div class="col-md-8 col-xs-12 col-sm-12">
 
-    <div id="block" class="panel panel-default panel-daily">
+  <div class="block">
+      <div class="row">
+        <div class="col-sm-10">
+          <h3 class="text-blue"><b><i class="fa fa-user"></i> Informações</b></h3>
+        </div>
+        <div class="col-sm-2 text-right">
+          <a href="{{ URL::previous() }}" class="btn btn-block btn-default">Voltar</a>
+        </div>
+      </div>
+    </div>
+
+    <div id="block" class="panel panel-default panel-daily block">
       <div class="panel-heading">
         <h3>{{ $profile->name }}</h3>
       </div>
