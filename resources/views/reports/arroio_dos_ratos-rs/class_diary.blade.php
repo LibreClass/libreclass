@@ -7,7 +7,7 @@
 		<style type="text/css" media="screen">
 			.vertical {
 				vertical-align: middle !important;
-				height: 4.5rem;
+				height: 120px;
 			}
 			.vertical-align {
 				vertical-align: middle !important;
