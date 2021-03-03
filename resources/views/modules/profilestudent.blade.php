@@ -27,7 +27,6 @@
         </div>
       </div>
     </div>
-    
     <div id="block" class="panel panel-default panel-daily block">
       <div class="panel-heading">
         <h3>{{ $profile->name }}</h3>
