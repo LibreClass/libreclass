@@ -17,7 +17,6 @@
 
 <div class="row">
   <div class="col-md-8 col-xs-12 col-sm-12">
-
   <div class="block">
       <div class="row">
         <div class="col-sm-10">
@@ -28,7 +27,7 @@
         </div>
       </div>
     </div>
-
+    
     <div id="block" class="panel panel-default panel-daily block">
       <div class="panel-heading">
         <h3>{{ $profile->name }}</h3>
