@@ -23,7 +23,7 @@
           <h3 class="text-blue"><b><i class="fa fa-user"></i> Informações</b></h3>
         </div>
         <div class="col-sm-2 text-right">
-          <a href="{{ URL::previous() }}" class="btn btn-block btn-default">Voltar</a>
+          <a href="{{ URL::to("/user/student")}}" class="btn btn-block btn-default">Voltar</a>
         </div>
       </div>
     </div>
