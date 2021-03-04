@@ -9,6 +9,10 @@
 				vertical-align: middle !important;
 				height: 120px;
 			}
+			.lesson{
+				height:11rem;
+
+			}
 			.vertical-align {
 				vertical-align: middle !important;
 			}
@@ -72,7 +76,7 @@
 					<th class="text-center vertical"><b>Aluno(a)</b></th>
 
 					@foreach ($data['lessons'] as $lesson)
-						<th class="rotate vertical"><div>{{ $lesson }}</div></th>
+						<th class="rotate lesson"><div>{{ $lesson }}</div></th>
 					@endforeach
 
 					<th class="rotate vertical"><div>Faltas</div></th>
