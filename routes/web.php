@@ -39,6 +39,8 @@
     Route::post('/courses/delete', [CoursesController::class, 'delete']);
     Route::post('/courses/period', [CoursesController::class, 'period']);
     Route::post('/courses/editperiod', [CoursesController::class, 'editperiod']);
+    Route::post('/courses/selected', [CoursesController::class, 'courseSelectedSave']);
+    Route::get('/courses/selected', [CoursesController::class, 'courseSelected']);
 
     /* period */
     Route::get('/periods', [PeriodsController::class, 'index']);

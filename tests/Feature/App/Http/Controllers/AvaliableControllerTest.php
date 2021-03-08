@@ -20,7 +20,7 @@ use App\Http\Controllers\LessonsController;
 
 class AvaliableControllerTest extends TestCase
 {
-	protected function setUp()
+	protected function setUp(): void
 	{
 		parent::setUp();
 
