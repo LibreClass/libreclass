@@ -3,6 +3,7 @@
 @section('css')
 @parent
   <link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.css">
 @stop
 
 @section('js')
@@ -11,6 +12,7 @@
   <script src="/js/student.js"></script>
   <script src="/js/user.js"></script>
   <script src="/js/validations/modulesAddStudents.js"></script>
+  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.23/datatables.min.js"></script>
 @stop
 
 @section('body')
@@ -54,7 +56,7 @@
               <table id="list-teacher" class="table table-hover table-condensed">
                 <thead>
                   <tr>
-                    <th>Inscrição</th>
+                    <th>Inscrição </th>
                     <th>Nome</th>
                     <th></th>
                   </tr>
