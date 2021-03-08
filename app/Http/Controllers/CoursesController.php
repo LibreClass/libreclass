@@ -162,4 +162,39 @@ class CoursesController extends Controller
 
 			return "ok";
 	}
+
+	/**
+	 * Armazena o id do último curso selecionado
+	 */
+	public function courseSelectedSave(Request $request) {
+		try {
+			$request->session()->put('course_id', $request->get('course_id'));
+			return [
+				'status' => $request->session()->has('course_id'),
+				'value' => $request->session()->get('course_id')
+			];
+		} catch (\Throwable $th) {
+			return [
+				'status' => false,
+				'value' => $th->getMessage()
+			];
+		}
+	}
+
+	/**
+	 * Retorna id do último curso selecionado
+	 */
+	public function courseSelected(Request $request) {
+		try {
+			return [
+				'status' => $request->session()->has('course_id'),
+				'value' => $request->session()->get('course_id')
+			];
+		} catch (\Throwable $th) {
+			return [
+				'status' => false,
+				'value' => $th->getMessage()
+			];
+		}
+	}
 }

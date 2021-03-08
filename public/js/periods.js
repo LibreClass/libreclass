@@ -13,7 +13,13 @@ $(document).ready(function(){
 			});
 		}
 		else {
-			$("#modal-add-period").modal();
+      $.get("/courses/selected", function(data) {
+        if (data.status) {
+          form.find('select[name="course_id"]').val(data.value);
+        }
+      }).done(function() {
+        $("#modal-add-period").modal();
+      });
 		}
   });
 
@@ -21,6 +27,7 @@ $(document).ready(function(){
     $("#view-periods .list-periods").load("/periods/list", {
       "course_id": $(this).val()
     }, function(){});
+    $.post("/courses/selected", {course_id: $(this).val()});
   }).change();
 
 	$('#form-add-period').validate({
