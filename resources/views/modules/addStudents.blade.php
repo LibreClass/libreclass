@@ -3,7 +3,7 @@
 @section('css')
 @parent
   <link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
-  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.23/datatables.min.css">
+  <link media="all" type="text/css" rel="stylesheet" href="/css/datatables.min.css">
 @stop
 
 @section('js')
@@ -56,9 +56,9 @@
               <table id="list-teacher" class="table table-hover table-condensed">
                 <thead>
                   <tr>
-                    <th>Inscrição </th>
-                    <th>Nome</th>
-                    <th></th>
+                    <th class="arrow">Inscrição </th>
+                    <th class="arrow">Nome</th>
+                    <th ></th>
                   </tr>
                 </thead>
                 <tbody>
