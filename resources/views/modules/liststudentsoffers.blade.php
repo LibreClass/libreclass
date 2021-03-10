@@ -42,14 +42,12 @@
             <div class="offer-students">
                 @if(count($students) == 0) 
                 <tr><td>Não existem alunos matriculados nessa turma</td></tr>
-                
                 @else
                 <table class="table table-hover">
                 <tr>
                   <th>Nome</th>
                   <th></th>
                 </tr>
-
                 @foreach($students as $student )
                 <tr id='{{ encrypt($student->id) }}' class='list-student'>
                   <td>{{ $student->name }}</td>
