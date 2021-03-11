@@ -2,6 +2,7 @@
 
 use App\Course;
 use App\Period;
+use Illuminate\Http\Request;
 
 class PeriodsController extends Controller
 {
@@ -10,7 +11,7 @@ class PeriodsController extends Controller
 		$this->middleware('auth.type:I');
 	}
 
-	public function index()
+	public function index(Request $request)
 	{
 		$user = auth()->user();
 		$courses = Course::where('institution_id', auth()->id())
@@ -26,6 +27,8 @@ class PeriodsController extends Controller
 		return view('social.periods', [
 			'listCourses' => $listCourses,
 			'user' => $user,
+			'course_id' => $request->session()->has('course_id') ? 
+				$request->session()->get('course_id') : null
 		]);
 	}
 
