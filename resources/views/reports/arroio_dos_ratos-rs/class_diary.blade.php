@@ -7,7 +7,7 @@
 		<style type="text/css" media="screen">
 			.vertical {
 				vertical-align: middle !important;
-				height: 120px;
+				height: 40px;
 			}
 			.lesson{
 				height:11rem;
