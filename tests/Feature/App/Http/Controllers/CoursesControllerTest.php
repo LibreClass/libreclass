@@ -13,7 +13,7 @@ class CoursesControllerTest extends TestCase
 
     public function testCourseSelectedSave()
     {
-            $response = $this->postJson('/courses/selected', ['course_id' => '1']);
+        $response = $this->postJson('/courses/selected', ['course_id' => '1']);
         $response->assertJson(['status' => true, 'value' => 1]);
     }
 
