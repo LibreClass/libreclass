@@ -4,9 +4,9 @@ SET foreign_key_checks = 0;
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 CREATE TABLE `attends` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `unit_id` int(11) unsigned NOT NULL COMMENT 'Id da unidade que o usuário cursa',
-  `user_id` int(11) unsigned NOT NULL COMMENT 'Id do usuário',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `unit_id` int unsigned NOT NULL COMMENT 'Id da unidade que o usuário cursa',
+  `user_id` int unsigned NOT NULL COMMENT 'Id do usuário',
   `status` char(1) NOT NULL DEFAULT 'M' COMMENT '''M''=matriculado; ''D''=desistente; ''R''=remanejado; ''T''=transferido',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -20,11 +20,11 @@ CREATE TABLE `attends` (
 
 
 CREATE TABLE `attests` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `institution_id` int(11) unsigned NOT NULL,
-  `student_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `institution_id` int unsigned NOT NULL,
+  `student_id` int unsigned NOT NULL,
   `date` date NOT NULL,
-  `days` int(11) NOT NULL,
+  `days` int NOT NULL,
   `description` varchar(255) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -39,9 +39,9 @@ CREATE TABLE `attests` (
 
 
 CREATE TABLE `binds` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL,
-  `discipline_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL,
+  `discipline_id` int unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -56,9 +56,9 @@ CREATE TABLE `binds` (
 
 
 CREATE TABLE `cities` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(120) NOT NULL COMMENT 'Nome da cidade',
-  `state_id` int(11) unsigned NOT NULL COMMENT 'Id do estado ao que a cidade pertence',
+  `state_id` int unsigned NOT NULL COMMENT 'Id do estado ao que a cidade pertence',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -69,10 +69,10 @@ CREATE TABLE `cities` (
 
 
 CREATE TABLE `classes` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `period_id` int(11) unsigned NOT NULL COMMENT 'periodo da turma',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `period_id` int unsigned NOT NULL COMMENT 'periodo da turma',
   `name` varchar(50) DEFAULT NULL,
-  `school_year` int(11) NOT NULL COMMENT 'Ano letivo',
+  `school_year` int NOT NULL DEFAULT '2021' COMMENT 'Ano letivo',
   `class` varchar(50) DEFAULT NULL,
   `status` char(1) NOT NULL DEFAULT 'E',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -85,8 +85,8 @@ CREATE TABLE `classes` (
 
 
 CREATE TABLE `controllers` (
-  `controller_id` int(11) unsigned NOT NULL COMMENT 'Id do usuário controlador',
-  `subject_id` int(11) unsigned NOT NULL COMMENT 'Id do usuário controlado',
+  `controller_id` int unsigned NOT NULL COMMENT 'Id do usuário controlador',
+  `subject_id` int unsigned NOT NULL COMMENT 'Id do usuário controlado',
   `type` char(2) NOT NULL COMMENT 'Usuários (ex.: instituição) podem cadastrar usuários (ex.: professor);''IP'' = Instituição controla Professor; ...',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -98,7 +98,7 @@ CREATE TABLE `controllers` (
 
 
 CREATE TABLE `countries` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(60) NOT NULL COMMENT 'Nome do país',
   `short` varchar(5) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -108,12 +108,12 @@ CREATE TABLE `countries` (
 
 
 CREATE TABLE `courses` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `institution_id` int(11) unsigned NOT NULL COMMENT 'Id da instituição à que o curso está relacionado',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `institution_id` int unsigned NOT NULL COMMENT 'Id da instituição à que o curso está relacionado',
   `name` varchar(100) NOT NULL COMMENT 'Nome do curso',
   `type` varchar(100) DEFAULT NULL COMMENT 'dados do csv',
   `modality` varchar(100) DEFAULT NULL COMMENT 'dados do csv',
-  `quant_unit` int(10) DEFAULT NULL COMMENT 'Total de unidades do curso',
+  `quant_unit` int DEFAULT NULL COMMENT 'Total de unidades do curso',
   `absent_percent` float unsigned DEFAULT NULL,
   `average` float unsigned DEFAULT NULL,
   `average_final` float unsigned DEFAULT NULL,
@@ -129,9 +129,9 @@ CREATE TABLE `courses` (
 
 
 CREATE TABLE `descriptive_exams` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `attend_id` int(11) unsigned NOT NULL,
-  `exam_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `attend_id` int unsigned NOT NULL,
+  `exam_id` int unsigned NOT NULL,
   `description` text,
   `approved` char(1) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -148,8 +148,8 @@ CREATE TABLE `descriptive_exams` (
 
 
 CREATE TABLE `disciplines` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `period_id` int(11) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `period_id` int unsigned DEFAULT NULL,
   `name` varchar(255) DEFAULT NULL COMMENT 'Nome da disciplina',
   `ementa` text COMMENT 'ementa da disciplina',
   `status` char(1) NOT NULL DEFAULT 'E' COMMENT '''E'' = Enabled; ''D'' = Disabled; ''F'' = Finalized;',
@@ -163,8 +163,8 @@ CREATE TABLE `disciplines` (
 
 
 CREATE TABLE `exams` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `unit_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `unit_id` int unsigned NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `type` varchar(2) DEFAULT NULL COMMENT 'Tipo de avaliação''E'' = "exams";''L'' = "list";''P'' = "projects";...',
   `aval` char(1) NOT NULL COMMENT '''A'': Avaliação, ''R'': Recuperação da Unidade',
@@ -182,9 +182,9 @@ CREATE TABLE `exams` (
 
 
 CREATE TABLE `exams_values` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `attend_id` int(11) unsigned NOT NULL COMMENT 'Id do relacionamento "Cursa"',
-  `exam_id` int(11) unsigned NOT NULL COMMENT 'Título da avaliação',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `attend_id` int unsigned NOT NULL COMMENT 'Id do relacionamento "Cursa"',
+  `exam_id` int unsigned NOT NULL COMMENT 'Título da avaliação',
   `value` varchar(5) DEFAULT NULL COMMENT 'Valor da avaliação (nota máxima)',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -200,9 +200,9 @@ CREATE TABLE `exams_values` (
 
 
 CREATE TABLE `final_exams` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `offer_id` int(10) unsigned NOT NULL,
-  `user_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `offer_id` int unsigned NOT NULL,
+  `user_id` int unsigned NOT NULL,
   `value` varchar(5) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -218,9 +218,9 @@ CREATE TABLE `final_exams` (
 
 
 CREATE TABLE `frequencies` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `attend_id` int(11) unsigned NOT NULL COMMENT 'Id do relacionamento "cursa"',
-  `lesson_id` int(11) unsigned NOT NULL COMMENT 'Id da aula',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `attend_id` int unsigned NOT NULL COMMENT 'Id do relacionamento "cursa"',
+  `lesson_id` int unsigned NOT NULL COMMENT 'Id da aula',
   `value` char(1) DEFAULT NULL COMMENT '''P'' = Presente;''F'' = Falta;',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -236,10 +236,10 @@ CREATE TABLE `frequencies` (
 
 
 CREATE TABLE `lectures` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL COMMENT 'Id do professor que leciona a disciplina',
-  `offer_id` int(10) unsigned NOT NULL COMMENT 'Id da disciplina lecionada',
-  `order` smallint(5) unsigned NOT NULL DEFAULT '1',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL COMMENT 'Id do professor que leciona a disciplina',
+  `offer_id` int unsigned NOT NULL COMMENT 'Id da disciplina lecionada',
+  `order` smallint unsigned NOT NULL DEFAULT '1',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -254,8 +254,8 @@ CREATE TABLE `lectures` (
 
 
 CREATE TABLE `lessons` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `unit_id` int(11) unsigned NOT NULL COMMENT 'Id da unidade à que a aula está relacionada',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `unit_id` int unsigned NOT NULL COMMENT 'Id da unidade à que a aula está relacionada',
   `date` date NOT NULL COMMENT 'Data',
   `title` varchar(255) NOT NULL COMMENT 'Título da aula',
   `description` text COMMENT 'summary/abstract, breve descrição da aula ',
@@ -264,7 +264,7 @@ CREATE TABLE `lessons` (
   `methodology` text COMMENT 'Metodologia de classe',
   `resources` text COMMENT 'Recursos necessários',
   `keyworks` varchar(255) DEFAULT NULL COMMENT 'palavras-chave',
-  `estimated_time` int(11) DEFAULT NULL COMMENT 'Tempo estimado de uma aula',
+  `estimated_time` int DEFAULT NULL COMMENT 'Tempo estimado de uma aula',
   `bibliography` text COMMENT 'Bibliografia',
   `valuation` varchar(255) DEFAULT NULL COMMENT 'Método de avaliação (prova, trabalho, lista...)',
   `notes` text COMMENT 'Anotações',
@@ -280,23 +280,23 @@ CREATE TABLE `lessons` (
 
 
 CREATE TABLE `logs` (
-  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
-  `user_ip` varchar(15) COLLATE utf8_bin NOT NULL,
-  `msg` varchar(100) COLLATE utf8_bin NOT NULL,
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int NOT NULL,
+  `user_ip` varchar(15) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `msg` varchar(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `data` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
 
 
 CREATE TABLE `offers` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `offer_id` int(11) unsigned DEFAULT NULL COMMENT 'Auto relacionamento master/slave',
-  `class_id` int(11) unsigned NOT NULL,
-  `discipline_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `offer_id` int unsigned DEFAULT NULL COMMENT 'Auto relacionamento master/slave',
+  `class_id` int unsigned NOT NULL,
+  `discipline_id` int unsigned NOT NULL,
   `classroom` varchar(40) DEFAULT NULL,
   `day_period` varchar(50) DEFAULT NULL COMMENT 'dados do csv',
-  `maxlessons` smallint(5) unsigned NOT NULL DEFAULT '180',
+  `maxlessons` smallint unsigned NOT NULL DEFAULT '180',
   `type_final` char(2) DEFAULT NULL,
   `date_final` date DEFAULT NULL,
   `comments` text,
@@ -315,8 +315,8 @@ CREATE TABLE `offers` (
 
 
 CREATE TABLE `periods` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `course_id` int(11) unsigned NOT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `course_id` int unsigned NOT NULL,
   `name` varchar(50) DEFAULT NULL,
   `status` char(1) NOT NULL DEFAULT 'E',
   `created_at` timestamp NULL DEFAULT NULL,
@@ -330,9 +330,9 @@ CREATE TABLE `periods` (
 
 
 CREATE TABLE `relationships` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL COMMENT 'Id do usuário',
-  `friend_id` int(11) unsigned NOT NULL COMMENT 'Id do amigo do usuário',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned NOT NULL COMMENT 'Id do usuário',
+  `friend_id` int unsigned NOT NULL COMMENT 'Id do amigo do usuário',
   `enrollment` varchar(50) DEFAULT NULL COMMENT 'Matricula',
   `status` char(1) NOT NULL DEFAULT 'E' COMMENT 'Relacionamento ativo ou inativo',
   `type` char(1) DEFAULT NULL COMMENT 'F-friends;P-parents;S-subscribe; 1-instituição->aluno; 2-instituição->professor; 3-professor->aluno',
@@ -348,10 +348,10 @@ CREATE TABLE `relationships` (
 
 
 CREATE TABLE `states` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(75) NOT NULL,
   `short` varchar(5) DEFAULT NULL,
-  `country_id` int(11) unsigned NOT NULL,
+  `country_id` int unsigned NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
@@ -362,12 +362,13 @@ CREATE TABLE `states` (
 
 
 CREATE TABLE `suggestions` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned DEFAULT NULL,
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int unsigned DEFAULT NULL,
   `title` varchar(255) NOT NULL,
   `value` char(1) NOT NULL DEFAULT 'S' COMMENT 'S-sugestões; B-bugs',
   `description` text NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idUser` (`user_id`),
   CONSTRAINT `suggestions_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL,
@@ -376,10 +377,10 @@ CREATE TABLE `suggestions` (
 
 
 CREATE TABLE `units` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `offer_id` int(10) unsigned NOT NULL,
-  `value` int(11) NOT NULL DEFAULT '1' COMMENT '''1'' = primeira unidade;''2'' = segunda unidade;...',
-  `calculation` char(1) CHARACTER SET utf8 DEFAULT 'A' COMMENT 'Tipo de cálculo para média( ''S'' = sum; ''A'' = avarage, ''W''=média ponderada)',
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `offer_id` int unsigned NOT NULL,
+  `value` int NOT NULL DEFAULT '1' COMMENT '''1'' = primeira unidade;''2'' = segunda unidade;...',
+  `calculation` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci DEFAULT 'A' COMMENT 'Tipo de cálculo para média( ''S'' = sum; ''A'' = avarage, ''W''=média ponderada)',
   `status` char(1) NOT NULL DEFAULT 'E' COMMENT '"E" => "Enable", "D" => "Disable"',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
@@ -404,7 +405,7 @@ CREATE TABLE `users` (
   `course` varchar(255) DEFAULT NULL COMMENT 'Cursos realizados pelo usuário (formação)',
   `formation` char(1) NOT NULL DEFAULT '0' COMMENT 'Nível de formação acadêmica(Graduated, Master, PhD...)',
   `cadastre` char(1) DEFAULT 'N' COMMENT 'T=Temporário, W=aguardando,N=Normal,G=Google,F=Facebook',
-  `city_id` int(11) unsigned DEFAULT NULL COMMENT 'Id da cidade residente',
+  `city_id` int unsigned DEFAULT NULL COMMENT 'Id da cidade residente',
   `street` varchar(100) DEFAULT NULL,
   `photo` varchar(255) NOT NULL DEFAULT '/images/user-photo-default.jpg' COMMENT 'foto de perfil',
   `enrollment` varchar(50) DEFAULT NULL COMMENT 'matricula ',
