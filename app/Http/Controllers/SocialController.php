@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers;
 
 use App\Suggestion;
+use Mail;
 
 class SocialController extends Controller
 {
