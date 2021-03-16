@@ -15,7 +15,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
 							{{ Form::label("course_id", "Curso") }}
-              <span class="help-block text-muted">Selecione o curso</span>
+              <span class="help-block text-muted" >Selecione o curso</span>
               {{ Form::select("course_id", $listCourses, null, ["class" => "form-control"]) }}
             </div>
           </div>

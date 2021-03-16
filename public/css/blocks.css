@@ -211,3 +211,7 @@ ul.dropdown-menu a > i.fa {
 .dropdown-menu > li > a {
 	font-size: 12px;
 }
+.center-text{
+  display: flex;
+  align-items: center;
+ }
