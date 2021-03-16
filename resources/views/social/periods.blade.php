@@ -59,7 +59,7 @@
 	              <div class="form-group">
 	                {{ Form::label("course_id", "Curso", ["class" => "control-label"]) }}
 	                <span class="help-block text-muted">Selecione um curso para visualizar os períodos.</span>
-	                {{ Form::select("course_id", $listCourses, null, ["class" => "form-control"]) }}
+	                {{ Form::select("course_id", $listCourses, $course_id, ["class" => "form-control"]) }}
 	              </div>
 	            </form>
 	          </div>

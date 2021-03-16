@@ -1,9 +1,10 @@
 <?php namespace App\Http\Controllers;
 
-use App\Course;
-use App\Period;
-use App\Discipline;
 use App\Classe;
+use App\Course;
+use App\Discipline;
+use App\Period;
+use Illuminate\Http\Request;
 
 class DisciplinesController extends Controller
 {
@@ -16,7 +17,7 @@ class DisciplinesController extends Controller
 	 * Construção da página inicial
 	 * @return type redirect
 	 */
-	public function index()
+	public function index(Request $request)
 	{
 		$user = auth()->user();
 		$courses = Course::where('institution_id', $user->id)
@@ -24,25 +25,27 @@ class DisciplinesController extends Controller
 
 		$listCourses = [];
 		foreach ($courses as $course) {
-			$listCourses[encrypt($course->id)] = $course->name;
+			$listCourses[$course->id] = $course->name;
 		}
 
 		return view('social.disciplines', [
 			'listCourses' => $listCourses,
 			'user' => $user,
+			'course_id' => $request->session()->has('course_id') ? 
+				$request->session()->get('course_id') : null
 		]);
 	}
 
 	public function save()
 	{
-		$course = Course::find(decrypt(request()->get("course")));
+		$course = Course::find(request()->get("course"));
 		$period = Period::where("course_id", $course->id )
 			->whereId(decrypt(request()->get("period")))
 			->first();
 
 		$discipline = new Discipline;
 		if (strlen(request()->get("discipline"))) {
-			$discipline = Discipline::find(decrypt(request()->get("discipline")));
+			$discipline = Discipline::find(request()->get("discipline"));
 		}
 
 		$discipline->period_id = $period->id;
@@ -103,7 +106,7 @@ class DisciplinesController extends Controller
 	 */
 	public function listPeriods()
 	{
-		$periods = Period::where("course_id", decrypt(request()->get("course")))->whereStatus("E")->get();
+		$periods = Period::where("course_id", request()->get("course"))->whereStatus("E")->get();
 		foreach( $periods as $period )
 			$period->id = encrypt($period->id);
 
@@ -114,7 +117,7 @@ class DisciplinesController extends Controller
 	{
 		$disciplines = collect();
 
-		$periods = Period::whereCourseId(decrypt(request()->course))
+		$periods = Period::whereCourseId(request()->course)
 			->with(['disciplines' => function($query) {
 				$query->whereStatus('E');
 			}])
