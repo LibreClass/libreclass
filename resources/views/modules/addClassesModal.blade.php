@@ -38,7 +38,7 @@
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-6">
             <div class="form-group">
-              <span class="help-block text-muted">Informe um nome para identificar a turma. Ex: 1º Ano A, 2º MEDIO A - Vespertino.</span>
+            <span class="help-block text-muted">Informe um nome para identificar a turma. Ex: 1º Ano A, 2º MEDIO A - Vespertino.</span>
               {{ Form::text("name", null, ["class" => "form-control"]) }}
             </div>
           </div>

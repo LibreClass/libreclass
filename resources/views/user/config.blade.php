@@ -4,13 +4,17 @@
 @parent
   <link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
   <link media="all" type="text/css" rel="stylesheet" href="/css/config.css">
+  <style>
+#map { width: 100%; }
+</style>
 @stop
 
 @section('js')
 @parent
   <script src="/js/config.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBVmdz-iIJpd-TisFvAg4qIU9WVqRVvVbk&v=3.exp&libraries=places"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBVmdz-iIJpd-TisFvAg4qIU9WVqRVvVbk&v=3.exp&libraries=places"></script> 
   <script src="/js/validations/usersConfig.js"></script>
+
 @stop
 
 @section('body')
@@ -314,12 +318,12 @@
               <td class="text-info">{{ $user->city_id ? $user->printLocation() : "" }}</td>
               <td></td>
             </tr>
-
             <tr class="visible-none">
               <td colspan="3">
                 <input id="pac-input" class="controls form-control" type="text" placeholder="Informe sua cidade">
-                <div id="map-canvas"></div>
-              </td>
+              <div id="map-canvas"> 
+
+                
             </tr>
 
 
