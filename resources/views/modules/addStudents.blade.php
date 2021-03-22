@@ -12,8 +12,9 @@
   <script src="/js/student.js"></script>
   <script src="/js/user.js"></script>
   <script src="/js/validations/modulesAddStudents.js"></script>
-  <script type="text/javascript" src="https://cdn.datatables.net/v/bs4-4.1.1/jq-3.3.1/dt-1.10.23/datatables.min.js"></script>
-@stop
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+
+  @stop
 
 @section('body')
 @parent
