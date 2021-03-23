@@ -1,4 +1,4 @@
-@if($periods)
+@if(count($periods) > 0)
 <table class="table table-hover table-striped">
   <thead>
     <tr>
@@ -26,5 +26,5 @@
   </tbody>
 </table>
 @else
-<h4 class="text-center">O curso selecionado não possui períodos</h4>
+  O curso selecionado não possui períodos cadastrados.
 @endif

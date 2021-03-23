@@ -61,7 +61,7 @@
 .block-list-item {
   border-top: 1px solid #ddd;
   vertical-align:middle;
-  padding: 10px 0px;
+  padding: 10px 0 0 0;
 }
 
 .icon-default {
@@ -214,4 +214,8 @@ ul.dropdown-menu a > i.fa {
 .center-text{
   display: flex;
   align-items: center;
+ }
+
+ .list-periods > table {
+   margin-bottom: 0 !important;
  }
