@@ -51,7 +51,6 @@
           </div>
         </div>
 
-
         <p class="text-muted">
           Confira todos os dados antes de salvar.
         </p>
