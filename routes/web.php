@@ -71,6 +71,7 @@
     Route::get('/classes', [ClassesController::class, 'index']);
     Route::post('/classes/classes-by-year', [ClassesController::class, 'classesByYear']);
     Route::post('/classes/listdisciplines', [ClassesController::class, 'listdisciplines']);
+    Route::post('/classes/countDisciplines', [ClassesController::class, 'countDisciplines']);
     Route::get('/classes/panel', [ClassesController::class, 'getPanel']);
     Route::post('/classes/new', [ClassesController::class, 'postNew']);
     Route::get('/classes/info', [ClassesController::class, 'getInfo']);
