@@ -116,24 +116,49 @@ class ClassesController extends Controller
 
 	public function listdisciplines()
 	{
-		if (request()->has("flag")) {
-			$offers = Offer::where("class_id", decrypt(request()->get("classe_id")))->get();
-			$registered_disciplines_ids = [];
-
-			foreach ($offers as $offer) {
-				$registered_disciplines_ids[] = $offer->discipline_id;
-			}
-
-			$disciplines = Discipline::where("period_id", decrypt(request()->get("period_id")))
-				->whereStatus('E')
-				->whereNotIn('id', $registered_disciplines_ids)
-				->get();
-		} else {
-			$disciplines = Discipline::where("period_id", decrypt(request()->get("period")))
-				->whereStatus('E')
-				->get();
-		}
+		$disciplines = $this->getDisciplines();
 		return view("modules.disciplines.listOffer", ["disciplines" => $disciplines]);
+	}
+
+	public function countDisciplines() {
+		try {
+			$disciplines = $this->getDisciplines();
+			return [
+				'status' => true,
+				'disciplines' => count($disciplines)
+			];
+		} catch (\Throwable $th) {
+			return [
+				'status' => false,
+				'value' => $th->getMessage()
+			];
+		}
+	}
+
+	public function getDisciplines() {
+		try {
+			if (request()->has("flag")) {
+				$offers = Offer::where("class_id", decrypt(request()->get("classe_id")))->get();
+				$registered_disciplines_ids = [];
+				foreach ($offers as $offer) {
+					$registered_disciplines_ids[] = $offer->discipline_id;
+				}
+				$disciplines = Discipline::where("period_id", decrypt(request()->get("period_id")))
+					->whereStatus('E')
+					->whereNotIn('id', $registered_disciplines_ids)
+					->get();
+			} else {
+				$disciplines = Discipline::where("period_id", decrypt(request()->get("period")))
+					->whereStatus('E')
+					->get();
+			}
+			return $disciplines;
+		} catch (\Throwable $th) {
+			return [
+				'status' => false,
+				'value' => $th->getMessage()
+			];
+		}
 	}
 
 	public function postNew()
