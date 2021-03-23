@@ -54,7 +54,7 @@
             @if(count($relationships) == 0)
               <h4 class="text-center">Não há alunos cadastrados</h4>
             @else
-              <table id="list-teacher" class="table table-hover table-condensed">
+              <table id="list-teacher" class="table table-hover table-condensed order">
                 <thead>
                   <tr>
                     <th class="arrow">Inscrição </th>

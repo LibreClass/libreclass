@@ -187,11 +187,4 @@ $(function (){
 	$('#select-scholar-report-course').trigger('change');
 });
 
-$(document).ready(function () {
-  $("#list-teacher").DataTable({
-    paging: false,
-    ordering: true,
-    info: false,
-    bFilter: false,
-  });
-});
+
