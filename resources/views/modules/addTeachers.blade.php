@@ -11,8 +11,7 @@
 <script src="/js/blocks.js"></script>
 <script src="/js/teacher.js"></script>
 <script src="/js/validations/modulesAddTeachers.js"></script>
-<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-
+<script src="/js/datatables.js"></script>
 @stop
 
 @section('body')
