@@ -129,7 +129,6 @@ $(function () {
 
 	/*Desbloquear unidades - Solicita Json e abre o modal*/
 	$("#unblock-unit").click(function () {
-		alert();
 		$.post("/classes/list-units/0", {})
 			.done(function (data) {
 				$("#formUnblockUnit select[name='course']").html("");
