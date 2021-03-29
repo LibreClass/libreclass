@@ -42,10 +42,10 @@
     </div>
 
     @else
-    <div id="block" class="blockg" style="padding-bottom: 0;">
+    <div id="block" class="block" style="padding-bottom: 0;">
       <div class="row">
         <div class="col-md-12">
-          <div class="offer-students">
+          <div class="offer-students ">
             <table class="table table-hover" style="margin-bottom: 0;">
               <tr>
                 <th>Nome</th>
