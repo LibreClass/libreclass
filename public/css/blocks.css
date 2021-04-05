@@ -219,3 +219,7 @@ ul.dropdown-menu a > i.fa {
  .list-periods > table {
    margin-bottom: 0 !important;
  }
+
+ .scroll{
+   overflow: auto;
+ }
