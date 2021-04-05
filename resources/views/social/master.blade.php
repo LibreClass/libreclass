@@ -27,7 +27,8 @@
   <script type="text/javascript" src="/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="/js/validations/jquery.validate.min.js"></script>
   <script type="text/javascript" src="/js/validations/additional-methods.min.js"></script>
-
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
+  
   @section('js')
   @show
 
@@ -35,7 +36,6 @@
 
 <body>
   <div class="back"></div>
-
   <nav class="navbar navbar-libreclass navbar-fixed-top" role="navigation">
     <div class="container-fluid">
       <div class="navbar-header">
