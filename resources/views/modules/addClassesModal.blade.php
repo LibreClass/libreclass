@@ -28,7 +28,7 @@
           </div>
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
-              {{ Form::label("class", "Período Letivo", ["class" => "control-label"]) }}
+              {{ Form::label("class", "* Período Letivo", ["class" => "control-label"]) }}
               <span class="help-block text-muted">Ex: 2018.1, 1º Semestre, ... </span>
               {{ Form::text("class", null, ["class" => "form-control", "autofocus", "required"]) }}
             </div>
@@ -38,7 +38,8 @@
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-6">
             <div class="form-group">
-            <span class="help-block text-muted">Informe um nome para identificar a turma. Ex: 1º Ano A, 2º MEDIO A - Vespertino.</span>
+            {{ Form::label("class", "* Turma", ["class" => "control-label"]) }}
+            <span class="help-block text-muted">Informe um nome para identificar a turma.</span>
               {{ Form::text("name", null, ["class" => "form-control", "autofocus", "required"]) }}
             </div>
           </div>
