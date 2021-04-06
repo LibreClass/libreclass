@@ -43,8 +43,6 @@
               </div>
             </div>
           </div>
-
-
           <div class="form-group">
             {{ Form::label("formation", "*Formação Acadêmica", ["control" => "control-label"]) }}
             <span class="help-block">Informe a formação acadêmica principal do professor.</span>
