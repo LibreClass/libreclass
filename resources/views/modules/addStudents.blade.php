@@ -135,7 +135,7 @@
             <div class="row">
               <div class="col-md-4">
                 <div class="form-group">
-                  {{ Form::label("enrollment", "*Inscrição", ["class" => "control-label"]) }}
+                  {{ Form::label("enrollment", "*Inscrição") }}
                   {{ Form::text("enrollment", null, ["class" => "form-control", "autofocus", "required"]) }}
                 </div>
               </div>
