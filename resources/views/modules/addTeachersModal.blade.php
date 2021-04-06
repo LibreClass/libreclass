@@ -25,6 +25,7 @@
             <span class="help-block">Informe o nome completo do professor.</span>
             {{ Form::text("name", null, ["class" => "form-control", "autofocus", "required"]) }}
           </div>
+
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
@@ -43,6 +44,7 @@
               </div>
             </div>
           </div>
+          
           <div class="form-group">
             {{ Form::label("formation", "*Formação Acadêmica", ["control" => "control-label"]) }}
             <span class="help-block">Informe a formação acadêmica principal do professor.</span>
