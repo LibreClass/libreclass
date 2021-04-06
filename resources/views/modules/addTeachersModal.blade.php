@@ -26,25 +26,6 @@
             {{ Form::text("name", null, ["class" => "form-control", "autofocus", "required"]) }}
           </div>
 
-          <div class="row">
-            <div class="col-md-4">
-              <div class="form-group">
-                {{ Form::label("gender", "*Sexo") }}
-                {{ Form::select("gender", ['M'=> 'Masculino', 'F'=> 'Feminino'], null, ["class" => "form-control", 'required']) }}
-              </div>
-            </div>
-            <div class="col-md-6 col-xs-6">
-              <div class="form-group">
-                {{ Form::label("date-day", "Data de Nascimento: ")}}
-                <div class="form-inline">
-                  {{ Form::selectRange("date-day", 1, 31, null, ["class" => "form-control"]) }}
-                  {{ Form::selectRange("date-month", 1, 12, null, ["class" => "form-control"]) }}
-                  {{ Form::selectRange("date-year", date("Y"), date("Y")-100, null, ["class" => "form-control"]) }}
-                </div>
-              </div>
-            </div>
-          </div>
-          
           <div class="form-group">
             {{ Form::label("formation", "*Formação Acadêmica", ["control" => "control-label"]) }}
             <span class="help-block">Informe a formação acadêmica principal do professor.</span>
