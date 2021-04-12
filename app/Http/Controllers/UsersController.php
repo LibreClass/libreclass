@@ -584,35 +584,77 @@ class UsersController extends Controller
 		]);
 	}
 
+	public function postSeachEnrollment($user, $type)
+	{
+		if (strlen(request()->get("registered"))) {
+			$relationship = Relationship::where('user_id', auth()->id())
+				->where('friend_id', $user->id)
+				->first();
+
+			if (!$relationship) {
+				$relationship = new Relationship;
+				$relationship->user_id = auth()->id();
+				$relationship->friend_id = $user->id;
+				$relationship->enrollment = request()->get('enrollment');
+				$relationship->status = "E";
+				$relationship->type = $type;
+				$relationship->save();
+			} else {
+				Relationship::where('user_id', auth()->id())
+					->where('friend_id', $user->id)
+					->update([
+						'status' => 'E',
+						'enrollment' => request()->get('enrollment'),
+					]);
+			}
+		}
+	}
+
 	public function postStudent()
 	{
-		if (request()->get('student_id')) {
+
+		if (strlen(request()->get('student_id'))) {
 			$user = User::find(decrypt(request()->get('student_id')));
-			$message = "Os dados do aluno foram atualizados com sucesso.";
+
+			$this->postSeachEnrollment($user, "1");
+			
+			$user->enrollment = request()->get("enrollment");
+			$user->name = request()->get("name");
+			$user->email = strlen(request()->get("email")) ? request()->get("email") : null;
+			$user->course = request()->get("course");
+			$user->gender = request()->get("gender");
+			$user->birthdate = request()->get("date-year") . "-" . request()->get("date-month") . "-" . request()->get("date-day");
+			$user->save();
+
+			return redirect("/user/student")->with("success",  "Os dados do aluno foram atualizados com sucesso.");
 		} else {
+			$verify = Relationship::whereEnrollment(request()->get("enrollment"))->where('user_id', auth()->id())->first();
+			if (isset($verify) || $verify != null) {
+				return redirect("/user/student")->with("error", "Este número de inscrição já está cadastrado!");
+			}
 			$user = new User;
 			$user->type = "N";
-			$message = "Aluno cadastrado com sucesso.";
+
+			$user->enrollment = request()->get("enrollment");
+			$user->name = request()->get("name");
+			$user->email = strlen(request()->get("email")) ? request()->get("email") : null;
+			$user->course = request()->get("course");
+			$user->gender = request()->get("gender");
+			$user->birthdate = request()->get("date-year") . "-" . request()->get("date-month") . "-" . request()->get("date-day");
+			$user->save();
+
+			if (!request()->get('student_id')) {
+				$relationship = new Relationship;
+				$relationship->user_id = auth()->id();
+				$relationship->friend_id = $user->id;
+				$relationship->enrollment = request()->get("enrollment");
+				$relationship->status = "E";
+				$relationship->type = "1";
+				$relationship->save();
+			}
+
+			return redirect("/user/student")->with("success", "Aluno cadastrado com sucesso.");
 		}
-
-		$user->enrollment = request()->get("enrollment");
-		$user->name = request()->get("name");
-		$user->email = strlen(request()->get("email")) ? request()->get("email") : null;
-		$user->course = request()->get("course");
-		$user->gender = request()->get("gender");
-		$user->birthdate = request()->get("date-year") . "-" . request()->get("date-month") . "-" . request()->get("date-day");
-		$user->save();
-
-		if (!request()->get('student_id')) {
-			$relationship = new Relationship;
-			$relationship->user_id = auth()->id();
-			$relationship->friend_id = $user->id;
-			$relationship->status = "E";
-			$relationship->type = "1";
-			$relationship->save();
-		}
-
-		return redirect("/user/student")->with("success", $message);
 	}
 
 	public function postUnlink()
