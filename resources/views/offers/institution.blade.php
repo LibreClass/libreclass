@@ -62,7 +62,7 @@
           <div class="col-md-12 offer">
             <div class="list-inline">
               <button class="add-teacher click btn btn-default btn-block-xs" key="{{ encrypt($offer->id) }}">
-                <i class="fa fa-link"></i> Editar
+                <i class="fa fa-link"></i> Vincular Professor
               </button>
               <a href="{{ URL::to("/classes/offers/students/".encrypt($offer->id)) }}" class="btn btn-default btn-block-xs">
                 <i class="fa fa-graduation-cap"></i> Gerir Alunos

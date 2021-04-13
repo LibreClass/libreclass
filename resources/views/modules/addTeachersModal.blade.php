@@ -25,6 +25,7 @@
             <span class="help-block">Informe o nome completo do professor.</span>
             {{ Form::text("name", null, ["class" => "form-control", "autofocus", "required"]) }}
           </div>
+
           <div class="row">
             <div class="col-md-4">
               <div class="form-group">
