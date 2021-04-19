@@ -96,6 +96,7 @@
     Route::post('/config/password', [ConfigController::class, 'postPassword']);
     Route::post('/config/location', [ConfigController::class, 'postLocation']);
     Route::post('/config/street', [ConfigController::class, 'postStreet']);
+    Route::put('/config/street', [ConfigController::class, 'putStreet']);
     Route::post('config/uee', [ConfigController::class, 'postUee']);
 
     /* users */
