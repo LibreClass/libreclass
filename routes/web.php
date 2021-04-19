@@ -119,7 +119,8 @@
     Route::post('/user/invite', [UsersController::class, 'postInvite']);
     Route::get('/user/infouser', [UsersController::class, 'getInfouser']);
     Route::any('/user/link/{type}/{user}', [UsersController::class, 'anyLink']);
-
+    Route::post('/user/search-enrollment', [UsersController::class, 'postSeachEnrollment']);
+    
     /* lesson */
     Route::get('/lessons', [LessonsController::class, 'getIndex']);
     Route::any('/lessons/new', [LessonsController::class, 'anyNew']);
