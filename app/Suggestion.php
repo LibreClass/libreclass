@@ -11,9 +11,13 @@ class Suggestion extends Model
 	 */
 	protected $fillable = [
 		'user_id',
+		'name',
+		'emailUser',
 		'title',
 		'value', // S = sugestões; B = bugs
 		'description',
+		'textError',
+		'link',
 	];
 
 	/**
