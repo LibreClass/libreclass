@@ -15,13 +15,13 @@
 					<div class="row">
 						<div class="col-md-6">
 							<div class="form-group">
-								<label class="control-label"><span class="text-danger">*</span>Seu nome</label>
+								<label class="control-label"><span class="text-danger">* </span>Seu nome</label>
 								<input type="text" name="name" class="form-control" required> 
 							</div>
 						</div>
 						<div class="col-md-6 col-xs-6">
 							<div class="form-group">
-								<label class="control-label"><span class="text-danger">*</span>E-mail para resposta</label>
+								<label class="control-label"><span class="text-danger">* </span>E-mail para resposta</label>
 								<input type="email" name="emailUser" class="form-control" required>
 								
 							</div>
@@ -30,7 +30,7 @@
 					<div class="row">
 						<div class="col-md-7s col-xs-8">
 							<div class="form-group">
-								<label class="control-label"><span class="text-danger">*</span>Assunto</label>
+								<label class="control-label"><span class="text-danger">* </span>Assunto</label>
 								<input type="text" name="title" class="form-control" required> 
 							</div>
 						</div>
@@ -46,7 +46,7 @@
 						</div>
 					</div>
 					<div class="form-group">
-						<label class="control-label"><span class="text-danger">*</span>Descrição detalhada</label>
+						<label class="control-label"><span class="text-danger">* </span>Descrição detalhada</label>
 						<textarea name="description" class="form-control" cols="6" required></textarea>
 					</div>
 					<div class="form-group">
