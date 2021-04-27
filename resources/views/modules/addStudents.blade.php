@@ -138,7 +138,7 @@
                   {{ Form::label("enrollment", "*Inscrição") }}
                   </span><img class="spinner-enrrollment" height="25" src="/images/spinner.svg" alt="spinner-enrrollment"></span>
                   {{ Form::text("enrollment", null, ["class" => "form-control", "autofocus", "required"]) }}
-                  <span class="verify-enrollment text-info"></span>
+                  <span class="verify-enrollment text-info text-danger"></span>
                 </div>
               </div>
               <div class="col-md-6 col-xs-6">

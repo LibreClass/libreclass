@@ -80,17 +80,19 @@ class UsersController extends Controller
 
 	public function postSeachEnrollment()
 	{
-		$verify = Relationship::whereEnrollment(request()->get("str"))->where('user_id', auth()->id())->first();
-			if (isset($verify) || $verify != null) {
-				return response()->json([
-					'status' => 1,
-					'message' => 'Número de inscrição ja existe.',
-				]);
-			}
+		$verify = Relationship::whereEnrollment(request()
+			->get("str"))->where('user_id', auth()->id())
+			->first();
+		if (isset($verify) || $verify != null) {
 			return response()->json([
-				'status' => 0,
-				'message' => '',
+				'status' => 1,
+				'message' => 'Número de inscrição ja existe.',
 			]);
+		}
+		return response()->json([
+			'status' => 0,
+			'message' => '',
+		]);
 	}
 
 	public function anyTeachersFriends()
@@ -601,7 +603,7 @@ class UsersController extends Controller
 
 	public function postStudent()
 	{
-		if(request()->get('student_id')) {
+		if (request()->get('student_id')) {
 			$user = User::find(decrypt(request()->get('student_id')));
 			$message = "Os dados do aluno foram atualizados com sucesso.";
 		} else {
@@ -609,17 +611,18 @@ class UsersController extends Controller
 			$user->type = "N";
 			$message = "Aluno cadastrado com sucesso.";
 		}
-		$user->enrollment = request()->get("enrollment");
 		$user->name = request()->get("name");
+		$user->enrollment = request()->get("enrollment");
 		$user->email = strlen(request()->get("email")) ? request()->get("email") : null;
 		$user->course = request()->get("course");
 		$user->gender = request()->get("gender");
 		$user->birthdate = request()->get("date-year") . "-" . request()->get("date-month") . "-" . request()->get("date-day");
 		$user->save();
 
-		if(!request()->get('student_id')) {
+		if (!request()->get('student_id')) {
 			$relationship = new Relationship;
 			$relationship->user_id = auth()->id();
+			$relationship->enrollment = request()->get("enrollment");
 			$relationship->friend_id = $user->id;
 			$relationship->status = "E";
 			$relationship->type = "1";

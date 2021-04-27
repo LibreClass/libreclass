@@ -192,6 +192,7 @@ $(".spinner-enrrollment").hide();
   $("#modalAddTeacher button[type='submit']").prop("disabled", false);
   $("#disabled-enrrolment input[type='submit']").prop("disabled", false);
   $.post("/user/search-enrollment", { str: str }, function (data) {
+    console.log(data)
     if (data.status == 1) {
       $("#modalAddTeacher button[type='submit']").prop("disabled", true);
       $("#disabled-enrrolment input[type='submit']").prop("disabled", true);
