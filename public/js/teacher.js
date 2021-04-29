@@ -60,12 +60,10 @@ $(function () {
   $(".edit-register-teacher").click(function () {
     var modalTarget = $("#modalEditRegisterTeacher");
     var teacher = $(this).closest(".data").attr("data");
-    //alert(teacher);
     $.getJSON("/user/infouser", {
       user: teacher,
     })
       .done(function (data) {
-        console.log(data);
         $(modalTarget).find("input[name='teacher']").val(teacher);
         $(modalTarget).find("input[name='enrollment']").val(data.enrollment);
         modalTarget.modal();
@@ -187,20 +185,36 @@ $(".spinner-enrrollment").hide();
   }.bind(this)
   );
 
+  $(".spinner-enrrollment").hide();
+  $("#modalEditRegisterTeacher input[name='enrollment']").keyup(function () {
+    $(".spinner-enrrollment").show();
+    clearTimeout(timeout);
+    timeout = setTimeout(
+      function () {
+        searchEnrrolment($("#modalEditRegisterTeacher input[name='enrollment']").val());
+      }.bind(this),
+      1000
+    );
+  }.bind(this)
+  );
+
   function searchEnrrolment(str) {
   $(".spinner-enrrollment").hide();
   $("#modalAddTeacher button[type='submit']").prop("disabled", false);
   $("#disabled-enrrolment input[type='submit']").prop("disabled", false);
+  $("#formEditRegisterTeacher button[type='submit']").prop("disabled", false);
   $.post("/user/search-enrollment", { str: str }, function (data) {
-    console.log(data)
+   
     if (data.status == 1) {
       $("#modalAddTeacher button[type='submit']").prop("disabled", true);
+      $("#formEditRegisterTeacher button[type='submit']").prop("disabled", true);
       $("#disabled-enrrolment input[type='submit']").prop("disabled", true);
       $(".verify-enrollment")
         .html("<b>" + data.message + "</b>")
         .show();
     } else if (data.status == 0) {
       $("#modalAddTeacher button[type='submit']").prop("disabled", false);
+      $("#formEditRegisterTeacher button[type='submit']").prop("disabled", false);
       $("#disabled-enrrolment input[type='submit']").prop("disabled", false);
       $(".verify-enrollment")
         .html("<b>" + data.message + "</b>")

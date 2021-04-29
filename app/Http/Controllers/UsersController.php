@@ -80,9 +80,7 @@ class UsersController extends Controller
 
 	public function postSeachEnrollment()
 	{
-		$verify = Relationship::whereEnrollment(request()
-			->get("str"))->where('user_id', auth()->id())
-			->first();
+		$verify = Relationship::whereEnrollment(request()->get("str"))->where('user_id', auth()->id())->first();
 		if (isset($verify) || $verify != null) {
 			return response()->json([
 				'status' => 1,
@@ -245,7 +243,7 @@ class UsersController extends Controller
 	{
 		$user = User::find(decrypt(request()->get("teacher")));
 		Relationship::where('user_id', auth()->id())->where('friend_id', $user->id)->update(['enrollment' => request()->get('enrollment')]);
-		return redirect("/user/teacher")->with("success", "Matrícula editada com sucesso!");
+		return redirect("/user/teacher")->with("success", "Professor editado com sucesso!");
 	}
 
 	public function getProfileStudent()
