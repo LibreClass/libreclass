@@ -1,22 +1,24 @@
 <?php namespace App;
 
 use App\Attend;
-use Illuminate\Auth\Authenticatable;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 use Jenssegers\Mongodb\Eloquent\SoftDeletes;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-class User extends Model implements
+class User extends Authenticatable implements
 	AuthenticatableContract,
 	AuthorizableContract,
-	CanResetPasswordContract
+	CanResetPasswordContract,
+	JWTSubject
 {
-	use SoftDeletes;
-	use Authenticatable, Authorizable, CanResetPassword;
+	use SoftDeletes, Authorizable, CanResetPassword, HasFactory, Notifiable;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -122,4 +124,14 @@ class User extends Model implements
 	{
 		return $this->hasMany(Attend::class);
 	}
+
+	public function getJWTIdentifier()
+	{
+        return $this->getKey();
+    }
+
+	public function getJWTCustomClaims()
+    {
+        return [];
+    }
 }
