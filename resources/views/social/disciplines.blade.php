@@ -60,7 +60,7 @@
               <div class="form-group">
                 {{ Form::label("course", "Curso", ["class" => "control-label"]) }}
                 <span class="help-block text-muted">Selecione o curso para visualizar as disciplinas.</span>
-                {{ Form::select("course", $listCourses, null, ["class" => "form-control"]) }}
+                {{ Form::select("course", $listCourses, $course_id, ["class" => "form-control"]) }}
               </div>
             </form>
           </div>

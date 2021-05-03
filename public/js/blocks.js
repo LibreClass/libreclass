@@ -155,3 +155,4 @@ $(function() {
 
    $('.dropdown-toggle').dropdown();
 });
+

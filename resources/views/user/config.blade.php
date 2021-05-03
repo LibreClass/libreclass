@@ -2,15 +2,21 @@
 
 @section('css')
 @parent
-  <link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
-  <link media="all" type="text/css" rel="stylesheet" href="/css/config.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/config.css">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+  integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+  crossorigin=""/>
 @stop
 
 @section('js')
 @parent
-  <script src="/js/config.js"></script>
-  <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBVmdz-iIJpd-TisFvAg4qIU9WVqRVvVbk&v=3.exp&libraries=places"></script>
-  <script src="/js/validations/usersConfig.js"></script>
+<script src="/js/config.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBVmdz-iIJpd-TisFvAg4qIU9WVqRVvVbk&v=3.exp&libraries=places"></script>
+<script src="/js/validations/usersConfig.js"></script>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+  integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+  crossorigin=""></script>
 @stop
 
 @section('body')
@@ -23,12 +29,12 @@
     <div id="block-config" class="block">
 
       @if (session("message"))
-        <div class="alert alert-success" role="alert">{{ session("message") }}</div>
+      <div class="alert alert-success" role="alert">{{ session("message") }}</div>
       @endif
 
       <div class="row">
         <div class="col-md-6 col-xs-6">
-          <h4 >CONFIGURAÇÕES</h4>
+          <h4>CONFIGURAÇÕES</h4>
         </div>
         <div class="col-md-6 col-xs-6 alternate visible-none">
           <button id="btn-back" class="btn btn-default pull-right">Voltar</button>
@@ -44,9 +50,9 @@
               <td>Foto</td>
               <td>
                 @if (strlen($user->photo))
-                  {{ HTML::image($user->photo, null, ["class" => "user-photo-2x"]) }}
+                {{ HTML::image($user->photo, null, ["class" => "user-photo-2x"]) }}
                 @else
-                  <span class='text-info'>Inserir Foto</span>
+                <span class='text-info'>Inserir Foto</span>
                 @endif
               </td>
               <td></td>
@@ -58,7 +64,7 @@
                 <div class="form-group" style="margin-bottom: 5px;">
                   {{ Form::file("photo", ["class" => "form-control photo-button"]) }}
                 </div>
-                  <button class="btn btn-primary">Atualizar</button>
+                <button class="btn btn-primary">Atualizar</button>
                 </form>
               </td>
             </tr>
@@ -75,7 +81,7 @@
                 <div class="form-group">
                   {{ Form::text("name", $user->name, ["class" => "form-control"], "required") }}
                 </div>
-                  <button class="btn btn-primary">Atualizar</button>
+                <button class="btn btn-primary">Atualizar</button>
                 </form>
               </td>
             </tr>
@@ -100,31 +106,31 @@
             </tr> -->
 
             @if( $user->cadastre == "N" )
-              <tr class="block-config-item">
-                <td>Senha</td>
-                <td class="text-info">*******</td>
-                <td></td>
-              </tr>
+            <tr class="block-config-item">
+              <td>Senha</td>
+              <td class="text-info">*******</td>
+              <td></td>
+            </tr>
 
-              <tr class="visible-none">
-                <td colspan="3">
-                  {{ Form::open(["url" => url("config/password"), "id" => "passwordUpdate"]) }}
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        {{ Form::label("password", "Senha Atual") }}
-                        {{ Form::password("password", ["class" => "form-control", "id" => "password"]) }}
-                      </div>
-                      <div class="form-group">
-                        {{ Form::label("newpassword", "Nova Senha") }}
-                        {{ Form::password("newpassword", ["class" => "form-control"]) }}
-                      </div>
-                        <button class="btn btn-primary">Atualizar</button>
+            <tr class="visible-none">
+              <td colspan="3">
+                {{ Form::open(["url" => url("config/password"), "id" => "passwordUpdate"]) }}
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      {{ Form::label("password", "Senha Atual") }}
+                      {{ Form::password("password", ["class" => "form-control", "id" => "password"]) }}
                     </div>
+                    <div class="form-group">
+                      {{ Form::label("newpassword", "Nova Senha") }}
+                      {{ Form::password("newpassword", ["class" => "form-control"]) }}
+                    </div>
+                    <button class="btn btn-primary">Atualizar</button>
                   </div>
-                  </form>
-                </td>
-              </tr>
+                </div>
+                </form>
+              </td>
+            </tr>
             @endif
 
             @if($user->type == "I")
@@ -148,12 +154,13 @@
                 </form>
               </td>
             </tr>
-          @endif
+            @endif
 
-          @if($user->type != "I")
+            @if($user->type != "I")
             <tr class="block-config-item">
               <td>Data de Nascimento</td>
-              <td class="text-info">{{ $user->birthdate ? date("d / m / Y", strtotime($user->birthdate)) : "Inserir" }}</td>
+              <td class="text-info">{{ $user->birthdate ? date("d / m / Y", strtotime($user->birthdate)) : "Inserir" }}
+              </td>
               <td></td>
             </tr>
 
@@ -181,18 +188,19 @@
 
             <tr class="block-config-item">
               <td>Sexo</td>
-              <td class="text-info">{{$user->gender == "M" ? "Masculino" : ($user->gender == "F" ? "Feminino" : "Inserir")}}</td>
+              <td class="text-info">
+                {{$user->gender == "M" ? "Masculino" : ($user->gender == "F" ? "Feminino" : "Inserir")}}</td>
               <td></td>
             </tr>
 
-             <tr class="visible-none">
+            <tr class="visible-none">
               <td colspan="3">
                 {{ Form::open(["url" => url("config/commonselect")]) }}
                 <div class="row">
                   <div class="col-md-6">
-                      <div class="form-group">
-                        {{ Form::select("gender", $select["gender"], $user->gender, ["class" => "form-control"]) }}
-                      </div>
+                    <div class="form-group">
+                      {{ Form::select("gender", $select["gender"], $user->gender, ["class" => "form-control"]) }}
+                    </div>
                     <button class="btn btn-primary">Atualizar</button>
                   </div>
                 </div>
@@ -211,9 +219,9 @@
                 {{ Form::open(["url" => url("config/commonselect")]) }}
                 <div class="row">
                   <div class="col-md-6">
-                      <div class="form-group">
-                        {{ Form::select("formation", $select["formation"], $user->formation, ["class" => "form-control"]) }}
-                      </div>
+                    <div class="form-group">
+                      {{ Form::select("formation", $select["formation"], $user->formation, ["class" => "form-control"]) }}
+                    </div>
                     <button class="btn btn-primary">Atualizar</button>
                   </div>
                 </div>
@@ -227,14 +235,14 @@
               <td></td>
             </tr>
 
-             <tr class="visible-none">
+            <tr class="visible-none">
               <td colspan="3">
                 {{ Form::open(["url" => url("config/common"), "id" => "courseUpdate"]) }}
                 <div class="row">
                   <div class="col-md-6">
-                      <div class="form-group">
-                        {{ Form::text("course", $user->course, ["class" => "form-control", "required"]) }}
-                      </div>
+                    <div class="form-group">
+                      {{ Form::text("course", $user->course, ["class" => "form-control", "required"]) }}
+                    </div>
                     <button class="btn btn-primary">Atualizar</button>
                   </div>
                 </div>
@@ -248,7 +256,7 @@
               <td></td>
             </tr>
 
-             <tr class="visible-none">
+            <tr class="visible-none">
               <td colspan="3">
                 {{ Form::open(["url" => url("config/common"), "id" => "institutionUpdate"]) }}
                 <div class="row">
@@ -262,7 +270,7 @@
                 </form>
               </td>
             </tr>
-          @endif
+            @endif
 
             <!-- <tr class="block-config-item"> -->
             <tr>
@@ -286,10 +294,11 @@
                 {{-- Form::close() --}}
               </td>
             </tr> -->
-          @if($user->type == "I")
+
+            @if($user->type == "I")
             <tr class="block-config-item">
               <td>Endereço</td>
-              <td class="text-info" id="institution-description">{{ $user->street ?? "Inserir" }}</td>
+              <td class="text-info" id="institution-address">{{ $user->street ?? "Inserir" }}</td>
               <td></td>
             </tr>
 
@@ -307,31 +316,23 @@
                 </form>
               </td>
             </tr>
-          @endif
+            @endif
 
             <tr id="block-map" class="block-config-item">
               <td>Localização</td>
-              <td class="text-info">{{ $user->city_id ? $user->printLocation() : "" }}</td>
-              <td></td>
+              <td colspan="2" class="text-info">{{ $user->city_id ? $user->printLocation() : "" }}</td>
             </tr>
-
+            
             <tr class="visible-none">
               <td colspan="3">
                 <input id="pac-input" class="controls form-control" type="text" placeholder="Informe sua cidade">
-                <div id="map-canvas"></div>
+                <div id="map"></div>
               </td>
             </tr>
-
-
           </table>
         </div>
       </div>
     </div>
-
-
-
   </div>
 </div>
-
-
 @stop

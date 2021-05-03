@@ -25,7 +25,7 @@
 </div>
 
 <div class="block">
-  <div class="table-responsive">
+  <div class="table-responsive scroll">
     <table class="table table-hover table-bordered">
       <thead>
         <tr style="height: 100px;">
@@ -44,7 +44,7 @@
           @endfor
         </tr>
       </thead>
-      <tbody>
+      <tbody class="scroll">
       @foreach( $students as $student )
         <tr>
           <td>{{ $student->name }}</td>

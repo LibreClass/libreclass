@@ -7,7 +7,11 @@
 		<style type="text/css" media="screen">
 			.vertical {
 				vertical-align: middle !important;
-				height: 120px;
+				height: 40px;
+			}
+			.lesson{
+				height:11rem;
+
 			}
 			.vertical-align {
 				vertical-align: middle !important;
@@ -65,14 +69,20 @@
 
 		<div class="small">
 			<table class="table table-bordered table-condensed">
+
 				<tr>
 					<th class="text-center vertical"><b>N#</b></th>
+
 					<th class="text-center vertical"><b>Aluno(a)</b></th>
+
 					@foreach ($data['lessons'] as $lesson)
-						<th class="rotate vertical"><div>{{ $lesson }}</div></th>
+						<th class="rotate lesson"><div>{{ $lesson }}</div></th>
 					@endforeach
+
 					<th class="rotate vertical"><div>Faltas</div></th>
+
 				</tr>
+				
 				@foreach ($data['students'] as $student)
 					<tr>
 						<td class="text-center">{{ $student->number }}</td>

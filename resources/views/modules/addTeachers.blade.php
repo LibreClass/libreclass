@@ -3,6 +3,7 @@
 @section('css')
 @parent
 <link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/datatables.min.css">
 @stop
 
 @section('js')
@@ -10,6 +11,7 @@
 <script src="/js/blocks.js"></script>
 <script src="/js/teacher.js"></script>
 <script src="/js/validations/modulesAddTeachers.js"></script>
+<script src="/js/datatables.js"></script>
 @stop
 
 @section('body')
@@ -51,11 +53,11 @@
           @if(count($relationships) == 0)
              <h4 class="text-center">Não há professores cadastrados</h4>
           @else
-            <table id="list-teacher" class="table table-hover table-condensed">
+            <table id="list-teacher" class="table table-hover table-condensed order">
                 <thead>
                   <tr>
-                    <th>Inscrição</th>
-                    <th>Nome</th>
+                    <th class="arrow">Inscrição</th>
+                    <th class="arrow">Nome</th>
                     <th></th>
                   </tr>
                 </thead>

@@ -1,4 +1,6 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use StdClass;
 use Mail;
@@ -76,6 +78,21 @@ class UsersController extends Controller
 		}
 	}
 
+	public function postSeachEnrollment()
+	{
+		$verify = Relationship::whereEnrollment(request()->get("str"))->where('user_id', auth()->id())->first();
+		if (isset($verify) || $verify != null) {
+			return response()->json([
+				'status' => 1,
+				'message' => 'Número de inscrição ja existe.',
+			]);
+		}
+		return response()->json([
+			'status' => 0,
+			'message' => '',
+		]);
+	}
+
 	public function anyTeachersFriends()
 	{
 		$relationships = Relationship::whereuserId(auth()->id())
@@ -113,7 +130,8 @@ class UsersController extends Controller
 			$listCourses[$course->name] = $course->name;
 		}
 
-		$relationships = DB::select("SELECT users.id, users.name, relationships.enrollment, users.type
+		$relationships = DB::select(
+			"SELECT users.id, users.name, relationships.enrollment, users.type
 			from users, relationships
 			where relationships.user_id=?
 				and relationships.type='2'
@@ -121,7 +139,8 @@ class UsersController extends Controller
 				and relationships.status='e'
 				and (users.name like ? or relationships.enrollment=?)
 			order by name limit ? offset ?",
-			[auth()->id(), "%$search%", $search, $block, $current * $block]);
+			[auth()->id(), "%$search%", $search, $block, $current * $block]
+		);
 
 		// $enrollment = preg_replace('/\D/', '', $search);
 		// if ($enrollment) {
@@ -201,8 +220,8 @@ class UsersController extends Controller
 			$user->gender = request()->get("gender");
 			if (request()->has("date-year")) {
 				$user->birthdate = request()->get("date-year") . "-"
-				. request()->get("date-month") . "-"
-				. request()->get("date-day");
+					. request()->get("date-month") . "-"
+					. request()->get("date-day");
 			}
 			$user->save();
 
@@ -224,7 +243,7 @@ class UsersController extends Controller
 	{
 		$user = User::find(decrypt(request()->get("teacher")));
 		Relationship::where('user_id', auth()->id())->where('friend_id', $user->id)->update(['enrollment' => request()->get('enrollment')]);
-		return redirect("/user/teacher")->with("success", "Matrícula editada com sucesso!");
+		return redirect("/user/teacher")->with("success", "Professor editado com sucesso!");
 	}
 
 	public function getProfileStudent()
@@ -289,22 +308,23 @@ class UsersController extends Controller
 		$student = User::whereId(decrypt(request()->get('student_id')))
 			->first(['id', 'name', 'email', 'birthdate', 'enrollment', 'gender', 'course']);
 
-		if(!$student) {
-			return ['status'=>0, 'message'=> 'Não encontrado'];
+		if (!$student) {
+			return ['status' => 0, 'message' => 'Não encontrado'];
 		}
 
 		$student = (object) $student->toArray();
 		$student->id = encrypt($student->id);
 		return [
 			'status' => 1,
-			'student'=> $student,
+			'student' => $student,
 		];
 	}
 
 	public function anyReporterStudentClass()
 	{
 		$student = decrypt(request()->get("student"));
-		$disciplines = DB::select("SELECT
+		$disciplines = DB::select(
+			"SELECT
 				courses.id as course,
 				disciplines.name,
 				offers.id as offer,
@@ -322,7 +342,8 @@ class UsersController extends Controller
 				units.id=attends.unit_id and
 				attends.user_id=?
 			",
-			[auth()->id(), request()->get("class"), $student]);
+			[auth()->id(), request()->get("class"), $student]
+		);
 
 		$disciplines = collect($disciplines)->unique('offer')->values()->all();
 
@@ -356,7 +377,6 @@ class UsersController extends Controller
 				if ($discipline->average < $course->average and (!$discipline->final or $discipline->final->value < $course->average_final)) {
 					$discipline->aproved = "Reprovado";
 				}
-
 			}
 		}
 		return view("institution.reportStudentDetail", ["disciplines" => $disciplines]);
@@ -451,25 +471,33 @@ class UsersController extends Controller
 			$profile->enrollment = $relationship->enrollment;
 			$profile->cities = $profile->city()->get();
 			switch ($profile->formation) {
-				case '0':$profile->formation = "Não quero informar";
+				case '0':
+					$profile->formation = "Não quero informar";
 					break;
-				case '1':$profile->formation = "Ensino Fundamental";
+				case '1':
+					$profile->formation = "Ensino Fundamental";
 					break;
-				case '2':$profile->formation = "Ensino Médio";
+				case '2':
+					$profile->formation = "Ensino Médio";
 					break;
-				case '3':$profile->formation = "Ensino Superior Incompleto";
+				case '3':
+					$profile->formation = "Ensino Superior Incompleto";
 					break;
-				case '4':$profile->formation = "Ensino Superior Completo";
+				case '4':
+					$profile->formation = "Ensino Superior Completo";
 					break;
-				case '5':$profile->formation = "Pós-Graduado";
+				case '5':
+					$profile->formation = "Pós-Graduado";
 					break;
-				case '6':$profile->formation = "Mestre";
+				case '6':
+					$profile->formation = "Mestre";
 					break;
-				case '7':$profile->formation = "Doutor";
+				case '7':
+					$profile->formation = "Doutor";
 					break;
 			}
 			return view("modules.profileteacher", [
-				"user" => $user, 
+				"user" => $user,
 				"profile" => $profile,
 				"courses" => Course::where('institution_id', auth()->id())->get()
 			]);
@@ -491,20 +519,20 @@ class UsersController extends Controller
 			if (User::whereEmail(request()->get("email"))->first()) {
 				return redirect()->back()->with("error", "O email " . request()->get("email") . " já está cadastrado.");
 			}
-				$guest->email = request()->get("email");
-				$password = substr(md5(microtime()), 1, rand(4, 7));
-				$guest->password = Hash::make($password);
-				Mail::send('email.invite', [
-					"institution" => $user->name,
-					"name" => $guest->name,
-					"email" => $guest->email,
-					"password" => $password,
-				], function ($message) use ($guest) {
-					$message->to(request()->get("email"), $guest->name)
-						->subject("Seja bem-vindo");
-				});
-				$guest->save();
-				return redirect()->back()->with("success", "Operação realizada com sucesso. Os dados de acesso de $guest->name foi enviado para o email $guest->email.");
+			$guest->email = request()->get("email");
+			$password = substr(md5(microtime()), 1, rand(4, 7));
+			$guest->password = Hash::make($password);
+			Mail::send('email.invite', [
+				"institution" => $user->name,
+				"name" => $guest->name,
+				"email" => $guest->email,
+				"password" => $password,
+			], function ($message) use ($guest) {
+				$message->to(request()->get("email"), $guest->name)
+					->subject("Seja bem-vindo");
+			});
+			$guest->save();
+			return redirect()->back()->with("success", "Operação realizada com sucesso. Os dados de acesso de $guest->name foi enviado para o email $guest->email.");
 		} else {
 			return redirect()->back()->with("error", "Operação inválida");
 		}
@@ -534,7 +562,7 @@ class UsersController extends Controller
 
 		$users = User::whereIn('id', $user_ids);
 		if ($search) {
-			$users = $users->where(function($query) use ($search) {
+			$users = $users->where(function ($query) use ($search) {
 				$query->where('name', 'like', "%$search%")->orWhere('enrollment', $search);
 			});
 		}
@@ -543,7 +571,7 @@ class UsersController extends Controller
 			->take($block)
 			->get(['id', 'name', 'enrollment']);
 
-		$length = User::whereIn('id', $user_ids)->where(function($query) use ($search) {
+		$length = User::whereIn('id', $user_ids)->where(function ($query) use ($search) {
 			$query->where('name', 'like', "%$search%")->orWhere('enrollment', $search);
 		})->count();
 
@@ -560,7 +588,7 @@ class UsersController extends Controller
 	public function anyFindUser($search)
 	{
 		$users = User::whereIn('type', ['P', 'A'])
-			->where(function($query) use ($search) {
+			->where(function ($query) use ($search) {
 				$query->where('name', 'like', "%$search%")
 					->orWhere('email', $search);
 			})
@@ -573,7 +601,7 @@ class UsersController extends Controller
 
 	public function postStudent()
 	{
-		if(request()->get('student_id')) {
+		if (request()->get('student_id')) {
 			$user = User::find(decrypt(request()->get('student_id')));
 			$message = "Os dados do aluno foram atualizados com sucesso.";
 		} else {
@@ -581,17 +609,18 @@ class UsersController extends Controller
 			$user->type = "N";
 			$message = "Aluno cadastrado com sucesso.";
 		}
-		$user->enrollment = request()->get("enrollment");
 		$user->name = request()->get("name");
+		$user->enrollment = request()->get("enrollment");
 		$user->email = strlen(request()->get("email")) ? request()->get("email") : null;
 		$user->course = request()->get("course");
 		$user->gender = request()->get("gender");
 		$user->birthdate = request()->get("date-year") . "-" . request()->get("date-month") . "-" . request()->get("date-day");
 		$user->save();
 
-		if(!request()->get('student_id')) {
+		if (!request()->get('student_id')) {
 			$relationship = new Relationship;
 			$relationship->user_id = auth()->id();
+			$relationship->enrollment = request()->get("enrollment");
 			$relationship->friend_id = $user->id;
 			$relationship->status = "E";
 			$relationship->type = "1";
@@ -600,7 +629,6 @@ class UsersController extends Controller
 
 		return redirect("/user/student")->with("success", $message);
 	}
-
 	public function postUnlink()
 	{
 		$idTeacher = decrypt(request()->get("input-trash"));
@@ -683,7 +711,8 @@ class UsersController extends Controller
 
 		$data['student']['enrollment'] = $e['enrollment'];
 
-		$disciplines = DB::select("
+		$disciplines = DB::select(
+			"
 			SELECT DISTINCT
 				offers.id as offer,
 				courses.id as course,
@@ -743,8 +772,7 @@ class UsersController extends Controller
 				$average = number_format($unit->getAverage($data['student']['id'])[0], 0);
 				if ($unit->calculation != 'P') {
 					$data['disciplines'][$key][$unit->value]['average'] = ($average > 10) ? number_format($average, 0) : number_format($average, 2);
-				}
-				else {
+				} else {
 
 					$pareceres->disciplines[$key]->units[$key2]->pareceres = [];
 					//Obtém os pareceres
@@ -755,7 +783,7 @@ class UsersController extends Controller
 						$parecer->exam = Exam::where('id', $parecer->exam_id)->first(['title', 'type', 'date']);
 						$parecer->exam->type = $this->typesExams($parecer->exam->type);
 					}
-					if(!empty($pareceresTmp)) {
+					if (!empty($pareceresTmp)) {
 						$pareceres->disciplines[$key]->hasParecer = true;
 					}
 

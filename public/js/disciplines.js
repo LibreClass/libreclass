@@ -3,21 +3,21 @@ $(function($){
   $("#new-block").click(function(){
     $("#title-discipline").text("Nova Disciplina");
     $("#new-discipline input[name='discipline']").val("");
-    $("#new-discipline input[name='course']").val("");
+    $.get("/courses/selected", function(data) {
+      if (data.status) {
+        $("#new-discipline select[name='course']").val(data.value);
+      }
+    })
   });
 
   $("#select-course select").change(function() {
-
-    $("#list-disciplines").load("/disciplines/list", {
-      "course": $(this).val()
-    }, function(){
+    $.post("/courses/selected", {course_id: $(this).val()});
+    $("#new-discipline select[name='course']").val($(this).val());
+    $("#list-disciplines").load("/disciplines/list", {"course": $(this).val()}, function(){
       $(".trash").click(trash);
-
       $(".discipline-edit").click(function(){
-
         var discipline = $(this).closest(".data").attr("key");
         $("#formEditDiscipline input[name='discipline']").val(discipline);
-
         $.getJSON("/disciplines/discipline", {
           "discipline": discipline
         }, function(data){
@@ -28,13 +28,13 @@ $(function($){
           alert('Erro ao se conectar ao servidor');
         });
       });
-
     }).error(function() {
       alert('Erro ao se conectar ao servidor');
     });
   }).change();
 
   $("#new-discipline select[name='course']").change(function(){
+    $.post("/courses/selected", {course_id: $(this).val()});
     $.get("/disciplines/list-periods", {
       "course": $(this).val()
     }, function(data) {

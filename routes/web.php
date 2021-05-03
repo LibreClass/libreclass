@@ -39,6 +39,8 @@
     Route::post('/courses/delete', [CoursesController::class, 'delete']);
     Route::post('/courses/period', [CoursesController::class, 'period']);
     Route::post('/courses/editperiod', [CoursesController::class, 'editperiod']);
+    Route::post('/courses/selected', [CoursesController::class, 'courseSelectedSave']);
+    Route::get('/courses/selected', [CoursesController::class, 'courseSelected']);
 
     /* period */
     Route::get('/periods', [PeriodsController::class, 'index']);
@@ -69,6 +71,7 @@
     Route::get('/classes', [ClassesController::class, 'index']);
     Route::post('/classes/classes-by-year', [ClassesController::class, 'classesByYear']);
     Route::post('/classes/listdisciplines', [ClassesController::class, 'listdisciplines']);
+    Route::post('/classes/countDisciplines', [ClassesController::class, 'countDisciplines']);
     Route::get('/classes/panel', [ClassesController::class, 'getPanel']);
     Route::post('/classes/new', [ClassesController::class, 'postNew']);
     Route::get('/classes/info', [ClassesController::class, 'getInfo']);
@@ -93,6 +96,7 @@
     Route::post('/config/password', [ConfigController::class, 'postPassword']);
     Route::post('/config/location', [ConfigController::class, 'postLocation']);
     Route::post('/config/street', [ConfigController::class, 'postStreet']);
+    Route::put('/config/street', [ConfigController::class, 'putStreet']);
     Route::post('config/uee', [ConfigController::class, 'postUee']);
 
     /* users */
@@ -116,6 +120,7 @@
     Route::post('/user/invite', [UsersController::class, 'postInvite']);
     Route::get('/user/infouser', [UsersController::class, 'getInfouser']);
     Route::any('/user/link/{type}/{user}', [UsersController::class, 'anyLink']);
+    Route::post('/user/search-enrollment', [UsersController::class, 'postSeachEnrollment']);
 
     /* lesson */
     Route::get('/lessons', [LessonsController::class, 'getIndex']);

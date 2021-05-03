@@ -2,15 +2,17 @@
 
 @section('css')
 @parent
-  <link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/blocks.css">
+<link media="all" type="text/css" rel="stylesheet" href="/css/datatables.min.css">
 @stop
 
 @section('js')
 @parent
-  <script src="/js/blocks.js"></script>
-  <script src="/js/student.js"></script>
-  <script src="/js/user.js"></script>
-  <script src="/js/validations/modulesAddStudents.js"></script>
+<script src="/js/blocks.js"></script>
+<script src="/js/student.js"></script>
+<script src="/js/user.js"></script>
+<script src="/js/validations/modulesAddStudents.js"></script>
+<script src="/js/datatables.js"></script>
 @stop
 
 @section('body')
@@ -49,68 +51,64 @@
           </div>
           <div class="col-md-12  table-responsive">
             @if(count($relationships) == 0)
-              <h4 class="text-center">Não há alunos cadastrados</h4>
+            <h4 class="text-center">Não há alunos cadastrados</h4>
             @else
-              <table id="list-teacher" class="table table-hover table-condensed">
-                <thead>
-                  <tr>
-                    <th>Inscrição</th>
-                    <th>Nome</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
+            <table id="list-teacher" class="table table-hover table-condensed order">
+              <thead>
+                <tr>
+                  <th class="arrow">Inscrição </th>
+                  <th class="arrow">Nome</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
                 @foreach($relationships as $relationship)
-                  <tr data-relationship-id="{{encrypt($relationship->id)}}" class="student-item">
-                    <td><a href='{{ URL::to("user/profile-student?u=".encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
-                    <td><a href='{{ URL::to("user/profile-student?u=".encrypt($relationship->id)) }}'>{{ $relationship->name }}</a></td>
-										<td class="text-right">
-                      <div class="col-md-12 text-right">
-                        <i class="fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
-												<ul class="dropdown-menu data" role="menu">
-                        	<li><a class="new-student" edit title="Editar aluno"><i class="fa fa-edit text-info"></i> Editar</a></li>
-                        </ul>
+                <tr data-relationship-id="{{encrypt($relationship->id)}}" class="student-item">
+                  <td><a href='{{ URL::to("user/profile-student?u=".encrypt($relationship->id)) }}'>{{$relationship->enrollment }}</a></td>
+                  <td><a href='{{ URL::to("user/profile-student?u=".encrypt($relationship->id)) }}'>{{ $relationship->name }}</a></td>
+                  <td class="text-right">
+                    <div class="col-md-12 text-right">
+                      <i class="fa fa-gears icon-default click" data-toggle="dropdown" aria-expanded="false"></i>
+                      <ul class="dropdown-menu data" role="menu">
+                        <li><a class="new-student" edit title="Editar aluno"><i class="fa fa-edit text-info"></i> Editar</a></li>
+                      </ul>
 
-											</div>
-                      <!--<i class="fa fa-pencil icon-default"></i> <i class="fa fa-trash icon-default"></i>-->
-                    </td>
-                  </tr>
+                    </div>
+                    <!--<i class="fa fa-pencil icon-default"></i> <i class="fa fa-trash icon-default"></i>-->
+                  </td>
+                </tr>
                 @endforeach
 
-                </tbody>
-              </table>
+              </tbody>
+            </table>
             <nav class="text-center">
               <ul id="pagination" class="pagination pagination-sm">
                 @php
-                  $ini = $current < 5 ? 0 : $current-5;
-                  $fim = $current+6 > $length/$block ? $length/$block : $current+6;
-                @endphp
+                $ini = $current < 5 ? 0 : $current-5; $fim=$current+6> $length/$block ? $length/$block : $current+6;
+                  @endphp
 
 
-                @if( $ini > 0 )
+                  @if( $ini > 0 )
                   <li><a href="0">1</a></li>
-                @endif
-                @if( $ini > 1 )
+                  @endif
+                  @if( $ini > 1 )
                   <li><a href="{{ (int)(($ini)/2)+($ini)%2 }}">...</a></li>
-                @endif
+                  @endif
 
-                @for ( $i = $ini ; $i < $fim ; $i++ )
-                  <li {{ ($i == $current ? "class=active" : "") }} >
+                  @for ( $i = $ini ; $i < $fim ; $i++ ) <li {{ ($i == $current ? "class=active" : "") }}>
                     <a href="{{ $i }}">
                       {{ $i+1 }}
                       @if ($i == $current)
-                        <span class='sr-only'>(current)</span>
+                      <span class='sr-only'>(current)</span>
                       @endif
                     </a>
-                  </li>
-                @endfor
+                    </li>
+                    @endfor
 
-                @if( $fim <= (int)($length/$block-1) )
-                  <li><a href="{{ (int)(($length/$block-$fim)/2)+$fim }}">...</a></li>
-                @endif
-                @if( $fim <= (int)($length/$block) )
-                  <li><a href="{{ (int)($length/$block) }}">{{ (int)($length/$block)+1 }}</a></li>
-                @endif
+                    @if( $fim <= (int)($length/$block-1) ) <li><a href="{{ (int)(($length/$block-$fim)/2)+$fim }}">...</a></li>
+                      @endif
+                      @if( $fim <= (int)($length/$block) ) <li><a href="{{ (int)($length/$block) }}">{{ (int)($length/$block)+1 }}</a></li>
+                        @endif
               </ul>
             </nav>
             @endif
@@ -131,14 +129,16 @@
       <div class="row">
         <div class="col-md-12">
           <div class="block-new-student" hidden>
-          {{ Form::open(["id" => "new-student"]) }}
+            {{ Form::open(["id" => "new-student"]) }}
             @csrf
             {{ Form::text("student_id", null, ['class' => "hidden"]) }}
             <div class="row">
               <div class="col-md-4">
-                <div class="form-group">
+                <div class="form-group" id="search">
                   {{ Form::label("enrollment", "*Inscrição") }}
+                  </span><img class="spinner-enrrollment" height="25" src="/images/spinner.svg" alt="spinner-enrrollment"></span>
                   {{ Form::text("enrollment", null, ["class" => "form-control", "autofocus", "required"]) }}
+                  <span class="verify-enrollment text-info text-danger"></span>
                 </div>
               </div>
               <div class="col-md-6 col-xs-6">
@@ -152,62 +152,61 @@
                 </div>
               </div>
             </div>
-
             <div class="form-group">
               {{ Form::label("name", "*Nome") }}
               {{ Form::text("name", null, ["class" => "form-control", "required"]) }}
             </div>
-						<div class="row">
-							<div class="col-xs-12 col-sm-4">
-								<div class="form-group">
-									{{ Form::label("gender", "*Sexo") }}
-									{{ Form::select("gender", ['M'=> 'Masculino', 'F'=> 'Feminino'], null, ["class" => "form-control", 'required']) }}
-								</div>
-							</div>
-							<div class="col-xs-12 col-sm-8">
-								<div class="form-group">
-									{{ Form::label("email", "Email") }}
-									{{ Form::email("email", null, ["class" => "form-control"]) }}
-								</div>
-							</div>
-						</div>
+            <div class="row">
+              <div class="col-xs-12 col-sm-4">
+                <div class="form-group">
+                  {{ Form::label("gender", "*Sexo") }}
+                  {{ Form::select("gender", ['M'=> 'Masculino', 'F'=> 'Feminino'], null, ["class" => "form-control", 'required']) }}
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-8">
+                <div class="form-group">
+                  {{ Form::label("email", "Email") }}
+                  {{ Form::email("email", null, ["class" => "form-control"]) }}
+                </div>
+              </div>
+            </div>
             <div class="form-group">
               {{ Form::label("course", "Curso") }}
               {{ Form::select("course", $courses, null, ["class" => "form-control"]) }}
             </div>
 
-          	<div class="row">
-          		<div class="col-xs-6">
-            {{ Form::submit("Confirmar", ["class" => "btn btn-primary"]) }}
-							</div>
-							<!-- <div class="col-xs-6 text-right">
+            <div class="row">
+              <div class="col-xs-6" id="disabled-enrrolment"> 
+                {{ Form::submit("Confirmar", ["class" => "btn btn-primary"]) }}
+              </div>
+              <!-- <div class="col-xs-6 text-right">
 								<a href="" class="add-censo">Adicionar informações do censo escolar</a>
 							</div> -->
-						</div>
-          </form>
+            </div>
+            </form>
 
           </div>
 
           <div class="block-search-student">
             {{ Form::open(["id" => "search-student"]) }}
-              {{ Form::label("search", "*Nome ou email") }}
-              <span class="help-block">Localize um aluno já existente na base de dados do Libreclass</span>
-              <div class="row">
-                <div class="col-md-10">
-                  <div class="form-group">
-                    {{ Form::text("search", null, ["class" => "form-control", "required", "autocomplete" => "off"]) }}
-                  </div>
-                </div>
-                <div class="col-md-2">
-                  {{ Form::submit("Buscar", ["class" => "btn btn-primary btn-block"]) }}
+            {{ Form::label("search", "*Nome ou email") }}
+            <span class="help-block">Localize um aluno já existente na base de dados do Libreclass</span>
+            <div class="row">
+              <div class="col-md-10">
+                <div class="form-group">
+                  {{ Form::text("search", null, ["class" => "form-control", "required", "autocomplete" => "off"]) }}
                 </div>
               </div>
+              <div class="col-md-2">
+                {{ Form::submit("Buscar", ["class" => "btn btn-primary btn-block"]) }}
+              </div>
+            </div>
 
             </form>
             <div class="text-center new-student">
               <span class="text-primary click">Não encontrei, desejo adicionar um novo aluno</span>
             </div>
-          <ul class="list-unstyled result list-user" t="student" id="result-search-student"></ul>
+            <ul class="list-unstyled result list-user" t="student" id="result-search-student"></ul>
           </div>
 
 
@@ -220,9 +219,9 @@
 </div>
 
 <div class="visible-none">
-{{ Form::open(["id" => "delete-discipline", "url" => url("/disciplines/delete")]) }}
+  {{ Form::open(["id" => "delete-discipline", "url" => url("/disciplines/delete")]) }}
   {{ Form::hidden("discipline", null) }}
-</form>
+  </form>
 </div>
 
 @stop

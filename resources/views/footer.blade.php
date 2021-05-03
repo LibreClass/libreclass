@@ -8,11 +8,7 @@
       </ul>
     </div>
     <div class="col-md-12 text-center">
-      +55 74 3611-6061 - {{ env('MAIL_SUPORTE') }}
-    </div>
-    <div class="col-md-12 text-center">
-      Desenvolvido por:
-      <a href="http://sysvale.com" target="_blank"><img src="images/logosysvale.png" alt="Sysvale" class="img-responsive img-sm center-block"/></a>
+      {{ env('MAIL_SUPORTE') }}
     </div>
   </div>
 </div>

@@ -94,6 +94,11 @@ Execute o composer na raiz do projeto para instalar as dependências necessária
     $ composer require mongodb/mongodb --ignore-platform-reqs
     $ composer install
 
+Crie a chave e o secret do jwt
+
+    $ php artisan key:generate
+    $ php artisan jwt:secret
+
 Após isto, prepare o banco de dados de acordo com a estrutura fornecida no diretório doc. Você poderá executar o projeto localmente através do comando:
 
     $ php artisan serve

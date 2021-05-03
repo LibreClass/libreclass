@@ -17,8 +17,17 @@
 
 <div class="row">
   <div class="col-md-8 col-xs-12 col-sm-12">
-
-    <div id="block" class="panel panel-default panel-daily">
+    <div class="block">
+      <div class="row">
+        <div class="col-sm-10">
+          <h3 class="text-blue"><b><i class="fa fa-user"></i> Informações</b></h3>
+        </div>
+        <div class="col-sm-2 text-right">
+          <a href="{{ URL::to("/user/student")}}" class="btn btn-block btn-default">Voltar</a>
+        </div>
+      </div>
+    </div>
+    <div id="block" class="panel panel-default panel-daily block">
       <div class="panel-heading">
         <h3>{{ $profile->name }}</h3>
       </div>
@@ -33,7 +42,6 @@
         </div>
       </div>
     </div>
-
     <div class="panel panel-default">
       <div class="panel-body">
         <!-- <div class="btn-group">
@@ -49,7 +57,7 @@
         <button class="btn btn-default" id="btnCertificate" data="{{ encrypt($profile->id) }}"><i class="fa fa-file-o fa-fw"></i> Atestado</button>
         <button class="btn btn-default" id="btnReport" data="{{ encrypt($profile->id) }}"><i class="fa fa-file-o fa-fw"></i> Boletim</button>
         @if($profile->type == "N")
-          <button class="btn btn-default" id="btnInvite" data="{{ encrypt($profile->id) }}"><i class="fa fa-envelope-o fa-fw"></i> Enviar convite</button>
+        <button class="btn btn-default" id="btnInvite" data="{{ encrypt($profile->id) }}"><i class="fa fa-envelope-o fa-fw"></i> Enviar convite</button>
         @endif
         <hr>
 
@@ -63,6 +71,15 @@
           <h3><i class="fa fa-file-o fa-fw"></i><b> Atestados</b></h3>
         </div>
 
+        @if(count($attests)==0)
+
+        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+          <div class="panel-body">
+            <spam>Não existem atestados</span>
+          </div>
+        </div>
+
+        @else
         <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
           <div class="panel-body">
             <table class="table">
@@ -84,7 +101,7 @@
               </tbody>
             </table>
           </div>
-
+          @endif
         </div>
       </div>
     </div>

@@ -112,6 +112,7 @@ $(function (){
     });
   }).change();
 
+
   $("#class-change").change(function(){
     $("#class-list").html($("<div>",{
       class: "text-center spinner",
@@ -119,15 +120,25 @@ $(function (){
         class:"fa fa-spin fa-lg fa-spinner"
       })
     }));
+    
     $("#class-list").load("/user/reporter-student-class", {
       class: $(this).val(),
       student: $("#formLinkStudentClasse input[name='student']").val()
     }, function(data){
+      console.log(data)
+      if(data==''){
+        var paragraph = document.createElement("P");                       
+        var text = document.createTextNode("Não há histórico para este ano letivo.");
+        paragraph.appendChild(text);                                         
+        document.getElementById("class-list").appendChild(paragraph); 
+
+      }else{
      $(".panel-history").click(function(){
        $(this).next(".panel-body").slideToggle("slow");
      });
-    });
+  }});
   }).change();
+
 
 	$(".add-censo").click(function() {
 //		alert($("input[name='enrollment']").);
@@ -175,3 +186,5 @@ $(function (){
 
 	$('#select-scholar-report-course').trigger('change');
 });
+
+
