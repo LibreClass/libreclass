@@ -54,31 +54,35 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">      
+        <div class="col-xs-12">
           <table class="table table-bordered disciplines">
             <thead>
               <tr>
                 <th>Curso</th>
                 <th>Período</th>
                 <th>Disciplina</th>
-              </tr>  
+              </tr>
             </thead>
             <tbody>
               @foreach($courses as $course)
-                @foreach($course->periods as $period)
-                  @foreach($period->disciplines as $discipline)
-                    @if (\App\Bind::where("user_id", $profile->id)->where("discipline_id", $discipline->id)->first())
-                      <tr>
-                        <td>{{ $course->name }}</td>
-                        <td>{{ $period->name }}</td>
-                        <td>{{ $discipline->name }}</td>
-                      </tr>
-                    @endif
-                  @endforeach
-                @endforeach
+              @foreach($course->periods as $period)
+              @foreach($period->disciplines as $discipline)
+              @if (\App\Bind::where("user_id", $profile->id)->where("discipline_id", $discipline->id)->first())
+              <tr>
+                <td>{{ $course->name }}</td>
+                <td>{{ $period->name }}</td>
+                <td>{{ $discipline->name }}</td>
+              </tr>
+              @else
+              <tr>
+                <td colspan="3">Não há disciplinas relacionadas ao professor</td>
+              </tr>
+              @endif
+              @endforeach
+              @endforeach
               @endforeach
             </tbody>
-          </table>   
+          </table>
         </div>
       </div>
     </div>
