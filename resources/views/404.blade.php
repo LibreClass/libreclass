@@ -12,8 +12,8 @@
       <p>Não conseguimos encontrar o que você está procurando!</p>
       <p>
         Se este erro persistir contate o
-        <a href="mailto:{{ env('MAIL_SUPORTE') }}?subject=Error={{ $code }}-{{ date("Y-m-d") }}"><b>
-          {{ env('MAIL_SUPORTE') }}
+        <a href="mailto:{{ config('app.mail_suporte') }}?subject=Error={{ $code }}-{{ date("Y-m-d") }}"><b>
+          {{ config('app.mail_suporte') }}
         </b></a>
       </p>
     </div>
