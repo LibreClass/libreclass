@@ -253,7 +253,7 @@ class SyncController extends Controller
 		if( session("email") )
 			Mail::send('email.alert', ["msg" => session("error"), "email" => session("email") ], function($message)
 			{
-				$message->to(env('MAIL_SUPORTE'), 'Suporte LibreClass')
+				$message->to(config('app.mail_suporte'), 'Suporte LibreClass')
 								->subject("Tentativa de burlar o sistema");
 			});
 
