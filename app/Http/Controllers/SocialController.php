@@ -37,7 +37,7 @@ class SocialController extends Controller
 			"link" => request()->get("textError"),
 			"name" => request()->get("name"),
 			"descricao" => request()->get("description"),
-	+		"email" => $user->email,
+			"email" => $user->email,
 			"title" => request()->get("title"),
 		], function($message) {
 			$op = ["B" => "Bug/Erro", "O" => "Outros", "S" => "Sugestão"];
