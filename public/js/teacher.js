@@ -53,8 +53,8 @@ $(function () {
           month = data.birthdate.split("-")[1];
           year = data.birthdate.split("-")[0];
           form.find('[name="date-day"]').val(parseInt(day));
-					form.find('[name="date-month"]').val(parseInt(month));
-					form.find('[name="date-year"]').val(year);
+	  form.find('[name="date-month"]').val(parseInt(month));
+	  form.find('[name="date-year"]').val(year);
         }
         $("#formAddTeacher input[name='teacher']").val(teacher);
         $("#formAddTeacher input[name='enrollment']").val(data.enrollment);
