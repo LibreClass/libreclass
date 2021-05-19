@@ -96,6 +96,7 @@
     Route::post('/config/password', [ConfigController::class, 'postPassword']);
     Route::post('/config/location', [ConfigController::class, 'postLocation']);
     Route::post('/config/street', [ConfigController::class, 'postStreet']);
+    Route::put('/config/street', [ConfigController::class, 'putStreet']);
     Route::post('config/uee', [ConfigController::class, 'postUee']);
 
     /* users */
@@ -119,6 +120,7 @@
     Route::post('/user/invite', [UsersController::class, 'postInvite']);
     Route::get('/user/infouser', [UsersController::class, 'getInfouser']);
     Route::any('/user/link/{type}/{user}', [UsersController::class, 'anyLink']);
+    Route::post('/user/search-enrollment', [UsersController::class, 'postSeachEnrollment']);
 
     /* lesson */
     Route::get('/lessons', [LessonsController::class, 'getIndex']);

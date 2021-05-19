@@ -28,7 +28,7 @@
   <script type="text/javascript" src="/js/validations/jquery.validate.min.js"></script>
   <script type="text/javascript" src="/js/validations/additional-methods.min.js"></script>
   <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.js"></script>
-  
+  <script src="/js/teacher.js"></script>
   @section('js')
   @show
 

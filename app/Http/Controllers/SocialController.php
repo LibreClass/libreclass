@@ -21,19 +21,27 @@ class SocialController extends Controller
 	{
 		$suggestion = new Suggestion;
 		$suggestion->user_id = auth()->id();
+		$suggestion->name = request()->get("name");
+		$suggestion->emailUser = request()->get("emailUser");
 		$suggestion->title = request()->get("title");
 		$suggestion->value = request()->get("value");
 		$suggestion->description = request()->get("description");
+		$suggestion->textError = request()->get("textError");
+		$suggestion->link = request()->get("link");
 		$suggestion->save();
 
 		$user = auth()->user();
 
 		Mail::send('email.suporte', [
+			"name" => request()->get("name"),
+			"title" => request()->get("title"),
+			"email" => request()->get("emailUser"),
 			"descricao" => request()->get("description"),
-			"email" => $user->email, "title" => request()->get("title"),
+			"link" => request()->get("link"),
+			"textError" => request()->get("textError"),
 		], function($message) {
 			$op = ["B" => "Bug/Erro", "O" => "Outros", "S" => "Sugestão"];
-			$message->to(env('MAIL_SUPORTE'), "Suporte")->subject("LibreClass Suporte - " . $op[request()->get("value")]);
+			$message->to(config('app.mail_suporte'), "Suporte")->subject("LibreClass Suporte - " . $op[request()->get("value")]);
 		});
 
 		return redirect()->back()

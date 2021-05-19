@@ -152,9 +152,9 @@ class ConfigController extends Controller
 	{
 		$city = City::whereName(request()->get("city"))->first();
 		if ( $city == null ) {
-			$state = State::whereShort(request()->get("state_short"))->first();
+			$state = State::whereShort(request()->get("state"))->first();
 			if ( $state == null ) {
-				$country = Country::whereShort(request()->get("country_short"))->first();
+				$country = Country::whereShort(request()->get("country"))->first();
 				if ( $country == null ) {
 					$country = new Country;
 					$country->name  = request()->get("country");
@@ -185,8 +185,25 @@ class ConfigController extends Controller
 		$user = auth()->user();
 		$user->street = request()->get('street');
 		$user->save();
-
 		return redirect('/config')->with('success', 'Modificado com sucesso!');
+	}
+
+	public function putStreet()
+	{
+		try {
+			$user = auth()->user();
+			$user->street = request()->get('street');
+			$user->save();
+			return response()->json([
+				'status' => true,
+				'street' => $user->street
+			]);
+		} catch (\Throwable $th) {
+			return response()->json([
+				'status' => false,
+				'error' => $th->getMessage()
+			]);
+		}
 	}
 
 	public function postUee()

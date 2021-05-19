@@ -3,12 +3,12 @@
     <div class="col-md-12 text-center">
       <ul class="list-inline ">
         <li>Sobre</a></li>
-        <li><a href="mailto:{{ env('MAIL_SUPORTE') }}">Contato</a></li>
+        <li><a href="mailto:{{ config('app.mail_suporte') }}">Contato</a></li>
         <li>Termos de Uso</li>
       </ul>
     </div>
     <div class="col-md-12 text-center">
-      {{ env('MAIL_SUPORTE') }}
+      {{ config('app.mail_suporte') }}
     </div>
   </div>
 </div>

@@ -134,9 +134,11 @@
             {{ Form::text("student_id", null, ['class' => "hidden"]) }}
             <div class="row">
               <div class="col-md-4">
-                <div class="form-group">
+                <div class="form-group" id="search">
                   {{ Form::label("enrollment", "*Inscrição") }}
+                  </span><img class="spinner-enrrollment" height="25" src="/images/spinner.svg" alt="spinner-enrrollment"></span>
                   {{ Form::text("enrollment", null, ["class" => "form-control", "autofocus", "required"]) }}
+                  <span class="verify-enrollment text-info text-danger"></span>
                 </div>
               </div>
               <div class="col-md-6 col-xs-6">
@@ -174,7 +176,7 @@
             </div>
 
             <div class="row">
-              <div class="col-xs-6">
+              <div class="col-xs-6" id="disabled-enrrolment"> 
                 {{ Form::submit("Confirmar", ["class" => "btn btn-primary"]) }}
               </div>
               <!-- <div class="col-xs-6 text-right">

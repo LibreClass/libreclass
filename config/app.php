@@ -17,6 +17,16 @@ return [
 
 	/*
 	|--------------------------------------------------------------------------
+	| Application Support Mail
+	|--------------------------------------------------------------------------
+	|
+	| Support mail, where e-mails from contact form will be sent.
+	|
+	*/
+	'mail_suporte' => env('MAIL_SUPORTE', 'suporte@libreclass.com'),
+
+	/*
+	|--------------------------------------------------------------------------
 	| Application Environment
 	|--------------------------------------------------------------------------
 	|
@@ -166,6 +176,11 @@ return [
 		 * Package Service Providers...
 		 */
 
+		Jenssegers\Mongodb\MongodbServiceProvider::class,
+		Collective\Html\HtmlServiceProvider::class,
+		Barryvdh\Snappy\ServiceProvider::class,
+		Tymon\JWTAuth\Providers\LaravelServiceProvider::class,
+
 		/*
 		 * Application Service Providers...
 		 */
@@ -174,9 +189,6 @@ return [
 		// App\Providers\BroadcastServiceProvider::class,
 		App\Providers\EventServiceProvider::class,
 		App\Providers\RouteServiceProvider::class,
-		Jenssegers\Mongodb\MongodbServiceProvider::class,
-		Collective\Html\HtmlServiceProvider::class,
-		Barryvdh\Snappy\ServiceProvider::class,
 	],
 
 	/*
@@ -206,13 +218,19 @@ return [
 		'Eloquent' => Illuminate\Database\Eloquent\Model::class,
 		'Event' => Illuminate\Support\Facades\Event::class,
 		'File' => Illuminate\Support\Facades\File::class,
+		'Form' => Collective\Html\FormFacade::class,
 		'Gate' => Illuminate\Support\Facades\Gate::class,
 		'Hash' => Illuminate\Support\Facades\Hash::class,
+		'HTML' => Collective\Html\HtmlFacade::class,
+		'JWTAuth' => Tymon\JWTAuth\Facades\JWTAuth::class,
+		'JWTFactory' => Tymon\JWTAuth\Facades\JWTFactory::class,
 		'Lang' => Illuminate\Support\Facades\Lang::class,
 		'Log' => Illuminate\Support\Facades\Log::class,
 		'Mail' => Illuminate\Support\Facades\Mail::class,
+		'Moloquent' => Jenssegers\Mongodb\Eloquent\Model::class,
 		'Notification' => Illuminate\Support\Facades\Notification::class,
 		'Password' => Illuminate\Support\Facades\Password::class,
+		'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
 		'Queue' => Illuminate\Support\Facades\Queue::class,
 		'Redirect' => Illuminate\Support\Facades\Redirect::class,
 		'Redis' => Illuminate\Support\Facades\Redis::class,
@@ -221,15 +239,11 @@ return [
 		'Route' => Illuminate\Support\Facades\Route::class,
 		'Schema' => Illuminate\Support\Facades\Schema::class,
 		'Session' => Illuminate\Support\Facades\Session::class,
+		'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 		'Storage' => Illuminate\Support\Facades\Storage::class,
 		'URL' => Illuminate\Support\Facades\URL::class,
 		'Validator' => Illuminate\Support\Facades\Validator::class,
 		'View' => Illuminate\Support\Facades\View::class,
-		'Moloquent' => Jenssegers\Mongodb\Eloquent\Model::class,
-		'Form' => Collective\Html\FormFacade::class,
-		'HTML' => Collective\Html\HtmlFacade::class,
-		'PDF' => Barryvdh\Snappy\Facades\SnappyPdf::class,
-		'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
 	],
 
 ];
