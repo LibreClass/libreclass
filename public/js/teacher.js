@@ -35,20 +35,38 @@ $(function() {
     $("#modalAddTeacher .teacher-message").hide();
   });
 
-  $(".edit-teacher").click(function(){
+  $(".edit-teacher").click(function () {
+    var form = $('#formAddTeacher')
     var teacher = $(this).closest(".data").attr("data");
     $.getJSON("/user/infouser", {
-      "user": teacher
-    }).done(function(data) {
-      $("#formAddTeacher input[name='teacher']").val(teacher);
-      $("#formAddTeacher input[name='enrollment']").val(data.enrollment);
-      $("#formAddTeacher input[name='name']").val(data.name);
-      $("#formAddTeacher input[name='formation']").val(data.formation);
-      $("#modalAddTeacher").modal();
-    }).fail(function() {
-      $("#modalAlert .modal-body").html("<span class='text-center'>Não foi possível realizar a operação. Se o problema persistir contate o <a href='mailto:suporte@sysvale.com'>suporte</a></span>");
-      $("#modalAlert").modal();
-    });
+      user: teacher,
+    })
+      .done(function (data) {
+        var day = "";
+        var month = "";
+        var year = "";
+        
+        if (data.birthdate) {
+          day = data.birthdate.split("-")[2];
+          month = data.birthdate.split("-")[1];
+          year = data.birthdate.split("-")[0];
+          form.find('[name="date-day"]').val(parseInt(day));
+					form.find('[name="date-month"]').val(parseInt(month));
+					form.find('[name="date-year"]').val(year);
+        }
+
+        $("#formAddTeacher input[name='teacher']").val(teacher);
+        $("#formAddTeacher input[name='enrollment']").val(data.enrollment);
+        $("#formAddTeacher input[name='name']").val(data.name);
+        $("#formAddTeacher input[name='formation']").val(data.formation);
+        $("#modalAddTeacher").modal();
+      })
+      .fail(function () {
+        $("#modalAlert .modal-body").html(
+          "<span class='text-center'>Não foi possível realizar a operação. Se o problema persistir contate o <a href='mailto:suporte@sysvale.com'>suporte</a></span>"
+        );
+        $("#modalAlert").modal();
+      });
   });
 
   $(".edit-register-teacher").click(function() {
