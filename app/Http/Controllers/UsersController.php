@@ -24,6 +24,7 @@ use App\FinalExam;
 use App\DescriptiveExam;
 use App\Lesson;
 use App\Frequency;
+use App\Bind;
 
 class UsersController extends Controller
 {
@@ -463,10 +464,22 @@ class UsersController extends Controller
 
 	public function getProfileTeacher()
 	{
+		$hasDiscipline=null;
+		$courses= Course::where('institution_id', auth()->id())->get();
 		$user = auth()->user();
 		$profile = decrypt(request()->get("u"));
 		if ($profile) {
 			$profile = User::find($profile);
+
+			foreach($courses as $course){
+				foreach($course->periods as $period){
+		 			 foreach($period->disciplines as $discipline){
+						if (Bind::where("user_id", $profile->id)->where("discipline_id", $discipline->id)->first()){
+								$hasDiscipline=true;
+						}
+					}
+				}}
+
 			$relationship = Relationship::where('user_id', auth()->id())->where('friend_id', $profile->id)->first();
 			$profile->enrollment = $relationship->enrollment;
 			$profile->cities = $profile->city()->get();
@@ -499,12 +512,14 @@ class UsersController extends Controller
 			return view("modules.profileteacher", [
 				"user" => $user,
 				"profile" => $profile,
-				"courses" => Course::where('institution_id', auth()->id())->get()
+				"courses" => $courses,
+				"hasDiscipline"=> $hasDiscipline,
 			]);
 		} else {
 			return redirect("/");
 		}
 	}
+
 
 	public function postInvite($id = null)
 	{

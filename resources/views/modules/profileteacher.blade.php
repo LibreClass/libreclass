@@ -54,7 +54,10 @@
         </div>
       </div>
       <div class="row">
-        <div class="col-xs-12">      
+        <div class="col-xs-12">
+            @if(!$hasDiscipline) 
+            <span>Não há disciplinas relacionadas a este professor</span>
+            @else     
           <table class="table table-bordered disciplines">
             <thead>
               <tr>
@@ -63,7 +66,7 @@
                 <th>Disciplina</th>
               </tr>  
             </thead>
-            <tbody>
+            <tbody> 
               @foreach($courses as $course)
                 @foreach($course->periods as $period)
                   @foreach($period->disciplines as $discipline)
@@ -78,7 +81,8 @@
                 @endforeach
               @endforeach
             </tbody>
-          </table>   
+          </table> 
+          @endif  
         </div>
       </div>
     </div>

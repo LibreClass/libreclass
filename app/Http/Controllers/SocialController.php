@@ -33,15 +33,15 @@ class SocialController extends Controller
 		$user = auth()->user();
 
 		Mail::send('email.suporte', [
-			"textError" => request()->get("emailUser"),
-			"link" => request()->get("textError"),
 			"name" => request()->get("name"),
-			"descricao" => request()->get("description"),
-	+		"email" => $user->email,
 			"title" => request()->get("title"),
+			"email" => request()->get("emailUser"),
+			"descricao" => request()->get("description"),
+			"link" => request()->get("link"),
+			"textError" => request()->get("textError"),
 		], function($message) {
 			$op = ["B" => "Bug/Erro", "O" => "Outros", "S" => "Sugestão"];
-			$message->to(env('MAIL_SUPORTE'), "Suporte")->subject("LibreClass Suporte - " . $op[request()->get("value")]);
+			$message->to(config('app.mail_suporte'), "Suporte")->subject("LibreClass Suporte - " . $op[request()->get("value")]);
 		});
 
 		return redirect()->back()
