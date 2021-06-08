@@ -12,7 +12,7 @@ class Period extends Model
 	public $fillable = [
 		'course_id',
 		'name',
-		'value', // 1 = primeiro período/série; 2 = segundo período/série; ...
+		'value', // 1 = primeiro período/ano; 2 = segundo período/ano; ...
 		'status',
 	];
 

@@ -57,11 +57,11 @@ class CSVController extends Controller
 						throw new Exception("Não possui o curso: " . $cols[1]);
 					}
 				}
-				else if ($cols[0] == "Série:")
+				else if ($cols[0] == "Série:") // TODO: Modificar 'Série' para 'Ano'
 				{
 					$period = Period::where("course_id", $course->id)->whereName(explode(" - ", $cols[1])[0])->first();
 					if (!$period) {
-						throw new Exception("Não possui o periodo/série: " . explode(" - ", $cols[1])[0] . " $course->name");
+						throw new Exception("Não possui o periodo/ano: " . explode(" - ", $cols[1])[0] . " $course->name");
 					}
 					$class = Classe::where("period_id", $period->id)->whereName($cols[3])->whereClass(date("Y"))->first();
 					if (!$class) {

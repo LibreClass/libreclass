@@ -24,7 +24,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
               {{ Form::label("name", "Nome", ["class" => "control-label"]) }}
-              <span class="help-block text-muted">Informe o nome do período ou série</span>
+              <span class="help-block text-muted">Informe o nome do período ou ano</span>
               {{ Form::text("name", null, ["class" => "form-control"]) }}
             </div>
           </div>

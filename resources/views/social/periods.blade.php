@@ -47,7 +47,7 @@
 	            <h3 class="text-blue"><i class="fa fa-bookmark"></i> <b>Períodos</b></h3>
 	          </div>
 	          <div class="col-sm-6 col-xs-12 text-right">
-	            <button class="open-modal-add-period btn btn-primary btn-block-xs"><b><i class="fa fa-plus"></i> Novo período</b></button>
+	            <button class="open-modal-add-period btn btn-primary btn-block-xs"><b><i class="fa fa-plus"></i> Novo Ano</b></button>
 	          </div>
 	        </div>
 	      </div>
@@ -58,7 +58,7 @@
 	            {{ Form::open(["id" => "select-course-period"]) }}
 	              <div class="form-group">
 	                {{ Form::label("course_id", "Curso", ["class" => "control-label"]) }}
-	                <span class="help-block text-muted">Selecione um curso para visualizar os períodos.</span>
+	                <span class="help-block text-muted">Selecione um curso para visualizar os períodos cadastrados.</span>
 	                {{ Form::select("course_id", $listCourses, $course_id, ["class" => "form-control"]) }}
 	              </div>
 	            </form>

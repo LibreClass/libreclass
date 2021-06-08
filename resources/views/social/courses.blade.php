@@ -33,7 +33,7 @@
 							<div class="list-inline text-right">
 								<button id="new-course" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo Curso</b></button>
 								@if(!count($courses) == 0)
-									<button id="new-periods" class="btn btn-primary"><b><i class="fa fa-plus"></i> Nova Série</b></button>
+									<button id="new-periods" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo Ano</b></button>
 								@endif
 							</div>
 
@@ -97,7 +97,7 @@
 									</ul>
 							</div>
 							<div class="col-md-6">
-								<h5><b>Séries</b></h5>
+								<h5><b>Anos</b></h5>
 								<ul class="list-inline">
 								@foreach($course->periods as $period)
 									<li><span class="label label-default">{{ $period->name }}</span></li>
