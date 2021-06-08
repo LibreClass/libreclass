@@ -67,7 +67,7 @@
                 <thead>
                   <tr>
                     <th style="width: 40%">Turma</th>
-                    <th >Série</th>
+                    <th >Ano</th>
                     <th>Curso</th>
                     <th></th>
                   </tr>

@@ -60,7 +60,7 @@
         <li><h4>Para instituições:</h4>
           <ul>
             <li> <span class='help-courses-inst'>Como criar um curso?</span></li>
-            <li> <span class='help-periods-inst'>Como criar uma série?</span></li>
+            <li> <span class='help-periods-inst'>Como criar um período (ano)?</span></li>
             <li> <span class='help-disciplines-inst'>Como criar uma disciplina?</span></li>
             <li> <span class='help-classes-inst'>Como criar uma turma?</span></li>
             <li> <span class='help-units-inst'>Como criar uma unidade?</span></li>

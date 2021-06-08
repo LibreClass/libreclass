@@ -2,7 +2,7 @@
 <table class="table table-hover table-striped">
   <thead>
     <tr>
-      <th>Período</th>
+      <th>Anos</th>
       {{-- <th>Sequência/Progressão</th> --}}
       <th></th>
     </tr>
