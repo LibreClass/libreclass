@@ -1,5 +1,8 @@
 $(document).ready(function() {
-    $("#view-periods").on("click", ".open-modal-add-period", function(e) {
+
+    var viewPeriods = $("#view-periods");
+    
+    viewPeriods.on("click", ".open-modal-add-period", function(e) {
         var form = $("#form-add-period");
         form.trigger('reset');
         if ($(e.target).is('[edit]')) {
@@ -21,6 +24,21 @@ $(document).ready(function() {
                 $("#modal-add-period").modal();
             });
         }
+    });
+
+    /**
+     * Abre modal para remoção de período.
+     */
+    viewPeriods.on("click", ".open-modal-remove-period", function(e) {
+        var periorId = $(e.target).attr("data-id");
+        var modal = $("#modal-remove-period");
+        var modalSuccess = $("#modal-remove-success");
+        $.post("periods/read", {"period_id": periorId}, function(data) {
+            modal.find(".periodName").html(data.period.name);
+            modalSuccess.find(".periodName").html(data.period.name);
+            modal.find("button.remove").attr("data-id", periorId);
+            modal.modal();
+        });
     });
 
     $("#select-course-period select").change(function() {
