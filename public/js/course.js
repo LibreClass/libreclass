@@ -19,6 +19,10 @@ $(document).ready(function(){
     $("#add-periods select[name='course']").change();
   });
 
+  $(".period-zero").click(function () {
+    $("#modalPeriods").modal();
+  });
+
   $("#new-block").click(function(){
     $("#title-course").text("Novo Curso");
     $("#add-course input[name='course']").val("");
