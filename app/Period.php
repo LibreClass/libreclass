@@ -1,9 +1,12 @@
 <?php namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Period extends Model
 {
+	use SoftDeletes;
+
 	/**
 	 * The attributes that are mass assignable.
 	 *
@@ -27,6 +30,10 @@ class Period extends Model
 
 	protected $casts = [
 		'id' => 'array',
+	];
+
+	protected $dates = [
+		'deleted_at'
 	];
 
 	public function disciplines()
