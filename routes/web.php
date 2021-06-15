@@ -47,6 +47,7 @@
     Route::any('/periods/list', [PeriodsController::class, 'list']);
     Route::any('/periods/save', [PeriodsController::class, 'save']);
     Route::any('/periods/read', [PeriodsController::class, 'read']);
+    Route::post('/periods/remove', [PeriodsController::class, 'removePeriod']);
 
     /* disciplines */
     Route::get('/disciplines', [DisciplinesController::class, 'index']);
