@@ -11,7 +11,7 @@ Instale o apache:
 Instale o php7.4, mysql, composer, etc:
 
     $ sudo apt-get install php7.4 mysql-server composer mongodb
-    $ sudo apt-get install php7.4-xml php7.4-mbstring php7.4-curl php7.4-mysql php7.4-zip php-imagick php-pear php-dev
+    $ sudo apt-get install php7.4-xml php7.4-mbstring php7.4-curl php7.4-mysql php7.4-zip php-mongodb php-imagick php-pear php-dev
     $ sudo pecl install mongodb
     $ sudo apt-get install libxrender1 libxtst6
     $ sudo apt-get install npm
