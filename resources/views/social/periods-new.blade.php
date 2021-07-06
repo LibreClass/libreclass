@@ -3,7 +3,7 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="modalPeriodsLabel"><b>Série</b></h4>
+					<h4 class="modal-title" id="modalPeriodsLabel"><b>Ano</b></h4>
 				</div>
 				<div class="modal-body">
 					<div class="form-group">
@@ -21,7 +21,7 @@
 
 					 <form class="row input-edit-period">
 						<div class="col-xs-4">
-							<input type="text" id="input-new-period" name="period" class="form-control input-border-none" placeholder="Nova Serie">
+							<input type="text" id="input-new-period" name="period" class="form-control input-border-none" placeholder="Novo ano">
 						</div>
 						<div class="col-xs-2">
 							<button class="btn btn-primary btn-sm">Salvar</button>

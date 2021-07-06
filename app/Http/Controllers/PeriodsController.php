@@ -48,8 +48,20 @@ class PeriodsController extends Controller
 		$period->name = request()->get('name');
 		$period->course_id = request()->get('course_id');
 		$period->save();
-
-		return redirect()->back()->with('success', 'Período salvo com sucesso!');
+		return redirect("/periods")->with("success", "Período adicionado com sucesso!");
+	}
+	
+	public function removePeriod(Request $request) {
+		try {
+			$period = Period::find($request->get('periodId'));
+			$period->delete();
+			return redirect("/periods")->with("success", "Período removido!");
+		} catch (\Throwable $th) {
+			return response()->json([
+				'status' => false,
+				'value' => $th->getMessage()
+			]);
+		}
 	}
 
 	public function read()

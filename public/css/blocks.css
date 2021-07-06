@@ -223,3 +223,7 @@ ul.dropdown-menu a > i.fa {
  .scroll{
    overflow: auto;
  }
+
+ .text-light {
+   font-weight: 300;
+ }
