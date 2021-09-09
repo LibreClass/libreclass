@@ -35,6 +35,7 @@
 </head>
 
 <body>
+<div id="app">
   <div class="back"></div>
   <nav class="navbar navbar-libreclass navbar-fixed-top" role="navigation">
     <div class="container-fluid">
@@ -105,6 +106,10 @@
   @include('messages.success')
   @include('modules.report')
   @include('analytics')
+
+
+  </div>
+<script src="{{mix('js/app.js')}}"></script>
 
 </body>
 
