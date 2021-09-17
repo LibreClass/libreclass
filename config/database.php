@@ -7,12 +7,13 @@ return [
 
 		'mongodb' => [
 			'driver'   => 'mongodb',
-			'host'     => env('DB_HOST', 'localhost'),
-			'port'     => env('DB_PORT', 27017),
-			'database' => env('DB_DATABASE', 'esus'),
-			'username' => env('DB_USERNAME', ''),
-			'password' => env('DB_PASSWORD', ''),
+			'host'     => env('MDB_HOST', '127.0.0.1'),
+			'port'     => env('MDB_PORT', 27017),
+			'database' => env('MDB_DATABASE', 'libreclassbeta'),
+			'username' => env('MDB_USERNAME', ''),
+			'password' => env('MDB_PASSWORD', ''),
 			'options'  => [
+				'database' => env('MDB_AUTHENTICATION_DATABASE', 'libreclassbeta'),
 			]
 		],
 
