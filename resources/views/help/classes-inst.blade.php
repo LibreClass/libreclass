@@ -1,4 +1,4 @@
-<p>Uma turma só pode ser criada se houver pelo menos um período (ano) cadastrado</p> 
+<p>Uma turma só pode ser criada se houver pelo menos um {{ strtolower(session('period.singular')) }} (ano) cadastrado</p> 
 <p>Para criar uma turma:</p>
 <ol>
   <li>Clique em <strong>Minhas Turmas</strong></li>

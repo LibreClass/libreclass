@@ -21,13 +21,13 @@
         <div class="block">
             <div class="row">
                 <div class="col-sm-12 col-xs-12">
-                    <h3 class="text-blue"><i class="fa fa-bookmark"></i> <b>Períodos</b></h3>
+                    <h3 class="text-blue"><i class="fa fa-bookmark"></i> <b>{{ ucfirst(strtolower(session('period.plural'))) }}</b></h3>
                 </div>
             </div>
         </div>
         <div class="block">
-            <h3 class="text-blue"><b>Você não possui períodos cadastrados.</b></h3>
-            <p>Para cadastrar um período é preciso ter pelo menos um curso cadastrado.</p>
+            <h3 class="text-blue"><b>Você não possui {{ strtolower(session('period.plural')) }} cadastrados.</b></h3>
+            <p>Para cadastrar um{{ strtolower(session('period.article')) == 'a' ? 'a':'' }} {{ strtolower(session('period.singular')) }} é preciso ter pelo menos um curso cadastrado.</p>
             <br>
             <a href="/courses"><i class="fa fa-folder-o"></i> Cadastrar um novo curso</a>
         </div>
@@ -43,10 +43,10 @@
             <div class="block">
                 <div class="row">
                     <div class="col-sm-6 col-xs-12">
-                        <h3 class="text-blue"><i class="fa fa-bookmark"></i> <b>Períodos</b></h3>
+                        <h3 class="text-blue"><i class="fa fa-bookmark"></i> <b>{{ ucfirst(strtolower(session('period.plural'))) }}</b></h3>
                     </div>
                     <div class="col-sm-6 col-xs-12 text-right">
-                        <button class="open-modal-add-period btn btn-primary btn-block-xs"><b><i class="fa fa-plus"></i> Novo Ano</b></button>
+                        <button class="open-modal-add-period btn btn-primary btn-block-xs"><b><i class="fa fa-plus"></i> Adicionar</b></button>
                     </div>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                         {{ Form::open(["id" => "select-course-period"]) }}
 							<div class="form-group">
 								{{ Form::label("course_id", "Curso", ["class" => "control-label"]) }}
-								<span class="help-block text-muted">Selecione um curso para visualizar os períodos cadastrados.</span>
+								<span class="help-block text-muted">Selecione um curso para visualizar {{ strtolower(session('period.article')) == 'a' ? 'a':'o' }}s {{ strtolower(session('period.plural')) }} cadastrados.</span>
 								{{ Form::select("course_id", $listCourses, $course_id, ["class" => "form-control"]) }}
 							</div>
                         </form>

@@ -54,7 +54,7 @@
 				<div class="row">
 					<div class="col-xs-4"><p><b>Turma:</b> {{ $data['classe']->name }}</p></div>
 					<div class="col-xs-4"><p><b>Ano:</b> {{ $data['period']->name }}</p></div>
-					<div class="col-xs-4"><p><b>Período Letivo:</b> {{ $data['classe']->class }}</p></div>
+					<div class="col-xs-4"><p><b>{{ ucfirst(strtolower(session('period.singular'))) }}:</b> {{ $data['classe']->class }}</p></div>
 				</div>
 			</div>
 		</div>

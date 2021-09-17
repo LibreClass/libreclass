@@ -4,7 +4,7 @@
 
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title text-blue"><b><i class="fa fa-fw fa-bookmark"></i>Período</b></h3>
+        <h4 class="modal-title text-blue"><b><i class="fa fa-fw fa-bookmark"></i>{{ ucfirst(strtolower(session('period.singular'))) }}</b></h3>
       </div>
 
       {{ Form::open([ "url" => URL::to("periods/save"), "id" => "form-add-period"]) }}
@@ -24,7 +24,7 @@
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
               {{ Form::label("name", "Nome", ["class" => "control-label"]) }}
-              <span class="help-block text-muted">Informe o nome do período ou ano</span>
+              <span class="help-block text-muted">Informe o nome d{{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }} ou ano</span>
               {{ Form::text("name", null, ["class" => "form-control"]) }}
             </div>
           </div>

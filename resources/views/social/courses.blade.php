@@ -26,7 +26,7 @@
 			@endif
 				<div class="row">
 					<div class="col-md-6 col-xs-12">
-						<h3 class="text-blue"><i class="fa fa-folder-o"></i> <b>Meus Cursos</b></h3>
+						<h3 class="text-blue"><i class="fa fa-folder-o"></i> <b>Cursos</b></h3>
 					</div>
 					@if( auth()->user()->type == "I" )
 						<div class="col-md-6 col-xs-12">
@@ -102,7 +102,7 @@
 									<li><span class="label label-default">{{ $period->name }}</span></li>
 								@empty
 									<li class="text-light">
-										<a class="click period-zero">Cadastrar um período</a>
+										<a class="click period-zero">Cadastrar um{{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }}</a>
 									</li>
 								@endforelse
 								</ul>
