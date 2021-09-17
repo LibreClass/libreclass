@@ -53,7 +53,7 @@
                 <thead>
                   <tr>
                     <th>Turma</th>
-                    <th>Período</th>
+                    <th>{{ ucfirst(strtolower(session('period.singular'))) }}</th>
                     <th></th>
                   </tr>
                 </thead>

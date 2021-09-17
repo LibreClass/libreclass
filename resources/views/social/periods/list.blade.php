@@ -26,5 +26,5 @@
     </tbody>
 </table>
 @else
-    <span>O curso selecionado não possui períodos cadastrados.</span>
+    <span>O curso selecionado não possui {{ strtolower(session('period.plural')) }} cadastrad{{ strtolower(session('period.article')) == 'a' ? 'a':'o' }}s.</span>
 @endif

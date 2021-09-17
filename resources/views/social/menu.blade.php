@@ -7,7 +7,7 @@
           <i class="fa fa-folder-o"></i>
         </div>
         <div class="col-xs-10">
-          <span class="hidden-xs">Meus cursos</span>
+          <span class="hidden-xs">Cursos</span>
         </div>
       </div>
     </div>
@@ -20,7 +20,7 @@
           <i class="fa fa-bookmark"></i>
         </div>
         <div class="col-xs-10">
-          <span class="hidden-xs">Meus períodos</span>
+          <span class="hidden-xs">{{ ucfirst(strtolower(session('period.plural'))) }}</span>
         </div>
       </div>
     </div>
@@ -33,7 +33,7 @@
           <i class="fa fa-list-ul"></i>
         </div>
         <div class="col-xs-10">
-          <span href='{{"/disciplines"}}' class="hidden-xs">Minhas disciplinas</span>
+          <span href='{{"/disciplines"}}' class="hidden-xs">Disciplinas</span>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
           <i class="icon-classes"></i>
         </div>
         <div class="col-xs-10">
-          <span class="hidden-xs">Minhas turmas</span>
+          <span class="hidden-xs">Turmas</span>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@
           <i class="icon-teacher"></i>
         </div>
         <div class="col-xs-10">
-          <span class="hidden-xs">Meus professores</span>
+          <span class="hidden-xs">Professores</span>
         </div>
       </div>
     </div>
@@ -72,7 +72,7 @@
           <i class="fa fa-graduation-cap"></i>
         </div>
         <div class="col-xs-10">
-          <span class="hidden-xs">Meus alunos</span>
+          <span class="hidden-xs">Alunos</span>
         </div>
       </div>
     </div>
@@ -85,7 +85,7 @@
           <i class="fa fa-users"></i>
         </div>
         <div class="col-xs-10">
-          <span class="hidden-xs">Minha instituição</span>
+          <span class="hidden-xs">Instituição</span>
         </div>
       </div>
     </div>
@@ -114,7 +114,7 @@
           <i class="fa fa-files-o"></i>
         </div>
         <div class="col-xs-10">
-          <span class="hidden-xs">Meus Diários</span>
+          <span class="hidden-xs">Diários</span>
         </div>
       </div>
 

@@ -58,7 +58,7 @@
           <div class="col-sm-6">
             <div class="form-group">
               {{ Form::label("day_period", "Turno",  ["class" => "control-label"])}}
-              <span class="help-block text-muted">Informe o período do dia da oferta.</span>
+              <span class="help-block text-muted">Informe {{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }} do dia da oferta.</span>
               {{ Form::select("day_period", ["M" => "Matutino", "V" => "Vespertino", "N" => "Noturno"], null, ["class" => "form-control", "required"])}}
             </div>
           </div>

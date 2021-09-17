@@ -4,7 +4,7 @@
   </div>
   <div class="col-sm-4">
     <div class="form-inline text-right">
-      Período Letivo:
+      {{ ucfirst(strtolower(session('period.singular'))) }} Letivo:
       {{ Form::selectRange("school_year", 2017, (int) date('Y'), date('Y'), ["class" => "form-control", "id" => "class-change"]) }}
     </div>
   </div>

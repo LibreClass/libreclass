@@ -3,14 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-blue"><b><i class="fa fa-fw fa-bookmark"></i>Período</b></h3>
+                <h4 class="modal-title text-blue"><b><i class="fa fa-fw fa-bookmark"></i>{{ ucfirst(strtolower(session('period.singular'))) }}</b></h3>
             </div>
             <div class="modal-body">
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <p>Tem certeza que deseja remover o período denominado "<b class="periodName"></b>"?</p>
-                            <p>Ao remover um período você estará removendo também todas as disciplinas e turmas associadas ao mesmo.</p>
+                            <p>Tem certeza que deseja remover {{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }} denominado "<b class="periodName"></b>"?</p>
+                            <p>Ao remover um{{ strtolower(session('period.article')) == 'a' ? 'a':'' }} {{ strtolower(session('period.singular')) }} você estará removendo também todas as disciplinas e turmas associadas ao mesmo.</p>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
             </div>
             <div class="modal-body">
                 <div class="text-center">
-                    <span class="text-center">O período "<b class="periodName"></b>" foi removido com sucesso!</span>
+                    <span class="text-center">{{ ucfirst(session('period.article')) }} {{ strtolower(session('period.singular')) }} "<b class="periodName"></b>" foi removido com sucesso!</span>
                 </div>
             </div>
             <div class="modal-footer">

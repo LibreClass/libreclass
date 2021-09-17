@@ -105,8 +105,8 @@
               {{ Form::select("course", $listCourses, null, ["class" => "form-control"]) }}
             </div>
             <div class="form-group">
-              {{ Form::label("period", "Ano/Período *", ["class" => "control-label"]) }}
-              <span class="help-block text-muted">Selecione o ano ou período para o qual deseja vincular a disciplina</span>
+              {{ Form::label("period", "Ano/" . ucfirst(strtolower(session('period.singular'))) . " *", ["class" => "control-label"]) }}
+              <span class="help-block text-muted">Selecione o ano ou {{ strtolower(session('period.singular')) }} para o qual deseja vincular a disciplina</span>
               <select name="period" class="form-control" required></select>
             </div>
             <div class="form-group">
