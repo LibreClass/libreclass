@@ -25,6 +25,6 @@
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
-        "@libreclass/libreclass-components": "^0.10.0"
+        "@libreclass/libreclass-components": "^0.12.0"
     }
 }
