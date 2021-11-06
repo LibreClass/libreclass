@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(function() {
 
     var viewPeriods = $("#view-periods");
     
@@ -33,21 +33,34 @@ $(document).ready(function() {
         var periorId = $(e.target).attr("data-id");
         var modal = $("#modal-remove-period");
         var modalSuccess = $("#modal-remove-success");
-        $.post("periods/read", {"period_id": periorId}, function(data) {
-            modal.find(".periodName").html(data.period.name);
-            modalSuccess.find(".periodName").html(data.period.name);
+        Axios.post('periods/read', {period_id: periorId}).then(function(res) {
+            modal.find(".periodName").html(res.data.period.name);
+            modalSuccess.find(".periodName").html(res.data.period.name);
             modal.find("button.remove").attr("data-id", periorId);
             modal.modal();
         });
     });
 
+    /**
+     * Abre modal para configuração de período.
+     */
+     viewPeriods.on("click", ".open-modal-config-period", function(e) {
+        // var periorId = $(e.target).attr("data-id");
+        var modal = $("#modal-config-period");
+        // var modalSuccess = $("#modal-config-success");
+        // $.post("periods/read", {"period_id": periorId}, function(data) {
+        //     modal.find(".periodName").html(data.period.name);
+        //     modalSuccess.find(".periodName").html(data.period.name);
+        //     modal.find("button.remove").attr("data-id", periorId);
+            modal.modal();
+        // });
+    });
+
     $("#select-course-period select").change(function() {
-        $("#view-periods .list-periods").load("/periods/list", {
-            "course_id": $(this).val()
-        }, function() {});
-        $.post("/courses/selected", {
-            course_id: $(this).val()
+        Axios.get('/periods/list', {params: {course_id: $(this).val()}}).then(function(res) {
+            $("#view-periods .list-periods").html(res.data);
         });
+        Axios.post('/courses/selected', {course_id: $(this).val()});
     }).change();
 
     $('#form-add-period').validate({
