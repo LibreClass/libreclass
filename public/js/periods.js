@@ -45,15 +45,8 @@ $(function() {
      * Abre modal para configuração de período.
      */
      viewPeriods.on("click", ".open-modal-config-period", function(e) {
-        // var periorId = $(e.target).attr("data-id");
         var modal = $("#modal-config-period");
-        // var modalSuccess = $("#modal-config-success");
-        // $.post("periods/read", {"period_id": periorId}, function(data) {
-        //     modal.find(".periodName").html(data.period.name);
-        //     modalSuccess.find(".periodName").html(data.period.name);
-        //     modal.find("button.remove").attr("data-id", periorId);
-            modal.modal();
-        // });
+        modal.modal();
     });
 
     $("#select-course-period select").change(function() {
