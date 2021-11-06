@@ -35,6 +35,7 @@
 
 				<p>Pensamos nos principais problemas enfrentados por professores, alunos e instituições de ensino, esta ferramenta
 					visa mudar o seu ponto de vista sobre sistemas online.</p>
+
 				<p><i class="glyphicon glyphicon-info-sign color-blue"></i> Conheça as ferramentas que o LibreClass disponibiliza:</p>
 
 				<ul class="help-list">

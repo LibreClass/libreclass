@@ -31,9 +31,20 @@
 					@if( auth()->user()->type == "I" )
 						<div class="col-md-6 col-xs-12">
 							<div class="list-inline text-right">
-								<button id="new-course" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo Curso</b></button>
+
+								<lc-button
+									id="new-course"
+								>
+									Novo Curso
+								</lc-button>
+
 								@if(!count($courses) == 0)
-									<button id="new-periods" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo Ano</b></button>
+									<lc-button
+										id="new-periods"
+										variant="secondary"
+									>
+										Novo Ano
+									</lc-button>
 								@endif
 							</div>
 

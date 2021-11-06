@@ -13,7 +13,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__),
 /* harmony export */   "Avatar": () => (/* binding */ __vue_component__),
 /* harmony export */   "Badge": () => (/* binding */ __vue_component__$1),
+/* harmony export */   "Button": () => (/* binding */ __vue_component__$5),
 /* harmony export */   "Card": () => (/* binding */ __vue_component__$4),
+/* harmony export */   "FilterPill": () => (/* binding */ __vue_component__$6),
 /* harmony export */   "NotificationBell": () => (/* binding */ __vue_component__$3),
 /* harmony export */   "SideBar": () => (/* binding */ __vue_component__$2)
 /* harmony export */ });
@@ -610,6 +612,228 @@ var __vue_staticRenderFns__$4 = [];
     undefined
   );
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$4 = {
+	props: {
+		/**
+		 * A variante do Botão. São 2 variantes: 'primary', 'secondary' e 'disabled'
+		 */
+		variant: {
+			type: String,
+			default: 'primary',
+		},
+	},
+};
+
+/* script */
+var __vue_script__$4 = script$4;
+
+/* template */
+var __vue_render__$5 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('button',{class:("button__container--" + _vm.variant),on:{"click":function($event){return _vm.$emit('clicked')}}},[_c('span',{class:("button__text--" + _vm.variant)},[_vm._t("default")],2)])};
+var __vue_staticRenderFns__$5 = [];
+
+  /* style */
+  var __vue_inject_styles__$5 = function (inject) {
+    if (!inject) { return }
+    inject("data-v-3bf7bb66_0", { source: ".button__text--primary[data-v-3bf7bb66]{font-weight:600!important;font-size:16px;color:#fff}.button__container--primary[data-v-3bf7bb66]{border-radius:10px;padding:12px 24px;width:fit-content;background-color:#206ed9;border:1px solid #206ed9;display:inline-block;text-decoration:none;cursor:pointer;transition:all .5s}.button__container--primary[data-v-3bf7bb66]:hover{transition:all .5s;background-color:#1c5fbd;border:1px solid #1c5fbd}.button__container--primary[data-v-3bf7bb66]:active{background-color:#1a56a9;border:1px solid #206ed9}.button__text--secondary[data-v-3bf7bb66]{font-weight:600!important;font-size:16px;color:#303a44}.button__container--secondary[data-v-3bf7bb66]{border-radius:10px;padding:12px 24px;width:fit-content;background-color:#f8fbfe;border:1px solid #f8fbfe;display:inline-block;text-decoration:none;cursor:pointer;transition:all .5s}.button__container--secondary[data-v-3bf7bb66]:hover{transition:all .5s;background-color:#f2f7fd;border:1px solid #f2f7fd}.button__container--secondary[data-v-3bf7bb66]:active{background-color:#e9f2fc;border:1px solid #e9f2fc}", map: undefined, media: undefined });
+
+  };
+  /* scoped */
+  var __vue_scope_id__$5 = "data-v-3bf7bb66";
+  /* module identifier */
+  var __vue_module_identifier__$5 = undefined;
+  /* functional template */
+  var __vue_is_functional_template__$5 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  var __vue_component__$5 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$5, staticRenderFns: __vue_staticRenderFns__$5 },
+    __vue_inject_styles__$5,
+    __vue_script__$4,
+    __vue_scope_id__$5,
+    __vue_is_functional_template__$5,
+    __vue_module_identifier__$5,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+var script$5 = {
+	data: function data() {
+		return {
+			id: null,
+			isActive: false,
+		};
+	},
+
+	mounted: function mounted() {
+		this.id = "filter-pill$-" + (this._uid);
+	},
+
+	props: {
+		/**
+		 * Conteúdo do filter pill.
+		 */
+		content: {
+			type: String,
+			default: 'Conteúdo',
+			required: true,
+		},
+		/**
+		 * Label exibida ao lado do conteúdo
+		 */
+		label: {
+			type: String,
+			default: 'Label',
+			required: true,
+		},
+		/**
+		 * Controla a disponibilidade do FilterPill
+		 */
+		disabled: {
+			type: Boolean,
+			default: false,
+		},
+		/**
+		 * Controla o tamanho do popover do FilterPill (em pixels).
+		 * O tamanho nunca é menor que a largura do FilterPill.
+		 */
+		dropdownWidth: {
+			type: Number,
+			default: 0,
+		},
+	},
+
+	computed: {
+		dynamicStyle: function dynamicStyle() {
+			var filterPillDomReference = document.getElementById(this.id);
+			var filterWidth = parseFloat(window.getComputedStyle(filterPillDomReference).width);
+
+			if (filterWidth > this.dropdownWidth) {
+				return {
+					'--width': (filterWidth + "px"),
+				};
+			}
+
+			return {
+				'--width': ((this.dropdownWidth) + "px"),
+			};
+		},
+	},
+
+	methods: {
+		activeSelection: function activeSelection() {
+			if (this.disabled) {
+				return;
+			}
+
+			this.isActive = !this.isActive;
+
+			/**
+			* Evento que indica que o FilterPill foi clicado
+			* @event click
+			* @type {Event}
+			*/
+			this.$emit('click', true);
+		},
+
+		hide: function hide() {
+			this.isActive = !this.isActive;
+		},
+	},
+};
+
+/* script */
+var __vue_script__$5 = script$5;
+
+/* template */
+var __vue_render__$6 = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',[_c('span',{staticClass:"filter-pill__container",class:{
+			'filter-pill__container--disabled' : _vm.disabled,
+			'filter-pill__container--active': _vm.isActive && !_vm.disabled,
+		},attrs:{"id":_vm.id},on:{"click":_vm.activeSelection}},[_c('span',{staticClass:"filter-pill__label"},[_vm._v(_vm._s(this.label)+": ")]),_vm._v(" "),_c('span',{staticClass:"filter-pill__content"},[_vm._v(_vm._s(this.content)+" ")]),_vm._v(" "),_c('ion-icon',{class:(_vm.isActive && !_vm.disabled) ? 'filter-pill__chevron--up' : 'filter-pill__chevron--down',attrs:{"name":"chevron-down-outline"}})],1),_vm._v(" "),(_vm.isActive)?_c('div',{directives:[{name:"on-click-outside",rawName:"v-on-click-outside",value:(_vm.hide),expression:"hide"}],staticClass:"filter-pill__dropdown",style:(_vm.dynamicStyle)},[_vm._t("default")],2):_vm._e()])};
+var __vue_staticRenderFns__$6 = [];
+
+  /* style */
+  var __vue_inject_styles__$6 = function (inject) {
+    if (!inject) { return }
+    inject("data-v-034d8ff1_0", { source: ".filter-pill__container[data-v-034d8ff1]{display:inline-block;padding:8px 16px;border:1px solid #ced4da;border-radius:8px;cursor:pointer}.filter-pill__container--disabled[data-v-034d8ff1]{background-color:#e0e7f5;cursor:default}.filter-pill__container--active[data-v-034d8ff1],.filter-pill__container[data-v-034d8ff1]:hover:not(.filter-pill__container--disabled){border-color:transparent!important;box-shadow:0 0 0 4px rgba(82,163,252,.2)}.filter-pill__label[data-v-034d8ff1]{font-size:16px;font-weight:500;color:#697580}.filter-pill__content[data-v-034d8ff1]{font-size:16px;font-weight:500;color:#697580}.filter-pill__chevron--up[data-v-034d8ff1]{margin-left:8px;margin-bottom:-4px;color:#697580;transition:all .25s ease-in-out;transform:rotate(180deg)}.filter-pill__chevron--down[data-v-034d8ff1]{margin-left:8px;margin-bottom:-4px;color:#697580;transition:all .25s ease-in-out}.filter-pill__dropdown[data-v-034d8ff1]{width:var(--width);position:absolute;background-color:#fff;padding:20px;top:94px;border-radius:8px;box-shadow:0 0 8px rgba(133,149,164,.08);border:1px solid #e0e6f5;z-index:999999999;color:#697580}ion-icon[data-v-034d8ff1]{visibility:visible!important;font-size:18px!important}", map: undefined, media: undefined });
+
+  };
+  /* scoped */
+  var __vue_scope_id__$6 = "data-v-034d8ff1";
+  /* module identifier */
+  var __vue_module_identifier__$6 = undefined;
+  /* functional template */
+  var __vue_is_functional_template__$6 = false;
+  /* style inject SSR */
+  
+  /* style inject shadow dom */
+  
+
+  
+  var __vue_component__$6 = /*#__PURE__*/normalizeComponent(
+    { render: __vue_render__$6, staticRenderFns: __vue_staticRenderFns__$6 },
+    __vue_inject_styles__$6,
+    __vue_script__$5,
+    __vue_scope_id__$6,
+    __vue_is_functional_template__$6,
+    __vue_module_identifier__$6,
+    false,
+    createInjector,
+    undefined,
+    undefined
+  );
+
 /* eslint-disable import/prefer-default-export */
 
 var components = /*#__PURE__*/Object.freeze({
@@ -618,7 +842,9 @@ var components = /*#__PURE__*/Object.freeze({
 	Badge: __vue_component__$1,
 	SideBar: __vue_component__$2,
 	NotificationBell: __vue_component__$3,
-	Card: __vue_component__$4
+	Card: __vue_component__$4,
+	Button: __vue_component__$5,
+	FilterPill: __vue_component__$6
 });
 
 // install function executed by Vue.use()
