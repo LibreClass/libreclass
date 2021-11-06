@@ -1,6 +1,5 @@
 <?php
     
-    use App\Http\Controllers\Student\DisciplinesStudentController;
     use App\Http\Controllers\AvaliableController;
     use App\Http\Controllers\BindController;
     use App\Http\Controllers\CensoController;
@@ -21,8 +20,10 @@
     use App\Http\Controllers\PermissionController;
     use App\Http\Controllers\ProgressionController;
     use App\Http\Controllers\SocialController;
+    use App\Http\Controllers\Student\DisciplinesStudentController;
     use App\Http\Controllers\SyncController;
     use App\Http\Controllers\UnitsController;
+    use App\Http\Controllers\UserConfigController;
     use App\Http\Controllers\UsersController;
 
     /* login */
@@ -101,28 +102,36 @@
     Route::post('config/uee', [ConfigController::class, 'postUee']);
 
     /* users */
-    Route::get('/user/teacher', [UsersController::class, 'getTeacher']);
-    Route::get('/user/student', [UsersController::class, 'getStudent']);
-    Route::post('/user/student', [UsersController::class, 'postStudent']);
-    Route::any('/user/find-user/{search?}', [UsersController::class, 'anyFindUser']);
-    Route::get('/user/scholar-report', [UsersController::class, 'printScholarReport']);
-    Route::post('/user/teacher/delete', [UsersController::class, 'postUnlink']);
-    Route::post('/user/teacher/update-enrollment', [UsersController::class, 'updateEnrollment']);
-    Route::post('/user/search-teacher', [UsersController::class, 'postSearchTeacher']);
-    Route::any('/user/teachers-friends', [UsersController::class, 'anyTeachersFriends']);
-    Route::post('/user/teacher', [UsersController::class, 'postTeacher']);
-    Route::get('/user/profile-student', [UsersController::class, 'getProfileStudent']);
-    Route::post('/user/get-student', [UsersController::class, 'postGetStudent']);
-    Route::any('/user/reporter-student-class', [UsersController::class, 'anyReporterStudentClass']);
-    Route::get('/user/reporter-student-offer', [UsersController::class, 'getReporterStudentOffer']);
-    Route::post('/user/profile-student', [UsersController::class, 'postProfileStudent']);
-    Route::post('/user/attest', [UsersController::class, 'postAttest']);
-    Route::get('/user/profile-teacher', [UsersController::class, 'getProfileTeacher']);
-    Route::post('/user/invite', [UsersController::class, 'postInvite']);
-    Route::get('/user/infouser', [UsersController::class, 'getInfouser']);
-    Route::any('/user/link/{type}/{user}', [UsersController::class, 'anyLink']);
-    Route::post('/user/search-enrollment', [UsersController::class, 'postSeachEnrollment']);
-
+    Route::prefix('/user')->group(function () {
+        Route::get('/teacher', [UsersController::class, 'getTeacher']);
+        Route::get('/student', [UsersController::class, 'getStudent']);
+        Route::post('/student', [UsersController::class, 'postStudent']);
+        Route::any('/find-user/{search?}', [UsersController::class, 'anyFindUser']);
+        Route::get('/scholar-report', [UsersController::class, 'printScholarReport']);
+        Route::post('/teacher/delete', [UsersController::class, 'postUnlink']);
+        Route::post('/teacher/update-enrollment', [UsersController::class, 'updateEnrollment']);
+        Route::post('/search-teacher', [UsersController::class, 'postSearchTeacher']);
+        Route::any('/teachers-friends', [UsersController::class, 'anyTeachersFriends']);
+        Route::post('/teacher', [UsersController::class, 'postTeacher']);
+        Route::get('/profile-student', [UsersController::class, 'getProfileStudent']);
+        Route::post('/get-student', [UsersController::class, 'postGetStudent']);
+        Route::any('/reporter-student-class', [UsersController::class, 'anyReporterStudentClass']);
+        Route::get('/reporter-student-offer', [UsersController::class, 'getReporterStudentOffer']);
+        Route::post('/profile-student', [UsersController::class, 'postProfileStudent']);
+        Route::post('/attest', [UsersController::class, 'postAttest']);
+        Route::get('/profile-teacher', [UsersController::class, 'getProfileTeacher']);
+        Route::post('/invite', [UsersController::class, 'postInvite']);
+        Route::get('/infouser', [UsersControllerUsersController::class, 'getInfouser']);
+        Route::any('/link/{type}/{user}', [UsersController::class, 'anyLink']);
+        Route::post('/search-enrollment', [UsersController::class, 'postSeachEnrollment']);
+    
+        /* UserConfig */
+        Route::prefix('/config')->group(function () {
+            Route::get('', [UserConfigController::class, 'getUserConfig']);
+            Route::post('', [UserConfigController::class, 'postUserConfig']);
+        });
+    });
+    
     /* lesson */
     Route::get('/lessons', [LessonsController::class, 'getIndex']);
     Route::any('/lessons/new', [LessonsController::class, 'anyNew']);
@@ -218,4 +227,5 @@
     Route::get('/ie', [HomeController::class, 'ie']);
     Route::get('/student', [HomeController::class, 'student']);
     Route::get('/', [HomeController::class, 'index']);
+
 ?>
