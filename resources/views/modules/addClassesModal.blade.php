@@ -12,8 +12,8 @@
         <div class="row">
           <div class="col-md-12 col-sm-12 col-xs-12">
             <div class="form-group">
-              {{ Form::label("period", "Curso/Período") }}
-              <span class="help-block text-muted">Selecione o curso e período para a turma</span>
+              {{ Form::label("period", "Curso/" + ucfirst(strtolower(session('period.singular'))) ) }}
+              <span class="help-block text-muted">Selecione o curso e {{ strtolower(session('period.singular')) }} para a turma</span>
               {{ Form::select("period", $listPeriod, null, ["class" => "form-control"]) }}
             </div>
           </div>
@@ -29,7 +29,7 @@
           <div class="col-md-6 col-sm-6 col-xs-12">
             <div class="form-group">
               <span class="text-danger">*</span>
-              {{ Form::label("class", "Período Letivo", ["class" => "control-label"]) }}
+              {{ Form::label("class", ucfirst(strtolower(session('period.singular'))), ["class" => "control-label"]) }}
               <span class="help-block text-muted">Ex: 2018.1, 1º Semestre, ... </span>
               {{ Form::text("class", null, ["class" => "form-control", "autofocus", "required"]) }}
             </div>

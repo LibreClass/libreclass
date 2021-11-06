@@ -62,7 +62,7 @@
             <thead>
               <tr>
                 <th>Curso</th>
-                <th>Período</th>
+                <th>{{ ucfirst(strtolower(session('period.singular'))) }}</th>
                 <th>Disciplina</th>
               </tr>  
             </thead>

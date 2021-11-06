@@ -35,6 +35,7 @@
 
 				<p>Pensamos nos principais problemas enfrentados por professores, alunos e instituições de ensino, esta ferramenta
 					visa mudar o seu ponto de vista sobre sistemas online.</p>
+
 				<p><i class="glyphicon glyphicon-info-sign color-blue"></i> Conheça as ferramentas que o LibreClass disponibiliza:</p>
 
 				<ul class="help-list">
@@ -58,7 +59,7 @@
 					<li><h4>Para instituições:</h4>
 						<ul>
 							<li> <span class='help-courses-inst'>Como criar um curso?</span></li>
-							<li> <span class='help-periods-inst'>Como criar um período (ano)?</span></li>
+							<li> <span class='help-periods-inst'>Como criar um{{ strtolower(session('period.article')) == 'a' ? 'a':'' }} {{ strtolower(session('period.singular')) }} (ano)?</span></li>
 							<li> <span class='help-disciplines-inst'>Como criar uma disciplina?</span></li>
 							<li> <span class='help-classes-inst'>Como criar uma turma?</span></li>
 							<li> <span class='help-units-inst'>Como criar uma unidade?</span></li>

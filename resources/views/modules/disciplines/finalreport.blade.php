@@ -39,7 +39,7 @@
               @endphp
               <p>
                 <b>Curso:</b> {{ $course ? "$course->name - " : '' }}
-                <b>Período: </b> {{ $offer->discipline->period->name }}
+                <b>{{ ucfirst(strtolower(session('period.singular'))) }}: </b> {{ $offer->discipline->period->name }}
               </p>
               <p><b>Disciplina: </b>{{ $offer->discipline->name }}</p>
               <p>

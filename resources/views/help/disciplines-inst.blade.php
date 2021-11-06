@@ -1,4 +1,4 @@
-<p>Uma disciplina só pode ser criada se houver pelo menos um período (ano) cadastrado.</p> 
+<p>Uma disciplina só pode ser criada se houver pelo menos um {{ strtolower(session('period.singular')) }} (ano) cadastrado.</p> 
 <p>Para criar uma disciplina:</p>
 <ol>
   <li>Clique em <strong>Minhas Disciplinas</strong></li>

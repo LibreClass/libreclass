@@ -26,14 +26,25 @@
 			@endif
 				<div class="row">
 					<div class="col-md-6 col-xs-12">
-						<h3 class="text-blue"><i class="fa fa-folder-o"></i> <b>Meus Cursos</b></h3>
+						<h3 class="text-blue"><i class="fa fa-folder-o"></i> <b>Cursos</b></h3>
 					</div>
 					@if( auth()->user()->type == "I" )
 						<div class="col-md-6 col-xs-12">
 							<div class="list-inline text-right">
-								<button id="new-course" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo Curso</b></button>
+
+								<lc-button
+									id="new-course"
+								>
+									Novo Curso
+								</lc-button>
+
 								@if(!count($courses) == 0)
-									<button id="new-periods" class="btn btn-primary"><b><i class="fa fa-plus"></i> Novo Ano</b></button>
+									<lc-button
+										id="new-periods"
+										variant="secondary"
+									>
+										Novo Ano
+									</lc-button>
 								@endif
 							</div>
 
@@ -102,7 +113,7 @@
 									<li><span class="label label-default">{{ $period->name }}</span></li>
 								@empty
 									<li class="text-light">
-										<a class="click period-zero">Cadastrar um período</a>
+										<a class="click period-zero">Cadastrar um{{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }}</a>
 									</li>
 								@endforelse
 								</ul>

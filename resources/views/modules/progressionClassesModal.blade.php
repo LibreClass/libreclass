@@ -10,7 +10,7 @@
 				{{ Form::open(["id" => "formImportStudent"]) }}
 				<input name="classe_id" type="text" hidden />
 				<p>
-					Nesta área é possível importar alunos das turmas do período anterior para essa turma<br />
+					Nesta área é possível importar alunos das turmas do {{ strtolower(session('period.singular')) }} anterior para essa turma<br />
 				</p>
 				<br />
 				<div class="row">

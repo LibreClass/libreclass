@@ -56,6 +56,12 @@ Então execute:
     DB_USERNAME=libreclass
     DB_PASSWORD=libreclass
 
+    MDB_HOST=localhost
+    MDB_PORT=27017
+    MDB_DATABASE=libreclassbeta
+    MDB_USERNAME=
+    MDB_PASSWORD=
+
     BROADCAST_DRIVER=log
     CACHE_DRIVER=file
     QUEUE_CONNECTION=sync
@@ -98,6 +104,12 @@ Crie a chave e o secret do jwt
 
     $ php artisan key:generate
     $ php artisan jwt:secret
+
+
+Instale as dependências com npm
+
+    $ npm install
+    $ npm run development
 
 Após isto, prepare o banco de dados de acordo com a estrutura fornecida no diretório doc. Você poderá executar o projeto localmente através do comando:
 
