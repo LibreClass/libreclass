@@ -46,6 +46,7 @@
                         <h3 class="text-blue"><i class="fa fa-bookmark"></i> <b>{{ ucfirst(strtolower(session('period.plural'))) }}</b></h3>
                     </div>
                     <div class="col-sm-6 col-xs-12 text-right">
+                        <button class="open-modal-config-period btn btn-primary btn-block-xs"><b><i class="fa fa-cog"></i> Configurar</b></button>
                         <button class="open-modal-add-period btn btn-primary btn-block-xs"><b><i class="fa fa-plus"></i> Adicionar</b></button>
                     </div>
                 </div>
@@ -84,6 +85,7 @@
 @endif
 
 @include("modules.modal-add-period", ['listCourses' => $listCourses])
+@include("modules.modal-config-period")
 @include("modules.modal-remove-period", ['listCourses' => $listCourses])
 
 @stop
