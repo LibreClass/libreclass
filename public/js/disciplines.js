@@ -18,7 +18,9 @@ $(function($) {
         $("#list-disciplines").load("/disciplines/list", {
             "course": $(this).val()
         }, function() {
-            $(".trash").click(trash);
+
+            $(".trash").click(trash); // function trash em block.js
+
             $(".discipline-edit").click(function() {
                 var discipline = $(this).closest(".data").attr("key");
                 $("#formEditDiscipline input[name='discipline']").val(discipline);
@@ -31,6 +33,7 @@ $(function($) {
                 }).fail(function() {
                     alert('Erro ao se conectar ao servidor');
                 });
+                
             });
         }).error(function() {
             alert('Erro ao se conectar ao servidor');
