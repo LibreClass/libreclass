@@ -56,7 +56,7 @@ $.alert = function(title, message, error) {
 }
 
 function changeStatus() {
-    var key = $(this).closest(".data").attr("key");
+    var key = $(this).closest(".data").attr("id");
     //alert(key);
 
     $("#form-change-status input[name=\"key\"]").val(key);
