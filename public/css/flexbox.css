@@ -6,6 +6,10 @@
     align-items: baseline;
 }
 
+.f-align-center {
+    align-items: center;
+}
+
 .f-grow-1 {
     flex-grow: 1;
 }
