@@ -1,6 +1,6 @@
 <p>Para liberar o login para um professor:</p>
 <ol>
-  <li>Clique em <strong>Meus Professores</strong></li>
+  <li>Clique em <strong>Professores</strong></li>
   <li>Localize o professor para o qual deseja liberar acesso</li>
   <li>Clique em <i class="fa fa-gears icon-default"/></li>
   <li>Selecione <i class="fa fa-key text-info"/><strong>Liberar Acesso</strong></li>
