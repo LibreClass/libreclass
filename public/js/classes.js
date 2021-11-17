@@ -22,7 +22,7 @@ $(function () {
 	}).change();
 
 	$(".classe-edit").click(function () {
-		var classe = $(this).closest(".data").attr("key");
+		var classe = $(this).closest(".data").attr("id");
 
 		$.getJSON("/classes/info", {
 			"classe": classe
@@ -41,7 +41,7 @@ $(function () {
 	});
 
 	$(".group").click(function () {
-		var classe = $(this).closest(".data").attr("key");
+		var classe = $(this).closest(".data").attr("id");
 
 		$.getJSON("/classes/info", {
 			"classe": classe
@@ -272,7 +272,7 @@ $(function () {
 	});
 
 	$(".progression", "#view-classes").click(function (e) {
-		var id = $(e.target).closest('tr.classe-item').attr('key');
+		var id = $(e.target).closest('tr.classe-item').attr('id');
 		$('#formImportStudent').trigger('reset');
 		$("#modalProgressionClasses").find('.list-attends').empty();
 		$('.block_list_students', '#modalProgressionClasses').hide();
