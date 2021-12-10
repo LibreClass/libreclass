@@ -41,12 +41,13 @@
 <div class="row">
     <div class="col-md-8 col-xs-12 col-sm-12">
         <div id="block">
+            
             <div class="block">
-                <div class="row">
-                    <div class="col-sm-6 col-xs-12">
+                <div class="f-container f-align-center">
+                    <div class="f-grow-3">
                         <h3 class="text-blue"><i class="fa fa-list-ul"></i> <b>Disciplinas</b></h3>
                     </div>
-                    <div class="col-sm-6 col-xs-12 text-right">
+                    <div class="f-grow-1 text-right">
                         <lc-button id="new-block"> Adicionar </lc-button>
                     </div>
                 </div>
@@ -74,7 +75,7 @@
                                 <div class="col-md-12"></div>
                                 <div class="col-md-12">
                                     <div id="list-disciplines">
-
+                                        <!-- Lista das disciplinas -->
                                     </div>
                                 </div>
                             </div>
@@ -90,8 +91,8 @@
                 <div class="col-md-6 col-xs-6">
                     <h4 id="title-discipline">Nova Disciplina</h4>
                 </div>
-                <div class="col-md-6 col-xs-6">
-                    <button id="btn-back" class="btn btn-default pull-right">Voltar</button>
+                <div class="col-md-6 col-xs-6 text-right">
+                    <lc-button variant="secondary" id="btn-back"> Voltar </lc-button>
                 </div>
             </div>
             <div class="row">
@@ -105,8 +106,8 @@
                         {{ Form::select("course", $listCourses, null, ["class" => "form-control"]) }}
                     </div>
                     <div class="form-group">
-                        {{ Form::label("period", "Ano/" . ucfirst(strtolower(session('period.singular'))) . " *", ["class" => "control-label"]) }}
-                        <span class="help-block text-muted">Selecione o ano ou {{ strtolower(session('period.singular')) }} para o qual deseja vincular a disciplina</span>
+                        {{ Form::label("period", ucfirst(strtolower(session('period.singular'))) . " *", ["class" => "control-label"]) }}
+                        <span class="help-block text-muted">Selecione {{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }} para o qual deseja vincular a disciplina</span>
                         <select name="period" class="form-control" required></select>
                     </div>
                     <div class="form-group">
@@ -120,7 +121,8 @@
                         {{ Form::textarea("ementa", null, ["class" => "form-control"]) }}
                     </div>
 
-                    {{ Form::submit("Salvar", ["class" => "pull-right btn btn-primary"]) }}
+                    <!-- {{ Form::submit("Salvar", ["class" => "pull-right btn btn-primary"]) }} -->
+                    <lc-button type="submit" class="pull-right"> Salvar </lc-button>
                     </form>
 
 

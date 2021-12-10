@@ -20,6 +20,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
@@ -32,10 +33,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Salvar</button>
+                <lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+                <lc-button type="submit"> Salvar </lc-button>
             </div>
-            </form>
+            
+            {{ Form::close() }}
         </div>
     </div>
 </div>

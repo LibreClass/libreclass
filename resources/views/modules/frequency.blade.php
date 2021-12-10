@@ -19,7 +19,7 @@
       <h3><i class="fa fa-user"></i> Frequência</h3>
     </div>
     <div class="col-xs-2 text-right">
-      <a href="{{ URL::to("lectures") }}" class="btn btn-default">Voltar</a>
+      <a href="{{ URL::to('lectures') }}" class="btn btn-default">Voltar</a>
     </div>
   </div>
 </div>

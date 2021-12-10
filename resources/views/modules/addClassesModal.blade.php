@@ -64,10 +64,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary" id="btnAddClass"><i class="fa fa-save"></i> Salvar</button>
+                <lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+                <lc-button type="submit" id="btnAddClass"> Salvar </lc-button>
             </div>
-            </form>
+
+            {{ Form::close() }}
         </div>
     </div>
 </div>
@@ -82,6 +83,7 @@
             </div>
 
             {{ Form::open([ "url" => URL::to("classes/edit"), "id" => "formEditClass"]) }}
+            
             <div class="modal-body">
                 {{ Form::hidden("classId", null) }}
                 <div class="row">
@@ -103,10 +105,11 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary" id="btnAddClass"><i class="fa fa-save"></i> Salvar</button>
+                <lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+                <lc-button type="submit" id="btnAddClass"> Salvar </lc-button>
             </div>
-            </form>
+            
+            {{ Form::close() }}
         </div>
     </div>
 </div>

@@ -27,8 +27,8 @@
                             <h3 class="text-blue"><i class="fa fa-share-alt"></i> <b>Agrupar ofertas</b></h3>
                         </div>
                         {{-- <div class="col-sm-6 text-right">
-              <button id="new-class" class="btn btn-primary btn-block-xs"><i class="fa fa-plus fa-fw"></i><b> Nova turma</b></button>
-            </div> --}}
+                            <button id="new-class" class="btn btn-primary btn-block-xs"><i class="fa fa-plus fa-fw"></i><b> Nova turma</b></button>
+                        </div> --}}
                     </div>
                 </div>
             </div>
@@ -51,8 +51,8 @@
                         </a>
                     </div>
                     <div class="buttons-hide">
-                        <a href="/classes" class="btn btn-default">Não</a>
-                        <button type="button" class="btn btn-primary step-1">Sim, Selecionar ofertas</button>
+                        <lc-button id="redirect-classes" type="button" variant="secondary" data-dismiss="modal"> Não </lc-button>
+                        <lc-button type="submit" class="step-1"> Sim, Selecionar ofertas </lc-button>
                     </div>
                 </div>
             </div>
@@ -194,5 +194,13 @@
         </div>
     </div>
 </div>
+
+<script type="application/javascript">
+    $(function() {
+        $('#redirect-classes').click(function() {
+            window.location.href = '/classes';
+        });
+    });
+</script>
 
 @stop

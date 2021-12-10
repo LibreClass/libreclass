@@ -2,7 +2,7 @@
 <table class="table table-hover table-striped">
     <thead>
         <tr>
-            <th>Anos</th>
+            <th>{{ ucfirst(strtolower(session('period.singular'))) }}</th>
             {{-- <th>Sequência/Progressão</th> --}}
             <th></th>
         </tr>

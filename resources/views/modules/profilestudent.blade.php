@@ -17,17 +17,19 @@
 
 <div class="row">
     <div class="col-md-8 col-xs-12 col-sm-12">
+
         <div class="block">
-            <div class="row">
-                <div class="col-sm-10">
-                    <h3 class="text-blue"><b><i class="fa fa-user"></i> Informações</b></h3>
+            <div class="f-container f-align-center">
+                <div class="f-grow-3">
+                    <h3 class="text-blue"><i class="fa fa-user"></i> <b>Informações do aluno</b></h3>
                 </div>
-                <div class="col-sm-2 text-right">
-                    <a href="{{ URL::to("/user/student")}}" class="btn btn-block btn-default">Voltar</a>
+                <div class="f-grow-1 text-right">
+                    <lc-button variant="secondary" id="backStudent"> Voltar </lc-button>
                 </div>
             </div>
         </div>
-        <div id="block" class="panel panel-default panel-daily block">
+
+        <div class="block panel panel-default panel-daily block">
             <div class="panel-heading">
                 <h3>{{ $profile->name }}</h3>
             </div>
@@ -108,6 +110,14 @@
 
     </div>
 </div>
+
+<script type="application/javascript">
+    $(function() {
+        $('#backStudent').click(function() {
+            window.location.href = '/user/student';
+        });
+    });
+</script>
 
 @include("modules.student.linkingStudentClasse", ["listidsclasses" => $listidsclasses])
 @include("modules.student.modalCertificate")

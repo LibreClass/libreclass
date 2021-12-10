@@ -23,13 +23,12 @@
         <div id="block">
 
             <div class="block">
-
-                <div class="row">
-                    <div class="col-md-6 col-xs-6">
-                        <h3 class="text-blue"><i class="fa fa-users"></i> <b>Meus Alunos</b></h3>
+                <div class="f-container f-align-center">
+                    <div class="f-grow-3">
+                        <h3 class="text-blue"><i class="fa fa-users"></i> <b>Alunos</b></h3>
                     </div>
-                    <div class="col-md-6 col-xs-6">
-                        <button id="block-new-student" class="btn btn-primary pull-right"><b><i class="fa fa-plus"></i> Novo Aluno</b></button>
+                    <div class="f-grow-1 text-right">
+                        <lc-button id="block-new-student"> Adicionar </lc-button>
                     </div>
                 </div>
             </div>
@@ -115,6 +114,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
 
         <div id="block-add" class="block visible-none">

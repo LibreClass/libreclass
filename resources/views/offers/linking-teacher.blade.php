@@ -6,21 +6,22 @@
 <div class="modal fade" id="modalTeacherOffer" tabindex="-1" role="Modal Add Teacher Offer" aria-labelledby="modalTeacherOffer" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+
             {{ Form::open(["url" => URL::to("/classes/offers/teacher"), "id" => "formLinkingTeacher"]) }}
+            
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-blue"><b><i class="fa fa-link"></i> Vincular Professor</b></h3>
+                <h4 class="modal-title text-blue">
+                    <i class="fa fa-link"></i><b> Vincular Professor </b>
+                </h4>
             </div>
+
             <div class="modal-body">
-
-
                 {{ Form::hidden("offer", null) }}
                 {{ Form::hidden("prev", URL::full() ) }}
                 {{ Form::label("teacher", "Professor", ["class" => "control-label"] ) }}
                 <span class="help-block text-muted">Localize o professor</span>
-
                 <div class="form-group panel panel-form-multiple panel-body" id="find-teacher">
-
                     <div class="row">
                         <div class="col-md-12">
                             <div class="selected-teacher">
@@ -46,7 +47,6 @@
                             </li>
                         </ul>
                     </div>
-
                 </div>
 
                 <div class="form-group">
@@ -54,6 +54,7 @@
                     <span class="help-block text-muted">Informe o nome da sala de aula onde será lecionada a disciplina.</span>
                     {{ Form::text("classroom", null,  ["class" => "form-control"])}}
                 </div>
+
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="form-group">
@@ -62,6 +63,7 @@
                             {{ Form::select("day_period", ["M" => "Matutino", "V" => "Vespertino", "N" => "Noturno"], null, ["class" => "form-control", "required"])}}
                         </div>
                     </div>
+                    
                     <div class="col-sm-6">
                         <div class="form-group">
                             {{ Form::label("maxlessons", "Número máximo de aulas",  ["class" => "control-label"])}}
@@ -69,16 +71,19 @@
                             {{ Form::number("maxlessons", null,  ["class" => "form-control", "required"])}}
                         </div>
                     </div>
-
-
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button class="pull-right btn btn-primary">Concluir</button>
+                <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button> -->
+                <!-- <button class="pull-right btn btn-primary">Concluir</button> -->
+
+                <lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+                <lc-button type="submit"> Concluir </lc-button>
             </div>
-            </form>
+
+            {{ Form::close() }}
+
         </div>
     </div>
 </div>

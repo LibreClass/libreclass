@@ -29,8 +29,8 @@
                 </div>
             </td>
         </tr>
-        <tr class="discipline data" key="{{ encrypt($discipline->id) }}">
-            @endforeach
+        <!-- <tr class="discipline data" key="{{ encrypt($discipline->id) }}"> -->
+        @endforeach
     </tbody>
     @endif
 </table>

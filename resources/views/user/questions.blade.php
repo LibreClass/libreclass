@@ -9,7 +9,7 @@
     LibreClass
   </title>
 
-  <script>
+  <script type="application/javascript">
     $(document).ready(function(){
       $("form").submit(function(){
         //~ alert( "[{{ $key }}] " + $("*[name='{{ $key }}']").val() );

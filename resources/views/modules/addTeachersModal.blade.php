@@ -1,12 +1,15 @@
 <div class="modal fade" id="modalAddTeacher" tabindex="-1" role="Modal Add Teacher" aria-labelledby="modalAddTeacher" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-blue" id="modalAddTeacher"><b><i class="icon-teacher"></i> Professor</b>
                     </h3>
             </div>
+
             {{ Form::open(["id" => "formAddTeacher"]) }}
+
             <div class="modal-body">
                 {{ Form::hidden("teacher", null) }}
                 {{ Form::hidden("registered", null) }}
@@ -61,11 +64,13 @@
                                             "Doutor"], null, ["class" => "form-control", "required"]) }}
                 </div>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary g"><i class="fa fa-save"></i> Salvar</button>
+                <lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+                <lc-button type="submit" id="btnAddClass"> Salvar </lc-button>
             </div>
-            </form>
+
+            {{ Form::close() }}
         </div>
     </div>
 </div>
