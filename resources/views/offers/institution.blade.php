@@ -1,7 +1,6 @@
 @section('css')
 @parent
 <link rel="stylesheet" href="/css/bootstrap-toggle.min.css">
-<link rel="stylesheet" href="/css/flexbox.css">
 @stop
 
 @section('js')
@@ -28,8 +27,8 @@
                         <li class="active"><b>{{ $classe->fullName() }}</b></li>
                     </ol>
                 </div>
-                <div class="f-grow-1">
-                    <a class="btn btn-block btn-default btn-block-xs" href="{{ URL::to("classes") }}">Voltar</a>
+                <div class="f-grow-1 text-right">
+                    <lc-button variant="secondary" id="backClasses"> Voltar </lc-button>
                 </div>
             </div>
 
@@ -61,13 +60,13 @@
                 <div class="block-list-item">
                     <div class="col-md-12 offer">
                         <div class="list-inline">
-                            <button class="add-teacher click btn btn-default btn-block-xs" key="{{ encrypt($offer->id) }}">
+                            <button class="add-teacher click btn btn-default btn-block-xs" id="{{ encrypt($offer->id) }}">
                                 <i class="fa fa-link"></i> Vincular Professor
                             </button>
-                            <a href="{{ URL::to("/classes/offers/students/".encrypt($offer->id)) }}" class="btn btn-default btn-block-xs">
+                            <a href="{{ URL::to('/classes/offers/students/' . encrypt($offer->id)) }}" class="btn btn-default btn-block-xs">
                                 <i class="fa fa-graduation-cap"></i> Gerir Alunos
                             </a>
-                            <button class="view-syllabus click btn btn-default btn-block-xs" key="{{ encrypt($offer->getDiscipline()->id) }}">
+                            <button class="view-syllabus click btn btn-default btn-block-xs" id="{{ encrypt($offer->getDiscipline()->id) }}">
                                 <i class="fa fa-file-text"></i> Ementa
                             </button>
                         </div>
@@ -129,6 +128,14 @@
     </div>
 </div>
 @endforeach
+
+<script type="application/javascript">
+    $(function() {
+        $('#backClasses').click(function() {
+            window.location.href = '/classes';
+        });
+    });
+</script>
 
 @include("offers.linking-teacher")
 @include("offers.ementa")

@@ -21,12 +21,12 @@
     <div class="col-md-8 col-xs-12 col-sm-12">
 
         <div class="block">
-            <div class="row">
-                <div class="col-sm-10">
-                    <h3 class="text-blue"><b><i class="fa fa-user"></i> Informações</b></h3>
+            <div class="f-container f-align-center">
+                <div class="f-grow-3">
+                    <h3 class="text-blue"><i class="fa fa-user"></i> <b>Informações do professor</b></h3>
                 </div>
-                <div class="col-sm-2 text-right">
-                    <a href="{{ URL::to("/user/teacher")}}" class="btn btn-block btn-default">Voltar</a>
+                <div class="f-grow-1 text-right">
+                    <lc-button variant="secondary" id="backTeacher"> Voltar </lc-button>
                 </div>
             </div>
         </div>
@@ -45,14 +45,16 @@
         </div>
 
         <div class="block">
-            <div class="row">
-                <div class="col-xs-10">
-                    <h4>Disciplinas</h4>
+
+            <div class="f-container f-align-center">
+                <div class="f-grow-3">
+                    <h4 class="text-blue">Disciplinas</h4>
                 </div>
-                <div class="col-xs-2">
-                    <button class="add-teacher-discipline btn btn-default pull-right">Adicionar</button>
+                <div class="f-grow-1 text-right">
+                    <lc-button class="add-teacher-discipline"> Adicionar </lc-button>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-xs-12">
                     @if(!$hasDiscipline)
@@ -88,6 +90,14 @@
         </div>
     </div>
 </div>
+
+<script type="application/javascript">
+    $(function() {
+        $('#backTeacher').click(function() {
+            window.location.href = '/user/teacher';
+        });
+    });
+</script>
 
 @include("modules.addTeacherDiscipline", ["profile" => $profile])
 

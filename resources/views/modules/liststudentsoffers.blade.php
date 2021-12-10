@@ -14,8 +14,6 @@
 @section('body')
 @parent
 
-
-
 <div class="row">
     <div class="col-md-8 col-xs-12 col-sm-12">
 
@@ -29,7 +27,7 @@
                     </ol>
                 </div>
                 <div class="col-md-2 col-sm-2text-right">
-                    <a class="btn btn-block btn-default btn-block-xs" href="{{ URL::to("/classes/offers?t=".encrypt($info[0]->class_id)) }}">Voltar</a>
+                    <lc-button id="backClassesOffers" variant="secondary"> Voltar </lc-button>
                 </div>
             </div>
         </div>
@@ -90,14 +88,18 @@
         </div>
     </div>
 </div>
-</div>
-</div>
 
 {{ Form::open(["url" => URL::to("/classes/offers/status-student"), "id" => "statusStudentOffer"]) }}
 {{ Form::hidden("offer", $offer) }}
 {{ Form::hidden("student", null) }}
-{{ Form::hidden("status", null) }}
-</form>
+{{ Form::close() }}
 
+<script type="application/javascript">
+    $(function() {
+        $('#backClassesOffers').click(function() {
+            window.location.href = '{{ URL::to('/classes/offers?t=' . encrypt($info[0]->class_id)) }}';
+        });
+    });
+</script>
 
 @stop

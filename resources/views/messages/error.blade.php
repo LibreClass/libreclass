@@ -19,7 +19,7 @@
       </div>
     </div>
   </div>
-  <script>
+  <script type="application/javascript">
     $("#modalError").modal();
   </script>
 @endif
