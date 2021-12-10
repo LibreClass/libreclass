@@ -121,7 +121,7 @@
         Route::post('/attest', [UsersController::class, 'postAttest']);
         Route::get('/profile-teacher', [UsersController::class, 'getProfileTeacher']);
         Route::post('/invite', [UsersController::class, 'postInvite']);
-        Route::get('/infouser', [UsersControllerUsersController::class, 'getInfouser']);
+        Route::get('/infouser', [UsersController::class, 'getInfouser']);
         Route::any('/link/{type}/{user}', [UsersController::class, 'anyLink']);
         Route::post('/search-enrollment', [UsersController::class, 'postSeachEnrollment']);
     
