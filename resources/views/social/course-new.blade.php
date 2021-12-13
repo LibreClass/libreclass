@@ -3,7 +3,7 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="modalCourseLabel"><b>Curso</b></h3>
+				<h4 class="modal-title text-blue" id="modalCourseLabel"><i class="fa fa-folder-o"></i> <b>Curso</b> </h3>
 			</div>
 
 			<form action="/courses/save" id="form-course" class="registerForm" enctype="multipart/form-data" method="post">
@@ -53,8 +53,8 @@
 				</div>
 
 				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-					<button type="submit" class="btn btn-primary">Salvar</button>
+					<lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+					<lc-button type="submit"> Salvar </lc-button>
 				</div>
 			</form>
 		</div>

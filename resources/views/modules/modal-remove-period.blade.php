@@ -9,8 +9,8 @@
                 <div class="row">
                     <div class="col-md-12 col-sm-12 col-xs-12">
                         <div class="form-group">
-                            <p>Tem certeza que deseja remover {{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }} denominado "<b class="periodName"></b>"?</p>
-                            <p>Ao remover um{{ strtolower(session('period.article')) == 'a' ? 'a':'' }} {{ strtolower(session('period.singular')) }} você estará removendo também todas as disciplinas e turmas associadas ao mesmo.</p>
+                            <p>Tem certeza que deseja remover {{ strtolower(session('period.article')) }} {{ strtolower(session('period.singular')) }} denominad{{ strtolower(session('period.article')) }} "<b class="periodName"></b>"?</p>
+                            <p>Ao remover um{{ strtolower(session('period.article')) == 'a' ? 'a':'' }} {{ strtolower(session('period.singular')) }} você estará removendo também todas as disciplinas e turmas relacionadas.</p>
                         </div>
                     </div>
                 </div>
@@ -27,25 +27,29 @@
 
 <div class="modal fade" id="modal-remove-success" tabindex="-1" role="dialog Modal Success" data-backdrop="true" aria-labelledby="modalRemoveSuccess" aria-hidden="true">
     <div class="modal-dialog modal-sm">
+
         <div class="modal-content">
             <div class="modal-header modal-header-success">
                 <i class="fa fa-check fa-lg"></i>
                 <span><b>&nbsp;Sucesso</b></span>
                 <button type="button" class="close text-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             </div>
+
             <div class="modal-body">
                 <div class="text-center">
-                    <span class="text-center">{{ ucfirst(session('period.article')) }} {{ strtolower(session('period.singular')) }} "<b class="periodName"></b>" foi removido com sucesso!</span>
+                    <span class="text-center">{{ ucfirst(session('period.article')) }} {{ strtolower(session('period.singular')) }} "<b class="periodName"></b>" foi removid{{ strtolower(session('period.article')) }} com sucesso!</span>
                 </div>
             </div>
+
             <div class="modal-footer">
-                <button class="btn btn-default" data-dismiss="modal">Fechar</button>
+                <lc-button type="button" variant="secondary" data-dismiss="modal"> Fechar </lc-button>
             </div>
         </div>
+
     </div>
 </div>
 
-<script>
+<script type="application/javascript">
     $(function() {
         var modal = $("#modal-remove-period");
         var modalSuccess = $("#modal-remove-success");

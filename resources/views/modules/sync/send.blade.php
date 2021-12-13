@@ -71,7 +71,7 @@
   </div>
   </div>
 
-  <script>
+  <script type="application/javascript">
 
       $("#form-data-submit").click(function(){
         $("#form-send").hide();

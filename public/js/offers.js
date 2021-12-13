@@ -1,7 +1,7 @@
 $(function(){
   $(".view-syllabus").click(function(){
     //$(this).closest("div").next("div").find(".syllabus").toggleClass("visible-none");
-   var discipline = $(this).attr("key");
+   var discipline = $(this).attr("id");
 
     $.getJSON("/disciplines/ementa", {
         "offer": discipline
@@ -27,7 +27,7 @@ $(function(){
 
   $(".add-teacher").click(function(){
     var info = $(this).closest(".offer").find(".info");
-     $("#formLinkingTeacher input[name=\'offer\']").val($(this).attr("key"));
+     $("#formLinkingTeacher input[name=\'offer\']").val($(this).attr("id"));
     //  $("#formLinkingTeacher select[name=\'teacher\']").val($(info).attr("teacher"));
      $("#formLinkingTeacher input[name=\'classroom\']").val($(info).attr("classroom"));
      $("#formLinkingTeacher select[name=\'day_period\']").val($(info).attr("day_period"));

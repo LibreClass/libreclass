@@ -3,14 +3,14 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title text-blue"><b><i class="fa fa-fw fa-bookmark"></i>Configurar {{ strtolower(session('period.singular')) }}</b></h3>
+            <h4 class="modal-title text-blue"><i class="fa fa-fw fa-bookmark"></i><b>Configurar {{ strtolower(session('period.singular')) }}</b></h3>
         </div>
 
         <div class="modal-body">
             <div class="row">
                 <div class="col-sm-12">
                     <p class="lead">
-                        <small>A nomenclatura de um período do curso, definida por padrão por <mark>período</mark>, pode mudar em cada instituição, sendo às vezes chamado de "unidade" ou "ano". Por isso, utilize essa sessão para personalizar a nomenclatura.</small>
+                        <small>A nomenclatura de um período do curso, definida por padrão por <mark>período</mark>, pode mudar em cada instituição, sendo às vezes chamado de "unidade" ou "ano". Por isso, utilize essa seção para personalizar a nomenclatura.</small>
                     </p>
                 </div>
             </div>
@@ -50,8 +50,8 @@
         </div>
 
         <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-            <button type="submit" class="btn btn-primary save"><i class="fa fa-save"></i> Salvar</button>
+            <lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+            <lc-button type="submit" class="save"> Salvar </lc-button>
         </div>
     </div>
   </div>
@@ -77,7 +77,7 @@
     </div>
 </div>
 
-<script>
+<script type="application/javascript">
     $(function() {
 
         var modal = $('#modal-config-period');
@@ -98,5 +98,6 @@
                 }
             });
         });
+
     });
 </script>

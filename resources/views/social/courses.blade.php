@@ -16,40 +16,32 @@
 @parent
 	<div class="row">
 		<div class="col-md-8 col-xs-12 col-sm-12">
-			<div id="block" class="block">
-			@if (session("message"))
-				<div class="row">
+			<div id="block">
+
+				@if (session("message"))
+				<div class="block">
 					<div class="col-md-12 col-xs-12 col-sm-12">
 						<div class="alert alert-info">{{ session("message") }}</div>
 					</div>
 				</div>
-			@endif
-				<div class="row">
-					<div class="col-md-6 col-xs-12">
-						<h3 class="text-blue"><i class="fa fa-folder-o"></i> <b>Cursos</b></h3>
-					</div>
-					@if( auth()->user()->type == "I" )
-						<div class="col-md-6 col-xs-12">
-							<div class="list-inline text-right">
+				@endif
 
-								<lc-button
-									id="new-course"
-								>
-									Novo Curso
-								</lc-button>
-
-								@if(!count($courses) == 0)
-									<lc-button
-										id="new-periods"
-										variant="secondary"
-									>
-										Novo Ano
-									</lc-button>
-								@endif
-							</div>
-
+				<div class="block">
+					<div class="f-container f-align-center">
+						<div class="f-grow-3">
+							<h3 class="text-blue"><i class="fa fa-folder-o"></i> <b>Cursos</b></h3>
 						</div>
-					@endif
+						@if( auth()->user()->type == "I" )
+						<div class="f-grow-1 text-right">
+							<lc-button id="new-course"> Novo Curso </lc-button>
+							@if(!count($courses) == 0)
+							<lc-button id="new-periods" variant="secondary">
+								Nov{{ strtolower(session('period.article')) . ' ' . strtolower(session('period.singular')) }}
+							</lc-button>
+							@endif
+						</div>
+						@endif
+					</div>
 				</div>
 			</div>
 
@@ -99,7 +91,7 @@
 									<li><b>Média da Final: </b>{{ $course->average_final }}</li>
 									<li><b>Perfil Curricular: </b>
 										@if($course->curricularProfile != "")
-											<a href="{{"/uploads/curricularProfile/".$course->curricularProfile }}" target="_blank">Abrir arquivo</a>
+											<a href="{{ '/uploads/curricularProfile/' . $course->curricularProfile }}" target="_blank">Abrir arquivo</a>
 										@else
 											<span>Perfil não anexado.</span>
 										@endif
@@ -107,7 +99,7 @@
 								</ul>
 							</div>
 							<div class="col-md-6">
-								<h5><b>Anos</b></h5>
+								<h5><b>{{ ucfirst(strtolower(session('period.plural'))) }}</b></h5>
 								<ul class="list-inline">
 								@forelse($course->periods as $period)
 									<li><span class="label label-default">{{ $period->name }}</span></li>

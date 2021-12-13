@@ -36,7 +36,7 @@
 						Confira todos os dados antes de salvar.
 					</p>
 					<div class="text-right">
-						<button type="button" class="btn btn-primary ev-save-import"><i class="fa fa-save"></i> Confirmar</button>
+						<lc-button type="button" class="ev-save-import"> Confirmar </lc-button>
 					</div>
 				</div>
 

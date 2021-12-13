@@ -1,29 +1,28 @@
-<div class="modal fade" id="modalAddTeacher" tabindex="-1" role="Modal Add Teacher" aria-labelledby="modalAddTeacher"
-    aria-hidden="true">
+<div class="modal fade" id="modalAddTeacher" tabindex="-1" role="Modal Add Teacher" aria-labelledby="modalAddTeacher" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
+
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title text-blue" id="modalAddTeacher"><b><i class="icon-teacher"></i> Professor</b>
                     </h3>
             </div>
+
             {{ Form::open(["id" => "formAddTeacher"]) }}
+
             <div class="modal-body">
                 {{ Form::hidden("teacher", null) }}
                 {{ Form::hidden("registered", null) }}
                 <div class="form-group">
                     {{ Form::label("email", "*Email", ["class" => "control-label"]) }}
-                    <span class="help-block">Informe o email do professor. <img class="spinner" height="25"
-                            src="/images/spinner.svg" alt="spinner"></span>
+                    <span class="help-block">Informe o email do professor. <img class="spinner" height="25" src="/images/spinner.svg" alt="spinner"></span>
                     {{ Form::email("email", null, ["class" => "form-control", "autofocus", "required"]) }}
                     <span class="teacher-message text-info"><b>Este professor já está cadastrado no LibreClass e será
                             vinculado à sua instituição.</b></span>
                 </div>
                 <div class="form-group" id="search">
                     {{ Form::label("enrollment", "*Matrícula", ["class" => "control-label"]) }}
-                    <span class="help-block">Informe a matrícula do professor.<img class="spinner-enrrollment" height="25"
-                            src="/images/spinner.svg" alt="spinner-enrrollment"></span>
+                    <span class="help-block">Informe a matrícula do professor.<img class="spinner-enrrollment" height="25" src="/images/spinner.svg" alt="spinner-enrrollment"></span>
                     {{ Form::text("enrollment", null, ["class" => "form-control", "autofocus", "required"]) }}
                     <span class="verify-enrollment text-info text-danger"></span>
                 </div>
@@ -65,11 +64,13 @@
                                             "Doutor"], null, ["class" => "form-control", "required"]) }}
                 </div>
             </div>
+
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                <button type="submit" class="btn btn-primary g"><i class="fa fa-save"></i> Salvar</button>
+                <lc-button type="button" variant="secondary" data-dismiss="modal"> Cancelar </lc-button>
+                <lc-button type="submit" id="btnAddClass"> Salvar </lc-button>
             </div>
-            </form>
+
+            {{ Form::close() }}
         </div>
     </div>
 </div>
